@@ -108,11 +108,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */,
 				759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */,
 				759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */,
 				759C8AEE1A221E1700EB82D8 /* SystemConfiguration.framework in Frameworks */,
 				759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */,
-				754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */,
 				759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */,
 				759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */,
 			);
@@ -124,6 +124,7 @@
 		754D06141A22B41200D454AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				754D061C1A22BAAD00D454AB /* libbaidumapapi.a */,
 				759C8AF11A221E3A00EB82D8 /* Security.framework */,
 				759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */,
 				759C8AED1A221E1700EB82D8 /* SystemConfiguration.framework */,
@@ -145,7 +146,6 @@
 		75CCCB761A1E01CB0005CB6B = {
 			isa = PBXGroup;
 			children = (
-				754D061C1A22BAAD00D454AB /* libbaidumapapi.a */,
 				754D06141A22B41200D454AB /* Frameworks */,
 				759C8AE31A221C0900EB82D8 /* Resources */,
 				75CCCBB01A1E02A70005CB6B /* inc */,
