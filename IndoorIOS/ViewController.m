@@ -6,6 +6,9 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+#define kStadiumsURL [NSURL URLWithString:@"http://chinaairdome.com:9080/indoor/stadium.json"]
+
 #import "ViewController.h"
 #import "BMapKit.h"
 
@@ -18,9 +21,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    dispatch_async(kBgQueue, ^{
+        NSData* data = [NSData dataWithContentsOfURL:kStadiumsURL];
+        [self performSelectorOnMainThread:@selector(fetchedData:)
+                               withObject:data waitUntilDone:YES];
+    });
+    
     // 加载地图
     BMKMapView* mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.view = mapView;
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
+        //由于IOS8中定位的授权机制改变 需要进行手动授权
+        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];
+        //获取授权认证
+        [locationManager requestAlwaysAuthorization];
+    }
     
     // 初始化定位服务
     //适配ios7
@@ -82,6 +98,36 @@
 - (void)mapView:(BMKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     NSLog(@"location error");
+}
+
+/**
+ *
+ */
+- (void)fetchedData:(NSData *)responseData {
+    //parse out the json data
+    NSError* error;
+    NSDictionary* json = [NSJSONSerialization
+                          JSONObjectWithData:responseData
+                          
+                          options:kNilOptions
+                          error:&error];
+    
+//    NSArray* latestLoans = [json objectForKey:@""];
+    
+//    NSLog(@"loans: %@", latestLoans);
+//    NSArray *stadiums = [json keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        [obj1 ]
+//    }];
+//    for (NSString *key in json) {
+//        NSLog(@"key:%@",key);
+//    }
+    NSArray *stadiums = [NSJSONSerialization
+                         JSONObjectWithData:responseData
+                         
+                         options:kNilOptions
+                         error:&error];
+    NSLog(@"stadiums: %@", stadiums);
+
 }
 
 @end
