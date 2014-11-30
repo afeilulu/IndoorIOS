@@ -21,6 +21,8 @@
 		75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8C1A1E01CB0005CB6B /* Main.storyboard */; };
 		75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */; };
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
+		75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304C1A29CC300079D4D4 /* StadiumRecord.m */; };
+		75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304E1A29F0660079D4D4 /* ParseOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +103,10 @@
 		75CCCBE91A1E02A70005CB6B /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
 		75CCCBEA1A1E02A70005CB6B /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
 		75CCCBEB1A1E02A70005CB6B /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
+		75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StadiumRecord.h; sourceTree = "<group>"; };
+		75FE304C1A29CC300079D4D4 /* StadiumRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumRecord.m; sourceTree = "<group>"; };
+		75FE304E1A29F0660079D4D4 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
+		75FE30501A29F08C0079D4D4 /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +179,10 @@
 				75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */,
 				75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */,
 				75CCCB821A1E01CB0005CB6B /* Supporting Files */,
+				75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */,
+				75FE304C1A29CC300079D4D4 /* StadiumRecord.m */,
+				75FE304E1A29F0660079D4D4 /* ParseOperation.m */,
+				75FE30501A29F08C0079D4D4 /* ParseOperation.h */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -323,6 +333,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
+				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
@@ -389,6 +401,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -424,6 +437,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

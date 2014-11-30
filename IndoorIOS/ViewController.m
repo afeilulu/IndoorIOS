@@ -6,9 +6,6 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
-#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-#define kStadiumsURL [NSURL URLWithString:@"http://chinaairdome.com:9080/indoor/stadium.json"]
-
 #import "ViewController.h"
 #import "BMapKit.h"
 
@@ -20,12 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    dispatch_async(kBgQueue, ^{
-        NSData* data = [NSData dataWithContentsOfURL:kStadiumsURL];
-        [self performSelectorOnMainThread:@selector(fetchedData:)
-                               withObject:data waitUntilDone:YES];
-    });
     
     // 加载地图
     BMKMapView* mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
@@ -103,6 +94,7 @@
 /**
  *
  */
+/*
 - (void)fetchedData:(NSData *)responseData {
     //parse out the json data
     NSError* error;
@@ -129,5 +121,6 @@
     NSLog(@"stadiums: %@", stadiums);
 
 }
+ */
 
 @end
