@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "BMapKit.h"
 
 @interface ViewController : UIViewController <BMKMapViewDelegate,BMKLocationServiceDelegate>{
@@ -14,6 +14,8 @@
     BMKLocationService* _locService;
 }
 
+@property (nonatomic, strong) NSArray *entries;
+- (void) loadData;
 
 @end
 

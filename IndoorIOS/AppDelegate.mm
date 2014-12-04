@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ParseOperation.h"
+#import "ViewController.h"
 
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
@@ -46,7 +47,6 @@ BMKMapManager* _mapManager;
     //
     NSAssert(self.stadiumsJsonConnection != nil, @"Failure to create URL connection.");
     
-    
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
@@ -58,8 +58,6 @@ BMKMapManager* _mapManager;
     }
 //    [self.window addSubview:navigationController.view];
     [self.window makeKeyAndVisible];
-    
-    
     
     return YES;
 }
@@ -189,12 +187,12 @@ BMKMapManager* _mapManager;
             dispatch_async(dispatch_get_main_queue(), ^{
                 // The root rootViewController is the only child of the navigation
                 // controller, which is the window's rootViewController.
-//                RootViewController *rootViewController = (RootViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
-//                
-//                rootViewController.entries = weakParser.appRecordList;
-//                
-//                // tell our table view to reload its data, now that parsing has completed
-//                [rootViewController.tableView reloadData];
+//                ViewController *viewController = (ViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
+                
+                ViewController *viewController = (ViewController*)[[(UITabBarController*)self.window.rootViewController viewControllers][0] topViewController];
+                
+                viewController.entries = weakParser.stadiumRecordList;
+                [viewController loadData];
             });
         }
         
@@ -207,6 +205,29 @@ BMKMapManager* _mapManager;
     // ownership of appListData has been transferred to the parse operation
     // and should no longer be referenced in this thread
     self.stadiumJsonData = nil;
+}
+
+// BaiduMapManager callback
+- (void)onGetNetworkState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"联网成功");
+    }
+    else{
+        NSLog(@"onGetNetworkState %d",iError);
+    }
+    
+}
+
+// BaiduMapManager callback
+- (void)onGetPermissionState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"授权成功");
+    }
+    else {
+        NSLog(@"onGetPermissionState %d",iError);
+    }
 }
 
 @end

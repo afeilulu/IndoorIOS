@@ -15,19 +15,30 @@
 
 @implementation ViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // 加载地图
-    BMKMapView* mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
-    self.view = mapView;
+    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+    self.view = _mapView;
+//    [self.view addSubview:_mapView];
     
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
-        //由于IOS8中定位的授权机制改变 需要进行手动授权
-        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];
-        //获取授权认证
-        [locationManager requestAlwaysAuthorization];
-    }
+//
+//    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
+//        //由于IOS8中定位的授权机制改变 需要进行手动授权
+//        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];
+//        //获取授权认证
+//        [locationManager requestAlwaysAuthorization];
+//    }
     
     // 初始化定位服务
     //适配ios7
@@ -37,18 +48,21 @@
     }
     _locService = [[BMKLocationService alloc]init];
     
-    // 开始普通定位
-    [_locService startUserLocationService];
-    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
-    _mapView.showsUserLocation = YES;//显示定位图层
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _locService.delegate = self;
+    
+    [_mapView setZoomLevel:13];
+    
+    // 开始普通定位
+    [_locService startUserLocationService];
+    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
+    _mapView.showsUserLocation = YES;//显示定位图层
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -75,10 +89,35 @@
  *用户位置更新后，会调用此函数
  *@param userLocation 新的用户位置
  */
+#pragma mark mapViewDelegate 代理方法
 - (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-    //    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+//    BMKCoordinateRegion region;
+//    region.center.latitude = userLocation.location.coordinate.latitude;
+//    region.center.longitude = userLocation.location.coordinate.longitude;
+//    region.span.latitudeDelta = 0.2;
+//    region.span.longitudeDelta = 0.2;
+//    
+//    if (_mapView){
+//        _mapView.region = region;
+//        NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+//    }
+    
+//    [_mapView setRegion:region animated:YES];
+//    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
     [_mapView updateLocationData:userLocation];
+
+}
+
+/**
+ *用户方向更新后，会调用此函数
+ *@param userLocation 新的用户位置
+ */
+- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
+{
+    [_mapView updateLocationData:userLocation];
+//    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    NSLog(@"heading is %@",userLocation.heading);
 }
 
 /**
@@ -91,36 +130,8 @@
     NSLog(@"location error");
 }
 
-/**
- *
- */
-/*
-- (void)fetchedData:(NSData *)responseData {
-    //parse out the json data
-    NSError* error;
-    NSDictionary* json = [NSJSONSerialization
-                          JSONObjectWithData:responseData
-                          
-                          options:kNilOptions
-                          error:&error];
-    
-//    NSArray* latestLoans = [json objectForKey:@""];
-    
-//    NSLog(@"loans: %@", latestLoans);
-//    NSArray *stadiums = [json keysSortedByValueUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//        [obj1 ]
-//    }];
-//    for (NSString *key in json) {
-//        NSLog(@"key:%@",key);
-//    }
-    NSArray *stadiums = [NSJSONSerialization
-                         JSONObjectWithData:responseData
-                         
-                         options:kNilOptions
-                         error:&error];
-    NSLog(@"stadiums: %@", stadiums);
-
+- (void)loadData{
+    NSLog(@"loadData");
 }
- */
 
 @end
