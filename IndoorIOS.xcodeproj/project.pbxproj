@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
+		75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFC1A315E0B009F5A30 /* StadiumManager.m */; };
 		759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 759C8AE41A221C1C00EB82D8 /* mapapi.bundle */; };
 		759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */; };
 		759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */; };
@@ -27,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
+		75668CFB1A315DE1009F5A30 /* StadiumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumManager.h; sourceTree = "<group>"; };
+		75668CFC1A315E0B009F5A30 /* StadiumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumManager.m; sourceTree = "<group>"; };
 		759C8AE41A221C1C00EB82D8 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -183,6 +186,8 @@
 				75FE304C1A29CC300079D4D4 /* StadiumRecord.m */,
 				75FE304E1A29F0660079D4D4 /* ParseOperation.m */,
 				75FE30501A29F08C0079D4D4 /* ParseOperation.h */,
+				75668CFB1A315DE1009F5A30 /* StadiumManager.h */,
+				75668CFC1A315E0B009F5A30 /* StadiumManager.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
+				75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

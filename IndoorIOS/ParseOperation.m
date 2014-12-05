@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ParseOperation.h"
 #import "StadiumRecord.h"
+#import "StadiumManager.h"
 
 // string contants found in the RSS feed
 static NSString *kIDStr     = @"id";
@@ -23,10 +24,9 @@ static NSString *kLatStr  = @"lat";
 @interface ParseOperation ()
 
 // Redeclare appRecordList so we can modify it within this class
-@property (nonatomic, strong) NSArray *stadiumRecordList;
+//@property (nonatomic, strong) NSArray *stadiumRecordList;
 
 @property (nonatomic, strong) NSData *dataToParse;
-@property (nonatomic, strong) NSMutableArray *workingArray;
 @property (nonatomic, strong) StadiumRecord *workingEntry;
 
 @end
@@ -58,7 +58,6 @@ static NSString *kLatStr  = @"lat";
     // before invoking -main.  If an exception is thrown here, the app will be
     // terminated.
     
-    _workingArray = [NSMutableArray array];
     NSError* error;
 
     NSArray *stadiums = [NSJSONSerialization
@@ -66,24 +65,34 @@ static NSString *kLatStr  = @"lat";
                          options:kNilOptions
                          error:&error];
     
+    // get singleton
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    
+    // clear data first
+    [stadiumManager clear];
+    
     for (id item in stadiums) {
         self.workingEntry = [[StadiumRecord alloc] init];
         self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
         self.workingEntry.name = [item objectForKey:kNameStr];
         self.workingEntry.address = [item objectForKey:kAddressStr];
+        self.workingEntry.lat = [item objectForKey:kLatStr];
+        self.workingEntry.lng = [item objectForKey:kLngStr];
+        self.workingEntry.city = [item objectForKey:kCityStr];
+        self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
+        self.workingEntry.phone = [item objectForKey:kPhoneStr];
         // TODO
         NSLog(@"stadium: %@", self.workingEntry);
         
-        [self.workingArray addObject:self.workingEntry];
+//        [self.workingArray addObject:self.workingEntry];
+        [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
     }
     
     if (![self isCancelled])
     {
-        // Set appRecordList to the result of our parsing
-        self.stadiumRecordList = [NSArray arrayWithArray:self.workingArray];
+        NSLog(@"parseOperation is cancelled");
     }
-    
-    self.workingArray = nil;
+
     self.dataToParse = nil;
 }
 @end

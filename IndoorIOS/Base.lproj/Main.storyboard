@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TfZ-UC-Y40">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TfZ-UC-Y40">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--铁人-->
@@ -69,11 +69,11 @@
             </objects>
             <point key="canvasLocation" x="1869" y="1802"/>
         </scene>
-        <!--我的-->
+        <!--我的帐号-->
         <scene sceneID="rp6-LE-oXI">
             <objects>
                 <navigationController id="DyX-xf-dYo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" id="hhk-ah-nrG"/>
+                    <tabBarItem key="tabBarItem" title="我的帐号" id="hhk-ah-nrG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qrb-ul-GGH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -86,11 +86,11 @@
             </objects>
             <point key="canvasLocation" x="1063" y="1802"/>
         </scene>
-        <!--教练-->
+        <!--预约教练-->
         <scene sceneID="vIn-QM-1is">
             <objects>
                 <navigationController id="vHi-Fc-fSv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="教练" id="WKH-qD-ozN"/>
+                    <tabBarItem key="tabBarItem" title="预约教练" id="WKH-qD-ozN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wIA-QW-XI2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -123,11 +123,11 @@
             </objects>
             <point key="canvasLocation" x="239" y="1028"/>
         </scene>
-        <!--场馆-->
+        <!--预约场馆-->
         <scene sceneID="6Hd-uK-MK4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jg7-op-7Oc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="场馆" id="Qir-bM-pP8"/>
+                    <tabBarItem key="tabBarItem" title="预约场馆" id="Qir-bM-pP8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="urr-fU-cTF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

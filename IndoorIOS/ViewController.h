@@ -14,7 +14,6 @@
     BMKLocationService* _locService;
 }
 
-@property (nonatomic, strong) NSArray *entries;
 - (void) loadData;
 
 @end

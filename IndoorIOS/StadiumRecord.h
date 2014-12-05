@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *phone;
 
 @end
