@@ -319,6 +319,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
         });
     };
     
+    /*
     // Referencing parser from within its completionBlock would create a retain cycle.
     __weak ParseOperation *weakParser = parser;
     
@@ -341,6 +342,13 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
         
         // we are finished with the queue and our ParseOperation
         self.queue = nil;
+    };
+     */
+    
+    parser.completionBlock = ^(void) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadData];
+        });
     };
     
     [self.queue addOperation:parser]; // this will start the "ParseOperation"

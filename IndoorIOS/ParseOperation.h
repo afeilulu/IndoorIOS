@@ -21,7 +21,7 @@
 // NSArray containing AppRecord instances for each entry parsed
 // from the input data.
 // Only meaningful after the operation has completed.
-@property (nonatomic, strong, readonly) NSArray *stadiumRecordList;
+//@property (nonatomic, strong, readonly) NSArray *stadiumRecordList;
 
 // The initializer for this NSOperation subclass.
 - (instancetype)initWithData:(NSData *)data;
