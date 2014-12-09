@@ -17,7 +17,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary *stadiumList;
 
-- (StadiumRecord *) getStadium : (NSString*)idStr;
+- (StadiumRecord *) getStadiumRecordById : (NSString*)idStr;
+
+- (StadiumRecord *) getStadiumRecordByTitle : (NSString*)title;
 
 + (StadiumManager *)sharedInstance;
 

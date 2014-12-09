@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TfZ-UC-Y40">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--铁人-->
@@ -22,6 +23,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1869" y="272"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="gZP-Du-Mof">
+            <objects>
+                <viewController storyboardIdentifier="detailview" id="JVd-Ta-SLW" customClass="DetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="35d-aU-kSP"/>
+                        <viewControllerLayoutGuide type="bottom" id="91A-bM-flW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uH4-5c-7CS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwK-4L-c2X">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="196"/>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="label aaaaabbbbbcccccbcbcbcbcbcbcbcbcbcbcbbcbcbcbcbcbdbdbdbdddddddddddbddbdbbdbdbdbdbdbdbbdbdbdbdbdb" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wWb-4o-bRx">
+                                <rect key="frame" x="16" y="300" width="568" height="40"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wWb-4o-bRx" firstAttribute="leading" secondItem="uH4-5c-7CS" secondAttribute="leadingMargin" id="NP4-DH-pAy"/>
+                            <constraint firstItem="wWb-4o-bRx" firstAttribute="trailing" secondItem="uH4-5c-7CS" secondAttribute="trailingMargin" id="YeZ-O3-X1j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="wWb-4o-bRx" id="8tj-Fb-xxv"/>
+                        <outlet property="imageScrollView" destination="cwK-4L-c2X" id="6hr-oQ-dq8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G76-oY-go0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2633" y="272"/>
         </scene>
         <!--教练-->
         <scene sceneID="E8q-GO-DdP">

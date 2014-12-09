@@ -10,6 +10,7 @@
 #import "StadiumRecord.h"
 #import "StadiumManager.h"
 #import "ParseOperation.h"
+#import "DetailViewController.h"
 #import "BMapKit.h"
 
 // the http URL used for fetching the stadiums
@@ -187,8 +188,36 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view{
     NSLog(@"annotation clicked %@", view.reuseIdentifier);
     
-    [_mapView bringSubviewToFront:view];
-    [_mapView setNeedsDisplay];
+//    [_mapView bringSubviewToFront:view];
+//    [_mapView setNeedsDisplay];
+    
+    // Create the root view controller for the navigation controller
+    // The new view controller configures a Cancel and Done button for the
+    // navigation bar.
+//    DetailViewController *addController = [[DetailViewController alloc] init];
+//
+//    addController.edgesForExtendedLayout = UIRectEdgeAll;
+//    addController.extendedLayoutIncludesOpaqueBars = YES;
+
+//    // Configure the RecipeAddViewController. In this case, it reports any
+//    // changes to a custom delegate object.
+////    addController.delegate = self;
+//    
+//    // Create the navigation controller and present it.
+//    UINavigationController *navigationController = [[UINavigationController alloc]
+//                                                    initWithRootViewController:addController];
+//    navigationController.edgesForExtendedLayout =UIRectEdgeAll;
+//    navigationController.extendedLayoutIncludesOpaqueBars = YES;
+//    [self presentViewController:navigationController animated:YES completion: nil];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
+    
+    viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
+    
+//    [self presentViewController:viewController animated:YES completion:nil];
+    [self.navigationController pushViewController:viewController animated:YES];
+    
 }
 
 /**
@@ -220,10 +249,13 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     // 设置位置
     annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
     annotationView.annotation = annotation;
+    
     // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
     annotationView.canShowCallout = NO;
     // 设置是否可以拖拽
     annotationView.draggable = NO;
+    
+    
     return annotationView;
 }
 

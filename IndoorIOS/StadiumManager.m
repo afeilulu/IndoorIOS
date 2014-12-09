@@ -23,8 +23,20 @@
     return sharedInstance;
 }
 
-- (StadiumRecord *) getStadium : (NSString*)idStr{
+- (StadiumRecord *) getStadiumRecordById : (NSString*)idStr{
     return [_stadiumList objectForKey:idStr];
+}
+
+- (StadiumRecord *) getStadiumRecordByTitle : (NSString*)title{
+    
+    for (NSString *key in _stadiumList) {
+        StadiumRecord *stadium = [_stadiumList objectForKey:key];
+        if ([stadium.name isEqualToString:title]){
+            return stadium;
+        }
+    }
+
+    return nil;
 }
 
 - (void) clear{
