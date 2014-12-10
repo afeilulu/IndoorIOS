@@ -10,7 +10,7 @@
 
 @implementation POHorizontalList
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title items:(NSMutableArray *)items
+- (id)initWithFrame:(CGRect)frame items:(NSMutableArray *)items
 {
     self = [super initWithFrame:frame];
     
@@ -30,23 +30,12 @@
             [self.scrollView addSubview:item];
         }
         
-        self.scrollView.contentSize = CGSizeMake(LEFT_PADDING + (pageSize.width + DISTANCE_BETWEEN_ITEMS) * [items count], pageSize.height);
+        self.scrollView.contentSize = CGSizeMake(LEFT_PADDING + (pageSize.width + DISTANCE_BETWEEN_ITEMS) * [items count] + RIGHT_PADDING, pageSize.height);
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
         
         [self addSubview:self.scrollView];
-        
-        // Title Label
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(LEFT_PADDING, 0.0, self.frame.size.width, TITLE_HEIGHT)];
-        [titleLabel setText:title];
-        [titleLabel setFont:[UIFont boldSystemFontOfSize:16.0]];
-        [titleLabel setTextColor:[UIColor colorWithWhite:116.0/256.0 alpha:1.0]];
-        [titleLabel setShadowColor:[UIColor whiteColor]];
-        [titleLabel setShadowOffset:CGSizeMake(1.0, 1.0)];
-        [titleLabel setOpaque:YES];
-        [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:titleLabel];
         
         // Background shadow
         CAGradientLayer *dropshadowLayer = [CAGradientLayer layer];
@@ -62,7 +51,7 @@
                                    (id)[[UIColor colorWithWhite:224.0/256.0 alpha:1.0] CGColor],
                                    (id)[[UIColor colorWithWhite:235.0/256.0 alpha:1.0] CGColor], nil];
          
-         [self.layer insertSublayer:dropshadowLayer below:self.scrollView.layer];
+//         [self.layer insertSublayer:dropshadowLayer below:self.scrollView.layer];
 
     }
 

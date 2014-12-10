@@ -10,38 +10,45 @@
 
 @implementation ListItem
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage *)image text:(NSString *)imageTitle
+//- (id)initWithFrame:(CGRect)frame image:(UIImage *)image text:(NSString *)imageTitle
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title subTitle:(NSString *)subTitle;
 {
     self = [super initWithFrame:frame];
     
     if (self) {
         [self setUserInteractionEnabled:YES];
         
-        self.imageTitle = imageTitle;
-        self.image = image;
+        self.title = title;
+        self.subTitle = subTitle;
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 72.0, 72.0)];
 
         CALayer *roundCorner = [imageView layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:8.0];
         [roundCorner setBorderColor:[UIColor blackColor].CGColor];
         [roundCorner setBorderWidth:1.0];
+        [roundCorner setBackgroundColor:[UIColor orangeColor].CGColor];
         
-        UILabel *title = [[UILabel alloc] init];
-        [title setBackgroundColor:[UIColor clearColor]];
-        [title setFont:[UIFont boldSystemFontOfSize:12.0]];
-        [title setOpaque: NO];
-        [title setText:imageTitle];
+        UILabel *titleLabel = [[UILabel alloc] init];
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        [titleLabel setFont:[UIFont boldSystemFontOfSize:20.0]];
+        [titleLabel setOpaque: NO];
+        [titleLabel setText:title];
+        titleRect = CGRectMake(10.0, imageRect.origin.y + 10.0, 80.0, 20.0);
+        [titleLabel setFrame:titleRect];
         
-        imageRect = CGRectMake(0.0, 0.0, 72.0, 72.0);
-        textRect = CGRectMake(0.0, imageRect.origin.y + imageRect.size.height + 10.0, 80.0, 20.0);
+        UILabel *subTitleLabel = [[UILabel alloc] init];
+        [subTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [subTitleLabel setFont:[UIFont systemFontOfSize:16.0]];
+        [subTitleLabel setOpaque: NO];
+        [subTitleLabel setText:subTitle];
+        subTitleRect = CGRectMake(20.0, imageRect.origin.y + 40.0, 80.0, 20.0);
+        [subTitleLabel setFrame:subTitleRect];
         
-        [title setFrame:textRect];
-        [imageView setFrame:imageRect];
-        
-        [self addSubview:title];
         [self addSubview:imageView];
+        [self addSubview:titleLabel];
+        [self addSubview:subTitleLabel];
     }
     
     return self;

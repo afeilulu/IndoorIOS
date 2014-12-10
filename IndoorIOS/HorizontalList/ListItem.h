@@ -12,6 +12,9 @@
 @interface ListItem : UIView {
     CGRect textRect;
     CGRect imageRect;
+    
+    CGRect titleRect;
+    CGRect subTitleRect;
 }
 
 @property (nonatomic, retain) NSObject *objectTag;
@@ -19,6 +22,9 @@
 @property (nonatomic, retain) NSString *imageTitle;
 @property (nonatomic, retain) UIImage *image;
 
-- (id)initWithFrame:(CGRect)frame image:(UIImage *)image text:(NSString *)imageTitle;
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSString *subTitle;
+
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title subTitle:(NSString *)subTitle;
 
 @end

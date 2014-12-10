@@ -174,7 +174,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
             coors.longitude = [stadium.lng floatValue];
             item.coordinate = coors;
             item.title = [stadium name];
-            NSLog(@"%@",item.title);
+//            NSLog(@"%@",item.title);
             [_mapView addAnnotation:item];
         }
     } else {

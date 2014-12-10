@@ -12,8 +12,9 @@
 
 #define DISTANCE_BETWEEN_ITEMS  15.0
 #define LEFT_PADDING            15.0
+#define RIGHT_PADDING            50.0
 #define ITEM_WIDTH              72.0
-#define TITLE_HEIGHT            40.0
+#define TITLE_HEIGHT            5.0
 
 @interface POHorizontalList : UIView <UIScrollViewDelegate> {
     CGFloat scale;
@@ -23,6 +24,6 @@
 
 @property (nonatomic, assign) id<POHorizontalListDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title items:(NSMutableArray *)items;
+- (id)initWithFrame:(CGRect)frame items:(NSMutableArray *)items;
 
 @end

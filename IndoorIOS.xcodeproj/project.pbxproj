@@ -24,6 +24,9 @@
 		75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8C1A1E01CB0005CB6B /* Main.storyboard */; };
 		75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */; };
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
+		75E09FD71A382EB8007787DE /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD31A382EB8007787DE /* ListItem.m */; };
+		75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD51A382EB8007787DE /* POHorizontalList.m */; };
+		75E09FDC1A384A5A007787DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FDB1A384A5A007787DE /* Utils.m */; };
 		75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304C1A29CC300079D4D4 /* StadiumRecord.m */; };
 		75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304E1A29F0660079D4D4 /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -33,7 +36,7 @@
 		75668CFB1A315DE1009F5A30 /* StadiumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumManager.h; sourceTree = "<group>"; };
 		75668CFC1A315E0B009F5A30 /* StadiumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumManager.m; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		75668D071A34004B009F5A30 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
 		75668D081A34004B009F5A30 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		759C8AE41A221C1C00EB82D8 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = SOURCE_ROOT; };
@@ -112,6 +115,13 @@
 		75CCCBE91A1E02A70005CB6B /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
 		75CCCBEA1A1E02A70005CB6B /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
 		75CCCBEB1A1E02A70005CB6B /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
+		75E09FD21A382EB8007787DE /* ListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListItem.h; path = HorizontalList/ListItem.h; sourceTree = "<group>"; };
+		75E09FD31A382EB8007787DE /* ListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListItem.m; path = HorizontalList/ListItem.m; sourceTree = "<group>"; };
+		75E09FD41A382EB8007787DE /* POHorizontalList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POHorizontalList.h; path = HorizontalList/POHorizontalList.h; sourceTree = "<group>"; };
+		75E09FD51A382EB8007787DE /* POHorizontalList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POHorizontalList.m; path = HorizontalList/POHorizontalList.m; sourceTree = "<group>"; };
+		75E09FD61A382EB8007787DE /* POHorizontalListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POHorizontalListDelegate.h; path = HorizontalList/POHorizontalListDelegate.h; sourceTree = "<group>"; };
+		75E09FDA1A384A34007787DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		75E09FDB1A384A5A007787DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StadiumRecord.h; sourceTree = "<group>"; };
 		75FE304C1A29CC300079D4D4 /* StadiumRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumRecord.m; sourceTree = "<group>"; };
 		75FE304E1A29F0660079D4D4 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
@@ -180,6 +190,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				75E09FD91A382EC4007787DE /* HorizontalList */,
 				75668D071A34004B009F5A30 /* IconDownloader.h */,
 				75668D081A34004B009F5A30 /* IconDownloader.m */,
 				75CCCB861A1E01CB0005CB6B /* AppDelegate.h */,
@@ -198,6 +209,8 @@
 				75FE30501A29F08C0079D4D4 /* ParseOperation.h */,
 				75668CFB1A315DE1009F5A30 /* StadiumManager.h */,
 				75668CFC1A315E0B009F5A30 /* StadiumManager.m */,
+				75E09FDA1A384A34007787DE /* Utils.h */,
+				75E09FDB1A384A5A007787DE /* Utils.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -277,6 +290,18 @@
 			path = inc;
 			sourceTree = "<group>";
 		};
+		75E09FD91A382EC4007787DE /* HorizontalList */ = {
+			isa = PBXGroup;
+			children = (
+				75E09FD21A382EB8007787DE /* ListItem.h */,
+				75E09FD31A382EB8007787DE /* ListItem.m */,
+				75E09FD41A382EB8007787DE /* POHorizontalList.h */,
+				75E09FD51A382EB8007787DE /* POHorizontalList.m */,
+				75E09FD61A382EB8007787DE /* POHorizontalListDelegate.h */,
+			);
+			name = HorizontalList;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -350,7 +375,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
+				75E09FDC1A384A5A007787DE /* Utils.m in Sources */,
 				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
+				75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */,
+				75E09FD71A382EB8007787DE /* ListItem.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				75668D091A34004B009F5A30 /* IconDownloader.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
@@ -476,7 +504,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = IndoorIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libs";
 				ONLY_ACTIVE_ARCH = NO;
@@ -485,6 +513,7 @@
 ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -503,7 +532,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 				);
 				INFOPLIST_FILE = IndoorIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libs";
 				ONLY_ACTIVE_ARCH = NO;
@@ -512,6 +541,7 @@
 ";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;

@@ -9,6 +9,8 @@
 #import "DetailViewController.h"
 #import "IconDownloader.h"
 #import "StadiumManager.h"
+#import "ListItem.h"
+#import "Utils.h"
 
 @interface DetailViewController ()
 
@@ -28,11 +30,13 @@
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordByTitle:_stadiumRecordTitle];
     
+    /*
     // set label text
     [_addressLabel setLineBreakMode:NSLineBreakByWordWrapping];
     _addressLabel.numberOfLines = 0;
     [_addressLabel sizeToFit];
     _addressLabel.text = _stadiumRecord.address;
+     */
     
 //    self.imageScrollView.delegate = self;
     self.imageScrollView.pagingEnabled = YES;
@@ -43,6 +47,36 @@
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
     [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
+    
+    // date list init
+    dateList = [[NSMutableArray alloc] init];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSWeekdayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    int n;
+    for (n=0;n<7; n=n+1) {
+        NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
+        comps = [calendar components:unitFlags fromDate:tmpDate];
+        int week = [comps weekday];
+        int month = [comps month];
+        int day = [comps day];
+        
+        NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
+        NSString *subTitleString = [Utils getWeekName:week];
+        ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
+        item.objectTag = tmpDate;// save for next view after date view item clicked
+        [dateList addObject:item];
+    }
+    
+    POHorizontalList *list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 200.0, 400.0, 82.0) items:dateList];
+    [list setDelegate:self];
+    [self.view addSubview:list];
     
     // remove table view divider
     [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -77,6 +111,7 @@
         [iconDownloader setCompletionHandler:^{
             
             UIImageView *imageView = [[UIImageView alloc] initWithImage:stadium.image];
+            imageView.contentMode = UIViewContentModeCenter;
             [self.imageScrollView addSubview:imageView];
             
             // Remove the IconDownloader from the in progress list.
@@ -99,31 +134,32 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cell";
     
-    UITableViewCell *cell = [self.stadiumPropertyTableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"CellIdentifier";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellIdentifier];
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
     }
+    /*
+    UILabel *title = [[UILabel alloc] init];
+    [title setBackgroundColor:[UIColor clearColor]];
+    [title setFont:[UIFont boldSystemFontOfSize:12.0]];
+    [title setOpaque: NO];
+    [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
+    CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
+    [title setFrame:textRect];
+    [cell.contentView addSubview:title];
+     */
     
-//    UILabel *title = [[UILabel alloc] init];
-//    [title setBackgroundColor:[UIColor clearColor]];
-//    [title setFont:[UIFont boldSystemFontOfSize:12.0]];
-//    [title setOpaque: NO];
-//    [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
-//    
-//    CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
-//    
-//    [title setFrame:textRect];
-//
-//    [cell.contentView addSubview:title];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [NSString stringWithFormat: @"测试文本%i",indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    //    NSUInteger row = [indexPath row];
     
-    cell.textLabel.text = [NSString stringWithFormat: @"测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本 %i",indexPath.row];
-    
-    cell.detailTextLabel.text = [NSString stringWithFormat: @"测试测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本 %i",indexPath.row];
-    
-    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 
@@ -132,6 +168,12 @@
     NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
     UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alter show];
+}
+
+#pragma mark  POHorizontalListDelegate
+
+- (void) didSelectItem:(ListItem *)item {
+    NSLog(@"Horizontal List Item %@ selected", item.title);
 }
 
 @end

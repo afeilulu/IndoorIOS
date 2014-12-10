@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POHorizontalList.h"
 #import "StadiumRecord.h"
 
-@interface DetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface DetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,POHorizontalListDelegate>{
+    NSMutableArray *dateList;
+}
 
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 
 @property (nonatomic,strong)NSString* stadiumRecordTitle;
