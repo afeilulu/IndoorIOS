@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "StadiumRecord.h"
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 
 @property (nonatomic,strong)NSString* stadiumRecordTitle;
 @property (nonatomic,strong)StadiumRecord* stadiumRecord;
+
+@property (nonatomic, retain) IBOutlet UITableView *stadiumPropertyTableView;
 
 @end

@@ -34,7 +34,6 @@
     [_addressLabel sizeToFit];
     _addressLabel.text = _stadiumRecord.address;
     
-    
 //    self.imageScrollView.delegate = self;
     self.imageScrollView.pagingEnabled = YES;
     self.imageScrollView.showsHorizontalScrollIndicator = NO;
@@ -44,6 +43,9 @@
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
     [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
+    
+    // remove table view divider
+    [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,13 +91,47 @@
 
 #pragma mark-- UIScrollViewDelegate
 
-// 是否支持频幕旋转
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-//    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    return NO;
+
+
+#pragma mark-- UITableViewDelegate
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"cell";
+    
+    UITableViewCell *cell = [self.stadiumPropertyTableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellIdentifier];
+    }
+    
+//    UILabel *title = [[UILabel alloc] init];
+//    [title setBackgroundColor:[UIColor clearColor]];
+//    [title setFont:[UIFont boldSystemFontOfSize:12.0]];
+//    [title setOpaque: NO];
+//    [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
+//    
+//    CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
+//    
+//    [title setFrame:textRect];
+//
+//    [cell.contentView addSubview:title];
+    
+    cell.textLabel.text = [NSString stringWithFormat: @"测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本 %i",indexPath.row];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat: @"测试测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本 %i",indexPath.row];
+    
+    cell.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSString *rowString = [self.list objectAtIndex:[indexPath row]];
+    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
+    UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alter show];
+}
 
 @end

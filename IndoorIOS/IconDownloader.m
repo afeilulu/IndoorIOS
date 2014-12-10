@@ -51,7 +51,7 @@
 #import "IconDownloader.h"
 
 #define kImageHeight 200
-#define kImageWidth 400
+#define kImageWidth 300
 
 @interface IconDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
