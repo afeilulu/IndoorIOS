@@ -26,15 +26,16 @@
         CALayer *roundCorner = [imageView layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:8.0];
-        [roundCorner setBorderColor:[UIColor blackColor].CGColor];
+        [roundCorner setBorderColor:[self tintColor].CGColor];
         [roundCorner setBorderWidth:1.0];
-        [roundCorner setBackgroundColor:[UIColor orangeColor].CGColor];
+        [roundCorner setBackgroundColor:[UIColor clearColor].CGColor];
         
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [titleLabel setFont:[UIFont boldSystemFontOfSize:20.0]];
+        [titleLabel setFont:[UIFont systemFontOfSize:20.0]];
         [titleLabel setOpaque: NO];
         [titleLabel setText:title];
+        [titleLabel setTextColor:[self tintColor]];
         titleRect = CGRectMake(10.0, imageRect.origin.y + 10.0, 80.0, 20.0);
         [titleLabel setFrame:titleRect];
         
@@ -43,6 +44,7 @@
         [subTitleLabel setFont:[UIFont systemFontOfSize:16.0]];
         [subTitleLabel setOpaque: NO];
         [subTitleLabel setText:subTitle];
+        [subTitleLabel setTextColor:[self tintColor]];
         subTitleRect = CGRectMake(20.0, imageRect.origin.y + 40.0, 80.0, 20.0);
         [subTitleLabel setFrame:subTitleRect];
         
