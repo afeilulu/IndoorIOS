@@ -20,6 +20,6 @@
 @property (nonatomic,strong)NSString* stadiumRecordTitle;
 @property (nonatomic,strong)StadiumRecord* stadiumRecord;
 
-@property (nonatomic, retain) IBOutlet UITableView *stadiumPropertyTableView;
+@property (nonatomic,strong)NSMutableArray* stadiumProperties;
 
 @end

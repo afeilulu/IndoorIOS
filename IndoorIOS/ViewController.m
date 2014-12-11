@@ -58,6 +58,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     {
         self.navigationController.navigationBar.translucent = NO;
     }
+    
     _locService = [[BMKLocationService alloc]init];
     
 }
@@ -67,7 +68,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _locService.delegate = self;
     
-    [_mapView setZoomLevel:13];
+    [_mapView setZoomLevel:8];
     
     // 开始普通定位
     [_locService startUserLocationService];
@@ -134,18 +135,6 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     [_mapView updateLocationData:userLocation];
 
 }
-
-/**
- *用户方向更新后，会调用此函数
- *@param userLocation 新的用户位置
- */
-/*- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
-{
-    [_mapView updateLocationData:userLocation];
-//    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
-    NSLog(@"heading is %@",userLocation.heading);
-}
- */
 
 /**
  *定位失败后，会调用此函数

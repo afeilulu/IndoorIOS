@@ -1,37 +1,30 @@
 //
-//  ParseOperation.m
+//  ParseSportDayRule.m
 //  IndoorIOS
 //
-//  Created by 陈革非 on 14/11/29.
+//  Created by 陈革非 on 14/12/11.
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "ParseOperation.h"
-#import "StadiumRecord.h"
+#import "ParseSportDayRule.h"
 #import "StadiumManager.h"
+#import "SportDayRule.h"
 
 // string contants found in the RSS feed
 static NSString *kIDStr     = @"id";
-static NSString *kNameStr   = @"name";
-static NSString *kCityStr   = @"city";
-static NSString *kAddressStr   = @"address";
-static NSString *kPicUrlStr  = @"picUrl";
-static NSString *kPhoneStr = @"phone";
-static NSString *kLngStr  = @"lng";
-static NSString *kLatStr  = @"lat";
+static NSString *kUnitStr   = @"minOrderUnit";
+static NSString *kUnitNameStr   = @"name";
+static NSString *kRuleJsonStr   = @"ruleJson";
 
-@interface ParseOperation ()
-
-// Redeclare appRecordList so we can modify it within this class
-//@property (nonatomic, strong) NSArray *stadiumRecordList;
+@interface ParseSportDayRule ()
 
 @property (nonatomic, strong) NSData *dataToParse;
-@property (nonatomic, strong) StadiumRecord *workingEntry;
+@property (nonatomic, strong) SportDayRule *workingEntry;
 
 @end
 
-@implementation ParseOperation
+@implementation ParseSportDayRule
 
 // -------------------------------------------------------------------------------
 //	initWithData:
@@ -59,8 +52,8 @@ static NSString *kLatStr  = @"lat";
     // terminated.
     
     NSError* error;
-
-    NSArray *stadiums = [NSJSONSerialization
+    
+    NSArray *items = [NSJSONSerialization
                          JSONObjectWithData:_dataToParse
                          options:kNilOptions
                          error:&error];
@@ -69,28 +62,22 @@ static NSString *kLatStr  = @"lat";
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     
     // clear data first
-    [stadiumManager clearStadium];
+    [stadiumManager clearSportDayRule];
     
-    for (id item in stadiums) {
-        self.workingEntry = [[StadiumRecord alloc] init];
+    for (id item in items) {
+        self.workingEntry = [[SportDayRule alloc] init];
         self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
-        self.workingEntry.name = [item objectForKey:kNameStr];
-        self.workingEntry.address = [item objectForKey:kAddressStr];
-        self.workingEntry.lat = [item objectForKey:kLatStr];
-        self.workingEntry.lng = [item objectForKey:kLngStr];
-        self.workingEntry.city = [item objectForKey:kCityStr];
-        self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
-        self.workingEntry.phone = [item objectForKey:kPhoneStr];
+        self.workingEntry.ruleJson = [item objectForKey:kRuleJsonStr];
+        self.workingEntry.minOrderUnit = [[item objectForKey:kUnitStr] objectForKey:kUnitNameStr];
         // TODO
-        NSLog(@"stadium: %@", self.workingEntry);
+        NSLog(@"item: %@", self.workingEntry);
         
-//        [self.workingArray addObject:self.workingEntry];
-        [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
+        [stadiumManager.sportDayRuleList addObject:self.workingEntry];
     }
     
     if (![self isCancelled])
     {
-        NSLog(@"parseOperation is cancelled");
+        NSLog(@"parseOperation completed");
     }
 
     self.dataToParse = nil;

@@ -52,6 +52,7 @@
                     </view>
                     <connections>
                         <outlet property="imageScrollView" destination="cwK-4L-c2X" id="6hr-oQ-dq8"/>
+                        <outlet property="stadiumPropertyTableView" destination="Wtg-Ps-Uwt" id="XmQ-He-fmZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G76-oY-go0" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -11,8 +11,17 @@
 #import "StadiumManager.h"
 #import "ListItem.h"
 #import "Utils.h"
+#import "ParseSportDayRule.h"
+
+// the http URL used for fetching the sport day rules
+static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayRule.json";
 
 @interface DetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *stadiumPropertyTableView;
+@property (nonatomic, strong) NSURLConnection *jsonConnection;
+@property (nonatomic, strong) NSMutableData *jsonData;
+@property (nonatomic, strong) NSOperationQueue *queue;
 
 // the set of IconDownloader objects for each image
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
@@ -29,6 +38,24 @@
     NSLog(@"title = %@ ",  _stadiumRecordTitle );
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordByTitle:_stadiumRecordTitle];
+    
+    // 从服务器获取信息
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
+    self.jsonConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
+    // Test the validity of the connection object. The most likely reason for the connection object
+    // to be nil is a malformed URL, which is a programmatic error easily detected during development
+    // If the URL is more dynamic, then you should implement a more flexible validation technique, and
+    // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
+    //
+    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+    
+    // show in the status bar that network activity is starting
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // init stadiumProperties
+    self.stadiumProperties = [[NSMutableArray alloc] init];
+    [self.stadiumProperties addObject:self.stadiumRecord.address];
     
     /*
     // set label text
@@ -129,8 +156,9 @@
 
 
 #pragma mark-- UITableViewDelegate
+
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.stadiumProperties.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,9 +184,15 @@
      */
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [NSString stringWithFormat: @"测试文本%i",indexPath.row];
+//    cell.textLabel.text = [NSString stringWithFormat: @"测试文本%i",indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //    NSUInteger row = [indexPath row];
+    
+//    NSUInteger row = [indexPath row];
+    
+//    if (row == 0){
+//        cell.textLabel.text = self.stadiumRecord.address;
+//    }
     
     return cell;
 }
@@ -174,6 +208,112 @@
 
 - (void) didSelectItem:(ListItem *)item {
     NSLog(@"Horizontal List Item %@ selected", item.title);
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+// -------------------------------------------------------------------------------
+//	handleError:error
+//  handle connection error
+//  Reports any error with an alert which was received from connection or loading failures.
+// -------------------------------------------------------------------------------
+- (void)handleError:(NSError *)error
+{
+    NSString *errorMessage = [error localizedDescription];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+                                                        message:errorMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveResponse:response
+//  Called when enough data has been read to construct an NSURLResponse object.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    self.jsonData = [NSMutableData data];    // start off with new data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveData:data
+//  Called with a single immutable NSData object to the delegate, representing the next
+//  portion of the data loaded from the connection.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.jsonData appendData:data];  // append incoming data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didFailWithError:error
+//  Will be called at most once, if an error occurs during a resource load.
+//  No other callbacks will be made after.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    if (error.code == kCFURLErrorNotConnectedToInternet)
+    {
+        // if we can identify the error, we can present a more precise message to the user.
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"No Connection Error"};
+        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                                         code:kCFURLErrorNotConnectedToInternet
+                                                     userInfo:userInfo];
+        [self handleError:noConnectionError];
+    }
+    else
+    {
+        // otherwise handle the error generically
+        [self handleError:error];
+    }
+    
+    self.jsonConnection = nil;   // release our connection
+}
+
+// -------------------------------------------------------------------------------
+//	connectionDidFinishLoading:connection
+//  Called when all connection processing has completed successfully, before the delegate
+//  is released by the connection.
+// -------------------------------------------------------------------------------
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    self.jsonConnection = nil;   // release our connection
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // create the queue to run our ParseOperation
+    self.queue = [[NSOperationQueue alloc] init];
+    
+    ParseSportDayRule *parser = [[ParseSportDayRule alloc] initWithData:self.jsonData];
+    
+    parser.errorHandler = ^(NSError *parseError) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self handleError:parseError];
+        });
+    };
+    
+    parser.completionBlock = ^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // get singleton
+                StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+                
+                [self.stadiumProperties addObjectsFromArray:stadiumManager.sportDayRuleList];
+                [self.stadiumPropertyTableView reloadData];
+            });
+        // we are finished with the queue and our ParseOperation
+        self.queue = nil;
+    };
+    
+    [self.queue addOperation:parser]; // this will start the "ParseOperation"
+    
+    // ownership of appListData has been transferred to the parse operation
+    // and should no longer be referenced in this thread
+    self.jsonData = nil;
 }
 
 @end

@@ -17,7 +17,9 @@
     @synchronized(self) {
         if (sharedInstance == nil) {
             sharedInstance = [[StadiumManager alloc] init];
+            
             sharedInstance.stadiumList = [NSMutableDictionary dictionary];
+            sharedInstance.sportDayRuleList = [[NSMutableArray alloc] init];
         }
     }
     return sharedInstance;
@@ -39,10 +41,15 @@
     return nil;
 }
 
-- (void) clear{
+- (void) clearStadium{
     if (_stadiumList){
         [_stadiumList removeAllObjects];
     }
 }
 
+- (void) clearSportDayRule{
+    if (_sportDayRuleList){
+        [_sportDayRuleList removeAllObjects];
+    }
+}
 @end
