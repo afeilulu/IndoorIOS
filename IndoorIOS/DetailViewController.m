@@ -62,7 +62,7 @@ static NSMutableString *jsonUrl;
     
     // init stadiumProperties
     self.stadiumProperties = [[NSMutableArray alloc] init];
-    [self.stadiumProperties addObject:self.stadiumRecord.address];
+    [self.stadiumProperties addObject:[[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone]];
     
     /*
     // set label text
