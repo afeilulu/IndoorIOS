@@ -9,12 +9,14 @@
 #import "DetailViewController.h"
 #import "IconDownloader.h"
 #import "StadiumManager.h"
+#import "SportDayRule.h"
 #import "ListItem.h"
 #import "Utils.h"
 #import "ParseSportDayRule.h"
+#import "ChooseViewController.h"
 
 // the http URL used for fetching the sport day rules
-static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayRule.json";
+static NSMutableString *jsonUrl;
 
 @interface DetailViewController ()
 
@@ -34,10 +36,15 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/sportDayRule/queryRule?id="];
+    
     // get stadium information
     NSLog(@"title = %@ ",  _stadiumRecordTitle );
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordByTitle:_stadiumRecordTitle];
+    
+    // 连接场馆id
+    [jsonUrl appendString:_stadiumRecord.idString];
     
     // 从服务器获取信息
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
@@ -141,6 +148,9 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
             imageView.contentMode = UIViewContentModeCenter;
             [self.imageScrollView addSubview:imageView];
             
+            // 设置navigtionController背景图片
+//            [self.navigationController.navigationBar setBackgroundImage:stadium.image forBarMetrics:UIBarMetricsDefault];
+            
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
             [self.imageDownloadsInProgress removeObjectForKey:indexPath];
@@ -157,21 +167,35 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
 
 #pragma mark-- UITableViewDelegate
 
+- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.stadiumProperties.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"CellIdentifier";
+//    static NSString *CellIdentifier = @"CellIdentifier";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    
+//    if (cell == nil) {
+//        
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//        
+//    }
     
+    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-    }
+        if (cell == nil) {
+    
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+        }
+    
     /*
     UILabel *title = [[UILabel alloc] init];
     [title setBackgroundColor:[UIColor clearColor]];
@@ -183,10 +207,14 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
     [cell.contentView addSubview:title];
      */
     
+//    cell.layoutMargins = UIEdgeInsetsZero;
+//    cell.preservesSuperviewLayoutMargins = NO;
+    
+    cell.textLabel.numberOfLines = 0;
+    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.textLabel.text = [NSString stringWithFormat: @"测试文本%i",indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
 //    NSUInteger row = [indexPath row];
     
@@ -208,6 +236,10 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
 
 - (void) didSelectItem:(ListItem *)item {
     NSLog(@"Horizontal List Item %@ selected", item.title);
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"chooseview"];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - NSURLConnectionDelegate
@@ -302,7 +334,26 @@ static NSString *const jsonUrl = @"http://chinaairdome.com:9080/indoor/sportDayR
                 // get singleton
                 StadiumManager *stadiumManager = [StadiumManager sharedInstance];
                 
-                [self.stadiumProperties addObjectsFromArray:stadiumManager.sportDayRuleList];
+//                [self.stadiumProperties addObjectsFromArray:stadiumManager.sportDayRuleList];
+                for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
+                    NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
+                    NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    NSMutableString * ruleString=[NSMutableString stringWithString:@""];
+                    [ruleString appendString:rule.name];
+                    [ruleString appendString:@" "];
+                    [ruleString appendFormat:@"%@",rule.maxCount];
+                    [ruleString appendString:@"\n"];
+                    for (int i=0; i<ruleArray.count; ++i) {
+                        [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
+                        [ruleString appendString:@" - "];
+                        [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
+                        [ruleString appendString:@" "];
+                        [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
+                        [ruleString appendString:@"元 "];
+                    }
+                    [self.stadiumProperties addObject:ruleString];
+                }
+                
                 [self.stadiumPropertyTableView reloadData];
             });
         // we are finished with the queue and our ParseOperation

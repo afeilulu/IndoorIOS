@@ -42,9 +42,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     // 加载地图
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.view = _mapView;
-//    [self.view addSubview:_mapView];
     
-//
 //    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
 //        //由于IOS8中定位的授权机制改变 需要进行手动授权
 //        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];

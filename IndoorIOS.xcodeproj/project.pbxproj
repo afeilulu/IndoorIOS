@@ -13,6 +13,10 @@
 		75668D091A34004B009F5A30 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668D081A34004B009F5A30 /* IconDownloader.m */; };
 		757630E51A392E54007E32E5 /* SportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E41A392E53007E32E5 /* SportDayRule.m */; };
 		757630E81A393349007E32E5 /* ParseSportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E71A393349007E32E5 /* ParseSportDayRule.m */; };
+		757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* ChooseViewController.m */; };
+		757630F11A3ADBA5007E32E5 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EE1A3ADBA5007E32E5 /* Cell.m */; };
+		757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */; };
+		757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */; };
 		759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 759C8AE41A221C1C00EB82D8 /* mapapi.bundle */; };
 		759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */; };
 		759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */; };
@@ -45,6 +49,14 @@
 		757630E41A392E53007E32E5 /* SportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportDayRule.m; sourceTree = "<group>"; };
 		757630E61A393327007E32E5 /* ParseSportDayRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseSportDayRule.h; sourceTree = "<group>"; };
 		757630E71A393349007E32E5 /* ParseSportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseSportDayRule.m; sourceTree = "<group>"; };
+		757630E91A39E72E007E32E5 /* ChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseViewController.h; sourceTree = "<group>"; };
+		757630EA1A39E72E007E32E5 /* ChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseViewController.m; sourceTree = "<group>"; };
+		757630ED1A3ADBA5007E32E5 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = CollectionView/Cell.h; sourceTree = "<group>"; };
+		757630EE1A3ADBA5007E32E5 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cell.m; path = CollectionView/Cell.m; sourceTree = "<group>"; };
+		757630EF1A3ADBA5007E32E5 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCellBackground.h; path = CollectionView/CustomCellBackground.h; sourceTree = "<group>"; };
+		757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCellBackground.m; path = CollectionView/CustomCellBackground.m; sourceTree = "<group>"; };
+		757630F31A3C0EC6007E32E5 /* CADFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADFlowLayout.h; sourceTree = "<group>"; };
+		757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADFlowLayout.m; sourceTree = "<group>"; };
 		759C8AE41A221C1C00EB82D8 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -188,6 +200,19 @@
 			name = model;
 			sourceTree = "<group>";
 		};
+		757630EC1A3AD167007E32E5 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				757630ED1A3ADBA5007E32E5 /* Cell.h */,
+				757630EE1A3ADBA5007E32E5 /* Cell.m */,
+				757630EF1A3ADBA5007E32E5 /* CustomCellBackground.h */,
+				757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */,
+				757630F31A3C0EC6007E32E5 /* CADFlowLayout.h */,
+				757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
 		759C8AE31A221C0900EB82D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +243,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				757630EC1A3AD167007E32E5 /* CollectionView */,
 				757630E21A392C6A007E32E5 /* model */,
 				757630E11A392C15007E32E5 /* ParseJson */,
 				75E09FD91A382EC4007787DE /* HorizontalList */,
@@ -237,6 +263,8 @@
 				75668CFC1A315E0B009F5A30 /* StadiumManager.m */,
 				75E09FDA1A384A34007787DE /* Utils.h */,
 				75E09FDB1A384A5A007787DE /* Utils.m */,
+				757630E91A39E72E007E32E5 /* ChooseViewController.h */,
+				757630EA1A39E72E007E32E5 /* ChooseViewController.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -401,15 +429,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
+				757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */,
 				75E09FDC1A384A5A007787DE /* Utils.m in Sources */,
 				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
+				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
 				757630E81A393349007E32E5 /* ParseSportDayRule.m in Sources */,
+				757630F11A3ADBA5007E32E5 /* Cell.m in Sources */,
 				75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */,
 				75E09FD71A382EB8007787DE /* ListItem.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				75668D091A34004B009F5A30 /* IconDownloader.m in Sources */,
 				757630E51A392E54007E32E5 /* SportDayRule.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
+				757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
 				75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */,
 				75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */,

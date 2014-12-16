@@ -12,7 +12,7 @@
 @implementation SportDayRule
 
 -(NSString *)description{
-    return [_idString stringByAppendingString: [_minOrderUnit stringByAppendingString:_ruleJson ]];
+    return [[_name stringByAppendingString: [_minOrderUnit stringByAppendingString:_ruleJson ]] stringByAppendingFormat:@"%@",_maxCount];
 }
 
 @end

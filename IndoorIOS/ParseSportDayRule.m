@@ -12,10 +12,11 @@
 #import "SportDayRule.h"
 
 // string contants found in the RSS feed
-static NSString *kIDStr     = @"id";
+static NSString *kIDStr     = @"stadiumId";
 static NSString *kUnitStr   = @"minOrderUnit";
-static NSString *kUnitNameStr   = @"name";
+static NSString *kNameStr   = @"name";
 static NSString *kRuleJsonStr   = @"ruleJson";
+static NSString *kMaxCountInt   = @"maxCount";
 
 @interface ParseSportDayRule ()
 
@@ -66,9 +67,11 @@ static NSString *kRuleJsonStr   = @"ruleJson";
     
     for (id item in items) {
         self.workingEntry = [[SportDayRule alloc] init];
-        self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
+        self.workingEntry.stadiumId = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
+        self.workingEntry.maxCount = [item objectForKey:kMaxCountInt];
+        self.workingEntry.name = [item objectForKey:kNameStr];
         self.workingEntry.ruleJson = [item objectForKey:kRuleJsonStr];
-        self.workingEntry.minOrderUnit = [[item objectForKey:kUnitStr] objectForKey:kUnitNameStr];
+        self.workingEntry.minOrderUnit = [item objectForKey:kUnitStr];
         // TODO
         NSLog(@"item: %@", self.workingEntry);
         

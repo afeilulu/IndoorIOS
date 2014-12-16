@@ -14,7 +14,9 @@
 
 @interface SportDayRule : NSObject
 
-@property (nonatomic, strong) NSString *idString;
+@property (nonatomic, strong) NSString *stadiumId;// 场馆id
+@property (nonatomic, strong) NSString *name;// 运动名称
+@property (nonatomic, strong) NSNumber *maxCount; // 该运动最大场地数
 @property (nonatomic, strong) NSString *minOrderUnit;//最小单位
 @property (nonatomic, strong) NSString *ruleJson;
 
