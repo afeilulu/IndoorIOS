@@ -17,6 +17,7 @@
 
 // the http URL used for fetching the sport day rules
 static NSMutableString *jsonUrl;
+static NSAttributedString *cr;
 
 @interface DetailViewController ()
 
@@ -37,6 +38,7 @@ static NSMutableString *jsonUrl;
     // Do any additional setup after loading the view.
     
     jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/sportDayRule/queryRule?id="];
+    cr = [[NSAttributedString alloc] initWithString:@"\n"];
     
     // get stadium information
     NSLog(@"title = %@ ",  _stadiumRecordTitle );
@@ -62,7 +64,9 @@ static NSMutableString *jsonUrl;
     
     // init stadiumProperties
     self.stadiumProperties = [[NSMutableArray alloc] init];
-    [self.stadiumProperties addObject:[[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone]];
+    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
+    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
+    [self.stadiumProperties addObject:string];
     
     /*
     // set label text
@@ -213,7 +217,8 @@ static NSMutableString *jsonUrl;
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+//    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+    [cell.textLabel setAttributedText:[self.stadiumProperties objectAtIndex:indexPath.row]];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
 //    NSUInteger row = [indexPath row];
@@ -334,10 +339,10 @@ static NSMutableString *jsonUrl;
                 // get singleton
                 StadiumManager *stadiumManager = [StadiumManager sharedInstance];
                 
-//                [self.stadiumProperties addObjectsFromArray:stadiumManager.sportDayRuleList];
                 for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
                     NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
                     NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                    
                     NSMutableString * ruleString=[NSMutableString stringWithString:@""];
                     [ruleString appendString:rule.name];
                     [ruleString appendString:@" "];
@@ -351,7 +356,12 @@ static NSMutableString *jsonUrl;
                         [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
                         [ruleString appendString:@"元 "];
                     }
-                    [self.stadiumProperties addObject:ruleString];
+                    
+                    NSRange range=[ruleString rangeOfString:rule.name];
+                    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
+                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                    
+                    [self.stadiumProperties addObject:string];
                 }
                 
                 [self.stadiumPropertyTableView reloadData];
