@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ChooseViewController : UIViewController<UICollectionViewDataSource,UIBarPositioningDelegate>
-
+@property (nonatomic, strong) NSString *selectedDate;
+@property (nonatomic) int selectedSportIndex;
 @end

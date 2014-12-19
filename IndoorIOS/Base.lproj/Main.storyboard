@@ -148,6 +148,10 @@
                             <constraint firstItem="urE-iI-urz" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="-16" id="g0c-el-5KN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dateSwitchSegment" destination="urE-iI-urz" id="YbF-vq-2aA"/>
+                        <outlet property="timeUnitCollectionView" destination="Eeq-So-yyO" id="wid-ke-EqH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OH1-x8-xjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,10 +14,10 @@
     [super prepareLayout];
     
     int screen_width = [[UIScreen mainScreen] currentMode].size.width;
-    NSLog(@"screen width = %i",screen_width);
+//    NSLog(@"screen width = %i",screen_width);
     
     CGFloat scale_screen = [UIScreen mainScreen].scale;
-    NSLog(@"screen scale = %f",scale_screen);
+//    NSLog(@"screen scale = %f",scale_screen);
     
     self.minimumInteritemSpacing = 5;
     self.minimumLineSpacing = 5;

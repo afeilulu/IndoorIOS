@@ -202,7 +202,14 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     
     viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
     
-//    [self presentViewController:viewController animated:YES completion:nil];
+    // set back title
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
     [self.navigationController pushViewController:viewController animated:YES];
     
 }

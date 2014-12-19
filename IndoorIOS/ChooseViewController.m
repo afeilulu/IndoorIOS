@@ -10,8 +10,12 @@
 #import "Cell.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
+// the http URL used for fetching the sport day rules
+static NSMutableString *jsonUrl;
 
 @interface ChooseViewController ()
+@property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *dateSwitchSegment;
 
 @end
 
@@ -20,6 +24,13 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSLog(@"selectedDate = %@",self.selectedDate);
+    
+    self.timeUnitCollectionView.allowsMultipleSelection = YES;
+    
+    // http://localhost:8080/indoor/reservationStatus/query?sportId=1&stadiumId=1&date=20141208
+    jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/reservationStatus/query?"];
 }
 
 - (void)didReceiveMemoryWarning {

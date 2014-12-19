@@ -25,6 +25,7 @@ static NSAttributedString *cr;
 @property (nonatomic, strong) NSURLConnection *jsonConnection;
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
+@property (nonatomic) int selectedSportIndex;
 
 // the set of IconDownloader objects for each image
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
@@ -36,6 +37,9 @@ static NSAttributedString *cr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // init
+    self.selectedSportIndex = -1;
     
     jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/sportDayRule/queryRule?id="];
     cr = [[NSAttributedString alloc] initWithString:@"\n"];
@@ -216,7 +220,7 @@ static NSAttributedString *cr;
     
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
     [cell.textLabel setAttributedText:[self.stadiumProperties objectAtIndex:indexPath.row]];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -231,19 +235,55 @@ static NSAttributedString *cr;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSString *rowString = [self.list objectAtIndex:[indexPath row]];
-    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
-    UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alter show];
+//    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
+//    UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//    [alter show];
+    if (indexPath.row > 0){
+        self.selectedSportIndex = indexPath.row - 1;
+    } else {
+        self.selectedSportIndex = -1;
+    }
 }
 
 #pragma mark  POHorizontalListDelegate
 
 - (void) didSelectItem:(ListItem *)item {
-    NSLog(@"Horizontal List Item %@ selected", item.title);
+    
+    if (self.selectedSportIndex < 0){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择运动项目"
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"chooseview"];
+    
+    if ([item.objectTag isKindOfClass:[NSDate class]]){
+        NSDate *datedate = (NSDate *)item.objectTag;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyyMMdd"];
+        NSString *dateString = [dateFormatter stringFromDate:datedate];
+        
+        viewController.selectedDate = dateString;
+        viewController.selectedSportIndex = self.selectedSportIndex;
+    }
+    
+    // get singleton
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    SportDayRule *sportDayRule = [stadiumManager.sportDayRuleList objectAtIndex:self.selectedSportIndex];
+    
+    // set back title
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:sportDayRule.name
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -345,12 +385,12 @@ static NSAttributedString *cr;
                     
                     NSMutableString * ruleString=[NSMutableString stringWithString:@""];
                     [ruleString appendString:rule.name];
-                    [ruleString appendString:@" "];
-                    [ruleString appendFormat:@"%@",rule.maxCount];
+//                    [ruleString appendString:@" "];
+//                    [ruleString appendFormat:@"%@",rule.maxCount];
                     [ruleString appendString:@"\n"];
                     for (int i=0; i<ruleArray.count; ++i) {
                         [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
-                        [ruleString appendString:@" - "];
+                        [ruleString appendString:@"-"];
                         [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
                         [ruleString appendString:@" "];
                         [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
