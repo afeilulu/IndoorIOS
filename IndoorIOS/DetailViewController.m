@@ -101,6 +101,8 @@ static NSAttributedString *cr;
     NSHourCalendarUnit |
     NSMinuteCalendarUnit |
     NSSecondCalendarUnit;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
     int n;
     for (n=0;n<7; n=n+1) {
         NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
@@ -112,7 +114,8 @@ static NSAttributedString *cr;
         NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
         NSString *subTitleString = [Utils getWeekName:week];
         ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
-        item.objectTag = tmpDate;// save for next view after date view item clicked
+        NSString *dateString = [dateFormatter stringFromDate:tmpDate];
+        item.objectTag = dateString;// save for next view after date view item clicked
         [dateList addObject:item];
     }
     
@@ -225,12 +228,6 @@ static NSAttributedString *cr;
     [cell.textLabel setAttributedText:[self.stadiumProperties objectAtIndex:indexPath.row]];
 //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-//    NSUInteger row = [indexPath row];
-    
-//    if (row == 0){
-//        cell.textLabel.text = self.stadiumRecord.address;
-//    }
-    
     return cell;
 }
 
@@ -262,15 +259,9 @@ static NSAttributedString *cr;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"chooseview"];
     
-    if ([item.objectTag isKindOfClass:[NSDate class]]){
-        NSDate *datedate = (NSDate *)item.objectTag;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyyMMdd"];
-        NSString *dateString = [dateFormatter stringFromDate:datedate];
-        
-        viewController.selectedDate = dateString;
-        viewController.selectedSportIndex = self.selectedSportIndex;
-    }
+    NSString *dateString = [NSString stringWithFormat:@"%@", item.objectTag];
+    viewController.selectedDate = dateString;
+    viewController.selectedSportIndex = self.selectedSportIndex;
     
     // get singleton
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];

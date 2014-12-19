@@ -56,7 +56,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = [UIColor colorWithWhite:235.0/256.0 alpha:1.0];
         // change to our custom selected background view
         CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView = backgroundView;

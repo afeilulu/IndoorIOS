@@ -18,12 +18,12 @@
     if (self) {
         [self setUserInteractionEnabled:YES];
         
+        self.isSelected = NO;
         self.title = title;
         self.subTitle = subTitle;
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 72.0, 72.0)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 72.0, 72.0)];
 
-        CALayer *roundCorner = [imageView layer];
+        CALayer *roundCorner = [self.imageView layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:8.0];
         [roundCorner setBorderColor:[self tintColor].CGColor];
@@ -48,12 +48,24 @@
         subTitleRect = CGRectMake(20.0, imageRect.origin.y + 40.0, 80.0, 20.0);
         [subTitleLabel setFrame:subTitleRect];
         
-        [self addSubview:imageView];
+        [self addSubview:self.imageView];
         [self addSubview:titleLabel];
         [self addSubview:subTitleLabel];
     }
     
     return self;
+}
+
+- (void)setSelected{
+    self.isSelected = YES;
+    CALayer *roundCorner = [self.imageView layer];
+    [roundCorner setBackgroundColor:[[UIColor colorWithWhite:235.0/256.0 alpha:1.0] CGColor]];
+}
+
+- (void)setDeSelected{
+    self.isSelected = NO;
+    CALayer *roundCorner = [self.imageView layer];
+    [roundCorner setBackgroundColor:[UIColor clearColor].CGColor];
 }
 
 @end

@@ -210,6 +210,9 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
     
+    // hide UITabbarController
+    viewController.hidesBottomBarWhenPushed = YES;
+    
     [self.navigationController pushViewController:viewController animated:YES];
     
 }

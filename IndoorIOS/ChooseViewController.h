@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POHorizontalList.h"
 
-@interface ChooseViewController : UIViewController<UICollectionViewDataSource,UIBarPositioningDelegate>
+@interface ChooseViewController : UIViewController<UICollectionViewDataSource,POHorizontalListDelegate>{
+    NSMutableArray *dateList;
+}
 @property (nonatomic, strong) NSString *selectedDate;
 @property (nonatomic) int selectedSportIndex;
 @end

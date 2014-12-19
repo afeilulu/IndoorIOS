@@ -26,4 +26,6 @@
 
 - (id)initWithFrame:(CGRect)frame items:(NSMutableArray *)items;
 
+- (void)setItemSelectedAtIndex:(int) index;
+
 @end

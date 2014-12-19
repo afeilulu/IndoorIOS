@@ -60,7 +60,37 @@
 
 - (void)itemTapped:(UITapGestureRecognizer *)recognizer {
     ListItem *item = (ListItem *)recognizer.view;
+    
+    for (id viewItem in self.scrollView.subviews) {
+        ListItem *listItem = (ListItem *)viewItem;
+        if (listItem.isSelected)
+            [listItem setDeSelected];
+        
+        if (listItem == item && !item.isSelected)
+            [item setSelected];
+    }
 
+    if (item != nil) {
+        [self.delegate didSelectItem:item];
+    }
+}
+
+- (void)setItemSelectedAtIndex:(int) index
+{
+    for (id viewItem in self.scrollView.subviews) {
+        ListItem *listItem = (ListItem *)viewItem;
+        if (listItem.isSelected)
+            [listItem setDeSelected];
+    }
+    
+    ListItem *item = (ListItem *)self.scrollView.subviews[index];
+    [item setSelected];
+    
+    // scroll to visible
+    int scrollTo = index * 110;
+    CGRect frame = CGRectMake(scrollTo, 0, 82, 82); //wherever you want to scroll
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+    
     if (item != nil) {
         [self.delegate didSelectItem:item];
     }

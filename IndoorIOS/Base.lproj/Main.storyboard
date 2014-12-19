@@ -52,11 +52,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cwK-4L-c2X" secondAttribute="trailing" constant="-16" id="3bx-bv-b8x"/>
-                            <constraint firstItem="91A-bM-flW" firstAttribute="top" secondItem="Wtg-Ps-Uwt" secondAttribute="bottom" constant="8" id="5qW-HF-gR3"/>
+                            <constraint firstItem="91A-bM-flW" firstAttribute="top" secondItem="Wtg-Ps-Uwt" secondAttribute="bottom" id="5qW-HF-gR3"/>
                             <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="leading" secondItem="uH4-5c-7CS" secondAttribute="leadingMargin" id="L3t-lI-xOI"/>
                             <constraint firstItem="cwK-4L-c2X" firstAttribute="leading" secondItem="uH4-5c-7CS" secondAttribute="leadingMargin" constant="-16" id="SwS-l8-Xy6"/>
                             <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="trailing" secondItem="uH4-5c-7CS" secondAttribute="trailingMargin" id="c04-th-6dj"/>
-                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="top" secondItem="cwK-4L-c2X" secondAttribute="bottom" constant="100" id="fN7-nx-GDH"/>
+                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="top" secondItem="cwK-4L-c2X" secondAttribute="bottom" constant="80" id="fN7-nx-GDH"/>
                             <constraint firstItem="cwK-4L-c2X" firstAttribute="top" secondItem="uH4-5c-7CS" secondAttribute="topMargin" id="wQr-fm-StY"/>
                         </constraints>
                     </view>
@@ -81,20 +81,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="urE-iI-urz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                    <segment title=""/>
-                                </segments>
-                            </segmentedControl>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
-                                <rect key="frame" x="0.0" y="33" width="600" height="313"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
+                                <rect key="frame" x="0.0" y="100" width="600" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="EZs-gJ-zjp" customClass="CADFlowLayout">
                                     <size key="itemSize" width="184" height="50"/>
@@ -139,17 +127,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="urE-iI-urz" firstAttribute="top" secondItem="Uyx-Dt-biI" secondAttribute="topMargin" id="3Rh-yr-qtW"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="urE-iI-urz" secondAttribute="trailing" constant="-16" id="KYo-g8-8dG"/>
+                            <constraint firstItem="Eeq-So-yyO" firstAttribute="top" secondItem="LPX-RV-O97" secondAttribute="bottom" constant="80" id="JW2-Tw-pak"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Eeq-So-yyO" secondAttribute="trailing" constant="-16" id="PnT-uZ-prZ"/>
-                            <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="Eeq-So-yyO" secondAttribute="bottom" constant="254" id="Q3U-Or-4C9"/>
-                            <constraint firstItem="Eeq-So-yyO" firstAttribute="top" secondItem="urE-iI-urz" secondAttribute="bottom" constant="5" id="aT0-AQ-Xj0"/>
+                            <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="Eeq-So-yyO" secondAttribute="bottom" constant="180" id="Q3U-Or-4C9"/>
                             <constraint firstItem="Eeq-So-yyO" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="-16" id="f6s-iW-2LR"/>
-                            <constraint firstItem="urE-iI-urz" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="-16" id="g0c-el-5KN"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="dateSwitchSegment" destination="urE-iI-urz" id="YbF-vq-2aA"/>
                         <outlet property="timeUnitCollectionView" destination="Eeq-So-yyO" id="wid-ke-EqH"/>
                     </connections>
                 </viewController>

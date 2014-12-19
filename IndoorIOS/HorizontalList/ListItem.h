@@ -18,13 +18,15 @@
 }
 
 @property (nonatomic, retain) NSObject *objectTag;
-
-@property (nonatomic, retain) NSString *imageTitle;
-@property (nonatomic, retain) UIImage *image;
-
+@property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subTitle;
+@property (nonatomic) BOOL isSelected;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title subTitle:(NSString *)subTitle;
+
+- (void)setSelected;
+
+- (void)setDeSelected;
 
 @end
