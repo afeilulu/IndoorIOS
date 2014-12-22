@@ -11,6 +11,7 @@
 #import "Utils.h"
 #import "StadiumManager.h"
 #import "SportDayRule.h"
+#import "TimeSelectedView/TimeSelectedView.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -20,12 +21,17 @@ static NSMutableString *jsonUrl;
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
 @property (nonatomic) int selectedDateListIndex;
 
-// key = "20141220" value = "2,3,4,5" selected cell index in CollectionView
-@property (nonatomic,strong) NSMutableDictionary *dateToSelectedUnitIndexs;
+// ["20141208","20141209","20141210"...] selected cell index in CollectionView
+@property (nonatomic,strong) NSMutableArray *selectedDateSortedArray;
 
 // dictionary for commit by day
 // key = "20141220" value = "0,0,0,1,2,3,....0,0" length = 48
-@property (nonatomic,strong) NSMutableDictionary *dateToStatus;
+@property (nonatomic,strong) NSMutableDictionary *dateToIndexDictionary;
+
+@property (nonatomic,strong) NSSortDescriptor *dateDescriptor;
+@property (nonatomic,strong) NSArray *sortDescriptors;
+
+@property (retain, nonatomic) TimeSelectedView *timeSelectedView;
 @end
 
 @implementation ChooseViewController
@@ -88,6 +94,12 @@ static NSMutableString *jsonUrl;
     SportDayRule *sportDayrule = stadiumManager.sportDayRuleList[self.selectedSportIndex];
     
     
+    self.dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+    self.sortDescriptors = @[self.dateDescriptor];
+    
+    self.selectedDateSortedArray = [[NSMutableArray alloc] init];
+    self.dateToIndexDictionary =[[NSMutableDictionary alloc] init];
+    [self.selectedDateSortedArray addObject:self.selectedDate];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,11 +138,84 @@ static NSMutableString *jsonUrl;
     
     NSLog(@"collectionView clicked : %i",indexPath.row);
     
+    NSString *selectedIndex = [NSString stringWithFormat:@"%i",indexPath.row];
+    
+    NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
+    if (tmpArray == nil){
+        tmpArray = [[NSMutableArray alloc] init];
+        [self.dateToIndexDictionary setObject:tmpArray forKey:self.selectedDate];
+    }
+    
+    if (![tmpArray containsObject:selectedIndex]){
+        [tmpArray addObject:selectedIndex];
+        
+        // sort
+        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+        [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+    }
+    
+    if (self.timeSelectedView != nil){
+        [self.timeSelectedView removeFromSuperview];
+        self.timeSelectedView = nil;
+    }
+    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(0.0, 400.0, 400.0, 82.0) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray];
+    [self.view addSubview:self.timeSelectedView];
+    
+    [self.view bringSubviewToFront:self.timeUnitCollectionView];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"didDeselectItemAtIndexPath : %i",indexPath.row);
+    
+    NSString *selectedIndex = [NSString stringWithFormat:@"%i",indexPath.row];
+    
+    NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
+    if (tmpArray == nil || ![tmpArray containsObject:selectedIndex]){
+        return;
+    }
+    
+    [tmpArray removeObject:selectedIndex];
+    // sort
+    NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+    
+    if (self.timeSelectedView != nil){
+        [self.timeSelectedView removeFromSuperview];
+        self.timeSelectedView = nil;
+    }
+    
+    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(0.0, 400.0, 400.0, 82.0) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray];
+    [self.view addSubview:self.timeSelectedView];
+    
+    [self.view bringSubviewToFront:self.timeUnitCollectionView];
 }
 
 #pragma mark  POHorizontalListDelegate
 
 - (void) didSelectItem:(ListItem *)item {
     NSLog(@"%@",item.objectTag);
+    
+    self.selectedDate = [NSString stringWithFormat:@"%@",item.objectTag];
+    
+    // clear current select in collection view
+    for (NSIndexPath *indexPath in [self.timeUnitCollectionView indexPathsForSelectedItems]){
+        [self.timeUnitCollectionView deselectItemAtIndexPath:indexPath animated:NO];
+    }
+    
+    if (![self.selectedDateSortedArray containsObject:self.selectedDate]){
+        [self.selectedDateSortedArray addObject:self.selectedDate];
+        
+        // sort using a selector
+        self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    } else {
+        // show already selected cell in collection view on selected date
+        NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
+        for (NSString *item in tmpArray) {
+            int index = item.intValue;
+            [self.timeUnitCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+        }
+    }
 }
+
 @end
