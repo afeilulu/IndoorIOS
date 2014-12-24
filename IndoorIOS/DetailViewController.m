@@ -390,7 +390,7 @@ static NSAttributedString *cr;
                     
                     NSRange range=[ruleString rangeOfString:rule.name];
                     NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
-                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:range];
+                    [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
                     
                     [self.stadiumProperties addObject:string];
                 }

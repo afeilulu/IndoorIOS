@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
+		7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553A3DA1A494C3D00BFE659 /* IconDescription.m */; };
 		75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFC1A315E0B009F5A30 /* StadiumManager.m */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		75668D091A34004B009F5A30 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668D081A34004B009F5A30 /* IconDownloader.m */; };
@@ -41,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
+		7553A3D91A494C2100BFE659 /* IconDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDescription.h; sourceTree = "<group>"; };
+		7553A3DA1A494C3D00BFE659 /* IconDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDescription.m; sourceTree = "<group>"; };
 		75668CFB1A315DE1009F5A30 /* StadiumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumManager.h; sourceTree = "<group>"; };
 		75668CFC1A315E0B009F5A30 /* StadiumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumManager.m; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -283,6 +286,8 @@
 				75E09FDB1A384A5A007787DE /* Utils.m */,
 				757630E91A39E72E007E32E5 /* ChooseViewController.h */,
 				757630EA1A39E72E007E32E5 /* ChooseViewController.m */,
+				7553A3D91A494C2100BFE659 /* IconDescription.h */,
+				7553A3DA1A494C3D00BFE659 /* IconDescription.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -459,6 +464,7 @@
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				75668D091A34004B009F5A30 /* IconDownloader.m in Sources */,
 				757630E51A392E54007E32E5 /* SportDayRule.m in Sources */,
+				7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */,
 				759149871A4683EC000B3836 /* TimeSelectedView.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */,

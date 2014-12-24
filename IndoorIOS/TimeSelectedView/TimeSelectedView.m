@@ -1,67 +1,107 @@
 #import "TimeSelectedView.h"
+#import "TextItem.h"
+#import "StadiumManager.h"
+#import "SportDayRule.h"
 
 @implementation TimeSelectedView
 
-- (id)initWithFrame:(CGRect)frame items:(NSMutableDictionary *)items dates:(NSMutableArray *) dates
+- (id)initWithFrame:(CGRect)frame items:(NSMutableDictionary *)items dates:(NSMutableArray *) dates selectedSport:(int) selectedSport
 {
     self = [super initWithFrame:frame];
     
+    // get singleton
+//    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+//    SportDayRule *sportDayrule = stadiumManager.sportDayRuleList[selectedSport];
+    
+    
+    CALayer *roundCorner = [self layer];
+    [roundCorner setMasksToBounds:YES];
+    [roundCorner setCornerRadius:8.0];
+    [roundCorner setBorderColor:[self tintColor].CGColor];
+    [roundCorner setBorderWidth:1.0];
+    
+    int screen_width = [[UIScreen mainScreen] currentMode].size.width;
+    CGFloat scale_screen = [UIScreen mainScreen].scale;
+    int itemWidth = (screen_width/scale_screen - 20 ) / 3;
+    
+    self.totalPage = 1;
+    
+    int sum=0;
     if (self) {
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-
-        CGSize pageSize = CGSizeMake(ITEM_WIDTH, self.scrollView.frame.size.height);
+        
+        CGSize pageSize = CGSizeMake(itemWidth, RECT_HEIGHT);
+        NSUInteger pageOfDate = 0;
         NSUInteger page = 0;
         
+        // init data
+        self.textItemToShow =[[NSMutableDictionary alloc] init];
         for (NSString *dateitem in dates) {
-            NSMutableArray *itemValue = [items objectForKey:dateitem];
+            NSMutableArray *itemByIndex = [items objectForKey:dateitem];
+            sum = sum + itemByIndex.count * 25;
             
-            NSMutableArray *stringForDisplay =  [self getStringArrayByIndex:itemValue];
-            for (NSString *item in stringForDisplay) {
-                NSLog(@"%@",item);
+            NSMutableArray *newItems = [self getStringArrayByIndex:itemByIndex];
+            [self.textItemToShow setObject:newItems forKey:dateitem];
+            self.totalPage = self.totalPage + (newItems.count-1)/2;
+            
+        }
+//        NSLog(@"totalPage = %i",self.totalPage);
+        
+        // start to display
+        for (NSString *dateitem in dates) {
+            
+            // show date
+            NSString *titleString = [NSString stringWithFormat:@"%@月%@日",[dateitem substringWithRange:NSMakeRange(4, 2)],[dateitem substringWithRange:NSMakeRange(6, 2)]];
+            TextItem *dateText = [[TextItem alloc] initWithFrame:CGRectZero title:titleString color:[self tintColor] size:16];
+            [dateText setFrame:CGRectMake(0, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS) * page, pageSize.width, pageSize.height)];
+            [self.scrollView addSubview:dateText];
+            
+            // show time text item
+            NSMutableArray *newItems = [self.textItemToShow objectForKey:dateitem];
+            int i;
+            for (i=0; i<newItems.count; i++) {
+                TextItem *timeText = [[TextItem alloc] initWithFrame:CGRectZero title:[newItems objectAtIndex:i] color:[UIColor grayColor] size:16];
+                
+                page = pageOfDate + i/2;
+                int startX=0;
+                if (i % 2 == 0)
+                    startX = itemWidth + 10;
+                else
+                    startX = itemWidth * 2 + 15;
+                
+                [timeText setFrame:CGRectMake(startX, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS) * page, pageSize.width, pageSize.height)];
+                [self.scrollView addSubview:timeText];
+                
             }
-        }
-        
-        /*
-        for(ListItem *item in items) {
-            [item setFrame:CGRectMake(LEFT_PADDING + (pageSize.width + DISTANCE_BETWEEN_ITEMS) * page++, 0, pageSize.width, pageSize.height)];
             
-            UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(itemTapped:)];
-            [item addGestureRecognizer:singleFingerTap];
-
-            [self.scrollView addSubview:item];
+            page++;
+            pageOfDate = page;
         }
         
-        self.scrollView.contentSize = CGSizeMake(LEFT_PADDING + (pageSize.width + DISTANCE_BETWEEN_ITEMS) * [items count] + RIGHT_PADDING, pageSize.height);
+        // show total
+        TextItem *sumLabel = [[TextItem alloc] initWithFrame:CGRectZero title:@"合计：" color:[UIColor grayColor] size:16];
+        [sumLabel setFrame:CGRectMake(screen_width/scale_screen - 130, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS) * page, 40, 40)];
+        [self.scrollView addSubview:sumLabel];
+        
+        TextItem *sumNumber = [[TextItem alloc] initWithFrame:CGRectZero title:[NSString stringWithFormat:@"￥%i",sum] color:[self tintColor] size:22];
+        [sumNumber setFrame:CGRectMake(screen_width/scale_screen - 90, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS) * page, 40, 40)];
+        [self.scrollView addSubview:sumNumber];
+        
+        
+        self.scrollView.contentSize = CGSizeMake(screen_width/scale_screen - 4, RECT_HEIGHT * page + 100);
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
-        
         [self addSubview:self.scrollView];
-        
-        // Background shadow
-        CAGradientLayer *dropshadowLayer = [CAGradientLayer layer];
-        dropshadowLayer.contentsScale = scale;
-        dropshadowLayer.startPoint = CGPointMake(0.0f, 0.0f);
-        dropshadowLayer.endPoint = CGPointMake(0.0f, 1.0f);
-        dropshadowLayer.opacity = 1.0;
-        dropshadowLayer.frame = CGRectMake(1.0f, 1.0f, self.frame.size.width - 2.0, self.frame.size.height - 2.0);
-        dropshadowLayer.locations = [NSArray arrayWithObjects:
-                                     [NSNumber numberWithFloat:0.0f],
-                                     [NSNumber numberWithFloat:1.0f], nil];
-         dropshadowLayer.colors = [NSArray arrayWithObjects:
-                                   (id)[[UIColor colorWithWhite:224.0/256.0 alpha:1.0] CGColor],
-                                   (id)[[UIColor colorWithWhite:235.0/256.0 alpha:1.0] CGColor], nil];
-         
-//         [self.layer insertSublayer:dropshadowLayer below:self.scrollView.layer];
-         
-         */
-
     }
 
     return self;
 }
 
+/**
+ * 获取显示日期列表
+ */
 - (NSMutableArray *)getStringArrayByIndex:(NSMutableArray *) sortedArray
 {
     NSMutableArray *result = [[NSMutableArray alloc] init];

@@ -12,6 +12,7 @@
 #import "StadiumManager.h"
 #import "SportDayRule.h"
 #import "TimeSelectedView/TimeSelectedView.h"
+#import "IconDescription.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -28,10 +29,12 @@ static NSMutableString *jsonUrl;
 // key = "20141220" value = "0,0,0,1,2,3,....0,0" length = 48
 @property (nonatomic,strong) NSMutableDictionary *dateToIndexDictionary;
 
-@property (nonatomic,strong) NSSortDescriptor *dateDescriptor;
-@property (nonatomic,strong) NSArray *sortDescriptors;
-
 @property (retain, nonatomic) TimeSelectedView *timeSelectedView;
+@property (retain, nonatomic) IconDescription *iconDescriptionView;
+
+@property (nonatomic) int screenWidth;
+@property (nonatomic) int screenHeight;
+@property (nonatomic) int iconDescriptionViewStartY;
 @end
 
 @implementation ChooseViewController
@@ -40,7 +43,11 @@ static NSMutableString *jsonUrl;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    NSLog(@"selectedDate = %@",self.selectedDate);
+    int screen_width = [[UIScreen mainScreen] currentMode].size.width;
+    int screen_height = [[UIScreen mainScreen] currentMode].size.height;
+    CGFloat scale_screen = [UIScreen mainScreen].scale;
+    self.screenWidth = screen_width/scale_screen;
+    self.screenHeight = screen_height/scale_screen;
     
     self.timeUnitCollectionView.allowsMultipleSelection = YES;
     
@@ -86,20 +93,15 @@ static NSMutableString *jsonUrl;
     
     [list setItemSelectedAtIndex:self.selectedDateListIndex];
     
-    // init content of UICollectionView depending on sport day rule
-    // get sport day rule
-    
-    // get singleton
-    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    SportDayRule *sportDayrule = stadiumManager.sportDayRuleList[self.selectedSportIndex];
-    
-    
-    self.dateDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
-    self.sortDescriptors = @[self.dateDescriptor];
-    
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
     self.dateToIndexDictionary =[[NSMutableDictionary alloc] init];
     [self.selectedDateSortedArray addObject:self.selectedDate];
+    
+    self.iconDescriptionViewStartY = self.screenHeight - 200;
+    NSLog(@"screenHeight = %i",self.screenHeight);
+    self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
+    [self.view addSubview:self.iconDescriptionView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,6 +121,7 @@ static NSMutableString *jsonUrl;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
+    
     // 0:00 - 24:00 minUnit is 30mins
     return 48;
 }
@@ -129,7 +132,8 @@ static NSMutableString *jsonUrl;
     
     // make the cell's title the actual NSIndexPath value
     cell.label.text = [NSString stringWithFormat:@"%i:%@", indexPath.row / 2, indexPath.row % 2 == 0?@"00":@"30"];
-    cell.label.textColor = [UIColor lightGrayColor];
+    cell.label.textColor = [UIColor grayColor];
+    [cell.label setFont:[UIFont systemFontOfSize:16.0]];
     
     return cell;
 }
@@ -137,6 +141,13 @@ static NSMutableString *jsonUrl;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"collectionView clicked : %i",indexPath.row);
+    
+    if (![self.selectedDateSortedArray containsObject:self.selectedDate]){
+        [self.selectedDateSortedArray addObject:self.selectedDate];
+        
+        // sort using a selector
+        self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    }
     
     NSString *selectedIndex = [NSString stringWithFormat:@"%i",indexPath.row];
     
@@ -150,18 +161,24 @@ static NSMutableString *jsonUrl;
         [tmpArray addObject:selectedIndex];
         
         // sort
-        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
+        
         [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
     }
     
+    [self.iconDescriptionView removeFromSuperview];
     if (self.timeSelectedView != nil){
         [self.timeSelectedView removeFromSuperview];
         self.timeSelectedView = nil;
     }
-    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(0.0, 400.0, 400.0, 82.0) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray];
+    
+    CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
+    int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
+    NSLog(@"starty=%i",startY);
+    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, startY+5, self.screenWidth-4, 173) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray selectedSport:self.selectedSportIndex];
     [self.view addSubview:self.timeSelectedView];
     
-    [self.view bringSubviewToFront:self.timeUnitCollectionView];
+//    [self.view bringSubviewToFront:self.timeUnitCollectionView];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -176,19 +193,41 @@ static NSMutableString *jsonUrl;
     }
     
     [tmpArray removeObject:selectedIndex];
-    // sort
-    NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
-    [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+    if (tmpArray.count == 0){
+        [self.selectedDateSortedArray removeObject:self.selectedDate];
+        [self.dateToIndexDictionary removeObjectForKey:self.selectedDate];
+        // sort using a selector
+        self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
+    } else {
+        // sort
+        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
+        [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+    }
     
     if (self.timeSelectedView != nil){
         [self.timeSelectedView removeFromSuperview];
         self.timeSelectedView = nil;
     }
     
-    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(0.0, 400.0, 400.0, 82.0) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray];
-    [self.view addSubview:self.timeSelectedView];
+    if ([self.selectedDateSortedArray count] == 0){
+        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
+        [self.view addSubview:self.iconDescriptionView];
+    } else {
+        CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
+        int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
+        self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, startY+5, self.screenWidth-4, 173) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray selectedSport:self.selectedSportIndex];
+        [self.view addSubview:self.timeSelectedView];
+    }
     
-    [self.view bringSubviewToFront:self.timeUnitCollectionView];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // if you want some cells to be unselectable, list them here
+//    if (indexPath.row == 0)
+//        return NO;
+    
+    return YES;
 }
 
 #pragma mark  POHorizontalListDelegate
@@ -203,12 +242,7 @@ static NSMutableString *jsonUrl;
         [self.timeUnitCollectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
     
-    if (![self.selectedDateSortedArray containsObject:self.selectedDate]){
-        [self.selectedDateSortedArray addObject:self.selectedDate];
-        
-        // sort using a selector
-        self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
-    } else {
+    if ([self.selectedDateSortedArray containsObject:self.selectedDate]){
         // show already selected cell in collection view on selected date
         NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
         for (NSString *item in tmpArray) {

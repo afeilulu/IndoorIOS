@@ -19,10 +19,10 @@
     CGFloat scale_screen = [UIScreen mainScreen].scale;
 //    NSLog(@"screen scale = %f",scale_screen);
     
-    self.minimumInteritemSpacing = 5;
-    self.minimumLineSpacing = 5;
-    self.itemSize = CGSizeMake((screen_width/scale_screen-15)/2, 44);
-    self.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);
+    self.minimumInteritemSpacing = 2;
+    self.minimumLineSpacing = 2;
+    self.itemSize = CGSizeMake((screen_width/scale_screen-6)/2, 44);
+    self.sectionInset = UIEdgeInsetsMake(2, 2, 2, 2);
     
 }
 

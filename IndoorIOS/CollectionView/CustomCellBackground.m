@@ -59,7 +59,8 @@
     [bezierPath setLineWidth:5.0f];
     [[UIColor whiteColor] setStroke];
     
-    UIColor *fillColor = [UIColor colorWithRed:0.529 green:0.808 blue:0.922 alpha:1]; // color equivalent is #87ceeb
+//    UIColor *fillColor = [UIColor colorWithRed:0.529 green:0.808 blue:0.922 alpha:1]; // color equivalent is #87ceeb
+    UIColor *fillColor = [UIColor greenColor];
     [fillColor setFill];
     
     [bezierPath stroke];

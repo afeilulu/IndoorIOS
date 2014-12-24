@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define RECT_HEIGHT            20.0
+
 @interface TextItem : UIView {
     CGRect titleRect;
 }
@@ -16,6 +18,6 @@
 @property (nonatomic, retain) NSObject *objectTag;
 @property (nonatomic, retain) NSString *title;
 
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title;
+- (id)initWithFrame:(CGRect)frame title:(NSString *)title color:(UIColor *)color size:(int)size;
 
 @end
