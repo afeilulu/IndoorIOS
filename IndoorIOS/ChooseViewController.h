@@ -13,5 +13,8 @@
     NSMutableArray *dateList;
 }
 @property (nonatomic, strong) NSString *selectedDate;
+@property (nonatomic, strong) NSString *selectedStadiumId;
 @property (nonatomic) int selectedSportIndex;
+
+
 @end

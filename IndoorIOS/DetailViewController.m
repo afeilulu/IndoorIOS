@@ -262,6 +262,7 @@ static NSAttributedString *cr;
     NSString *dateString = [NSString stringWithFormat:@"%@", item.objectTag];
     viewController.selectedDate = dateString;
     viewController.selectedSportIndex = self.selectedSportIndex;
+    viewController.selectedStadiumId = self.stadiumRecord.idString;
     
     // get singleton
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];

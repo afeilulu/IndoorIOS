@@ -9,11 +9,6 @@
 {
     self = [super initWithFrame:frame];
     
-    // get singleton
-//    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-//    SportDayRule *sportDayrule = stadiumManager.sportDayRuleList[selectedSport];
-    
-    
     CALayer *roundCorner = [self layer];
     [roundCorner setMasksToBounds:YES];
     [roundCorner setCornerRadius:8.0];

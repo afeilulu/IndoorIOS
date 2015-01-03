@@ -6,6 +6,8 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
+#define unitSize    48  // 0:00 - 24:00 minUnit is 30mins
+
 #import "ChooseViewController.h"
 #import "Cell.h"
 #import "Utils.h"
@@ -13,24 +15,39 @@
 #import "SportDayRule.h"
 #import "TimeSelectedView/TimeSelectedView.h"
 #import "IconDescription.h"
+#import "StatusByDayRecord.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
 static NSMutableString *jsonUrl;
 
+static NSString *queryUrl = @"http://localhost:8080/indoor/reservationStatus/query?sportId=%@&stadiumId=%@&date=%@";
+// URL for save reservation status by day
+static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/saveInJson";
+
 @interface ChooseViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
 @property (nonatomic) int selectedDateListIndex;
+@property (nonatomic,strong) SportDayRule *sportDayrule;
+
+@property (nonatomic,strong) NSURLConnection *queryConn;
+@property (nonatomic,strong) NSURLConnection *saveConn;
 
 // ["20141208","20141209","20141210"...] selected cell index in CollectionView
 @property (nonatomic,strong) NSMutableArray *selectedDateSortedArray;
 
 // dictionary for commit by day
-// key = "20141220" value = "0,0,0,1,2,3,....0,0" length = 48
+// key = "20141220" value = selected index of collectionview
 @property (nonatomic,strong) NSMutableDictionary *dateToIndexDictionary;
+// for keeping status fetching from remote server
+// key format "yyyyMMdd" value is status string like "0,0,0,0,1,1,1,...,0,0,0"
+// accoring this status,update collectionview cell
+@property (nonatomic,strong) NSMutableDictionary *dateToStatusDictionary;
 
 @property (retain, nonatomic) TimeSelectedView *timeSelectedView;
 @property (retain, nonatomic) IconDescription *iconDescriptionView;
+
+@property (nonatomic, strong) NSMutableData *jsonData;
 
 @property (nonatomic) int screenWidth;
 @property (nonatomic) int screenHeight;
@@ -51,8 +68,17 @@ static NSMutableString *jsonUrl;
     
     self.timeUnitCollectionView.allowsMultipleSelection = YES;
     
-    // http://localhost:8080/indoor/reservationStatus/query?sportId=1&stadiumId=1&date=20141208
-    jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/reservationStatus/query?"];
+    // get sport day rule
+    // get singleton
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    self.sportDayrule = stadiumManager.sportDayRuleList[self.selectedSportIndex];
+    
+    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    // 从服务器获取信息
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
+    self.queryConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
@@ -94,14 +120,75 @@ static NSMutableString *jsonUrl;
     [list setItemSelectedAtIndex:self.selectedDateListIndex];
     
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
-    self.dateToIndexDictionary =[[NSMutableDictionary alloc] init];
-    [self.selectedDateSortedArray addObject:self.selectedDate];
+    self.dateToIndexDictionary = [[NSMutableDictionary alloc] init];
+    self.dateToStatusDictionary = [[NSMutableDictionary alloc] init];
     
     self.iconDescriptionViewStartY = self.screenHeight - 200;
-    NSLog(@"screenHeight = %i",self.screenHeight);
     self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
     [self.view addSubview:self.iconDescriptionView];
     
+    // add submit button
+    UIBarButtonItem *submitButton =
+    [[UIBarButtonItem alloc] initWithTitle:@"提交"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(submitButtonPressed)];
+    self.navigationItem.rightBarButtonItem = submitButton;
+}
+
+- (void)submitButtonPressed{
+    NSLog(@"submit button pressed");
+    if (self.selectedDateSortedArray.count == 0){
+        UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"请预约时间" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alter show];
+        return;
+    }
+    
+    // submit
+    
+    /*
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8080/indoor/reservationStatus/save"]];
+    // Set the request's content type to application/x-www-form-urlencoded
+    [postRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [postRequest setHTTPMethod:@"POST"];
+    
+    NSString *bodyData = [NSString stringWithFormat:@"stadiumId=%@&sportId=%@&date=%@&status=%@",sportDayrule.stadiumId,sportDayrule.sportId,self.selectedDate,];
+    [postRequest setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
+     */
+    
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8080/indoor/reservationStatus/saveInJson"]];
+    [postRequest setHTTPMethod:@"POST"];
+    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
+    for (NSString *dateItem in [self.dateToIndexDictionary keyEnumerator]) {
+        NSArray *selectedIndexs = [self.dateToIndexDictionary objectForKey:dateItem];
+        NSMutableString *status=[[NSMutableString alloc] init];
+        for (int i=0; i<unitSize; i++) {
+            if ([selectedIndexs containsObject:[NSString stringWithFormat:@"%i",i]])
+                [status appendString:@"1,"];
+            else
+                [status appendString:@"0,"];
+        }
+        
+        StatusByDayRecord *statusByDayRecord = [[StatusByDayRecord alloc] init];
+        statusByDayRecord.stadiumId = self.sportDayrule.stadiumId;
+        statusByDayRecord.sportId = self.sportDayrule.sportId;
+        statusByDayRecord.date = dateItem;
+        statusByDayRecord.status = status;
+        
+        [dataArray addObject:statusByDayRecord.dictionary];
+    }
+    
+    NSError* error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataArray options:kNilOptions error:&error];
+    [postRequest setHTTPBody: jsonData];
+    
+    // Initialize the NSURLConnection and proceed as described in
+    // Retrieving the Contents of a URL
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.saveConn = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,9 +208,7 @@ static NSMutableString *jsonUrl;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    
-    // 0:00 - 24:00 minUnit is 30mins
-    return 48;
+    return unitSize;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -242,6 +327,14 @@ static NSMutableString *jsonUrl;
         [self.timeUnitCollectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
     
+    // get status of current selected date
+    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    // 从服务器获取信息
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
+    self.queryConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    
     if ([self.selectedDateSortedArray containsObject:self.selectedDate]){
         // show already selected cell in collection view on selected date
         NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
@@ -252,4 +345,111 @@ static NSMutableString *jsonUrl;
     }
 }
 
+#pragma mark - NSURLConnectionDelegate
+
+// -------------------------------------------------------------------------------
+//	handleError:error
+//  handle connection error
+//  Reports any error with an alert which was received from connection or loading failures.
+// -------------------------------------------------------------------------------
+- (void)handleError:(NSError *)error
+{
+    NSString *errorMessage = [error localizedDescription];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+                                                        message:errorMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveResponse:response
+//  Called when enough data has been read to construct an NSURLResponse object.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    self.jsonData = [NSMutableData data];    // start off with new data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveData:data
+//  Called with a single immutable NSData object to the delegate, representing the next
+//  portion of the data loaded from the connection.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.jsonData appendData:data];  // append incoming data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didFailWithError:error
+//  Will be called at most once, if an error occurs during a resource load.
+//  No other callbacks will be made after.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    if (error.code == kCFURLErrorNotConnectedToInternet)
+    {
+        // if we can identify the error, we can present a more precise message to the user.
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"No Connection Error"};
+        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                                         code:kCFURLErrorNotConnectedToInternet
+                                                     userInfo:userInfo];
+        [self handleError:noConnectionError];
+    }
+    else
+    {
+        // otherwise handle the error generically
+        [self handleError:error];
+    }
+    
+    connection = nil;   // release our connection
+}
+
+// -------------------------------------------------------------------------------
+//	connectionDidFinishLoading:connection
+//  Called when all connection processing has completed successfully, before the delegate
+//  is released by the connection.
+// -------------------------------------------------------------------------------
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    connection = nil;   // release our connection
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    NSError* error;
+    NSDictionary *result = [NSJSONSerialization
+                      JSONObjectWithData:self.jsonData
+                      options:kNilOptions
+                      error:&error];
+    
+    NSLog(@"result=%@",result);
+    
+    if ((int)[result objectForKey:@"resultCode"] == 1){
+        // successful called
+        
+        // confirm we get status this time
+        if ([result objectForKey:@"status"]){
+            
+            NSString *date = [NSString stringWithFormat:@"%@",[result objectForKey:@"date"]];
+            NSString *statusValue = [NSString stringWithFormat:@"%@",[result objectForKey:@"status"]];
+            [self.dateToStatusDictionary setObject:statusValue forKey:date];
+            
+            [self updateCollectionViewCells];
+        }
+    }
+    
+}
+
+-(void)updateCollectionViewCells
+{
+    NSString *statusValue = [self.dateToStatusDictionary objectForKey:self.selectedDate];
+    if (statusValue == nil)
+        return;
+    
+    NSArray *statusArray = [statusValue componentsSeparatedByString:@","];
+    
+}
 @end

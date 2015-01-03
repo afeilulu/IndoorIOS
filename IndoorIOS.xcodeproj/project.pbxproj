@@ -36,6 +36,7 @@
 		75E09FD71A382EB8007787DE /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD31A382EB8007787DE /* ListItem.m */; };
 		75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD51A382EB8007787DE /* POHorizontalList.m */; };
 		75E09FDC1A384A5A007787DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FDB1A384A5A007787DE /* Utils.m */; };
+		75F8C5FA1A56DEA900F391EA /* StatusByDayRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */; };
 		75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304C1A29CC300079D4D4 /* StadiumRecord.m */; };
 		75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304E1A29F0660079D4D4 /* ParseOperation.m */; };
 /* End PBXBuildFile section */
@@ -149,6 +150,8 @@
 		75E09FD61A382EB8007787DE /* POHorizontalListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POHorizontalListDelegate.h; path = HorizontalList/POHorizontalListDelegate.h; sourceTree = "<group>"; };
 		75E09FDA1A384A34007787DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		75E09FDB1A384A5A007787DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		75F8C5F81A56D83800F391EA /* StatusByDayRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusByDayRecord.h; sourceTree = "<group>"; };
+		75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusByDayRecord.m; sourceTree = "<group>"; };
 		75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StadiumRecord.h; sourceTree = "<group>"; };
 		75FE304C1A29CC300079D4D4 /* StadiumRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumRecord.m; sourceTree = "<group>"; };
 		75FE304E1A29F0660079D4D4 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */,
 				757630E31A392D68007E32E5 /* SportDayRule.h */,
 				757630E41A392E53007E32E5 /* SportDayRule.m */,
+				75F8C5F81A56D83800F391EA /* StatusByDayRecord.h */,
+				75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -453,6 +458,7 @@
 			files = (
 				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
 				757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */,
+				75F8C5FA1A56DEA900F391EA /* StatusByDayRecord.m in Sources */,
 				759149831A4679AE000B3836 /* TextItem.m in Sources */,
 				75E09FDC1A384A5A007787DE /* Utils.m in Sources */,
 				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
