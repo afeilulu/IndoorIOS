@@ -16,14 +16,15 @@
 #import "TimeSelectedView/TimeSelectedView.h"
 #import "IconDescription.h"
 #import "StatusByDayRecord.h"
+#import "CustomCellBackground.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
 static NSMutableString *jsonUrl;
 
-static NSString *queryUrl = @"http://localhost:8080/indoor/reservationStatus/query?sportId=%@&stadiumId=%@&date=%@";
+static NSString *queryUrl = @"http://chinaairdome.com:9080/indoor/reservationStatus/query?sportId=%@&stadiumId=%@&date=%@";
 // URL for save reservation status by day
-static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/saveInJson";
+static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStatus/saveInJson";
 
 @interface ChooseViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
@@ -43,6 +44,7 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
 // key format "yyyyMMdd" value is status string like "0,0,0,0,1,1,1,...,0,0,0"
 // accoring this status,update collectionview cell
 @property (nonatomic,strong) NSMutableDictionary *dateToStatusDictionary;
+@property (nonatomic,strong) NSArray *currentStatusArray;
 
 @property (retain, nonatomic) TimeSelectedView *timeSelectedView;
 @property (retain, nonatomic) IconDescription *iconDescriptionView;
@@ -52,6 +54,7 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
 @property (nonatomic) int screenWidth;
 @property (nonatomic) int screenHeight;
 @property (nonatomic) int iconDescriptionViewStartY;
+@property (nonatomic) int maxCount;
 @end
 
 @implementation ChooseViewController
@@ -72,13 +75,9 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     // get singleton
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     self.sportDayrule = stadiumManager.sportDayRuleList[self.selectedSportIndex];
-    
+    self.maxCount = self.sportDayrule.maxCount.intValue;
+
     jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    // 从服务器获取信息
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
-    self.queryConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
@@ -122,6 +121,7 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
     self.dateToIndexDictionary = [[NSMutableDictionary alloc] init];
     self.dateToStatusDictionary = [[NSMutableDictionary alloc] init];
+    self.currentStatusArray = [[NSArray alloc] init];
     
     self.iconDescriptionViewStartY = self.screenHeight - 200;
     self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
@@ -156,7 +156,7 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     [postRequest setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
      */
     
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8080/indoor/reservationStatus/saveInJson"]];
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:saveUrl]];
     [postRequest setHTTPMethod:@"POST"];
     [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -219,7 +219,14 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     cell.label.text = [NSString stringWithFormat:@"%i:%@", indexPath.row / 2, indexPath.row % 2 == 0?@"00":@"30"];
     cell.label.textColor = [UIColor grayColor];
     [cell.label setFont:[UIFont systemFontOfSize:16.0]];
+    cell.backgroundColor = [UIColor colorWithWhite:235.0/256.0 alpha:1.0]; // need to be set dynamically
+    CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
+    cell.selectedBackgroundView = backgroundView;
     
+    if (self.currentStatusArray != nil && (self.currentStatusArray.count > indexPath.row) && [[self.currentStatusArray objectAtIndex:indexPath.row] integerValue] >= self.maxCount){
+        cell.backgroundColor = [UIColor redColor];
+        cell.selectedBackgroundView = nil;
+    }
     return cell;
 }
 
@@ -309,8 +316,9 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // if you want some cells to be unselectable, list them here
-//    if (indexPath.row == 0)
-//        return NO;
+    if (self.currentStatusArray != nil && (self.currentStatusArray.count > indexPath.row) && [[self.currentStatusArray objectAtIndex:indexPath.row] integerValue] >= self.maxCount){
+        return NO;
+    }
     
     return YES;
 }
@@ -330,8 +338,9 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     // get status of current selected date
     jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
     
+    // we need fetch status every time date seleted in case some other people update on different device
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    // 从服务器获取信息
+    // 从服务器获取状态信息
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
     self.queryConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     
@@ -427,29 +436,54 @@ static NSString *saveUrl = @"http://localhost:8080/indoor/reservationStatus/save
     
     NSLog(@"result=%@",result);
     
-    if ((int)[result objectForKey:@"resultCode"] == 1){
-        // successful called
+    if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"query"]) {
+    
+        if ([[result objectForKey:@"resultCode"] integerValue] == 1){
+            // successfully queried
         
-        // confirm we get status this time
-        if ([result objectForKey:@"status"]){
-            
+            // confirm we get status this time
             NSString *date = [NSString stringWithFormat:@"%@",[result objectForKey:@"date"]];
             NSString *statusValue = [NSString stringWithFormat:@"%@",[result objectForKey:@"status"]];
-            [self.dateToStatusDictionary setObject:statusValue forKey:date];
-            
+            NSArray *statusArray = [statusValue componentsSeparatedByString:@","];
+            [self.dateToStatusDictionary setObject:statusArray forKey:date];
+            [self updateCollectionViewCells];
+        } else if ([[result objectForKey:@"resultCode"] integerValue] == 0){
+            NSString *statusValue = @"0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+            NSArray *statusArray = [statusValue componentsSeparatedByString:@","];
+            [self.dateToStatusDictionary setObject:statusArray forKey:self.selectedDate];
             [self updateCollectionViewCells];
         }
     }
     
+    if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"save"]) {
+        if ([[result objectForKey:@"resultCode"] integerValue] == 1){
+            // successfully saved
+            // TODO
+        }
+    }
 }
 
 -(void)updateCollectionViewCells
 {
-    NSString *statusValue = [self.dateToStatusDictionary objectForKey:self.selectedDate];
-    if (statusValue == nil)
+    NSArray *statusArray = [self.dateToStatusDictionary objectForKey:self.selectedDate];
+    if (statusArray == nil)
         return;
     
-    NSArray *statusArray = [statusValue componentsSeparatedByString:@","];
+    self.currentStatusArray = statusArray;
+    
+    for (int i=0; i<unitSize; i++) {
+        if ((statusArray.count > i)){
+            UICollectionViewCell *cell = [self.timeUnitCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            if ([[statusArray objectAtIndex:i] integerValue] >= self.maxCount){
+                cell.backgroundColor = [UIColor redColor];
+                cell.selectedBackgroundView=nil;
+            } else {
+                cell.backgroundColor = [UIColor colorWithWhite:235.0/256.0 alpha:1.0];
+                CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
+                cell.selectedBackgroundView = backgroundView;
+            }
+        }
+    }
     
 }
 @end
