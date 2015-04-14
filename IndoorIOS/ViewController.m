@@ -43,12 +43,12 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.view = _mapView;
     
-//    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
-//        //由于IOS8中定位的授权机制改变 需要进行手动授权
-//        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];
-//        //获取授权认证
-//        [locationManager requestAlwaysAuthorization];
-//    }
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8) {
+        //由于IOS8中定位的授权机制改变 需要进行手动授权
+        CLLocationManager  *locationManager = [[CLLocationManager alloc] init];
+        //获取授权认证
+        [locationManager requestAlwaysAuthorization];
+    }
     
     // 初始化定位服务
     //适配ios7
@@ -66,7 +66,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _locService.delegate = self;
     
-    [_mapView setZoomLevel:8];
+//    [_mapView setZoomLevel:4];
     
     // 开始普通定位
     [_locService startUserLocationService];
@@ -117,21 +117,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
 #pragma mark mapViewDelegate 代理方法
 - (void)didUpdateUserLocation:(BMKUserLocation *)userLocation
 {
-//    BMKCoordinateRegion region;
-//    region.center.latitude = userLocation.location.coordinate.latitude;
-//    region.center.longitude = userLocation.location.coordinate.longitude;
-//    region.span.latitudeDelta = 0.2;
-//    region.span.longitudeDelta = 0.2;
-//    
-//    if (_mapView){
-//        _mapView.region = region;
-//        NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-//    }
-    
-//    [_mapView setRegion:region animated:YES];
-//    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
     [_mapView updateLocationData:userLocation];
-
 }
 
 /**
@@ -150,6 +136,15 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
 - (void)loadData{
     NSLog(@"loadData");
     
+    BMKCoordinateRegion region = [self getCenterRegion];
+    //百度地图的坐标范围转换成相对视图的位置
+    CGRect fitRect = [_mapView convertRegion:region toRectToView:_mapView];
+    //将地图视图的位置转换成地图的位置
+    BMKMapRect fitMapRect = [_mapView convertRect:fitRect toMapRectFromView:_mapView];
+    //设置地图可视范围为数据所在的地图位置
+    [_mapView setVisibleMapRect:fitMapRect animated:YES];
+    
+    
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     int stadiumCount = stadiumManager.stadiumList.count;
     if (stadiumCount > 0){
@@ -167,55 +162,59 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     } else {
         NSLog(@"staisdum list is nil");
     }
+    
 }
 
 /**
- * 响应点击百度地图标记
+ * 根据所有坐标计算出显示范围和中心点，以便让所有地点都展示出来，有默认值
  */
-- (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view{
-    NSLog(@"annotation clicked %@", view.reuseIdentifier);
+- (BMKCoordinateRegion)getCenterRegion{
+    CLLocationDegrees minLat = 25;
+    CLLocationDegrees maxLat = 40;
+    CLLocationDegrees minLng = 100;
+    CLLocationDegrees maxLng = 120;
     
-//    [_mapView bringSubviewToFront:view];
-//    [_mapView setNeedsDisplay];
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    int stadiumCount = stadiumManager.stadiumList.count;
+    if (stadiumCount > 0){
+        int i=0;
+        for (NSString *key in stadiumManager.stadiumList) {
+            StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:key];
+            if (i == 0) {
+                minLat = [stadium.lat floatValue];
+                maxLat = [stadium.lat floatValue];
+                minLng = [stadium.lng floatValue];
+                maxLng = [stadium.lng floatValue];
+            } else {
+                //对比筛选出最小纬度，最大纬度；最小经度，最大经度
+                minLat = MIN(minLat, [stadium.lat floatValue]);
+                maxLat = MAX(maxLat, [stadium.lat floatValue]);
+                minLng = MIN(minLng, [stadium.lng floatValue]);
+                maxLng = MAX(maxLng, [stadium.lng floatValue]);
+            }
+            
+            i++;
+        }
+    } else {
+        NSLog(@"staisdum list is nil");
+    }
     
-    // Create the root view controller for the navigation controller
-    // The new view controller configures a Cancel and Done button for the
-    // navigation bar.
-//    DetailViewController *addController = [[DetailViewController alloc] init];
-//
-//    addController.edgesForExtendedLayout = UIRectEdgeAll;
-//    addController.extendedLayoutIncludesOpaqueBars = YES;
+    //计算中心点
+    CLLocationCoordinate2D centCoor;
+    centCoor.latitude = (CLLocationDegrees)((maxLat+minLat) * 0.5f);
+    centCoor.longitude = (CLLocationDegrees)((maxLng+minLng) * 0.5f);
+    BMKCoordinateSpan span;
+    //计算地理位置的跨度
+    span.latitudeDelta = maxLat - minLat;
+    span.longitudeDelta = maxLng - minLng;
+    //得出数据的坐标区域
+    BMKCoordinateRegion region = BMKCoordinateRegionMake(centCoor, span);
 
-//    // Configure the RecipeAddViewController. In this case, it reports any
-//    // changes to a custom delegate object.
-////    addController.delegate = self;
-//    
-//    // Create the navigation controller and present it.
-//    UINavigationController *navigationController = [[UINavigationController alloc]
-//                                                    initWithRootViewController:addController];
-//    navigationController.edgesForExtendedLayout =UIRectEdgeAll;
-//    navigationController.extendedLayoutIncludesOpaqueBars = YES;
-//    [self presentViewController:navigationController animated:YES completion: nil];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
-    
-    viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
-    
-    // set back title
-    UIBarButtonItem *newBackButton =
-    [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
-                                     style:UIBarButtonItemStyleBordered
-                                    target:nil
-                                    action:nil];
-    [[self navigationItem] setBackBarButtonItem:newBackButton];
-    
-    // hide UITabbarController
-    viewController.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-    
+    return region;
 }
+
+#pragma mark -
+#pragma mark implement BMKMapViewDelegate
 
 /**
  *根据anntation生成对应的View
@@ -237,23 +236,54 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     // 缓存没有命中，自己构造一个，一般首次添加annotation代码会运行到此处
     if (annotationView == nil) {
         annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
-        ((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorRed;
-        // 设置重天上掉下的效果(annotation)
-        ((BMKPinAnnotationView*)annotationView).animatesDrop = YES;
-        ((BMKPinAnnotationView*)annotationView).draggable = NO;
+        ((BMKPinAnnotationView*)annotationView).image = [UIImage imageNamed:@"icon_nav_point"];
     }
+    
+//    ((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorGreen;
+    // 设置重天上掉下的效果(annotation)
+    ((BMKPinAnnotationView*)annotationView).animatesDrop = YES;
+    ((BMKPinAnnotationView*)annotationView).draggable = NO;
     
     // 设置位置
     annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
-    annotationView.annotation = annotation;
     
     // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
-    annotationView.canShowCallout = NO;
-    // 设置是否可以拖拽
-    annotationView.draggable = NO;
-    
+    annotationView.canShowCallout = YES;
     
     return annotationView;
+}
+
+/**
+ * 响应点击百度地图标记
+ */
+- (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view{
+    NSLog(@"annotation clicked %@", view.reuseIdentifier);
+}
+
+// 当点击annotation view弹出的泡泡时，调用此接口
+- (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view;
+{
+    NSLog(@"paopaoclick");
+    
+    
+     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+     DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
+     
+     viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
+     
+     // set back title
+     UIBarButtonItem *newBackButton =
+     [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
+     style:UIBarButtonItemStyleBordered
+     target:nil
+     action:nil];
+     [[self navigationItem] setBackBarButtonItem:newBackButton];
+     
+     // hide UITabbarController
+     viewController.hidesBottomBarWhenPushed = YES;
+     
+     [self.navigationController pushViewController:viewController animated:YES];
+    
 }
 
 // -------------------------------------------------------------------------------
