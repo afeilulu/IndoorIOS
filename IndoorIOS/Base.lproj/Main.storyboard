@@ -101,7 +101,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6x-so-MHV">
                                                     <rect key="frame" x="8" y="14" width="194" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -140,6 +140,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OH1-x8-xjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3377" y="272"/>
+        </scene>
+        <!--Pay View Controller-->
+        <scene sceneID="1HM-Cy-qd8">
+            <objects>
+                <viewController storyboardIdentifier="payview" id="HJV-5N-v2v" customClass="CADPayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A26-st-egb"/>
+                        <viewControllerLayoutGuide type="bottom" id="ixo-fa-ufU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0H0-Yd-i6o">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jca-ZU-LnF">
+                                <rect key="frame" x="260" y="562" width="80" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                                <state key="normal" title="确认支付">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="payAction:" destination="HJV-5N-v2v" eventType="touchUpInside" id="Be0-zL-8Ot"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ixo-fa-ufU" firstAttribute="top" secondItem="Jca-ZU-LnF" secondAttribute="bottom" constant="8" id="Bbw-8D-n3W"/>
+                            <constraint firstItem="Jca-ZU-LnF" firstAttribute="leading" secondItem="0H0-Yd-i6o" secondAttribute="leadingMargin" id="Lon-A6-x0p"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jca-ZU-LnF" secondAttribute="trailing" id="gbV-dW-kM7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="ConfirmPayButton" destination="Jca-ZU-LnF" id="iOI-sO-f6W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="veS-Tr-dUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4033" y="272"/>
         </scene>
         <!--教练-->
         <scene sceneID="E8q-GO-DdP">

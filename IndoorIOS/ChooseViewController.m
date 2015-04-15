@@ -144,7 +144,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
         return;
     }
     
-    // submit
+    // 提交预订给服务器
     
     /*
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8080/indoor/reservationStatus/save"]];
@@ -458,7 +458,21 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"save"]) {
         if ([[result objectForKey:@"resultCode"] integerValue] == 1){
             // successfully saved
-            // TODO
+            
+            // 这里会得到订单id
+            
+            // load payview
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"payview"];
+            
+            // set back title
+            UIBarButtonItem *newBackButton =
+            [[UIBarButtonItem alloc] initWithTitle:@"订单确认"
+                                             style:UIBarButtonItemStyleBordered
+                                            target:nil
+                                            action:nil];
+            [[self navigationItem] setBackBarButtonItem:newBackButton];
+            [self.navigationController pushViewController:viewController animated:YES];
         }
     }
 }
