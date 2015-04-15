@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import <AlipaySDK/AlipaySDK.h>
 
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
@@ -82,6 +82,23 @@ BMKMapManager* _mapManager;
     else {
         NSLog(@"onGetPermissionState %d",iError);
     }
+}
+
+// Alipay callback
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    //如果极简 SDK 不可用,会跳转支付宝钱包进行支付,需要将支付宝钱包的支付结果回传给 SDK
+    if ([url.host isEqualToString:@"safepay"]) {
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"异步返回 safepay result = %@",resultDic);
+        }];
+    }
+    if ([url.host isEqualToString:@"platformapi"]){
+        //支付宝钱包快登授权返回 authCode
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"异步返回 platformapi result = %@",resultDic);
+        }];
+    }
+    return YES;
 }
 
 @end

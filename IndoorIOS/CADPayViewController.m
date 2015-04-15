@@ -99,7 +99,7 @@
     order.showUrl = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"chinaairdome";
+    NSString *appScheme = @"IndoorIOS";
     
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];
@@ -116,7 +116,7 @@
                        orderSpec, signedString, @"RSA"];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
+            NSLog(@"同步返回 reslut = %@",resultDic);
         }];
     }
 }
