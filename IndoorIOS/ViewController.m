@@ -12,9 +12,8 @@
 #import "ParseOperation.h"
 #import "DetailViewController.h"
 #import "BMapKit.h"
-
-// the http URL used for fetching the stadiums
-static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/stadium.json";
+#import "Constants.h"
+#import "CADPointAnnotation.h"
 
 @interface ViewController ()
 
@@ -66,8 +65,6 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     _locService.delegate = self;
     
-//    [_mapView setZoomLevel:4];
-    
     // 开始普通定位
     [_locService startUserLocationService];
     _mapView.showsUserLocation = NO;//先关闭显示的定位图层
@@ -75,9 +72,11 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     _mapView.showsUserLocation = YES;//显示定位图层
     
     // 从服务器获取地图信息
-    // setup url connection
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:StadiumsJsonUrl]];
-    _stadiumsJsonConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumsJsonUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString="];
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    _stadiumsJsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
     
     // Test the validity of the connection object. The most likely reason for the connection object
     // to be nil is a malformed URL, which is a programmatic error easily detected during development
@@ -144,23 +143,21 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     //设置地图可视范围为数据所在的地图位置
     [_mapView setVisibleMapRect:fitMapRect animated:YES];
     
-    
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     int stadiumCount = stadiumManager.stadiumList.count;
     if (stadiumCount > 0){
         for (NSString *key in stadiumManager.stadiumList) {
             StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:key];
-            BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
+            CADPointAnnotation * item = [[CADPointAnnotation alloc]init];
             CLLocationCoordinate2D coors;
             coors.latitude = [stadium.lat floatValue];
             coors.longitude = [stadium.lng floatValue];
             item.coordinate = coors;
             item.title = [stadium name];
-//            NSLog(@"%@",item.title);
+            item.stadiumId = [stadium idString];
+            //            NSLog(@"%@",item.title);
             [_mapView addAnnotation:item];
         }
-    } else {
-        NSLog(@"staisdum list is nil");
     }
     
 }
@@ -197,6 +194,13 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
         }
     } else {
         NSLog(@"staisdum list is nil");
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"抱歉，没有获取到场地信息。"
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
     }
     
     //计算中心点
@@ -209,7 +213,7 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     span.longitudeDelta = maxLng - minLng;
     //得出数据的坐标区域
     BMKCoordinateRegion region = BMKCoordinateRegionMake(centCoor, span);
-
+    
     return region;
 }
 
@@ -236,10 +240,11 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     // 缓存没有命中，自己构造一个，一般首次添加annotation代码会运行到此处
     if (annotationView == nil) {
         annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+        // 设置标注图片
         ((BMKPinAnnotationView*)annotationView).image = [UIImage imageNamed:@"icon_nav_point"];
     }
     
-//    ((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorGreen;
+    //    ((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorGreen;
     // 设置重天上掉下的效果(annotation)
     ((BMKPinAnnotationView*)annotationView).animatesDrop = YES;
     ((BMKPinAnnotationView*)annotationView).draggable = NO;
@@ -266,23 +271,24 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     NSLog(@"paopaoclick");
     
     
-     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-     DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
-     
-     viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
-     
-     // set back title
-     UIBarButtonItem *newBackButton =
-     [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
-     style:UIBarButtonItemStyleBordered
-     target:nil
-     action:nil];
-     [[self navigationItem] setBackBarButtonItem:newBackButton];
-     
-     // hide UITabbarController
-     viewController.hidesBottomBarWhenPushed = YES;
-     
-     [self.navigationController pushViewController:viewController animated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
+    
+//    viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
+    viewController.stadiumId = ((CADPointAnnotation*)view.annotation).stadiumId;
+    
+    // set back title
+    UIBarButtonItem *newBackButton =
+    [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
+                                     style:UIBarButtonItemStyleBordered
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
+    // hide UITabbarController
+    viewController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:viewController animated:YES];
     
 }
 
@@ -379,29 +385,29 @@ static NSString *const StadiumsJsonUrl = @"http://chinaairdome.com:9080/indoor/s
     };
     
     /*
-    // Referencing parser from within its completionBlock would create a retain cycle.
-    __weak ParseOperation *weakParser = parser;
-    
-    parser.completionBlock = ^(void) {
-        if (weakParser.stadiumRecordList) {
-            // The completion block may execute on any thread.  Because operations
-            // involving the UI are about to be performed, make sure they execute
-            // on the main thread.
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // The root rootViewController is the only child of the navigation
-                // controller, which is the window's rootViewController.
-                //                ViewController *viewController = (ViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
-                
-//                ViewController *viewController = (ViewController*)[[(UITabBarController*)self.window.rootViewController viewControllers][0] topViewController];
-//                
-//                _entries = [NSArray arrayWithArray:weakParser.stadiumRecordList ];
-                [self loadData];
-            });
-        }
-        
-        // we are finished with the queue and our ParseOperation
-        self.queue = nil;
-    };
+     // Referencing parser from within its completionBlock would create a retain cycle.
+     __weak ParseOperation *weakParser = parser;
+     
+     parser.completionBlock = ^(void) {
+     if (weakParser.stadiumRecordList) {
+     // The completion block may execute on any thread.  Because operations
+     // involving the UI are about to be performed, make sure they execute
+     // on the main thread.
+     dispatch_async(dispatch_get_main_queue(), ^{
+     // The root rootViewController is the only child of the navigation
+     // controller, which is the window's rootViewController.
+     //                ViewController *viewController = (ViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
+     
+     //                ViewController *viewController = (ViewController*)[[(UITabBarController*)self.window.rootViewController viewControllers][0] topViewController];
+     //
+     //                _entries = [NSArray arrayWithArray:weakParser.stadiumRecordList ];
+     [self loadData];
+     });
+     }
+     
+     // we are finished with the queue and our ParseOperation
+     self.queue = nil;
+     };
      */
     
     parser.completionBlock = ^(void) {

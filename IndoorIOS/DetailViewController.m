@@ -14,9 +14,8 @@
 #import "Utils.h"
 #import "ParseSportDayRule.h"
 #import "ChooseViewController.h"
+#import "Constants.h"
 
-// the http URL used for fetching the sport day rules
-static NSMutableString *jsonUrl;
 static NSAttributedString *cr;
 
 @interface DetailViewController ()
@@ -41,20 +40,18 @@ static NSAttributedString *cr;
     // init
     self.selectedSportIndex = -1;
     
-    jsonUrl = [NSMutableString stringWithString:@"http://chinaairdome.com:9080/indoor/sportDayRule/queryRule?id="];
     cr = [[NSAttributedString alloc] initWithString:@"\n"];
     
     // get stadium information
-    NSLog(@"title = %@ ",  _stadiumRecordTitle );
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    _stadiumRecord = [stadiumManager getStadiumRecordByTitle:_stadiumRecordTitle];
+    _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
     
-    // 连接场馆id
-    [jsonUrl appendString:_stadiumRecord.idString];
-    
-    // 从服务器获取信息
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
-    self.jsonConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    // 从服务器获取场馆详情
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@'}",_stadiumId];
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
     
     // Test the validity of the connection object. The most likely reason for the connection object
     // to be nil is a malformed URL, which is a programmatic error easily detected during development
@@ -68,9 +65,9 @@ static NSAttributedString *cr;
     
     // init stadiumProperties
     self.stadiumProperties = [[NSMutableArray alloc] init];
-    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
-    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
-    [self.stadiumProperties addObject:string];
+//    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
+//    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
+//    [self.stadiumProperties addObject:string];
     
     /*
     // set label text

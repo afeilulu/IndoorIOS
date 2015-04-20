@@ -59,40 +59,48 @@ static NSString *kLatStr  = @"lat";
     // terminated.
     
     NSError* error;
-
-    NSArray *stadiums = [NSJSONSerialization
-                         JSONObjectWithData:_dataToParse
-                         options:kNilOptions
-                         error:&error];
     
-    // get singleton
-    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    //    NSArray *stadiums = [NSJSONSerialization
+    //                         JSONObjectWithData:_dataToParse
+    //                         options:kNilOptions
+    //                         error:&error];
     
-    // clear data first
-    [stadiumManager clearStadium];
+    NSDictionary *stadiumSites = [NSJSONSerialization
+                                  JSONObjectWithData:_dataToParse
+                                  options:kNilOptions
+                                  error:&error];
     
-    for (id item in stadiums) {
-        self.workingEntry = [[StadiumRecord alloc] init];
-        self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
-        self.workingEntry.name = [item objectForKey:kNameStr];
-        self.workingEntry.address = [item objectForKey:kAddressStr];
-        self.workingEntry.lat = [item objectForKey:kLatStr];
-        self.workingEntry.lng = [item objectForKey:kLngStr];
-        self.workingEntry.city = [item objectForKey:kCityStr];
-        self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
-        self.workingEntry.phone = [item objectForKey:kPhoneStr];
-        // TODO
-        NSLog(@"stadium: %@", self.workingEntry);
+    if ([stadiumSites objectForKey:@"success"]) {
         
-//        [self.workingArray addObject:self.workingEntry];
-        [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
+        NSArray *stadiums = [stadiumSites objectForKey:@"list"];
+        
+        // get singleton
+        StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+        
+        // clear data first
+        [stadiumManager clearStadium];
+        
+        for (id item in stadiums) {
+            self.workingEntry = [[StadiumRecord alloc] init];
+            self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
+            self.workingEntry.name = [item objectForKey:kNameStr];
+//            self.workingEntry.address = [item objectForKey:kAddressStr];
+            self.workingEntry.lat = [item objectForKey:kLatStr];
+            self.workingEntry.lng = [item objectForKey:kLngStr];
+//            self.workingEntry.city = [item objectForKey:kCityStr];
+            self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
+//            self.workingEntry.phone = [item objectForKey:kPhoneStr];
+            
+            [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
+        }
+        
     }
     
     if (![self isCancelled])
     {
         NSLog(@"parseOperation is cancelled");
     }
-
+    
     self.dataToParse = nil;
 }
 @end

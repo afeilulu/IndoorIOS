@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7532B96C1ADF4E59007E494E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7532B96B1ADF4E59007E494E /* Constants.m */; };
+		7532B9711ADF7755007E494E /* CADPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7532B9701ADF7754007E494E /* CADPointAnnotation.m */; };
+		7536DAD51AE4D511003DC027 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7536DAD01AE4D511003DC027 /* fontawesome-webfont.ttf */; };
+		7536DAD61AE4D511003DC027 /* PPiFlatSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536DAD21AE4D511003DC027 /* PPiFlatSegmentedControl.m */; };
+		7536DAD71AE4D511003DC027 /* PPiFlatSegmentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536DAD41AE4D511003DC027 /* PPiFlatSegmentItem.m */; };
+		7536DADA1AE4E073003DC027 /* UIAwesomeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536DAD91AE4E073003DC027 /* UIAwesomeButton.m */; };
+		7536DAE01AE4E230003DC027 /* UIButton+PPiAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536DADF1AE4E230003DC027 /* UIButton+PPiAwesome.m */; };
+		7536DAE31AE4E27A003DC027 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 7536DAE21AE4E27A003DC027 /* NSString+FontAwesome.m */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
 		7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553A3DA1A494C3D00BFE659 /* IconDescription.m */; };
 		75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFC1A315E0B009F5A30 /* StadiumManager.m */; };
@@ -56,6 +64,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7532B96A1ADF4E59007E494E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		7532B96B1ADF4E59007E494E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		7532B96D1ADF6E46007E494E /* CADPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPointAnnotation.h; sourceTree = "<group>"; };
+		7532B9701ADF7754007E494E /* CADPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPointAnnotation.m; sourceTree = "<group>"; };
+		7536DAD01AE4D511003DC027 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		7536DAD11AE4D511003DC027 /* PPiFlatSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentedControl.h; sourceTree = "<group>"; };
+		7536DAD21AE4D511003DC027 /* PPiFlatSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentedControl.m; sourceTree = "<group>"; };
+		7536DAD31AE4D511003DC027 /* PPiFlatSegmentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPiFlatSegmentItem.h; sourceTree = "<group>"; };
+		7536DAD41AE4D511003DC027 /* PPiFlatSegmentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPiFlatSegmentItem.m; sourceTree = "<group>"; };
+		7536DAD81AE4E073003DC027 /* UIAwesomeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAwesomeButton.h; sourceTree = "<group>"; };
+		7536DAD91AE4E073003DC027 /* UIAwesomeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAwesomeButton.m; sourceTree = "<group>"; };
+		7536DADE1AE4E230003DC027 /* UIButton+PPiAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+PPiAwesome.h"; sourceTree = "<group>"; };
+		7536DADF1AE4E230003DC027 /* UIButton+PPiAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+PPiAwesome.m"; sourceTree = "<group>"; };
+		7536DAE11AE4E27A003DC027 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		7536DAE21AE4E27A003DC027 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
 		7553A3D91A494C2100BFE659 /* IconDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDescription.h; sourceTree = "<group>"; };
 		7553A3DA1A494C3D00BFE659 /* IconDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDescription.m; sourceTree = "<group>"; };
@@ -293,6 +316,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7536DACF1AE4D511003DC027 /* SegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				7536DAD01AE4D511003DC027 /* fontawesome-webfont.ttf */,
+				7536DAD11AE4D511003DC027 /* PPiFlatSegmentedControl.h */,
+				7536DAD21AE4D511003DC027 /* PPiFlatSegmentedControl.m */,
+				7536DAD31AE4D511003DC027 /* PPiFlatSegmentItem.h */,
+				7536DAD81AE4E073003DC027 /* UIAwesomeButton.h */,
+				7536DADE1AE4E230003DC027 /* UIButton+PPiAwesome.h */,
+				7536DAE11AE4E27A003DC027 /* NSString+FontAwesome.h */,
+				7536DAE21AE4E27A003DC027 /* NSString+FontAwesome.m */,
+				7536DADF1AE4E230003DC027 /* UIButton+PPiAwesome.m */,
+				7536DAD91AE4E073003DC027 /* UIAwesomeButton.m */,
+				7536DAD41AE4D511003DC027 /* PPiFlatSegmentItem.m */,
+			);
+			path = SegmentControl;
+			sourceTree = "<group>";
+		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -497,6 +538,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				7536DACF1AE4D511003DC027 /* SegmentControl */,
 				758A213D1ADE573100413251 /* Util */,
 				758A20F11ADE571F00413251 /* openssl */,
 				759149841A4679BA000B3836 /* TimeSelectedView */,
@@ -526,6 +568,10 @@
 				7553A3DA1A494C3D00BFE659 /* IconDescription.m */,
 				758A20811ADE318A00413251 /* CADPayViewController.m */,
 				758A20831ADE31AA00413251 /* CADPayViewController.h */,
+				7532B96A1ADF4E59007E494E /* Constants.h */,
+				7532B96B1ADF4E59007E494E /* Constants.m */,
+				7532B96D1ADF6E46007E494E /* CADPointAnnotation.h */,
+				7532B9701ADF7754007E494E /* CADPointAnnotation.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -679,6 +725,7 @@
 				758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
+				7536DAD51AE4D511003DC027 /* fontawesome-webfont.ttf in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
 				75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */,
 			);
@@ -694,16 +741,21 @@
 				758A214F1ADE573100413251 /* base64.m in Sources */,
 				758A21511ADE573100413251 /* DataVerifier.m in Sources */,
 				758A21541ADE573100413251 /* openssl_wrapper.m in Sources */,
+				7536DAD71AE4D511003DC027 /* PPiFlatSegmentItem.m in Sources */,
+				7532B96C1ADF4E59007E494E /* Constants.m in Sources */,
 				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
 				758A21501ADE573100413251 /* DataSigner.m in Sources */,
 				757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */,
 				75F8C5FA1A56DEA900F391EA /* StatusByDayRecord.m in Sources */,
 				759149831A4679AE000B3836 /* TextItem.m in Sources */,
+				7536DAE31AE4E27A003DC027 /* NSString+FontAwesome.m in Sources */,
+				7532B9711ADF7755007E494E /* CADPointAnnotation.m in Sources */,
 				75E09FDC1A384A5A007787DE /* Utils.m in Sources */,
 				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
 				758A21561ADE573100413251 /* RSADataVerifier.m in Sources */,
 				758A21531ADE573100413251 /* NSDataEx.m in Sources */,
 				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
+				7536DAE01AE4E230003DC027 /* UIButton+PPiAwesome.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
 				757630E81A393349007E32E5 /* ParseSportDayRule.m in Sources */,
 				757630F11A3ADBA5007E32E5 /* Cell.m in Sources */,
@@ -711,11 +763,13 @@
 				758A20861ADE4CEE00413251 /* Order.m in Sources */,
 				75E09FD71A382EB8007787DE /* ListItem.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
+				7536DADA1AE4E073003DC027 /* UIAwesomeButton.m in Sources */,
 				75668D091A34004B009F5A30 /* IconDownloader.m in Sources */,
 				757630E51A392E54007E32E5 /* SportDayRule.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,
 				758A21521ADE573100413251 /* MD5DataSigner.m in Sources */,
 				7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */,
+				7536DAD61AE4D511003DC027 /* PPiFlatSegmentedControl.m in Sources */,
 				759149871A4683EC000B3836 /* TimeSelectedView.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */,
@@ -781,7 +835,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -818,7 +872,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
