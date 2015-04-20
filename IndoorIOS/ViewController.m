@@ -56,43 +56,48 @@
         self.navigationController.navigationBar.translucent = NO;
     }
     
-    _locService = [[BMKLocationService alloc]init];
+    //    _locService = [[BMKLocationService alloc]init];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-    _locService.delegate = self;
+    //    _locService.delegate = self;
     
     // 开始普通定位
-    [_locService startUserLocationService];
-    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
-    _mapView.showsUserLocation = YES;//显示定位图层
+    //    [_locService startUserLocationService];
+    //    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+    //    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
+    //    _mapView.showsUserLocation = YES;//显示定位图层
     
-    // 从服务器获取地图信息
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumsJsonUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString="];
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-    _stadiumsJsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-    
-    // Test the validity of the connection object. The most likely reason for the connection object
-    // to be nil is a malformed URL, which is a programmatic error easily detected during development
-    // If the URL is more dynamic, then you should implement a more flexible validation technique, and
-    // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
-    //
-    NSAssert(self.stadiumsJsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    // get singleton
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    if ([stadiumManager.stadiumList count] == 0) {
+        
+        // 从服务器获取地图信息
+        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumsJsonUrl]];
+        [postRequest setHTTPMethod:@"POST"];
+        NSString *params = [[NSString alloc] initWithFormat:@"jsonString="];
+        [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+        _stadiumsJsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+        
+        // Test the validity of the connection object. The most likely reason for the connection object
+        // to be nil is a malformed URL, which is a programmatic error easily detected during development
+        // If the URL is more dynamic, then you should implement a more flexible validation technique, and
+        // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
+        //
+        NSAssert(self.stadiumsJsonConnection != nil, @"Failure to create URL connection.");
+        
+        // show in the status bar that network activity is starting
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
-    _locService.delegate = nil;
+    //    _locService.delegate = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -271,19 +276,19 @@
     NSLog(@"paopaoclick");
     
     
+    [self.parentViewController.navigationItem setTitle:@"title"];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
     
-//    viewController.stadiumRecordTitle = ((BMKPointAnnotation*)view.annotation).title;
     viewController.stadiumId = ((CADPointAnnotation*)view.annotation).stadiumId;
+    [viewController.parentViewController.navigationItem setTitle:@"abcd"];
+    [viewController.tabBarController setTitle:@"Title"];
+    [viewController.navigationController setTitle:@"Live"];
     
-    // set back title
-    UIBarButtonItem *newBackButton =
-    [[UIBarButtonItem alloc] initWithTitle:viewController.stadiumRecordTitle
-                                     style:UIBarButtonItemStyleBordered
-                                    target:nil
-                                    action:nil];
-    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
+//    self.title = ((CADPointAnnotation*)view.annotation).title;
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:((CADPointAnnotation*)view.annotation).title style:UIBarButtonItemStylePlain target:nil action:nil];
     
     // hide UITabbarController
     viewController.hidesBottomBarWhenPushed = YES;
@@ -383,32 +388,6 @@
             [self handleError:parseError];
         });
     };
-    
-    /*
-     // Referencing parser from within its completionBlock would create a retain cycle.
-     __weak ParseOperation *weakParser = parser;
-     
-     parser.completionBlock = ^(void) {
-     if (weakParser.stadiumRecordList) {
-     // The completion block may execute on any thread.  Because operations
-     // involving the UI are about to be performed, make sure they execute
-     // on the main thread.
-     dispatch_async(dispatch_get_main_queue(), ^{
-     // The root rootViewController is the only child of the navigation
-     // controller, which is the window's rootViewController.
-     //                ViewController *viewController = (ViewController*)[(UINavigationController*)self.window.rootViewController topViewController];
-     
-     //                ViewController *viewController = (ViewController*)[[(UITabBarController*)self.window.rootViewController viewControllers][0] topViewController];
-     //
-     //                _entries = [NSArray arrayWithArray:weakParser.stadiumRecordList ];
-     [self loadData];
-     });
-     }
-     
-     // we are finished with the queue and our ParseOperation
-     self.queue = nil;
-     };
-     */
     
     parser.completionBlock = ^(void) {
         dispatch_async(dispatch_get_main_queue(), ^{

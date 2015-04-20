@@ -21,7 +21,7 @@
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		75668D091A34004B009F5A30 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668D081A34004B009F5A30 /* IconDownloader.m */; };
 		757630E51A392E54007E32E5 /* SportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E41A392E53007E32E5 /* SportDayRule.m */; };
-		757630E81A393349007E32E5 /* ParseSportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E71A393349007E32E5 /* ParseSportDayRule.m */; };
+		757630E81A393349007E32E5 /* ParseStadiumDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E71A393349007E32E5 /* ParseStadiumDetail.m */; };
 		757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* ChooseViewController.m */; };
 		757630F11A3ADBA5007E32E5 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EE1A3ADBA5007E32E5 /* Cell.m */; };
 		757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */; };
@@ -90,8 +90,8 @@
 		75668D081A34004B009F5A30 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
 		757630E31A392D68007E32E5 /* SportDayRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportDayRule.h; sourceTree = "<group>"; };
 		757630E41A392E53007E32E5 /* SportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportDayRule.m; sourceTree = "<group>"; };
-		757630E61A393327007E32E5 /* ParseSportDayRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseSportDayRule.h; sourceTree = "<group>"; };
-		757630E71A393349007E32E5 /* ParseSportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseSportDayRule.m; sourceTree = "<group>"; };
+		757630E61A393327007E32E5 /* ParseStadiumDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseStadiumDetail.h; sourceTree = "<group>"; };
+		757630E71A393349007E32E5 /* ParseStadiumDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseStadiumDetail.m; sourceTree = "<group>"; };
 		757630E91A39E72E007E32E5 /* ChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseViewController.h; sourceTree = "<group>"; };
 		757630EA1A39E72E007E32E5 /* ChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseViewController.m; sourceTree = "<group>"; };
 		757630ED1A3ADBA5007E32E5 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = CollectionView/Cell.h; sourceTree = "<group>"; };
@@ -356,8 +356,8 @@
 			children = (
 				75FE304E1A29F0660079D4D4 /* ParseOperation.m */,
 				75FE30501A29F08C0079D4D4 /* ParseOperation.h */,
-				757630E61A393327007E32E5 /* ParseSportDayRule.h */,
-				757630E71A393349007E32E5 /* ParseSportDayRule.m */,
+				757630E61A393327007E32E5 /* ParseStadiumDetail.h */,
+				757630E71A393349007E32E5 /* ParseStadiumDetail.m */,
 			);
 			name = ParseJson;
 			sourceTree = "<group>";
@@ -757,7 +757,7 @@
 				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
 				7536DAE01AE4E230003DC027 /* UIButton+PPiAwesome.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
-				757630E81A393349007E32E5 /* ParseSportDayRule.m in Sources */,
+				757630E81A393349007E32E5 /* ParseStadiumDetail.m in Sources */,
 				757630F11A3ADBA5007E32E5 /* Cell.m in Sources */,
 				75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */,
 				758A20861ADE4CEE00413251 /* Order.m in Sources */,

@@ -1,12 +1,12 @@
 //
-//  ParseSportDayRule.h
+//  ParseStadiumDetail.h
 //  IndoorIOS
 //
 //  Created by 陈革非 on 14/12/11.
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
-@interface ParseSportDayRule : NSOperation
+@interface ParseStadiumDetail : NSOperation
 
 // A block to call when an error is encountered during parsing.
 @property (nonatomic, copy) void (^errorHandler)(NSError *error);

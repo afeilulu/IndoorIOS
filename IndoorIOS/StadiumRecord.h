@@ -20,5 +20,6 @@
 @property (nonatomic, strong) NSString *imageURLString;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *phone;
+@property (nonatomic) bool gotDetail;
 
 @end

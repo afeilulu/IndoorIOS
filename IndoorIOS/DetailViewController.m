@@ -12,7 +12,7 @@
 #import "SportDayRule.h"
 #import "ListItem.h"
 #import "Utils.h"
-#import "ParseSportDayRule.h"
+#import "ParseStadiumDetail.h"
 #import "ChooseViewController.h"
 #import "Constants.h"
 
@@ -46,43 +46,58 @@ static NSAttributedString *cr;
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
     
-    // 从服务器获取场馆详情
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@'}",_stadiumId];
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+    // set back title
+//    UIBarButtonItem *newBackButton =
+//    [[UIBarButtonItem alloc] initWithTitle: _stadiumRecord.name
+//                                     style:UIBarButtonItemStyleBordered
+//                                    target:nil
+//                                    action:nil];
+//    [[self navigationItem] setBackBarButtonItem:newBackButton];
+//    [[[self navigationItem] backBarButtonItem] setTitle:@"wowowowowo"];
+//    [self.navigationController setTitle:@"Live"];
+    [self.parentViewController.navigationItem setTitle:@"Title"];
+    self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:nil];
     
-    // Test the validity of the connection object. The most likely reason for the connection object
-    // to be nil is a malformed URL, which is a programmatic error easily detected during development
-    // If the URL is more dynamic, then you should implement a more flexible validation technique, and
-    // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
-    //
-    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    if ( !_stadiumRecord.gotDetail) {
+        // 从服务器获取场馆详情
+        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
+        [postRequest setHTTPMethod:@"POST"];
+        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@'}",_stadiumId];
+        [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+        self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+        
+        // Test the validity of the connection object. The most likely reason for the connection object
+        // to be nil is a malformed URL, which is a programmatic error easily detected during development
+        // If the URL is more dynamic, then you should implement a more flexible validation technique, and
+        // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
+        //
+        NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+        
+        // show in the status bar that network activity is starting
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+    }
     
     // init stadiumProperties
     self.stadiumProperties = [[NSMutableArray alloc] init];
-//    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
-//    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
-//    [self.stadiumProperties addObject:string];
+    //    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
+    //    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
+    //    [self.stadiumProperties addObject:string];
     
     /*
-    // set label text
-    [_addressLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    _addressLabel.numberOfLines = 0;
-    [_addressLabel sizeToFit];
-    _addressLabel.text = _stadiumRecord.address;
+     // set label text
+     [_addressLabel setLineBreakMode:NSLineBreakByWordWrapping];
+     _addressLabel.numberOfLines = 0;
+     [_addressLabel sizeToFit];
+     _addressLabel.text = _stadiumRecord.address;
      */
     
-//    self.imageScrollView.delegate = self;
+    //    self.imageScrollView.delegate = self;
     self.imageScrollView.pagingEnabled = YES;
     self.imageScrollView.showsHorizontalScrollIndicator = NO;
     CGSize size = self.imageScrollView.frame.size;
     [self.imageScrollView setContentSize:CGSizeMake(size.width * 6, size.height)];
-
+    
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
     [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
@@ -131,14 +146,14 @@ static NSAttributedString *cr;
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 // -------------------------------------------------------------------------------
 //	startIconDownload:forIndexPath:
@@ -157,7 +172,7 @@ static NSAttributedString *cr;
             [self.imageScrollView addSubview:imageView];
             
             // 设置navigtionController背景图片
-//            [self.navigationController.navigationBar setBackgroundImage:stadium.image forBarMetrics:UIBarMetricsDefault];
+            //            [self.navigationController.navigationBar setBackgroundImage:stadium.image forBarMetrics:UIBarMetricsDefault];
             
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
@@ -185,53 +200,53 @@ static NSAttributedString *cr;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    static NSString *CellIdentifier = @"CellIdentifier";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    
-//    if (cell == nil) {
-//        
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        
-//    }
+    //    static NSString *CellIdentifier = @"CellIdentifier";
+    //
+    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //
+    //    if (cell == nil) {
+    //
+    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //
+    //    }
     
     NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-        if (cell == nil) {
-    
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    
-        }
+    if (cell == nil) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
+    }
     
     /*
-    UILabel *title = [[UILabel alloc] init];
-    [title setBackgroundColor:[UIColor clearColor]];
-    [title setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [title setOpaque: NO];
-    [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
-    CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
-    [title setFrame:textRect];
-    [cell.contentView addSubview:title];
+     UILabel *title = [[UILabel alloc] init];
+     [title setBackgroundColor:[UIColor clearColor]];
+     [title setFont:[UIFont boldSystemFontOfSize:12.0]];
+     [title setOpaque: NO];
+     [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
+     CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
+     [title setFrame:textRect];
+     [cell.contentView addSubview:title];
      */
     
-//    cell.layoutMargins = UIEdgeInsetsZero;
-//    cell.preservesSuperviewLayoutMargins = NO;
+    //    cell.layoutMargins = UIEdgeInsetsZero;
+    //    cell.preservesSuperviewLayoutMargins = NO;
     
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    //    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
     [cell.textLabel setAttributedText:[self.stadiumProperties objectAtIndex:indexPath.row]];
-//    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
-//    UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//    [alter show];
+    //    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
+    //    UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    //    [alter show];
     if (indexPath.row > 0){
         self.selectedSportIndex = indexPath.row - 1;
     } else {
@@ -354,7 +369,7 @@ static NSAttributedString *cr;
     // create the queue to run our ParseOperation
     self.queue = [[NSOperationQueue alloc] init];
     
-    ParseSportDayRule *parser = [[ParseSportDayRule alloc] initWithData:self.jsonData];
+    ParseStadiumDetail *parser = [[ParseStadiumDetail alloc] initWithData:self.jsonData];
     
     parser.errorHandler = ^(NSError *parseError) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -363,38 +378,38 @@ static NSAttributedString *cr;
     };
     
     parser.completionBlock = ^(void) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // get singleton
+            StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+            
+            for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
+                NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
+                NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 
-                // get singleton
-                StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-                
-                for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
-                    NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
-                    NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                    
-                    NSMutableString * ruleString=[NSMutableString stringWithString:@""];
-                    [ruleString appendString:rule.name];
-//                    [ruleString appendString:@" "];
-//                    [ruleString appendFormat:@"%@",rule.maxCount];
-                    [ruleString appendString:@"\n"];
-                    for (int i=0; i<ruleArray.count; ++i) {
-                        [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
-                        [ruleString appendString:@"-"];
-                        [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
-                        [ruleString appendString:@" "];
-                        [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
-                        [ruleString appendString:@"元 "];
-                    }
-                    
-                    NSRange range=[ruleString rangeOfString:rule.name];
-                    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
-                    [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
-                    
-                    [self.stadiumProperties addObject:string];
+                NSMutableString * ruleString=[NSMutableString stringWithString:@""];
+                [ruleString appendString:rule.name];
+                //                    [ruleString appendString:@" "];
+                //                    [ruleString appendFormat:@"%@",rule.maxCount];
+                [ruleString appendString:@"\n"];
+                for (int i=0; i<ruleArray.count; ++i) {
+                    [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
+                    [ruleString appendString:@"-"];
+                    [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
+                    [ruleString appendString:@" "];
+                    [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
+                    [ruleString appendString:@"元 "];
                 }
                 
-                [self.stadiumPropertyTableView reloadData];
-            });
+                NSRange range=[ruleString rangeOfString:rule.name];
+                NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
+                [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
+                
+                [self.stadiumProperties addObject:string];
+            }
+            
+            [self.stadiumPropertyTableView reloadData];
+        });
         // we are finished with the queue and our ParseOperation
         self.queue = nil;
     };

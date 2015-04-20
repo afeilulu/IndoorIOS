@@ -1,5 +1,5 @@
 //
-//  ParseSportDayRule.m
+//  ParseStadiumDetail.m
 //  IndoorIOS
 //
 //  Created by 陈革非 on 14/12/11.
@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ParseSportDayRule.h"
+#import "ParseStadiumDetail.h"
 #import "StadiumManager.h"
 #import "SportDayRule.h"
 
@@ -19,14 +19,14 @@ static NSString *kNameStr   = @"name";
 static NSString *kRuleJsonStr   = @"ruleJson";
 static NSString *kMaxCountInt   = @"maxCount";
 
-@interface ParseSportDayRule ()
+@interface ParseStadiumDetail ()
 
 @property (nonatomic, strong) NSData *dataToParse;
 @property (nonatomic, strong) SportDayRule *workingEntry;
 
 @end
 
-@implementation ParseSportDayRule
+@implementation ParseStadiumDetail
 
 // -------------------------------------------------------------------------------
 //	initWithData:
@@ -54,34 +54,32 @@ static NSString *kMaxCountInt   = @"maxCount";
     // terminated.
     
     NSError* error;
+    NSDictionary *result = [NSJSONSerialization
+                            JSONObjectWithData:_dataToParse
+                            options:kNilOptions
+                            error:&error];
     
-    NSArray *items = [NSJSONSerialization
-                         JSONObjectWithData:_dataToParse
-                         options:kNilOptions
-                         error:&error];
     
-    // get singleton
-    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    
-    // clear data first
-    [stadiumManager clearSportDayRule];
-    
-    for (id item in items) {
-        self.workingEntry = [[SportDayRule alloc] init];
-        self.workingEntry.stadiumId = [NSString stringWithFormat:@"%@",[item objectForKey:kStadiumIDStr]];
-        self.workingEntry.sportId = [NSString stringWithFormat:@"%@",[item objectForKey:kSportIDStr]];
-        self.workingEntry.maxCount = [item objectForKey:kMaxCountInt];
-        self.workingEntry.name = [item objectForKey:kNameStr];
-        self.workingEntry.ruleJson = [item objectForKey:kRuleJsonStr];
-        self.workingEntry.minOrderUnit = [item objectForKey:kUnitStr];
-        [stadiumManager.sportDayRuleList addObject:self.workingEntry];
+    if ([result objectForKey:@"success"]){
+        
+        NSDictionary *sportSiteInfo = [result objectForKey:@"sportSiteInfo"];
+        NSString *id = [sportSiteInfo objectForKey:@"id"];
+        
+        // get singleton
+        StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+        StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:id];
+        
+        [stadium setGotDetail:TRUE];
+        [stadium setAddress:[sportSiteInfo objectForKey:@"address"]];
+        // TODO : set more properties
+        
     }
     
     if (![self isCancelled])
     {
         NSLog(@"parseOperation completed");
     }
-
+    
     self.dataToParse = nil;
 }
 @end
