@@ -15,6 +15,8 @@
 #import "ParseStadiumDetail.h"
 #import "ChooseViewController.h"
 #import "Constants.h"
+#import "CADPointAnnotation.h"
+#import "BMKAnnotationView.h"
 
 static NSAttributedString *cr;
 
@@ -45,18 +47,6 @@ static NSAttributedString *cr;
     // get stadium information
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
-    
-    // set back title
-//    UIBarButtonItem *newBackButton =
-//    [[UIBarButtonItem alloc] initWithTitle: _stadiumRecord.name
-//                                     style:UIBarButtonItemStyleBordered
-//                                    target:nil
-//                                    action:nil];
-//    [[self navigationItem] setBackBarButtonItem:newBackButton];
-//    [[[self navigationItem] backBarButtonItem] setTitle:@"wowowowowo"];
-//    [self.navigationController setTitle:@"Live"];
-    [self.parentViewController.navigationItem setTitle:@"Title"];
-    self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:nil];
     
     if ( !_stadiumRecord.gotDetail) {
         // 从服务器获取场馆详情

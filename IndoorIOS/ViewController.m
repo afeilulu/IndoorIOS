@@ -61,6 +61,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    // reset title
+    [self setTitle:@"铁      人"];
+    
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     //    _locService.delegate = self;
@@ -273,28 +276,28 @@
 // 当点击annotation view弹出的泡泡时，调用此接口
 - (void)mapView:(BMKMapView *)mapView annotationViewForBubble:(BMKAnnotationView *)view;
 {
-    NSLog(@"paopaoclick");
+    // set back title to blank
+    UIBarButtonItem *blankButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:blankButton];
     
-    
-    [self.parentViewController.navigationItem setTitle:@"title"];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    DetailViewController *viewController = (DetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"detailview"];
-    
-    viewController.stadiumId = ((CADPointAnnotation*)view.annotation).stadiumId;
-    [viewController.parentViewController.navigationItem setTitle:@"abcd"];
-    [viewController.tabBarController setTitle:@"Title"];
-    [viewController.navigationController setTitle:@"Live"];
-    
-    
-//    self.title = ((CADPointAnnotation*)view.annotation).title;
-//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:((CADPointAnnotation*)view.annotation).title style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    // hide UITabbarController
-    viewController.hidesBottomBarWhenPushed = YES;
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-    
+    [self performSegueWithIdentifier:@"showDetail" sender:view];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showDetail"]){
+        
+        BMKAnnotationView *annotationView = (BMKAnnotationView *)sender;
+        CADPointAnnotation *annotation = (CADPointAnnotation *) annotationView.annotation;
+        
+        DetailViewController *destination = [segue destinationViewController];
+        [destination setStadiumId:annotation.stadiumId];
+        [destination setTitle:annotation.title];
+    }
 }
 
 // -------------------------------------------------------------------------------
