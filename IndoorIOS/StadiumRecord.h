@@ -12,14 +12,28 @@
 @interface StadiumRecord : NSObject
 
 @property (nonatomic, strong) NSString *idString;
+@property (nonatomic, strong) NSString *name;
+
 @property (nonatomic, strong) NSString *lng;
 @property (nonatomic, strong) NSString *lat;
-@property (nonatomic, strong) NSString *address;
+
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *imageURLString;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *phone;
+
+@property (nonatomic, strong) NSString *open_time;
+@property (nonatomic, strong) NSString *close_time;
+
+@property (nonatomic, strong) NSString *score;
+@property (nonatomic, strong) NSString *summary;
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *bus_road;
+@property (nonatomic, strong) NSString *area_code;
+@property (nonatomic, strong) NSString *area_name;
+
+@property (nonatomic, strong) NSArray *attributes;
+@property (nonatomic, strong) NSArray *productTypes;
+
+// flag for assure get only once
 @property (nonatomic) bool gotDetail;
 
 @end

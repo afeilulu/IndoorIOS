@@ -70,9 +70,20 @@ static NSString *kMaxCountInt   = @"maxCount";
         StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:id];
         
         [stadium setGotDetail:TRUE];
-        [stadium setAddress:[sportSiteInfo objectForKey:@"address"]];
-        // TODO : set more properties
         
+        // imageURLString has been set in getSportSiteListAjax interface
+        
+        [stadium setOpen_time:[sportSiteInfo objectForKey:@"open_time"]];
+        [stadium setClose_time:[sportSiteInfo objectForKey:@"close_time"]];
+        [stadium setScore:[sportSiteInfo objectForKey:@"score"]];
+        [stadium setSummary:[sportSiteInfo objectForKey:@"summary"]];
+        [stadium setAddress:[sportSiteInfo objectForKey:@"address"]];
+        [stadium setBus_road:[sportSiteInfo objectForKey:@"bus_road"]];
+        [stadium setArea_code:[sportSiteInfo objectForKey:@"area_code"]];
+        [stadium setArea_name:[sportSiteInfo objectForKey:@"area_name"]];
+        
+        [stadium setAttributes:[sportSiteInfo objectForKey:@"attributes"]];
+        [stadium setProductTypes:[sportSiteInfo objectForKey:@"productTypes"]];
     }
     
     if (![self isCancelled])

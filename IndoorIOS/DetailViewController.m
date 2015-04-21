@@ -44,6 +44,13 @@ static NSAttributedString *cr;
     
     cr = [[NSAttributedString alloc] initWithString:@"\n"];
     
+    // 初始化图片大小
+    //    self.imageScrollView.delegate = self;
+    self.imageScrollView.pagingEnabled = YES;
+    self.imageScrollView.showsHorizontalScrollIndicator = NO;
+    CGSize size = self.imageScrollView.frame.size;
+    [self.imageScrollView setContentSize:CGSizeMake(size.width * 6, size.height)];// width * 6 for scroll
+    
     // get stadium information
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
@@ -66,6 +73,17 @@ static NSAttributedString *cr;
         // show in the status bar that network activity is starting
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
+        // 获取图片显示
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+        NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
+        [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
+    } else {
+        if (_stadiumRecord.image){
+            // 直接显示图片
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:_stadiumRecord.image];
+            imageView.contentMode = UIViewContentModeCenter;
+            [self.imageScrollView addSubview:imageView];
+        }
     }
     
     // init stadiumProperties
@@ -81,16 +99,6 @@ static NSAttributedString *cr;
      [_addressLabel sizeToFit];
      _addressLabel.text = _stadiumRecord.address;
      */
-    
-    //    self.imageScrollView.delegate = self;
-    self.imageScrollView.pagingEnabled = YES;
-    self.imageScrollView.showsHorizontalScrollIndicator = NO;
-    CGSize size = self.imageScrollView.frame.size;
-    [self.imageScrollView setContentSize:CGSizeMake(size.width * 6, size.height)];
-    
-    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
-    [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
     
     // date list init
     dateList = [[NSMutableArray alloc] init];

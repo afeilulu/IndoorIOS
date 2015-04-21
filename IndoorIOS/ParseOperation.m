@@ -14,10 +14,7 @@
 // string contants found in the RSS feed
 static NSString *kIDStr     = @"id";
 static NSString *kNameStr   = @"name";
-static NSString *kCityStr   = @"city";
-static NSString *kAddressStr   = @"address";
-static NSString *kPicUrlStr  = @"picUrl";
-static NSString *kPhoneStr = @"phone";
+static NSString *kPicUrlStr  = @"imgUrl";
 static NSString *kLngStr  = @"lng";
 static NSString *kLatStr  = @"lat";
 
@@ -84,12 +81,10 @@ static NSString *kLatStr  = @"lat";
             self.workingEntry = [[StadiumRecord alloc] init];
             self.workingEntry.idString = [NSString stringWithFormat:@"%@",[item objectForKey:kIDStr]];
             self.workingEntry.name = [item objectForKey:kNameStr];
-//            self.workingEntry.address = [item objectForKey:kAddressStr];
             self.workingEntry.lat = [item objectForKey:kLatStr];
             self.workingEntry.lng = [item objectForKey:kLngStr];
-//            self.workingEntry.city = [item objectForKey:kCityStr];
-            self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
-//            self.workingEntry.phone = [item objectForKey:kPhoneStr];
+//            self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
+            self.workingEntry.imageURLString = @"http://sn.cnr.cn/shouyetupian/201304/W020130412371064650712.jpg";
             
             [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
         }

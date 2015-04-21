@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 
 @property (nonatomic,assign)NSString* stadiumId;
-@property (nonatomic,strong)NSString* stadiumRecordTitle;
 @property (nonatomic,strong)StadiumRecord* stadiumRecord;
 
 @property (nonatomic,strong)NSMutableArray* stadiumProperties;
