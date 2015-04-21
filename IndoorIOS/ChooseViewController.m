@@ -13,7 +13,7 @@
 #import "Utils.h"
 #import "StadiumManager.h"
 #import "SportDayRule.h"
-#import "TimeSelectedView/TimeSelectedView.h"
+#import "TimeSelectedView.h"
 #import "IconDescription.h"
 #import "StatusByDayRecord.h"
 #import "CustomCellBackground.h"

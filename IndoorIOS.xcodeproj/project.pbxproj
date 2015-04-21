@@ -7,23 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7532B96C1ADF4E59007E494E /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7532B96B1ADF4E59007E494E /* Constants.m */; };
-		7532B9711ADF7755007E494E /* CADPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7532B9701ADF7754007E494E /* CADPointAnnotation.m */; };
+		7535475C1AE66568005A5791 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535474E1AE66568005A5791 /* Cell.m */; };
+		7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547501AE66568005A5791 /* CustomCellBackground.m */; };
+		7535475E1AE66568005A5791 /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547531AE66568005A5791 /* ListItem.m */; };
+		7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547551AE66568005A5791 /* POHorizontalList.m */; };
+		753547601AE66568005A5791 /* TextItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547591AE66568005A5791 /* TextItem.m */; };
+		753547611AE66568005A5791 /* TimeSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535475B1AE66568005A5791 /* TimeSelectedView.m */; };
+		753547681AE66740005A5791 /* IconDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547641AE66740005A5791 /* IconDescription.m */; };
+		753547691AE66740005A5791 /* CADPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547671AE66740005A5791 /* CADPointAnnotation.m */; };
+		753547731AE66941005A5791 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535476C1AE66941005A5791 /* Order.m */; };
+		753547741AE66941005A5791 /* SportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535476E1AE66941005A5791 /* SportDayRule.m */; };
+		753547751AE66941005A5791 /* StadiumRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547701AE66941005A5791 /* StadiumRecord.m */; };
+		753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547721AE66941005A5791 /* StatusByDayRecord.m */; };
+		753547801AE6694A005A5791 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547791AE6694A005A5791 /* Constants.m */; };
+		753547811AE6694A005A5791 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535477B1AE6694A005A5791 /* IconDownloader.m */; };
+		753547821AE6694A005A5791 /* StadiumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535477D1AE6694A005A5791 /* StadiumManager.m */; };
+		753547831AE6694A005A5791 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535477F1AE6694A005A5791 /* Utils.m */; };
+		753547881AE669CF005A5791 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547841AE669CF005A5791 /* ParseOperation.m */; };
+		753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547851AE669CF005A5791 /* ParseStadiumDetail.m */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
-		7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553A3DA1A494C3D00BFE659 /* IconDescription.m */; };
-		75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFC1A315E0B009F5A30 /* StadiumManager.m */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
-		75668D091A34004B009F5A30 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668D081A34004B009F5A30 /* IconDownloader.m */; };
-		757630E51A392E54007E32E5 /* SportDayRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E41A392E53007E32E5 /* SportDayRule.m */; };
-		757630E81A393349007E32E5 /* ParseStadiumDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630E71A393349007E32E5 /* ParseStadiumDetail.m */; };
 		757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* ChooseViewController.m */; };
-		757630F11A3ADBA5007E32E5 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EE1A3ADBA5007E32E5 /* Cell.m */; };
-		757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */; };
-		757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */; };
 		758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 758A20731ADE2A7000413251 /* AlipaySDK.bundle */; };
 		758A20761ADE2A8300413251 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A20751ADE2A8300413251 /* AlipaySDK.framework */; };
 		758A20821ADE318A00413251 /* CADPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A20811ADE318A00413251 /* CADPayViewController.m */; };
-		758A20861ADE4CEE00413251 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A20851ADE4CEE00413251 /* Order.m */; };
 		758A20EF1ADE53AF00413251 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A20ED1ADE53AF00413251 /* libcrypto.a */; };
 		758A20F01ADE53AF00413251 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A20EE1ADE53AF00413251 /* libssl.a */; };
 		758A214F1ADE573100413251 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A213F1ADE573100413251 /* base64.m */; };
@@ -34,8 +41,6 @@
 		758A21541ADE573100413251 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A214A1ADE573100413251 /* openssl_wrapper.m */; };
 		758A21551ADE573100413251 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A214C1ADE573100413251 /* RSADataSigner.m */; };
 		758A21561ADE573100413251 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A214E1ADE573100413251 /* RSADataVerifier.m */; };
-		759149831A4679AE000B3836 /* TextItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 759149821A4679AE000B3836 /* TextItem.m */; };
-		759149871A4683EC000B3836 /* TimeSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759149861A4683EC000B3836 /* TimeSelectedView.m */; };
 		759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 759C8AE41A221C1C00EB82D8 /* mapapi.bundle */; };
 		759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */; };
 		759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */; };
@@ -49,46 +54,55 @@
 		75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8C1A1E01CB0005CB6B /* Main.storyboard */; };
 		75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */; };
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
-		75E09FD71A382EB8007787DE /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD31A382EB8007787DE /* ListItem.m */; };
-		75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FD51A382EB8007787DE /* POHorizontalList.m */; };
-		75E09FDC1A384A5A007787DE /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E09FDB1A384A5A007787DE /* Utils.m */; };
-		75F8C5FA1A56DEA900F391EA /* StatusByDayRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */; };
-		75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304C1A29CC300079D4D4 /* StadiumRecord.m */; };
-		75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE304E1A29F0660079D4D4 /* ParseOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7532B96A1ADF4E59007E494E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		7532B96B1ADF4E59007E494E /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		7532B96D1ADF6E46007E494E /* CADPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPointAnnotation.h; sourceTree = "<group>"; };
-		7532B9701ADF7754007E494E /* CADPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPointAnnotation.m; sourceTree = "<group>"; };
+		7535474D1AE66568005A5791 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		7535474E1AE66568005A5791 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		7535474F1AE66568005A5791 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
+		753547501AE66568005A5791 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		753547521AE66568005A5791 /* ListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItem.h; sourceTree = "<group>"; };
+		753547531AE66568005A5791 /* ListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItem.m; sourceTree = "<group>"; };
+		753547541AE66568005A5791 /* POHorizontalList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POHorizontalList.h; sourceTree = "<group>"; };
+		753547551AE66568005A5791 /* POHorizontalList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POHorizontalList.m; sourceTree = "<group>"; };
+		753547561AE66568005A5791 /* POHorizontalListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POHorizontalListDelegate.h; sourceTree = "<group>"; };
+		753547581AE66568005A5791 /* TextItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextItem.h; sourceTree = "<group>"; };
+		753547591AE66568005A5791 /* TextItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextItem.m; sourceTree = "<group>"; };
+		7535475A1AE66568005A5791 /* TimeSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeSelectedView.h; sourceTree = "<group>"; };
+		7535475B1AE66568005A5791 /* TimeSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeSelectedView.m; sourceTree = "<group>"; };
+		753547631AE66740005A5791 /* IconDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDescription.h; sourceTree = "<group>"; };
+		753547641AE66740005A5791 /* IconDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDescription.m; sourceTree = "<group>"; };
+		753547661AE66740005A5791 /* CADPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPointAnnotation.h; sourceTree = "<group>"; };
+		753547671AE66740005A5791 /* CADPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPointAnnotation.m; sourceTree = "<group>"; };
+		7535476B1AE66941005A5791 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		7535476C1AE66941005A5791 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		7535476D1AE66941005A5791 /* SportDayRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportDayRule.h; sourceTree = "<group>"; };
+		7535476E1AE66941005A5791 /* SportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportDayRule.m; sourceTree = "<group>"; };
+		7535476F1AE66941005A5791 /* StadiumRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumRecord.h; sourceTree = "<group>"; };
+		753547701AE66941005A5791 /* StadiumRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumRecord.m; sourceTree = "<group>"; };
+		753547711AE66941005A5791 /* StatusByDayRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusByDayRecord.h; sourceTree = "<group>"; };
+		753547721AE66941005A5791 /* StatusByDayRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusByDayRecord.m; sourceTree = "<group>"; };
+		753547781AE6694A005A5791 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		753547791AE6694A005A5791 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		7535477A1AE6694A005A5791 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
+		7535477B1AE6694A005A5791 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
+		7535477C1AE6694A005A5791 /* StadiumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumManager.h; sourceTree = "<group>"; };
+		7535477D1AE6694A005A5791 /* StadiumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumManager.m; sourceTree = "<group>"; };
+		7535477E1AE6694A005A5791 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		7535477F1AE6694A005A5791 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		753547841AE669CF005A5791 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
+		753547851AE669CF005A5791 /* ParseStadiumDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseStadiumDetail.m; sourceTree = "<group>"; };
+		753547861AE669CF005A5791 /* ParseStadiumDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseStadiumDetail.h; sourceTree = "<group>"; };
+		753547871AE669CF005A5791 /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
-		7553A3D91A494C2100BFE659 /* IconDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDescription.h; sourceTree = "<group>"; };
-		7553A3DA1A494C3D00BFE659 /* IconDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDescription.m; sourceTree = "<group>"; };
-		75668CFB1A315DE1009F5A30 /* StadiumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumManager.h; sourceTree = "<group>"; };
-		75668CFC1A315E0B009F5A30 /* StadiumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumManager.m; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
-		75668D071A34004B009F5A30 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDownloader.h; sourceTree = "<group>"; };
-		75668D081A34004B009F5A30 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDownloader.m; sourceTree = "<group>"; };
-		757630E31A392D68007E32E5 /* SportDayRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportDayRule.h; sourceTree = "<group>"; };
-		757630E41A392E53007E32E5 /* SportDayRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportDayRule.m; sourceTree = "<group>"; };
-		757630E61A393327007E32E5 /* ParseStadiumDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseStadiumDetail.h; sourceTree = "<group>"; };
-		757630E71A393349007E32E5 /* ParseStadiumDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseStadiumDetail.m; sourceTree = "<group>"; };
 		757630E91A39E72E007E32E5 /* ChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseViewController.h; sourceTree = "<group>"; };
 		757630EA1A39E72E007E32E5 /* ChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseViewController.m; sourceTree = "<group>"; };
-		757630ED1A3ADBA5007E32E5 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = CollectionView/Cell.h; sourceTree = "<group>"; };
-		757630EE1A3ADBA5007E32E5 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cell.m; path = CollectionView/Cell.m; sourceTree = "<group>"; };
-		757630EF1A3ADBA5007E32E5 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCellBackground.h; path = CollectionView/CustomCellBackground.h; sourceTree = "<group>"; };
-		757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCellBackground.m; path = CollectionView/CustomCellBackground.m; sourceTree = "<group>"; };
-		757630F31A3C0EC6007E32E5 /* CADFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADFlowLayout.h; sourceTree = "<group>"; };
-		757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADFlowLayout.m; sourceTree = "<group>"; };
 		758A20731ADE2A7000413251 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = SOURCE_ROOT; };
 		758A20751ADE2A8300413251 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		758A20811ADE318A00413251 /* CADPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayViewController.m; sourceTree = "<group>"; };
 		758A20831ADE31AA00413251 /* CADPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayViewController.h; sourceTree = "<group>"; };
-		758A20841ADE4CEE00413251 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		758A20851ADE4CEE00413251 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		758A20ED1ADE53AF00413251 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = libs/libcrypto.a; sourceTree = "<group>"; };
 		758A20EE1ADE53AF00413251 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = libs/libssl.a; sourceTree = "<group>"; };
 		758A20F21ADE571F00413251 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -183,10 +197,6 @@
 		758A214C1ADE573100413251 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		758A214D1ADE573100413251 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		758A214E1ADE573100413251 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
-		759149811A4679AE000B3836 /* TextItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextItem.h; path = TimeSelectedView/TextItem.h; sourceTree = "<group>"; };
-		759149821A4679AE000B3836 /* TextItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextItem.m; path = TimeSelectedView/TextItem.m; sourceTree = "<group>"; };
-		759149851A4683EC000B3836 /* TimeSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeSelectedView.h; path = TimeSelectedView/TimeSelectedView.h; sourceTree = "<group>"; };
-		759149861A4683EC000B3836 /* TimeSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TimeSelectedView.m; path = TimeSelectedView/TimeSelectedView.m; sourceTree = "<group>"; };
 		759C8AE41A221C1C00EB82D8 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -263,19 +273,6 @@
 		75CCCBE91A1E02A70005CB6B /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
 		75CCCBEA1A1E02A70005CB6B /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
 		75CCCBEB1A1E02A70005CB6B /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
-		75E09FD21A382EB8007787DE /* ListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListItem.h; path = HorizontalList/ListItem.h; sourceTree = "<group>"; };
-		75E09FD31A382EB8007787DE /* ListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListItem.m; path = HorizontalList/ListItem.m; sourceTree = "<group>"; };
-		75E09FD41A382EB8007787DE /* POHorizontalList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POHorizontalList.h; path = HorizontalList/POHorizontalList.h; sourceTree = "<group>"; };
-		75E09FD51A382EB8007787DE /* POHorizontalList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POHorizontalList.m; path = HorizontalList/POHorizontalList.m; sourceTree = "<group>"; };
-		75E09FD61A382EB8007787DE /* POHorizontalListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POHorizontalListDelegate.h; path = HorizontalList/POHorizontalListDelegate.h; sourceTree = "<group>"; };
-		75E09FDA1A384A34007787DE /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		75E09FDB1A384A5A007787DE /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		75F8C5F81A56D83800F391EA /* StatusByDayRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusByDayRecord.h; sourceTree = "<group>"; };
-		75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusByDayRecord.m; sourceTree = "<group>"; };
-		75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StadiumRecord.h; sourceTree = "<group>"; };
-		75FE304C1A29CC300079D4D4 /* StadiumRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumRecord.m; sourceTree = "<group>"; };
-		75FE304E1A29F0660079D4D4 /* ParseOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseOperation.m; sourceTree = "<group>"; };
-		75FE30501A29F08C0079D4D4 /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +296,104 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7535474B1AE66568005A5791 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				753547621AE66740005A5791 /* IconDescription */,
+				753547651AE66740005A5791 /* CADPointAnnotation */,
+				7535474C1AE66568005A5791 /* CollectionView */,
+				753547511AE66568005A5791 /* HorizontalList */,
+				753547571AE66568005A5791 /* TimeSelectedView */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7535474C1AE66568005A5791 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				7535474D1AE66568005A5791 /* Cell.h */,
+				7535474E1AE66568005A5791 /* Cell.m */,
+				7535474F1AE66568005A5791 /* CustomCellBackground.h */,
+				753547501AE66568005A5791 /* CustomCellBackground.m */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		753547511AE66568005A5791 /* HorizontalList */ = {
+			isa = PBXGroup;
+			children = (
+				753547521AE66568005A5791 /* ListItem.h */,
+				753547531AE66568005A5791 /* ListItem.m */,
+				753547541AE66568005A5791 /* POHorizontalList.h */,
+				753547551AE66568005A5791 /* POHorizontalList.m */,
+				753547561AE66568005A5791 /* POHorizontalListDelegate.h */,
+			);
+			path = HorizontalList;
+			sourceTree = "<group>";
+		};
+		753547571AE66568005A5791 /* TimeSelectedView */ = {
+			isa = PBXGroup;
+			children = (
+				753547581AE66568005A5791 /* TextItem.h */,
+				753547591AE66568005A5791 /* TextItem.m */,
+				7535475A1AE66568005A5791 /* TimeSelectedView.h */,
+				7535475B1AE66568005A5791 /* TimeSelectedView.m */,
+			);
+			path = TimeSelectedView;
+			sourceTree = "<group>";
+		};
+		753547621AE66740005A5791 /* IconDescription */ = {
+			isa = PBXGroup;
+			children = (
+				753547631AE66740005A5791 /* IconDescription.h */,
+				753547641AE66740005A5791 /* IconDescription.m */,
+			);
+			path = IconDescription;
+			sourceTree = "<group>";
+		};
+		753547651AE66740005A5791 /* CADPointAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				753547661AE66740005A5791 /* CADPointAnnotation.h */,
+				753547671AE66740005A5791 /* CADPointAnnotation.m */,
+			);
+			path = CADPointAnnotation;
+			sourceTree = "<group>";
+		};
+		7535476A1AE66941005A5791 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				7535476B1AE66941005A5791 /* Order.h */,
+				7535476C1AE66941005A5791 /* Order.m */,
+				7535476D1AE66941005A5791 /* SportDayRule.h */,
+				7535476E1AE66941005A5791 /* SportDayRule.m */,
+				7535476F1AE66941005A5791 /* StadiumRecord.h */,
+				753547701AE66941005A5791 /* StadiumRecord.m */,
+				753547711AE66941005A5791 /* StatusByDayRecord.h */,
+				753547721AE66941005A5791 /* StatusByDayRecord.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		753547771AE6694A005A5791 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				753547841AE669CF005A5791 /* ParseOperation.m */,
+				753547851AE669CF005A5791 /* ParseStadiumDetail.m */,
+				753547861AE669CF005A5791 /* ParseStadiumDetail.h */,
+				753547871AE669CF005A5791 /* ParseOperation.h */,
+				753547781AE6694A005A5791 /* Constants.h */,
+				753547791AE6694A005A5791 /* Constants.m */,
+				7535477A1AE6694A005A5791 /* IconDownloader.h */,
+				7535477B1AE6694A005A5791 /* IconDownloader.m */,
+				7535477C1AE6694A005A5791 /* StadiumManager.h */,
+				7535477D1AE6694A005A5791 /* StadiumManager.m */,
+				7535477E1AE6694A005A5791 /* Utils.h */,
+				7535477F1AE6694A005A5791 /* Utils.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,45 +409,6 @@
 				759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		757630E11A392C15007E32E5 /* ParseJson */ = {
-			isa = PBXGroup;
-			children = (
-				75FE304E1A29F0660079D4D4 /* ParseOperation.m */,
-				75FE30501A29F08C0079D4D4 /* ParseOperation.h */,
-				757630E61A393327007E32E5 /* ParseStadiumDetail.h */,
-				757630E71A393349007E32E5 /* ParseStadiumDetail.m */,
-			);
-			name = ParseJson;
-			sourceTree = "<group>";
-		};
-		757630E21A392C6A007E32E5 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				758A20841ADE4CEE00413251 /* Order.h */,
-				758A20851ADE4CEE00413251 /* Order.m */,
-				75FE304C1A29CC300079D4D4 /* StadiumRecord.m */,
-				75FE304B1A29CBE80079D4D4 /* StadiumRecord.h */,
-				757630E31A392D68007E32E5 /* SportDayRule.h */,
-				757630E41A392E53007E32E5 /* SportDayRule.m */,
-				75F8C5F81A56D83800F391EA /* StatusByDayRecord.h */,
-				75F8C5F91A56DEA900F391EA /* StatusByDayRecord.m */,
-			);
-			name = model;
-			sourceTree = "<group>";
-		};
-		757630EC1A3AD167007E32E5 /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				757630ED1A3ADBA5007E32E5 /* Cell.h */,
-				757630EE1A3ADBA5007E32E5 /* Cell.m */,
-				757630EF1A3ADBA5007E32E5 /* CustomCellBackground.h */,
-				757630F01A3ADBA5007E32E5 /* CustomCellBackground.m */,
-				757630F31A3C0EC6007E32E5 /* CADFlowLayout.h */,
-				757630F41A3C0EC6007E32E5 /* CADFlowLayout.m */,
-			);
-			name = CollectionView;
 			sourceTree = "<group>";
 		};
 		758A20F11ADE571F00413251 /* openssl */ = {
@@ -461,17 +517,6 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		759149841A4679BA000B3836 /* TimeSelectedView */ = {
-			isa = PBXGroup;
-			children = (
-				759149811A4679AE000B3836 /* TextItem.h */,
-				759149851A4683EC000B3836 /* TimeSelectedView.h */,
-				759149861A4683EC000B3836 /* TimeSelectedView.m */,
-				759149821A4679AE000B3836 /* TextItem.m */,
-			);
-			name = TimeSelectedView;
-			sourceTree = "<group>";
-		};
 		759C8AE31A221C0900EB82D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,15 +548,11 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				753547771AE6694A005A5791 /* Tools */,
+				7535476A1AE66941005A5791 /* model */,
+				7535474B1AE66568005A5791 /* Controllers */,
 				758A213D1ADE573100413251 /* Util */,
 				758A20F11ADE571F00413251 /* openssl */,
-				759149841A4679BA000B3836 /* TimeSelectedView */,
-				757630EC1A3AD167007E32E5 /* CollectionView */,
-				757630E21A392C6A007E32E5 /* model */,
-				757630E11A392C15007E32E5 /* ParseJson */,
-				75E09FD91A382EC4007787DE /* HorizontalList */,
-				75668D071A34004B009F5A30 /* IconDownloader.h */,
-				75668D081A34004B009F5A30 /* IconDownloader.m */,
 				75CCCB861A1E01CB0005CB6B /* AppDelegate.h */,
 				75CCCB871A1E01CB0005CB6B /* AppDelegate.mm */,
 				75CCCB891A1E01CB0005CB6B /* ViewController.h */,
@@ -522,20 +563,10 @@
 				75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */,
 				75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */,
 				75CCCB821A1E01CB0005CB6B /* Supporting Files */,
-				75668CFB1A315DE1009F5A30 /* StadiumManager.h */,
-				75668CFC1A315E0B009F5A30 /* StadiumManager.m */,
-				75E09FDA1A384A34007787DE /* Utils.h */,
-				75E09FDB1A384A5A007787DE /* Utils.m */,
 				757630E91A39E72E007E32E5 /* ChooseViewController.h */,
 				757630EA1A39E72E007E32E5 /* ChooseViewController.m */,
-				7553A3D91A494C2100BFE659 /* IconDescription.h */,
-				7553A3DA1A494C3D00BFE659 /* IconDescription.m */,
 				758A20811ADE318A00413251 /* CADPayViewController.m */,
 				758A20831ADE31AA00413251 /* CADPayViewController.h */,
-				7532B96A1ADF4E59007E494E /* Constants.h */,
-				7532B96B1ADF4E59007E494E /* Constants.m */,
-				7532B96D1ADF6E46007E494E /* CADPointAnnotation.h */,
-				7532B9701ADF7754007E494E /* CADPointAnnotation.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -615,18 +646,6 @@
 			path = inc;
 			sourceTree = "<group>";
 		};
-		75E09FD91A382EC4007787DE /* HorizontalList */ = {
-			isa = PBXGroup;
-			children = (
-				75E09FD21A382EB8007787DE /* ListItem.h */,
-				75E09FD31A382EB8007787DE /* ListItem.m */,
-				75E09FD41A382EB8007787DE /* POHorizontalList.h */,
-				75E09FD51A382EB8007787DE /* POHorizontalList.m */,
-				75E09FD61A382EB8007787DE /* POHorizontalListDelegate.h */,
-			);
-			name = HorizontalList;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -701,38 +720,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				753547611AE66568005A5791 /* TimeSelectedView.m in Sources */,
 				758A214F1ADE573100413251 /* base64.m in Sources */,
+				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
 				758A21511ADE573100413251 /* DataVerifier.m in Sources */,
+				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
 				758A21541ADE573100413251 /* openssl_wrapper.m in Sources */,
-				7532B96C1ADF4E59007E494E /* Constants.m in Sources */,
-				75FE304F1A29F0660079D4D4 /* ParseOperation.m in Sources */,
+				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
 				758A21501ADE573100413251 /* DataSigner.m in Sources */,
-				757630F51A3C0EC6007E32E5 /* CADFlowLayout.m in Sources */,
-				75F8C5FA1A56DEA900F391EA /* StatusByDayRecord.m in Sources */,
-				759149831A4679AE000B3836 /* TextItem.m in Sources */,
-				7532B9711ADF7755007E494E /* CADPointAnnotation.m in Sources */,
-				75E09FDC1A384A5A007787DE /* Utils.m in Sources */,
-				75FE304D1A29CC300079D4D4 /* StadiumRecord.m in Sources */,
+				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
+				753547741AE66941005A5791 /* SportDayRule.m in Sources */,
+				7535475C1AE66568005A5791 /* Cell.m in Sources */,
+				7535475E1AE66568005A5791 /* ListItem.m in Sources */,
+				753547801AE6694A005A5791 /* Constants.m in Sources */,
 				758A21561ADE573100413251 /* RSADataVerifier.m in Sources */,
+				7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */,
+				753547731AE66941005A5791 /* Order.m in Sources */,
 				758A21531ADE573100413251 /* NSDataEx.m in Sources */,
+				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
+				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
+				753547831AE6694A005A5791 /* Utils.m in Sources */,
+				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
+				753547601AE66568005A5791 /* TextItem.m in Sources */,
 				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
-				757630E81A393349007E32E5 /* ParseStadiumDetail.m in Sources */,
-				757630F11A3ADBA5007E32E5 /* Cell.m in Sources */,
-				75E09FD81A382EB8007787DE /* POHorizontalList.m in Sources */,
-				758A20861ADE4CEE00413251 /* Order.m in Sources */,
-				75E09FD71A382EB8007787DE /* ListItem.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
-				75668D091A34004B009F5A30 /* IconDownloader.m in Sources */,
-				757630E51A392E54007E32E5 /* SportDayRule.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,
 				758A21521ADE573100413251 /* MD5DataSigner.m in Sources */,
-				7553A3DB1A494C3D00BFE659 /* IconDescription.m in Sources */,
-				759149871A4683EC000B3836 /* TimeSelectedView.m in Sources */,
+				753547681AE66740005A5791 /* IconDescription.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
-				757630F21A3ADBA5007E32E5 /* CustomCellBackground.m in Sources */,
+				753547691AE66740005A5791 /* CADPointAnnotation.m in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
-				75668CFD1A315E0B009F5A30 /* StadiumManager.m in Sources */,
 				75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

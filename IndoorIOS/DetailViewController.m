@@ -52,6 +52,9 @@ static NSAttributedString *cr;
     _imageSize = self.imageScrollView.frame.size;
     [self.imageScrollView setContentSize:CGSizeMake(_imageSize.width * 6, _imageSize.height)];// width * 6 for scroll
     
+    // 初始化表数据
+    self.stadiumProperties = [[NSMutableArray alloc] init];
+    
     // get stadium information
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
@@ -86,13 +89,10 @@ static NSAttributedString *cr;
             imageView.clipsToBounds = YES;
             [self.imageScrollView addSubview:imageView];
         }
+        
+        // 直接组织数据
+        [self loadTableViewData];
     }
-    
-    // init stadiumProperties
-    self.stadiumProperties = [[NSMutableArray alloc] init];
-    //    NSString *addressAndPhone = [[self.stadiumRecord.address stringByAppendingString:@"\n"] stringByAppendingString:self.stadiumRecord.phone];
-    //    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:addressAndPhone];
-    //    [self.stadiumProperties addObject:string];
     
     /*
      // set label text
@@ -136,7 +136,7 @@ static NSAttributedString *cr;
     [self.view addSubview:list];
     
     // remove table view divider
-    [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
 }
 
@@ -226,12 +226,22 @@ static NSAttributedString *cr;
     
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    //    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
-    [cell.textLabel setAttributedText:[self.stadiumProperties objectAtIndex:indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+//    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellText = [_stadiumProperties objectAtIndex:indexPath.row];
+    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return labelSize.height + 20;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -371,6 +381,8 @@ static NSAttributedString *cr;
     parser.completionBlock = ^(void) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            [self loadTableViewData];
+            /*
             // get singleton
             StadiumManager *stadiumManager = [StadiumManager sharedInstance];
             
@@ -400,6 +412,7 @@ static NSAttributedString *cr;
             }
             
             [self.stadiumPropertyTableView reloadData];
+             */
         });
         // we are finished with the queue and our ParseOperation
         self.queue = nil;
@@ -410,6 +423,33 @@ static NSAttributedString *cr;
     // ownership of appListData has been transferred to the parse operation
     // and should no longer be referenced in this thread
     self.jsonData = nil;
+}
+
+- (void)loadTableViewData
+{
+    if (!_stadiumRecord.gotDetail)
+        return;
+    
+    [_stadiumProperties removeAllObjects];
+    
+    NSMutableString *address=[NSMutableString stringWithString:@""];
+    [address appendString:_stadiumRecord.area_code];
+    [address appendString:@" "];
+    [address appendString:_stadiumRecord.area_name];
+    [address appendString:@"\n"];
+    [address appendString:_stadiumRecord.address];
+    [address appendString:@"\n"];
+    [address appendString:_stadiumRecord.open_time];
+    [address appendString:@"-"];
+    [address appendString:_stadiumRecord.close_time];
+    
+//    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:address];
+    [_stadiumProperties addObject:address];
+    
+    
+    
+    
+    [_stadiumPropertyTableView reloadData];
 }
 
 @end
