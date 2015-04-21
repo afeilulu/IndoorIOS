@@ -236,9 +236,6 @@
  */
 - (BMKAnnotationView *)mapView:(BMKMapView *)view viewForAnnotation:(id <BMKAnnotation>)annotation
 {
-    
-    NSLog(@"viewForAnnotation");
-    
     // 生成重用标示identifier
     NSString *AnnotationViewID = @"stadiumMark";
     

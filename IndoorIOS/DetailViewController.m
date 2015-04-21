@@ -26,6 +26,7 @@ static NSAttributedString *cr;
 @property (nonatomic, strong) NSURLConnection *jsonConnection;
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
+@property (nonatomic) CGSize imageSize;
 @property (nonatomic) int selectedSportIndex;
 
 // the set of IconDownloader objects for each image
@@ -48,8 +49,8 @@ static NSAttributedString *cr;
     //    self.imageScrollView.delegate = self;
     self.imageScrollView.pagingEnabled = YES;
     self.imageScrollView.showsHorizontalScrollIndicator = NO;
-    CGSize size = self.imageScrollView.frame.size;
-    [self.imageScrollView setContentSize:CGSizeMake(size.width * 6, size.height)];// width * 6 for scroll
+    _imageSize = self.imageScrollView.frame.size;
+    [self.imageScrollView setContentSize:CGSizeMake(_imageSize.width * 6, _imageSize.height)];// width * 6 for scroll
     
     // get stadium information
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
@@ -81,7 +82,8 @@ static NSAttributedString *cr;
         if (_stadiumRecord.image){
             // 直接显示图片
             UIImageView *imageView = [[UIImageView alloc] initWithImage:_stadiumRecord.image];
-            imageView.contentMode = UIViewContentModeCenter;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
             [self.imageScrollView addSubview:imageView];
         }
     }
@@ -135,23 +137,13 @@ static NSAttributedString *cr;
     
     // remove table view divider
     [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 // -------------------------------------------------------------------------------
 //	startIconDownload:forIndexPath:
@@ -166,7 +158,8 @@ static NSAttributedString *cr;
         [iconDownloader setCompletionHandler:^{
             
             UIImageView *imageView = [[UIImageView alloc] initWithImage:stadium.image];
-            imageView.contentMode = UIViewContentModeCenter;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
             [self.imageScrollView addSubview:imageView];
             
             // 设置navigtionController背景图片
