@@ -25,6 +25,7 @@
 		753547831AE6694A005A5791 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535477F1AE6694A005A5791 /* Utils.m */; };
 		753547881AE669CF005A5791 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547841AE669CF005A5791 /* ParseOperation.m */; };
 		753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547851AE669CF005A5791 /* ParseStadiumDetail.m */; };
+		7535478D1AE72CC6005A5791 /* CADStretchableTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* ChooseViewController.m */; };
@@ -94,6 +95,8 @@
 		753547851AE669CF005A5791 /* ParseStadiumDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseStadiumDetail.m; sourceTree = "<group>"; };
 		753547861AE669CF005A5791 /* ParseStadiumDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseStadiumDetail.h; sourceTree = "<group>"; };
 		753547871AE669CF005A5791 /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
+		7535478B1AE72CC6005A5791 /* CADStretchableTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStretchableTableHeaderView.h; sourceTree = "<group>"; };
+		7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStretchableTableHeaderView.m; sourceTree = "<group>"; };
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
@@ -299,6 +302,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7535478A1AE72CC6005A5791 /* StretchableTableHeaderView */,
 				753547621AE66740005A5791 /* IconDescription */,
 				753547651AE66740005A5791 /* CADPointAnnotation */,
 				7535474C1AE66568005A5791 /* CollectionView */,
@@ -392,6 +396,15 @@
 				7535477F1AE6694A005A5791 /* Utils.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		7535478A1AE72CC6005A5791 /* StretchableTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				7535478B1AE72CC6005A5791 /* CADStretchableTableHeaderView.h */,
+				7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */,
+			);
+			path = StretchableTableHeaderView;
 			sourceTree = "<group>";
 		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
@@ -733,6 +746,7 @@
 				7535475C1AE66568005A5791 /* Cell.m in Sources */,
 				7535475E1AE66568005A5791 /* ListItem.m in Sources */,
 				753547801AE6694A005A5791 /* Constants.m in Sources */,
+				7535478D1AE72CC6005A5791 /* CADStretchableTableHeaderView.m in Sources */,
 				758A21561ADE573100413251 /* RSADataVerifier.m in Sources */,
 				7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */,
 				753547731AE66941005A5791 /* Order.m in Sources */,

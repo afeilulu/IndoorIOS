@@ -22,7 +22,6 @@ static NSAttributedString *cr;
 
 @interface DetailViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView *stadiumPropertyTableView;
 @property (nonatomic, strong) NSURLConnection *jsonConnection;
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
@@ -40,17 +39,16 @@ static NSAttributedString *cr;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    _stretchableTableHeaderView = [CADStretchableTableHeaderView new];
+    [_stretchableTableHeaderView stretchHeaderForTableView:self.tableView withView:_stretchView];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     // init
     self.selectedSportIndex = -1;
     
     cr = [[NSAttributedString alloc] initWithString:@"\n"];
-    
-    // 初始化图片大小
-    //    self.imageScrollView.delegate = self;
-    self.imageScrollView.pagingEnabled = YES;
-    self.imageScrollView.showsHorizontalScrollIndicator = NO;
-    _imageSize = self.imageScrollView.frame.size;
-    [self.imageScrollView setContentSize:CGSizeMake(_imageSize.width * 6, _imageSize.height)];// width * 6 for scroll
     
     // 初始化表数据
     self.stadiumProperties = [[NSMutableArray alloc] init];
@@ -84,10 +82,7 @@ static NSAttributedString *cr;
     } else {
         if (_stadiumRecord.image){
             // 直接显示图片
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:_stadiumRecord.image];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.clipsToBounds = YES;
-            [self.imageScrollView addSubview:imageView];
+            _stretchView.image = _stadiumRecord.image;
         }
         
         // 直接组织数据
@@ -95,54 +90,55 @@ static NSAttributedString *cr;
     }
     
     /*
-     // set label text
-     [_addressLabel setLineBreakMode:NSLineBreakByWordWrapping];
-     _addressLabel.numberOfLines = 0;
-     [_addressLabel sizeToFit];
-     _addressLabel.text = _stadiumRecord.address;
+     // date list init
+     dateList = [[NSMutableArray alloc] init];
+     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+     NSDateComponents *comps = [[NSDateComponents alloc] init];
+     NSInteger unitFlags = NSYearCalendarUnit |
+     NSMonthCalendarUnit |
+     NSDayCalendarUnit |
+     NSWeekdayCalendarUnit |
+     NSHourCalendarUnit |
+     NSMinuteCalendarUnit |
+     NSSecondCalendarUnit;
+     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+     [dateFormatter setDateFormat:@"yyyyMMdd"];
+     int n;
+     for (n=0;n<7; n=n+1) {
+     NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
+     comps = [calendar components:unitFlags fromDate:tmpDate];
+     int week = [comps weekday];
+     int month = [comps month];
+     int day = [comps day];
+     
+     NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
+     NSString *subTitleString = [Utils getWeekName:week];
+     ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
+     NSString *dateString = [dateFormatter stringFromDate:tmpDate];
+     item.objectTag = dateString;// save for next view after date view item clicked
+     [dateList addObject:item];
+     }
+     
+     POHorizontalList *list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 200.0, 400.0, 82.0) items:dateList];
+     [list setDelegate:self];
+     [self.view addSubview:list];
      */
-    
-    // date list init
-    dateList = [[NSMutableArray alloc] init];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
-    int n;
-    for (n=0;n<7; n=n+1) {
-        NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
-        comps = [calendar components:unitFlags fromDate:tmpDate];
-        int week = [comps weekday];
-        int month = [comps month];
-        int day = [comps day];
-        
-        NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
-        NSString *subTitleString = [Utils getWeekName:week];
-        ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
-        NSString *dateString = [dateFormatter stringFromDate:tmpDate];
-        item.objectTag = dateString;// save for next view after date view item clicked
-        [dateList addObject:item];
-    }
-    
-    POHorizontalList *list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 200.0, 400.0, 82.0) items:dateList];
-    [list setDelegate:self];
-    [self.view addSubview:list];
-    
-    // remove table view divider
-//    [self.stadiumPropertyTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_stretchableTableHeaderView scrollViewDidScroll:scrollView];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [_stretchableTableHeaderView resizeView];
 }
 
 // -------------------------------------------------------------------------------
@@ -157,13 +153,7 @@ static NSAttributedString *cr;
         iconDownloader.stadiumRecord = stadium;
         [iconDownloader setCompletionHandler:^{
             
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:stadium.image];
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            imageView.clipsToBounds = YES;
-            [self.imageScrollView addSubview:imageView];
-            
-            // 设置navigtionController背景图片
-            //            [self.navigationController.navigationBar setBackgroundImage:stadium.image forBarMetrics:UIBarMetricsDefault];
+            _stretchView.image = stadium.image;
             
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
@@ -175,40 +165,41 @@ static NSAttributedString *cr;
     }
 }
 
-#pragma mark-- UIScrollViewDelegate
-
-
-
 #pragma mark-- UITableViewDelegate
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return _sections.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [_headers objectAtIndex:section];
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.stadiumProperties.count;
+    return [[_sections objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //    static NSString *CellIdentifier = @"CellIdentifier";
-    //
-    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //
-    //    if (cell == nil) {
-    //
-    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    //
-    //    }
+        static NSString *CellIdentifier = @"CellIdentifier";
     
-    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
-    }
+        if (cell == nil) {
+    
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    
+        }
+    
+//    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+//    if (cell == nil) {
+//        
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//        
+//    }
     
     /*
      UILabel *title = [[UILabel alloc] init];
@@ -221,19 +212,23 @@ static NSAttributedString *cr;
      [cell.contentView addSubview:title];
      */
     
-    //    cell.layoutMargins = UIEdgeInsetsZero;
-    //    cell.preservesSuperviewLayoutMargins = NO;
+
+    cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
+                                          objectAtIndex:indexPath.row];
     
+    /*
     cell.textLabel.numberOfLines = 0;
     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
-//    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+    //    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+     */
     
     return cell;
 }
 
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cellText = [_stadiumProperties objectAtIndex:indexPath.row];
@@ -243,6 +238,7 @@ static NSAttributedString *cr;
     
     return labelSize.height + 20;
 }
+ */
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //    NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
@@ -383,35 +379,35 @@ static NSAttributedString *cr;
             
             [self loadTableViewData];
             /*
-            // get singleton
-            StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-            
-            for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
-                NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
-                NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                
-                NSMutableString * ruleString=[NSMutableString stringWithString:@""];
-                [ruleString appendString:rule.name];
-                //                    [ruleString appendString:@" "];
-                //                    [ruleString appendFormat:@"%@",rule.maxCount];
-                [ruleString appendString:@"\n"];
-                for (int i=0; i<ruleArray.count; ++i) {
-                    [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
-                    [ruleString appendString:@"-"];
-                    [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
-                    [ruleString appendString:@" "];
-                    [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
-                    [ruleString appendString:@"元 "];
-                }
-                
-                NSRange range=[ruleString rangeOfString:rule.name];
-                NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
-                [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
-                
-                [self.stadiumProperties addObject:string];
-            }
-            
-            [self.stadiumPropertyTableView reloadData];
+             // get singleton
+             StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+             
+             for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
+             NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
+             NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+             
+             NSMutableString * ruleString=[NSMutableString stringWithString:@""];
+             [ruleString appendString:rule.name];
+             //                    [ruleString appendString:@" "];
+             //                    [ruleString appendFormat:@"%@",rule.maxCount];
+             [ruleString appendString:@"\n"];
+             for (int i=0; i<ruleArray.count; ++i) {
+             [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
+             [ruleString appendString:@"-"];
+             [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
+             [ruleString appendString:@" "];
+             [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
+             [ruleString appendString:@"元 "];
+             }
+             
+             NSRange range=[ruleString rangeOfString:rule.name];
+             NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
+             [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
+             
+             [self.stadiumProperties addObject:string];
+             }
+             
+             [self.stadiumPropertyTableView reloadData];
              */
         });
         // we are finished with the queue and our ParseOperation
@@ -430,6 +426,7 @@ static NSAttributedString *cr;
     if (!_stadiumRecord.gotDetail)
         return;
     
+    /*
     [_stadiumProperties removeAllObjects];
     
     NSMutableString *address=[NSMutableString stringWithString:@""];
@@ -443,13 +440,59 @@ static NSAttributedString *cr;
     [address appendString:@"-"];
     [address appendString:_stadiumRecord.close_time];
     
-//    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:address];
+    //    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:address];
     [_stadiumProperties addObject:address];
+    */
     
+    if (_sections==nil) {
+        _sections = [[NSMutableArray alloc] init];
+    }
     
+    if (_headers==nil){
+        _headers = [[NSMutableArray alloc] init];
+    }
     
+    [_sections removeAllObjects];
+    [_headers removeAllObjects];
     
-    [_stadiumPropertyTableView reloadData];
+    // 地址信息
+    NSMutableArray* addressInfo = [[NSMutableArray alloc] init];
+    NSMutableString *timePeriod=[NSMutableString stringWithString:@""];
+    [timePeriod appendString:_stadiumRecord.open_time];
+    [timePeriod appendString:@"-"];
+    [timePeriod appendString:_stadiumRecord.close_time];
+    [addressInfo addObject:timePeriod];
+    NSMutableString *address=[NSMutableString stringWithString:@""];
+    [address appendString:_stadiumRecord.area_code];
+    [address appendString:@" "];
+    [address appendString:_stadiumRecord.area_name];
+    [address appendString:@" "];
+    [address appendString:_stadiumRecord.address];
+    [addressInfo addObject:address];
+    [addressInfo addObject:_stadiumRecord.bus_road];
+    
+    [_sections addObject:addressInfo];
+    [_headers addObject:@"地址"];
+    
+    // 运动信息
+    for (NSDictionary *sport in _stadiumRecord.productTypes) {
+        NSMutableArray *sportInfo = [[NSMutableArray alloc] init];
+        
+        NSArray *attrsOfSport = [sport objectForKey:@"attributes"];
+        for (NSDictionary *item in attrsOfSport) {
+            NSMutableString *itemInfo=[NSMutableString stringWithString:@""];
+            [itemInfo appendString:[item objectForKey:@"attr_name"]];
+            [itemInfo appendString:@" "];
+            [itemInfo appendString:[item objectForKey:@"attr_value"]];
+            
+            [sportInfo addObject:itemInfo];
+        }
+        
+        [_sections addObject:sportInfo];
+        [_headers addObject:[sport objectForKey:@"name"]];
+    }
+    
+    [self.tableView reloadData];
 }
 
 @end

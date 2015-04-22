@@ -3,14 +3,12 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--铁人-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
@@ -23,66 +21,38 @@
                     </view>
                     <navigationItem key="navigationItem" title="铁人" id="PKj-EH-gnX"/>
                     <connections>
-                        <segue destination="JVd-Ta-SLW" kind="show" identifier="showDetail" id="fQZ-aO-RmE"/>
+                        <segue destination="JDv-gf-ct7" kind="show" identifier="showDetail" id="piE-kN-49j"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1869" y="272"/>
         </scene>
         <!--Detail View Controller-->
-        <scene sceneID="gZP-Du-Mof">
+        <scene sceneID="Xdx-dw-Hcf">
             <objects>
-                <viewController storyboardIdentifier="detailview" hidesBottomBarWhenPushed="YES" id="JVd-Ta-SLW" customClass="DetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="35d-aU-kSP"/>
-                        <viewControllerLayoutGuide type="bottom" id="91A-bM-flW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="uH4-5c-7CS">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="JDv-gf-ct7" customClass="DetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="byu-FG-XNx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwK-4L-c2X">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="cwK-4L-c2X" secondAttribute="height" multiplier="3:2" id="GdH-y9-PWX"/>
-                                </constraints>
-                            </scrollView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wtg-Ps-Uwt">
-                                <rect key="frame" x="16" y="470" width="568" height="73"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="JVd-Ta-SLW" id="TpP-Sw-8bG"/>
-                                    <outlet property="delegate" destination="JVd-Ta-SLW" id="Udz-x3-UWk"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="cwK-4L-c2X" secondAttribute="trailing" constant="-16" id="3bx-bv-b8x"/>
-                            <constraint firstItem="91A-bM-flW" firstAttribute="top" secondItem="Wtg-Ps-Uwt" secondAttribute="bottom" constant="8" id="5qW-HF-gR3"/>
-                            <constraint firstItem="91A-bM-flW" firstAttribute="top" secondItem="cwK-4L-c2X" secondAttribute="bottom" constant="400" id="Fnh-Pt-8Rg"/>
-                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="leading" secondItem="uH4-5c-7CS" secondAttribute="leadingMargin" id="L3t-lI-xOI"/>
-                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="top" secondItem="cwK-4L-c2X" secondAttribute="bottom" constant="70" id="Lar-rh-r0f"/>
-                            <constraint firstItem="cwK-4L-c2X" firstAttribute="leading" secondItem="uH4-5c-7CS" secondAttribute="leadingMargin" constant="-16" id="SwS-l8-Xy6"/>
-                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="trailing" secondItem="uH4-5c-7CS" secondAttribute="trailingMargin" id="c04-th-6dj"/>
-                            <constraint firstItem="Wtg-Ps-Uwt" firstAttribute="top" secondItem="cwK-4L-c2X" secondAttribute="bottom" constant="102" id="fN7-nx-GDH"/>
-                            <constraint firstItem="cwK-4L-c2X" firstAttribute="top" secondItem="uH4-5c-7CS" secondAttribute="topMargin" id="wQr-fm-StY"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="fN7-nx-GDH"/>
-                                <exclude reference="Fnh-Pt-8Rg"/>
-                            </mask>
-                        </variation>
-                    </view>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="FOh-bg-Pfa">
+                            <rect key="frame" x="0.0" y="64" width="600" height="200"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="JDv-gf-ct7" id="hJ2-M2-u0K"/>
+                            <outlet property="delegate" destination="JDv-gf-ct7" id="MyI-dE-oiz"/>
+                        </connections>
+                    </tableView>
                     <connections>
-                        <outlet property="imageScrollView" destination="cwK-4L-c2X" id="6hr-oQ-dq8"/>
-                        <outlet property="stadiumPropertyTableView" destination="Wtg-Ps-Uwt" id="XmQ-He-fmZ"/>
+                        <outlet property="stretchView" destination="FOh-bg-Pfa" id="Ui7-8a-bTy"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G76-oY-go0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kVJ-pD-RHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2633" y="272"/>
+            <point key="canvasLocation" x="2625" y="272"/>
         </scene>
         <!--Choose View Controller-->
         <scene sceneID="gWB-zP-Nj7">

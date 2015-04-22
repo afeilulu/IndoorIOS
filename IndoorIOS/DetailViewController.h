@@ -9,17 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "POHorizontalList.h"
 #import "StadiumRecord.h"
+#import "CADStretchableTableHeaderView.h"
 
-@interface DetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,POHorizontalListDelegate>{
+@interface DetailViewController : UITableViewController<POHorizontalListDelegate>{
     NSMutableArray *dateList;
 }
-
-//@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
 
 @property (nonatomic,assign)NSString* stadiumId;
 @property (nonatomic,strong)StadiumRecord* stadiumRecord;
 
 @property (nonatomic,strong)NSMutableArray* stadiumProperties;
+
+@property (weak, nonatomic) IBOutlet UIImageView *stretchView;
+@property (nonatomic, strong) CADStretchableTableHeaderView* stretchableTableHeaderView;
+
+@property (nonatomic, strong) NSMutableArray* sections;
+@property (nonatomic, strong) NSMutableArray* headers;
 
 @end
