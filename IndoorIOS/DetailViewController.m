@@ -171,9 +171,40 @@ static NSAttributedString *cr;
     return _sections.count;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return [_headers objectAtIndex:section];
+//}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [_headers objectAtIndex:section];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    /* Create custom view to display section header... */
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+    [label setFont:[UIFont systemFontOfSize:18]];
+    NSString *string =[_headers objectAtIndex:section];
+    /* Section header is in 0th index... */
+    [label setText:string];
+    [view addSubview:label];
+    
+    if (section > 0){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        //set the position of the button
+        button.frame = CGRectMake(tableView.frame.size.width - 100, 5, 100, 18);
+        [button setTitle:@"预 订" forState:UIControlStateNormal];
+        [button setTag:section];
+        [button addTarget:self action:@selector(customActionPressed:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor= [UIColor clearColor];
+        [view addSubview:button];
+    }
+    
+    //    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -182,24 +213,24 @@ static NSAttributedString *cr;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-        static NSString *CellIdentifier = @"CellIdentifier";
+    static NSString *CellIdentifier = @"CellIdentifier";
     
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-        if (cell == nil) {
+    if (cell == nil) {
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
+    }
     
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
+    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-        }
-    
-//    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-//    if (cell == nil) {
-//        
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//        
-//    }
+    //    if (cell == nil) {
+    //
+    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //
+    //    }
     
     /*
      UILabel *title = [[UILabel alloc] init];
@@ -212,32 +243,33 @@ static NSAttributedString *cr;
      [cell.contentView addSubview:title];
      */
     
-
+    
     cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
-                                          objectAtIndex:indexPath.row];
+                                      objectAtIndex:indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     /*
-    cell.textLabel.numberOfLines = 0;
-    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
-    //    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
-    //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+     cell.textLabel.numberOfLines = 0;
+     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+     cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
+     //    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
+     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
      */
     
     return cell;
 }
 
 /*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *cellText = [_stadiumProperties objectAtIndex:indexPath.row];
-    UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return labelSize.height + 20;
-}
+ - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ NSString *cellText = [_stadiumProperties objectAtIndex:indexPath.row];
+ UIFont *cellFont = [UIFont fontWithName:@"Helvetica" size:17.0];
+ CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+ CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+ 
+ return labelSize.height + 20;
+ }
  */
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -248,6 +280,21 @@ static NSAttributedString *cr;
         self.selectedSportIndex = indexPath.row - 1;
     } else {
         self.selectedSportIndex = -1;
+    }
+}
+
+-(void)customActionPressed :(id)sender
+{
+    [self performSegueWithIdentifier:@"choose" sender:sender];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"choose"]){
+        
+        ChooseViewController *destination = [segue destinationViewController];
+        [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
+        [destination setSportSiteId:_stadiumId];
     }
 }
 
@@ -378,37 +425,7 @@ static NSAttributedString *cr;
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self loadTableViewData];
-            /*
-             // get singleton
-             StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-             
-             for (SportDayRule *rule in stadiumManager.sportDayRuleList) {
-             NSData *data = [rule.ruleJson dataUsingEncoding:NSUTF8StringEncoding];
-             NSArray *ruleArray = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-             
-             NSMutableString * ruleString=[NSMutableString stringWithString:@""];
-             [ruleString appendString:rule.name];
-             //                    [ruleString appendString:@" "];
-             //                    [ruleString appendFormat:@"%@",rule.maxCount];
-             [ruleString appendString:@"\n"];
-             for (int i=0; i<ruleArray.count; ++i) {
-             [ruleString appendString:[ruleArray[i] objectForKey:@"from"]];
-             [ruleString appendString:@"-"];
-             [ruleString appendString:[ruleArray[i] objectForKey:@"to"]];
-             [ruleString appendString:@" "];
-             [ruleString appendString:[ruleArray[i] objectForKey:@"cost"]];
-             [ruleString appendString:@"元 "];
-             }
-             
-             NSRange range=[ruleString rangeOfString:rule.name];
-             NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:ruleString];
-             [string addAttribute:NSForegroundColorAttributeName value:[self.view tintColor] range:range];
-             
-             [self.stadiumProperties addObject:string];
-             }
-             
-             [self.stadiumPropertyTableView reloadData];
-             */
+            
         });
         // we are finished with the queue and our ParseOperation
         self.queue = nil;
@@ -426,24 +443,6 @@ static NSAttributedString *cr;
     if (!_stadiumRecord.gotDetail)
         return;
     
-    /*
-    [_stadiumProperties removeAllObjects];
-    
-    NSMutableString *address=[NSMutableString stringWithString:@""];
-    [address appendString:_stadiumRecord.area_code];
-    [address appendString:@" "];
-    [address appendString:_stadiumRecord.area_name];
-    [address appendString:@"\n"];
-    [address appendString:_stadiumRecord.address];
-    [address appendString:@"\n"];
-    [address appendString:_stadiumRecord.open_time];
-    [address appendString:@"-"];
-    [address appendString:_stadiumRecord.close_time];
-    
-    //    NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:address];
-    [_stadiumProperties addObject:address];
-    */
-    
     if (_sections==nil) {
         _sections = [[NSMutableArray alloc] init];
     }
@@ -452,8 +451,13 @@ static NSAttributedString *cr;
         _headers = [[NSMutableArray alloc] init];
     }
     
+    if (_sportTypeIds == nil) {
+        _sportTypeIds = [[NSMutableArray alloc] init];
+    }
+    
     [_sections removeAllObjects];
     [_headers removeAllObjects];
+    [_sportTypeIds removeAllObjects];
     
     // 地址信息
     NSMutableArray* addressInfo = [[NSMutableArray alloc] init];
@@ -490,6 +494,7 @@ static NSAttributedString *cr;
         
         [_sections addObject:sportInfo];
         [_headers addObject:[sport objectForKey:@"name"]];
+        [_sportTypeIds addObject:[sport objectForKey:@"id"]];
     }
     
     [self.tableView reloadData];

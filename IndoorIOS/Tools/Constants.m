@@ -8,8 +8,8 @@
 
 #import "Constants.h"
 
-NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/sportmanager/App-getSportSiteListAjax.action";
-NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/sportmanager/App-getSportSiteDetailAjax.action";
+NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteListAjax.action";
+NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteDetailAjax.action";
 
 
 // demo data

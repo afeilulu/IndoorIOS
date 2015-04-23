@@ -48,6 +48,7 @@
                     </tableView>
                     <connections>
                         <outlet property="stretchView" destination="FOh-bg-Pfa" id="Ui7-8a-bTy"/>
+                        <segue destination="hBU-cS-oG0" kind="show" identifier="choose" id="bcp-k1-FjW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVJ-pD-RHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -66,7 +67,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
                                 <rect key="frame" x="0.0" y="100" width="600" height="320"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="EZs-gJ-zjp" customClass="CADFlowLayout">

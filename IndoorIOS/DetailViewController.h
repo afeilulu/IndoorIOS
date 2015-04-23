@@ -25,5 +25,6 @@
 
 @property (nonatomic, strong) NSMutableArray* sections;
 @property (nonatomic, strong) NSMutableArray* headers;
+@property (nonatomic, strong) NSMutableArray* sportTypeIds;
 
 @end

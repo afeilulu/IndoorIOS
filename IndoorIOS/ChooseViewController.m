@@ -29,7 +29,6 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
 @interface ChooseViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
 @property (nonatomic) int selectedDateListIndex;
-@property (nonatomic,strong) SportDayRule *sportDayrule;
 
 @property (nonatomic,strong) NSURLConnection *queryConn;
 @property (nonatomic,strong) NSURLConnection *saveConn;
@@ -73,11 +72,8 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     
     // get sport day rule
     // get singleton
-    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    self.sportDayrule = stadiumManager.sportDayRuleList[self.selectedSportIndex];
-    self.maxCount = self.sportDayrule.maxCount.intValue;
-
-    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
+//    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    // TODO: set max count
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
@@ -116,7 +112,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     [list setDelegate:self];
     [self.view addSubview:list];
     
-    [list setItemSelectedAtIndex:self.selectedDateListIndex];
+//    [list setItemSelectedAtIndex:self.selectedDateListIndex];
     
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
     self.dateToIndexDictionary = [[NSMutableDictionary alloc] init];
@@ -173,8 +169,8 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
         }
         
         StatusByDayRecord *statusByDayRecord = [[StatusByDayRecord alloc] init];
-        statusByDayRecord.stadiumId = self.sportDayrule.stadiumId;
-        statusByDayRecord.sportId = self.sportDayrule.sportId;
+//        statusByDayRecord.stadiumId = self.sportDayrule.stadiumId;
+//        statusByDayRecord.sportId = self.sportDayrule.sportId;
         statusByDayRecord.date = dateItem;
         statusByDayRecord.status = status;
         
@@ -336,7 +332,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     }
     
     // get status of current selected date
-    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
+//    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
     
     // we need fetch status every time date seleted in case some other people update on different device
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

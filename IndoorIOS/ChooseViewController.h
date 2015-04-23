@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSString *selectedStadiumId;
 @property (nonatomic) int selectedSportIndex;
 
+@property (nonatomic, strong) NSString *sportSiteId;
+@property (nonatomic, strong) NSString *sportTypeId;
 
 @end
