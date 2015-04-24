@@ -61,6 +61,8 @@
 		75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF11AE9F56600418E02 /* teacher@2x.png */; };
 		75EF6BF81AE9F56600418E02 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF21AE9F56600418E02 /* user.png */; };
 		75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF31AE9F56600418E02 /* user@2x.png */; };
+		75EF6BFC1AEA0EDE00418E02 /* CADLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EF6BFB1AEA0EDE00418E02 /* CADLoginViewController.m */; };
+		75EF6BFF1AEA41A000418E02 /* CADRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -288,6 +290,10 @@
 		75EF6BF11AE9F56600418E02 /* teacher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "teacher@2x.png"; sourceTree = "<group>"; };
 		75EF6BF21AE9F56600418E02 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		75EF6BF31AE9F56600418E02 /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
+		75EF6BFA1AEA0EDE00418E02 /* CADLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADLoginViewController.h; sourceTree = "<group>"; };
+		75EF6BFB1AEA0EDE00418E02 /* CADLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADLoginViewController.m; sourceTree = "<group>"; };
+		75EF6BFD1AEA41A000418E02 /* CADRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADRegisterViewController.h; sourceTree = "<group>"; };
+		75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADRegisterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -593,6 +599,10 @@
 				757630EA1A39E72E007E32E5 /* ChooseViewController.m */,
 				758A20811ADE318A00413251 /* CADPayViewController.m */,
 				758A20831ADE31AA00413251 /* CADPayViewController.h */,
+				75EF6BFA1AEA0EDE00418E02 /* CADLoginViewController.h */,
+				75EF6BFB1AEA0EDE00418E02 /* CADLoginViewController.m */,
+				75EF6BFD1AEA41A000418E02 /* CADRegisterViewController.h */,
+				75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -798,6 +808,8 @@
 				753547691AE66740005A5791 /* CADPointAnnotation.m in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
 				75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */,
+				75EF6BFF1AEA41A000418E02 /* CADRegisterViewController.m in Sources */,
+				75EF6BFC1AEA0EDE00418E02 /* CADLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

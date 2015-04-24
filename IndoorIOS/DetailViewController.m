@@ -285,7 +285,9 @@ static NSAttributedString *cr;
 
 -(void)customActionPressed :(id)sender
 {
-    [self performSegueWithIdentifier:@"choose" sender:sender];
+//    [self performSegueWithIdentifier:@"choose" sender:sender];
+    // TODO:has user logged in already?
+    [self performSegueWithIdentifier:@"login" sender:sender];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

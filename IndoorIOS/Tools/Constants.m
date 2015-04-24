@@ -10,6 +10,9 @@
 
 NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteListAjax.action";
 NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteDetailAjax.action";
+NSString *const kSportPlaceStatusJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportPlaceStatusAjax.action";
+NSString *const kUserLoginUrl = @"";
+NSString *const kUserRegisterUrl = @"";
 
 
 // demo data
