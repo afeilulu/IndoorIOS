@@ -473,7 +473,8 @@ static NSAttributedString *cr;
     [address appendString:@" "];
     [address appendString:_stadiumRecord.address];
     [addressInfo addObject:address];
-    [addressInfo addObject:_stadiumRecord.bus_road];
+    if (_stadiumRecord.bus_road != nil)
+        [addressInfo addObject:_stadiumRecord.bus_road];
     
     [_sections addObject:addressInfo];
     [_headers addObject:@"地址"];

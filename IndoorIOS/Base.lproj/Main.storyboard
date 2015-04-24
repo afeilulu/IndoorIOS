@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TfZ-UC-Y40">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TfZ-UC-Y40">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -67,8 +67,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
-                                <rect key="frame" x="0.0" y="100" width="600" height="320"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
+                                <rect key="frame" x="0.0" y="144" width="600" height="227"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="EZs-gJ-zjp" customClass="CADFlowLayout">
                                     <size key="itemSize" width="184" height="50"/>
@@ -218,7 +218,7 @@
         <scene sceneID="rp6-LE-oXI">
             <objects>
                 <navigationController id="DyX-xf-dYo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的帐号" id="hhk-ah-nrG"/>
+                    <tabBarItem key="tabBarItem" title="我的帐号" image="user.png" id="hhk-ah-nrG"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qrb-ul-GGH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -235,7 +235,7 @@
         <scene sceneID="vIn-QM-1is">
             <objects>
                 <navigationController id="vHi-Fc-fSv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="预约教练" id="WKH-qD-ozN"/>
+                    <tabBarItem key="tabBarItem" title="预约教练" image="teacher.png" id="WKH-qD-ozN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wIA-QW-XI2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -272,7 +272,7 @@
         <scene sceneID="6Hd-uK-MK4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jg7-op-7Oc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="预约场馆" id="Qir-bM-pP8"/>
+                    <tabBarItem key="tabBarItem" title="预约场馆" image="ironman.png" id="Qir-bM-pP8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="urr-fU-cTF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -288,4 +288,9 @@
             <point key="canvasLocation" x="1063" y="272"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ironman.png" width="32" height="32"/>
+        <image name="teacher.png" width="32" height="32"/>
+        <image name="user.png" width="32" height="32"/>
+    </resources>
 </document>

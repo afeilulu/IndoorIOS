@@ -19,8 +19,6 @@
 
 - (StadiumRecord *) getStadiumRecordById : (NSString*)idStr;
 
-- (StadiumRecord *) getStadiumRecordByTitle : (NSString*)title;
-
 + (StadiumManager *)sharedInstance;
 
 - (void) clearStadium;

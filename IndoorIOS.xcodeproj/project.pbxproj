@@ -55,6 +55,12 @@
 		75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8C1A1E01CB0005CB6B /* Main.storyboard */; };
 		75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */; };
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
+		75EF6BF41AE9F56600418E02 /* ironman.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEE1AE9F56600418E02 /* ironman.png */; };
+		75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEF1AE9F56600418E02 /* ironman@2x.png */; };
+		75EF6BF61AE9F56600418E02 /* teacher.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF01AE9F56600418E02 /* teacher.png */; };
+		75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF11AE9F56600418E02 /* teacher@2x.png */; };
+		75EF6BF81AE9F56600418E02 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF21AE9F56600418E02 /* user.png */; };
+		75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF31AE9F56600418E02 /* user@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -276,6 +282,12 @@
 		75CCCBE91A1E02A70005CB6B /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
 		75CCCBEA1A1E02A70005CB6B /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
 		75CCCBEB1A1E02A70005CB6B /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
+		75EF6BEE1AE9F56600418E02 /* ironman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ironman.png; sourceTree = "<group>"; };
+		75EF6BEF1AE9F56600418E02 /* ironman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ironman@2x.png"; sourceTree = "<group>"; };
+		75EF6BF01AE9F56600418E02 /* teacher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teacher.png; sourceTree = "<group>"; };
+		75EF6BF11AE9F56600418E02 /* teacher@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "teacher@2x.png"; sourceTree = "<group>"; };
+		75EF6BF21AE9F56600418E02 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		75EF6BF31AE9F56600418E02 /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,6 +573,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				75EF6BED1AE9F56600418E02 /* Resources */,
 				753547771AE6694A005A5791 /* Tools */,
 				7535476A1AE66941005A5791 /* model */,
 				7535474B1AE66568005A5791 /* Controllers */,
@@ -659,6 +672,19 @@
 			path = inc;
 			sourceTree = "<group>";
 		};
+		75EF6BED1AE9F56600418E02 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				75EF6BEE1AE9F56600418E02 /* ironman.png */,
+				75EF6BEF1AE9F56600418E02 /* ironman@2x.png */,
+				75EF6BF01AE9F56600418E02 /* teacher.png */,
+				75EF6BF11AE9F56600418E02 /* teacher@2x.png */,
+				75EF6BF21AE9F56600418E02 /* user.png */,
+				75EF6BF31AE9F56600418E02 /* user@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -718,11 +744,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75EF6BF41AE9F56600418E02 /* ironman.png in Resources */,
+				75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */,
+				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
+				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
+				75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */,
 				75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */,
+				75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
