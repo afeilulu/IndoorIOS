@@ -23,9 +23,4 @@
 
 - (void) clearStadium;
 
-
-@property (nonatomic, strong) NSMutableArray *sportDayRuleList;
-
-- (void) clearSportDayRule;
-
 @end

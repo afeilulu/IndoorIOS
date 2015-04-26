@@ -51,10 +51,6 @@
     }
 }
 
-- (IBAction)GoRegisterAction:(id)sender {
-    [self performSegueWithIdentifier:@"register" sender:sender];
-}
-
 #pragma mark - TextField Delegate Methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

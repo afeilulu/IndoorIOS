@@ -27,6 +27,8 @@
 @property (nonatomic, strong) NSString *summary;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *bus_road;
+@property (nonatomic, strong) NSString *phone;
+
 @property (nonatomic, strong) NSString *area_code;
 @property (nonatomic, strong) NSString *area_name;
 

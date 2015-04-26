@@ -55,6 +55,8 @@
 		75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8C1A1E01CB0005CB6B /* Main.storyboard */; };
 		75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */; };
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
+		75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC861AECCEE7001FEF9C /* CADUser.m */; };
+		75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC891AECD01D001FEF9C /* CADUserManager.m */; };
 		75EF6BF41AE9F56600418E02 /* ironman.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEE1AE9F56600418E02 /* ironman.png */; };
 		75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEF1AE9F56600418E02 /* ironman@2x.png */; };
 		75EF6BF61AE9F56600418E02 /* teacher.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF01AE9F56600418E02 /* teacher.png */; };
@@ -284,6 +286,10 @@
 		75CCCBE91A1E02A70005CB6B /* BMKUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUserLocation.h; sourceTree = "<group>"; };
 		75CCCBEA1A1E02A70005CB6B /* BMKUtilsComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKUtilsComponent.h; sourceTree = "<group>"; };
 		75CCCBEB1A1E02A70005CB6B /* BMKVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMKVersion.h; sourceTree = "<group>"; };
+		75CCFC851AECCEE7001FEF9C /* CADUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADUser.h; sourceTree = "<group>"; };
+		75CCFC861AECCEE7001FEF9C /* CADUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADUser.m; sourceTree = "<group>"; };
+		75CCFC881AECD01D001FEF9C /* CADUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADUserManager.h; sourceTree = "<group>"; };
+		75CCFC891AECD01D001FEF9C /* CADUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADUserManager.m; sourceTree = "<group>"; };
 		75EF6BEE1AE9F56600418E02 /* ironman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ironman.png; sourceTree = "<group>"; };
 		75EF6BEF1AE9F56600418E02 /* ironman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ironman@2x.png"; sourceTree = "<group>"; };
 		75EF6BF01AE9F56600418E02 /* teacher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teacher.png; sourceTree = "<group>"; };
@@ -393,6 +399,8 @@
 				753547701AE66941005A5791 /* StadiumRecord.m */,
 				753547711AE66941005A5791 /* StatusByDayRecord.h */,
 				753547721AE66941005A5791 /* StatusByDayRecord.m */,
+				75CCFC851AECCEE7001FEF9C /* CADUser.h */,
+				75CCFC861AECCEE7001FEF9C /* CADUser.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -412,6 +420,8 @@
 				7535477D1AE6694A005A5791 /* StadiumManager.m */,
 				7535477E1AE6694A005A5791 /* Utils.h */,
 				7535477F1AE6694A005A5791 /* Utils.m */,
+				75CCFC881AECD01D001FEF9C /* CADUserManager.h */,
+				75CCFC891AECD01D001FEF9C /* CADUserManager.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -778,6 +788,7 @@
 				753547611AE66568005A5791 /* TimeSelectedView.m in Sources */,
 				758A214F1ADE573100413251 /* base64.m in Sources */,
 				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
+				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				758A21511ADE573100413251 /* DataVerifier.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
 				758A21541ADE573100413251 /* openssl_wrapper.m in Sources */,
@@ -802,6 +813,7 @@
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,
+				75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */,
 				758A21521ADE573100413251 /* MD5DataSigner.m in Sources */,
 				753547681AE66740005A5791 /* IconDescription.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,

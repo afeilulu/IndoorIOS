@@ -19,7 +19,6 @@
             sharedInstance = [[StadiumManager alloc] init];
             
             sharedInstance.stadiumList = [NSMutableDictionary dictionary];
-            sharedInstance.sportDayRuleList = [[NSMutableArray alloc] init];
         }
     }
     return sharedInstance;
@@ -35,9 +34,4 @@
     }
 }
 
-- (void) clearSportDayRule{
-    if (_sportDayRuleList){
-        [_sportDayRuleList removeAllObjects];
-    }
-}
 @end

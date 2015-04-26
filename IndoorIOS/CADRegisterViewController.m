@@ -36,6 +36,13 @@
 
 - (IBAction)RegisterAction:(id)sender {
     // TODO:register action
+    UIAlertView * alertView = [[UIAlertView alloc] init];
+    alertView.title = @"Sign in Failed!";
+    alertView.message = @"Please enter Username and Password";
+    alertView.delegate = self;
+    [alertView addButtonWithTitle:@"OK"];
+    [alertView show];
+
 }
 
 #pragma mark - TextField Delegate Methods

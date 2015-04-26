@@ -15,6 +15,4 @@
 
 - (IBAction)LoginAction:(id)sender;
 
-- (IBAction)GoRegisterAction:(id)sender;
-
 @end

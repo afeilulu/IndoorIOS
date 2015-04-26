@@ -17,6 +17,8 @@
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import "BMKAnnotationView.h"
+#import "CADUser.h"
+#import "CADUserManager.h"
 
 static NSAttributedString *cr;
 
@@ -75,10 +77,7 @@ static NSAttributedString *cr;
         // show in the status bar that network activity is starting
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
-        // 获取图片显示
-        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-        NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
-        [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
+        
     } else {
         if (_stadiumRecord.image){
             // 直接显示图片
@@ -285,9 +284,12 @@ static NSAttributedString *cr;
 
 -(void)customActionPressed :(id)sender
 {
-//    [self performSegueWithIdentifier:@"choose" sender:sender];
-    // TODO:has user logged in already?
-    [self performSegueWithIdentifier:@"login" sender:sender];
+    CADUser *user = CADUserManager.sharedInstance;
+    if (user == nil || user.phone == nil){
+        [self performSegueWithIdentifier:@"login" sender:sender];
+    }else {
+        [self performSegueWithIdentifier:@"choose" sender:sender];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -322,13 +324,9 @@ static NSAttributedString *cr;
     viewController.selectedSportIndex = self.selectedSportIndex;
     viewController.selectedStadiumId = self.stadiumRecord.idString;
     
-    // get singleton
-    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    SportDayRule *sportDayRule = [stadiumManager.sportDayRuleList objectAtIndex:self.selectedSportIndex];
-    
     // set back title
     UIBarButtonItem *newBackButton =
-    [[UIBarButtonItem alloc] initWithTitle:sportDayRule.name
+    [[UIBarButtonItem alloc] initWithTitle:@"aaa"
                                      style:UIBarButtonItemStyleBordered
                                     target:nil
                                     action:nil];
@@ -475,8 +473,10 @@ static NSAttributedString *cr;
     [address appendString:@" "];
     [address appendString:_stadiumRecord.address];
     [addressInfo addObject:address];
-    if (_stadiumRecord.bus_road != nil)
+    if ((NSNull *)_stadiumRecord.bus_road != [NSNull null])
         [addressInfo addObject:_stadiumRecord.bus_road];
+    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
+        [addressInfo addObject:_stadiumRecord.phone];
     
     [_sections addObject:addressInfo];
     [_headers addObject:@"地址"];
@@ -499,6 +499,11 @@ static NSAttributedString *cr;
         [_headers addObject:[sport objectForKey:@"name"]];
         [_sportTypeIds addObject:[sport objectForKey:@"id"]];
     }
+    
+    // 获取图片显示
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
+    [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
     
     [self.tableView reloadData];
 }

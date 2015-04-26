@@ -10,6 +10,7 @@
 #import "CADPayViewController.h"
 #import "Order.h"
 #import "DataSigner.h"
+#import "Constants.h"
 #import <AlipaySDK/AlipaySDK.h>
 
 @interface CADPayViewController ()
@@ -90,7 +91,7 @@
     order.productName = @"商品标题"; //商品标题
     order.productDescription = @"商品描述"; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
-    order.notifyURL =  @"http://www.baidu.com"; //回调URL
+    order.notifyURL =  kAlipayCallbackUrl; //回调URL
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";

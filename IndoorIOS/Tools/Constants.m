@@ -13,6 +13,8 @@ NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-g
 NSString *const kSportPlaceStatusJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportPlaceStatusAjax.action";
 NSString *const kUserLoginUrl = @"";
 NSString *const kUserRegisterUrl = @"";
+NSString *const kAlipayCallbackUrl = @"http://www.chinaairdome.com:8888/alipay_notify.jsp";
+
 
 
 // demo data

@@ -83,8 +83,6 @@ static NSString *kLatStr  = @"lat";
             self.workingEntry.name = [item objectForKey:kNameStr];
             self.workingEntry.lat = [item objectForKey:kLatStr];
             self.workingEntry.lng = [item objectForKey:kLngStr];
-//            self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
-            self.workingEntry.imageURLString = @"http://sn.cnr.cn/shouyetupian/201304/W020130412371064650712.jpg";
             
             [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
         }

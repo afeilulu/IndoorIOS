@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>4C54F5D4-DC7C-4CB7-A8B8-EC505EE692C6</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>IndoorIOS</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>436121A133C3EE36DAF64624EF074B5DAD496252</key>
 		<string>https://github.com/afeilulu/IndoorIOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>IndoorIOS.xcodeproj/project.xcworkspace</string>
+	<string>IndoorIOS.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>436121A133C3EE36DAF64624EF074B5DAD496252</key>
