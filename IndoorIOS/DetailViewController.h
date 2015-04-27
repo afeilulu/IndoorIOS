@@ -18,8 +18,6 @@
 @property (nonatomic,assign)NSString* stadiumId;
 @property (nonatomic,strong)StadiumRecord* stadiumRecord;
 
-@property (nonatomic,strong)NSMutableArray* stadiumProperties;
-
 @property (weak, nonatomic) IBOutlet UIImageView *stretchView;
 @property (nonatomic, strong) CADStretchableTableHeaderView* stretchableTableHeaderView;
 

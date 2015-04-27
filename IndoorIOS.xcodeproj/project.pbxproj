@@ -57,6 +57,8 @@
 		75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */; };
 		75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC861AECCEE7001FEF9C /* CADUser.m */; };
 		75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC891AECD01D001FEF9C /* CADUserManager.m */; };
+		75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */; };
+		75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */; };
 		75EF6BF41AE9F56600418E02 /* ironman.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEE1AE9F56600418E02 /* ironman.png */; };
 		75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BEF1AE9F56600418E02 /* ironman@2x.png */; };
 		75EF6BF61AE9F56600418E02 /* teacher.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF01AE9F56600418E02 /* teacher.png */; };
@@ -290,6 +292,10 @@
 		75CCFC861AECCEE7001FEF9C /* CADUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADUser.m; sourceTree = "<group>"; };
 		75CCFC881AECD01D001FEF9C /* CADUserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADUserManager.h; sourceTree = "<group>"; };
 		75CCFC891AECD01D001FEF9C /* CADUserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADUserManager.m; sourceTree = "<group>"; };
+		75CCFC8B1AEE01E3001FEF9C /* CADParseTimeStamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseTimeStamp.h; sourceTree = "<group>"; };
+		75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseTimeStamp.m; sourceTree = "<group>"; };
+		75CCFC8E1AEE0CF4001FEF9C /* CADParseUserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseUserLogin.h; sourceTree = "<group>"; };
+		75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseUserLogin.m; sourceTree = "<group>"; };
 		75EF6BEE1AE9F56600418E02 /* ironman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ironman.png; sourceTree = "<group>"; };
 		75EF6BEF1AE9F56600418E02 /* ironman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ironman@2x.png"; sourceTree = "<group>"; };
 		75EF6BF01AE9F56600418E02 /* teacher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teacher.png; sourceTree = "<group>"; };
@@ -422,6 +428,10 @@
 				7535477F1AE6694A005A5791 /* Utils.m */,
 				75CCFC881AECD01D001FEF9C /* CADUserManager.h */,
 				75CCFC891AECD01D001FEF9C /* CADUserManager.m */,
+				75CCFC8B1AEE01E3001FEF9C /* CADParseTimeStamp.h */,
+				75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */,
+				75CCFC8E1AEE0CF4001FEF9C /* CADParseUserLogin.h */,
+				75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -794,6 +804,7 @@
 				758A21541ADE573100413251 /* openssl_wrapper.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
 				758A21501ADE573100413251 /* DataSigner.m in Sources */,
+				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
 				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
 				753547741AE66941005A5791 /* SportDayRule.m in Sources */,
 				7535475C1AE66568005A5791 /* Cell.m in Sources */,
@@ -808,6 +819,7 @@
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
 				753547831AE6694A005A5791 /* Utils.m in Sources */,
 				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
+				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
 				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,

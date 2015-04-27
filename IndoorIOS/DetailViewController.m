@@ -52,9 +52,6 @@ static NSAttributedString *cr;
     
     cr = [[NSAttributedString alloc] initWithString:@"\n"];
     
-    // 初始化表数据
-    self.stadiumProperties = [[NSMutableArray alloc] init];
-    
     // get stadium information
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
@@ -77,7 +74,10 @@ static NSAttributedString *cr;
         // show in the status bar that network activity is starting
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
-        
+        // 获取图片显示
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+        NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
+        [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
     } else {
         if (_stadiumRecord.image){
             // 直接显示图片
@@ -284,8 +284,16 @@ static NSAttributedString *cr;
 
 -(void)customActionPressed :(id)sender
 {
-    CADUser *user = CADUserManager.sharedInstance;
+    CADUser *user = CADUserManager.sharedInstance.getUser;
     if (user == nil || user.phone == nil){
+        // set back title to blank
+        UIBarButtonItem *blankButton =
+        [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+        [[self navigationItem] setBackBarButtonItem:blankButton];
+        
         [self performSegueWithIdentifier:@"login" sender:sender];
     }else {
         [self performSegueWithIdentifier:@"choose" sender:sender];
@@ -499,11 +507,6 @@ static NSAttributedString *cr;
         [_headers addObject:[sport objectForKey:@"name"]];
         [_sportTypeIds addObject:[sport objectForKey:@"id"]];
     }
-    
-    // 获取图片显示
-    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
-    [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
     
     [self.tableView reloadData];
 }

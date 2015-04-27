@@ -11,6 +11,13 @@
 
 @interface CADUserManager : NSObject
 
-+ (CADUser *)sharedInstance;
++ (CADUserManager *)sharedInstance;
+
+@property (nonatomic, strong) CADUser *user;
+@property (nonatomic, strong) NSString *timeStamp;
+
+- (NSString *)getTimeStamp;
+- (CADUser *)getUser;
+- (void) clear;
 
 @end

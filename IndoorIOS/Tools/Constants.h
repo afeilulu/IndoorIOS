@@ -26,6 +26,13 @@ extern NSString *const kUserRegisterUrl;
 // Alipay回调
 extern NSString *const kAlipayCallbackUrl;
 
+// 时间戳
+extern NSString *const kTimeStampUrl;
+
+// 登录
+extern NSString *const kLoginUrl;
+
+
 // demo data
 extern NSString *const kStadiums;
 

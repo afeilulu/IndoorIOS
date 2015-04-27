@@ -13,6 +13,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *UserName;
 @property (weak, nonatomic) IBOutlet UITextField *Password;
 
+@property (nonatomic, strong) NSURLConnection *timeStampConnection;
+@property (nonatomic, strong) NSURLConnection *jsonConnection;
+@property (nonatomic, strong) NSMutableData *jsonData;
+@property (nonatomic, strong) NSOperationQueue *queue;
+
 - (IBAction)LoginAction:(id)sender;
 
 @end

@@ -71,7 +71,7 @@ static NSString *kMaxCountInt   = @"maxCount";
         
         [stadium setGotDetail:TRUE];
         
-        [stadium setImageURLString:[sportSiteInfo objectForKey:@"logo_url"]];
+//        [stadium setImageURLString:[sportSiteInfo objectForKey:@"logo_url"]];
         
         [stadium setOpen_time:[sportSiteInfo objectForKey:@"open_time"]];
         [stadium setClose_time:[sportSiteInfo objectForKey:@"close_time"]];

@@ -11,14 +11,29 @@
 
 @implementation CADUserManager
 
-+ (CADUser *)sharedInstance {
-    static CADUser *sharedInstance;
++ (CADUserManager *)sharedInstance {
+    static CADUserManager *sharedInstance;
     @synchronized(self) {
         if (sharedInstance == nil) {
-            sharedInstance = [[CADUser alloc] init];
+            sharedInstance = [[CADUserManager alloc] init];
+            
+            sharedInstance.user = [[CADUser alloc] init];
+            sharedInstance.timeStamp = nil;
         }
     }
     return sharedInstance;
 }
 
+-(CADUser *)getUser{
+    return _user;
+}
+
+-(NSString *)getTimeStamp{
+    return _timeStamp;
+}
+
+-(void)clear{
+    _user = nil;
+    _timeStamp = nil;
+}
 @end

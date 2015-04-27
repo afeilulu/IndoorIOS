@@ -56,12 +56,6 @@ static NSString *kLatStr  = @"lat";
     // terminated.
     
     NSError* error;
-    
-    //    NSArray *stadiums = [NSJSONSerialization
-    //                         JSONObjectWithData:_dataToParse
-    //                         options:kNilOptions
-    //                         error:&error];
-    
     NSDictionary *stadiumSites = [NSJSONSerialization
                                   JSONObjectWithData:_dataToParse
                                   options:kNilOptions
@@ -83,6 +77,7 @@ static NSString *kLatStr  = @"lat";
             self.workingEntry.name = [item objectForKey:kNameStr];
             self.workingEntry.lat = [item objectForKey:kLatStr];
             self.workingEntry.lng = [item objectForKey:kLngStr];
+            self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
             
             [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
         }
