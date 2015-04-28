@@ -8,6 +8,8 @@
 
 #import "Constants.h"
 
+
+NSString *const kSecretKey = @"wmdpzsdl";
 NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteListAjax.action";
 NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteDetailAjax.action";
 NSString *const kSportPlaceStatusJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportPlaceStatusAjax.action";

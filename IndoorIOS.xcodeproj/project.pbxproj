@@ -28,7 +28,7 @@
 		7535478D1AE72CC6005A5791 /* CADStretchableTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
-		757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* ChooseViewController.m */; };
+		757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* CADChooseViewController.m */; };
 		758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 758A20731ADE2A7000413251 /* AlipaySDK.bundle */; };
 		758A20761ADE2A8300413251 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A20751ADE2A8300413251 /* AlipaySDK.framework */; };
 		758A20821ADE318A00413251 /* CADPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A20811ADE318A00413251 /* CADPayViewController.m */; };
@@ -112,8 +112,8 @@
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
-		757630E91A39E72E007E32E5 /* ChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseViewController.h; sourceTree = "<group>"; };
-		757630EA1A39E72E007E32E5 /* ChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseViewController.m; sourceTree = "<group>"; };
+		757630E91A39E72E007E32E5 /* CADChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChooseViewController.h; sourceTree = "<group>"; };
+		757630EA1A39E72E007E32E5 /* CADChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChooseViewController.m; sourceTree = "<group>"; };
 		758A20731ADE2A7000413251 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = SOURCE_ROOT; };
 		758A20751ADE2A8300413251 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		758A20811ADE318A00413251 /* CADPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayViewController.m; sourceTree = "<group>"; };
@@ -615,8 +615,8 @@
 				75CCCB8F1A1E01CB0005CB6B /* Images.xcassets */,
 				75CCCB911A1E01CB0005CB6B /* LaunchScreen.xib */,
 				75CCCB821A1E01CB0005CB6B /* Supporting Files */,
-				757630E91A39E72E007E32E5 /* ChooseViewController.h */,
-				757630EA1A39E72E007E32E5 /* ChooseViewController.m */,
+				757630E91A39E72E007E32E5 /* CADChooseViewController.h */,
+				757630EA1A39E72E007E32E5 /* CADChooseViewController.m */,
 				758A20811ADE318A00413251 /* CADPayViewController.m */,
 				758A20831ADE31AA00413251 /* CADPayViewController.h */,
 				75EF6BFA1AEA0EDE00418E02 /* CADLoginViewController.h */,
@@ -821,7 +821,7 @@
 				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
 				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
-				757630EB1A39E72E007E32E5 /* ChooseViewController.m in Sources */,
+				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,

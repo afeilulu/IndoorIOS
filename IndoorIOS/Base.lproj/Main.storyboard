@@ -136,8 +136,8 @@
                                 <exclude reference="lsT-Z3-CjK"/>
                                 <exclude reference="ucg-gT-WJi"/>
                                 <exclude reference="z2w-0k-x90"/>
-                                <exclude reference="pRt-no-QW5"/>
                                 <exclude reference="GEg-m8-TS8"/>
+                                <exclude reference="pRt-no-QW5"/>
                             </mask>
                         </variation>
                     </view>
@@ -267,7 +267,7 @@
         <!--Choose View Controller-->
         <scene sceneID="gWB-zP-Nj7">
             <objects>
-                <viewController storyboardIdentifier="chooseview" id="hBU-cS-oG0" customClass="ChooseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chooseview" id="hBU-cS-oG0" customClass="CADChooseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LPX-RV-O97"/>
                         <viewControllerLayoutGuide type="bottom" id="PXz-TJ-vlM"/>

@@ -1,5 +1,5 @@
 //
-//  ChooseViewController.m
+//  CADChooseViewController.m
 //  IndoorIOS
 //
 //  Created by 陈革非 on 14/12/11.
@@ -8,7 +8,7 @@
 
 #define unitSize    48  // 0:00 - 24:00 minUnit is 30mins
 
-#import "ChooseViewController.h"
+#import "CADChooseViewController.h"
 #import "Cell.h"
 #import "Utils.h"
 #import "StadiumManager.h"
@@ -22,11 +22,8 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 // the http URL used for fetching the sport day rules
 static NSMutableString *jsonUrl;
 
-static NSString *queryUrl = @"http://chinaairdome.com:9080/indoor/reservationStatus/query?sportId=%@&stadiumId=%@&date=%@";
-// URL for save reservation status by day
-static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStatus/saveInJson";
+@interface CADChooseViewController ()
 
-@interface ChooseViewController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
 @property (nonatomic) int selectedDateListIndex;
 
@@ -56,7 +53,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
 @property (nonatomic) int maxCount;
 @end
 
-@implementation ChooseViewController
+@implementation CADChooseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -141,17 +138,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     }
     
     // 提交预订给服务器
-    
     /*
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8080/indoor/reservationStatus/save"]];
-    // Set the request's content type to application/x-www-form-urlencoded
-    [postRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [postRequest setHTTPMethod:@"POST"];
-    
-    NSString *bodyData = [NSString stringWithFormat:@"stadiumId=%@&sportId=%@&date=%@&status=%@",sportDayrule.stadiumId,sportDayrule.sportId,self.selectedDate,];
-    [postRequest setHTTPBody:[NSData dataWithBytes:[bodyData UTF8String] length:strlen([bodyData UTF8String])]];
-     */
-    
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:saveUrl]];
     [postRequest setHTTPMethod:@"POST"];
     [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -185,6 +172,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
     // Retrieving the Contents of a URL
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     self.saveConn = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -459,7 +447,7 @@ static NSString *saveUrl = @"http://chinaairdome.com:9080/indoor/reservationStat
             
             // load payview
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"payview"];
+            CADChooseViewController *viewController = (CADChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"payview"];
             
             // set back title
             UIBarButtonItem *newBackButton =

@@ -42,11 +42,22 @@
     
     if (![self isCancelled])
     {
-        if ([result objectForKey:@"success"]){
+        if ([[result objectForKey:@"success"] boolValue] == true){
             _timeStamp = [result objectForKey:@"randTime"];
             
             CADUserManager *userManager = [CADUserManager sharedInstance];
             [userManager setTimeStamp:_timeStamp];
+        } else {
+            NSString *domain = @"com.chinaairdome.indoorios";
+            NSString *desc = [result objectForKey:@"msg"];
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+            error = [NSError errorWithDomain:domain code:-102 userInfo:userInfo];
+            
+            if (self.errorHandler)
+            {
+                self.errorHandler(error);
+            }
+            
         }
     }
     

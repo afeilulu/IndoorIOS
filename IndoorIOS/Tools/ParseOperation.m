@@ -56,14 +56,14 @@ static NSString *kLatStr  = @"lat";
     // terminated.
     
     NSError* error;
-    NSDictionary *stadiumSites = [NSJSONSerialization
+    NSDictionary *result = [NSJSONSerialization
                                   JSONObjectWithData:_dataToParse
                                   options:kNilOptions
                                   error:&error];
     
-    if ([stadiumSites objectForKey:@"success"]) {
+    if ([[result objectForKey:@"success"] boolValue] == true) {
         
-        NSArray *stadiums = [stadiumSites objectForKey:@"list"];
+        NSArray *stadiums = [result objectForKey:@"list"];
         
         // get singleton
         StadiumManager *stadiumManager = [StadiumManager sharedInstance];
@@ -80,6 +80,17 @@ static NSString *kLatStr  = @"lat";
             self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
             
             [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
+        }
+        
+    }  else {
+        NSString *domain = @"com.chinaairdome.indoorios";
+        NSString *desc = [result objectForKey:@"msg"];
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+        error = [NSError errorWithDomain:domain code:-103 userInfo:userInfo];
+        
+        if (self.errorHandler)
+        {
+            self.errorHandler(error);
         }
         
     }

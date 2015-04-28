@@ -60,7 +60,7 @@ static NSString *kMaxCountInt   = @"maxCount";
                             error:&error];
     
     
-    if ([result objectForKey:@"success"]){
+    if ([[result objectForKey:@"success"] boolValue] == true){
         
         NSDictionary *sportSiteInfo = [result objectForKey:@"sportSiteInfo"];
         NSString *id = [sportSiteInfo objectForKey:@"id"];
@@ -86,6 +86,17 @@ static NSString *kMaxCountInt   = @"maxCount";
         
         [stadium setAttributes:[sportSiteInfo objectForKey:@"attributes"]];
         [stadium setProductTypes:[sportSiteInfo objectForKey:@"productTypes"]];
+    } else {
+        NSString *domain = @"com.chinaairdome.indoorios";
+        NSString *desc = [result objectForKey:@"msg"];
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+        error = [NSError errorWithDomain:domain code:-104 userInfo:userInfo];
+        
+        if (self.errorHandler)
+        {
+            self.errorHandler(error);
+        }
+        
     }
     
     if (![self isCancelled])

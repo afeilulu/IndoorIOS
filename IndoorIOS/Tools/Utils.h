@@ -15,5 +15,6 @@
 @interface Utils : NSObject
 
 + (NSString *) getWeekName:(int) week;
++ (NSString *)md5:(NSString *) input;
 
 @end

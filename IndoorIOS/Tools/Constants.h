@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+// 加密私钥
+NSString *const kSecretKey;
+
 // 所有场馆地理位置
 extern NSString * const kStadiumsJsonUrl;
 

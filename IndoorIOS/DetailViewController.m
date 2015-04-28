@@ -13,7 +13,7 @@
 #import "ListItem.h"
 #import "Utils.h"
 #import "ParseStadiumDetail.h"
-#import "ChooseViewController.h"
+#import "CADChooseViewController.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import "BMKAnnotationView.h"
@@ -304,9 +304,11 @@ static NSAttributedString *cr;
 {
     if ([segue.identifier isEqualToString:@"choose"]){
         
-        ChooseViewController *destination = [segue destinationViewController];
+        CADChooseViewController *destination = (CADChooseViewController *)[segue destinationViewController];
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), [destination class]);
         [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
         [destination setSportSiteId:_stadiumId];
+        
     }
 }
 
@@ -325,7 +327,7 @@ static NSAttributedString *cr;
     }
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChooseViewController *viewController = (ChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"chooseview"];
+    CADChooseViewController *viewController = (CADChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"chooseview"];
     
     NSString *dateString = [NSString stringWithFormat:@"%@", item.objectTag];
     viewController.selectedDate = dateString;

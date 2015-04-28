@@ -1,5 +1,5 @@
 //
-//  ChooseViewController.h
+//  CADChooseViewController.h
 //  IndoorIOS
 //
 //  Created by 陈革非 on 14/12/11.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "POHorizontalList.h"
 
-@interface ChooseViewController : UIViewController<UICollectionViewDataSource,POHorizontalListDelegate>{
+@interface CADChooseViewController : UIViewController<UICollectionViewDataSource,POHorizontalListDelegate>{
     NSMutableArray *dateList;
 }
 @property (nonatomic, strong) NSString *selectedDate;
