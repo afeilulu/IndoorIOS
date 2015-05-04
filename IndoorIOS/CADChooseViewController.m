@@ -6,17 +6,16 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
-#define unitSize    48  // 0:00 - 24:00 minUnit is 30mins
+//#define unitSize    48  // 0:00 - 24:00 minUnit is 30mins
 
 #import "CADChooseViewController.h"
 #import "Cell.h"
 #import "Utils.h"
 #import "StadiumManager.h"
-#import "SportDayRule.h"
 #import "TimeSelectedView.h"
 #import "IconDescription.h"
-#import "StatusByDayRecord.h"
 #import "CustomCellBackground.h"
+#import "Constants.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -25,9 +24,8 @@ static NSMutableString *jsonUrl;
 @interface CADChooseViewController ()
 
 @property (weak, nonatomic) IBOutlet UICollectionView *timeUnitCollectionView;
-@property (nonatomic) int selectedDateListIndex;
 
-@property (nonatomic,strong) NSURLConnection *queryConn;
+@property (nonatomic,strong) NSURLConnection *jsonConnection;
 @property (nonatomic,strong) NSURLConnection *saveConn;
 
 // ["20141208","20141209","20141210"...] selected cell index in CollectionView
@@ -50,7 +48,6 @@ static NSMutableString *jsonUrl;
 @property (nonatomic) int screenWidth;
 @property (nonatomic) int screenHeight;
 @property (nonatomic) int iconDescriptionViewStartY;
-@property (nonatomic) int maxCount;
 @end
 
 @implementation CADChooseViewController
@@ -84,7 +81,7 @@ static NSMutableString *jsonUrl;
     NSMinuteCalendarUnit |
     NSSecondCalendarUnit;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     int n;
     for (n=0;n<7; n=n+1) {
         NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
@@ -99,9 +96,6 @@ static NSMutableString *jsonUrl;
         NSString *dateString = [dateFormatter stringFromDate:tmpDate];
         item.objectTag = dateString;// save for next view after date view item clicked
         
-        if ([dateString isEqualToString:self.selectedDate])
-            self.selectedDateListIndex = n;
-        
         [dateList addObject:item];
     }
     
@@ -109,7 +103,7 @@ static NSMutableString *jsonUrl;
     [list setDelegate:self];
     [self.view addSubview:list];
     
-//    [list setItemSelectedAtIndex:self.selectedDateListIndex];
+    [list setItemSelectedAtIndex:0];
     
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
     self.dateToIndexDictionary = [[NSMutableDictionary alloc] init];
@@ -127,6 +121,7 @@ static NSMutableString *jsonUrl;
                                     target:self
                                     action:@selector(submitButtonPressed)];
     self.navigationItem.rightBarButtonItem = submitButton;
+    
 }
 
 - (void)submitButtonPressed{
@@ -192,7 +187,14 @@ static NSMutableString *jsonUrl;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    return unitSize;
+    return _end - _start;
+}
+
+// 定义collection cell 大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CGSize constraintSize = CGSizeMake(157.0f, 50.0f);
+    return constraintSize;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -200,17 +202,19 @@ static NSMutableString *jsonUrl;
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
     
     // make the cell's title the actual NSIndexPath value
-    cell.label.text = [NSString stringWithFormat:@"%i:%@", indexPath.row / 2, indexPath.row % 2 == 0?@"00":@"30"];
+    cell.label.text = [NSString stringWithFormat:@"%i:00", _start + indexPath.row];
     cell.label.textColor = [UIColor grayColor];
     [cell.label setFont:[UIFont systemFontOfSize:16.0]];
     cell.backgroundColor = [UIColor colorWithWhite:235.0/256.0 alpha:1.0]; // need to be set dynamically
     CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
     cell.selectedBackgroundView = backgroundView;
     
+    /*
     if (self.currentStatusArray != nil && (self.currentStatusArray.count > indexPath.row) && [[self.currentStatusArray objectAtIndex:indexPath.row] integerValue] >= self.maxCount){
         cell.backgroundColor = [UIColor redColor];
         cell.selectedBackgroundView = nil;
     }
+     */
     return cell;
 }
 
@@ -299,10 +303,13 @@ static NSMutableString *jsonUrl;
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
+    // 这里定义不能点击（选择）的单元
     // if you want some cells to be unselectable, list them here
     if (self.currentStatusArray != nil && (self.currentStatusArray.count > indexPath.row) && [[self.currentStatusArray objectAtIndex:indexPath.row] integerValue] >= self.maxCount){
         return NO;
     }
+     */
     
     return YES;
 }
@@ -319,15 +326,7 @@ static NSMutableString *jsonUrl;
         [self.timeUnitCollectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
     
-    // get status of current selected date
-//    jsonUrl = [NSMutableString stringWithFormat:queryUrl,self.sportDayrule.sportId,self.sportDayrule.stadiumId,self.selectedDate];
-    
-    // we need fetch status every time date seleted in case some other people update on different device
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    // 从服务器获取状态信息
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:jsonUrl]];
-    self.queryConn = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
-    
+    // 重新显示已经被选中的单元表现为被选中状态
     if ([self.selectedDateSortedArray containsObject:self.selectedDate]){
         // show already selected cell in collection view on selected date
         NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
@@ -336,6 +335,24 @@ static NSMutableString *jsonUrl;
             [self.timeUnitCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
         }
     }
+    
+    // get status of today by post
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSportPlaceStatusJsonUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@','sportTypeId':'%@','selectDate':'%@'}",_sportSiteId,_sportTypeId,_selectedDate];
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+    
+    // Test the validity of the connection object. The most likely reason for the connection object
+    // to be nil is a malformed URL, which is a programmatic error easily detected during development
+    // If the URL is more dynamic, then you should implement a more flexible validation technique, and
+    // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
+    //
+    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+    
+    // show in the status bar that network activity is starting
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
 }
 
 #pragma mark - NSURLConnectionDelegate
@@ -409,7 +426,7 @@ static NSMutableString *jsonUrl;
 // -------------------------------------------------------------------------------
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    connection = nil;   // release our connection
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     NSError* error;
@@ -417,9 +434,16 @@ static NSMutableString *jsonUrl;
                       JSONObjectWithData:self.jsonData
                       options:kNilOptions
                       error:&error];
+    if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSportPlaceStatusJsonUrl]) {
+        _start = [[result objectForKey:@"startTime"] intValue];
+        _end = [[result objectForKey:@"endTime"] intValue];
+        
+        NSLog(@"%@ - %i - %i", NSStringFromClass([self class]), _start,_end);
+        
+        [_timeUnitCollectionView reloadData];
+    }
     
-    NSLog(@"result=%@",result);
-    
+    /*
     if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"query"]) {
     
         if ([[result objectForKey:@"resultCode"] integerValue] == 1){
@@ -438,6 +462,7 @@ static NSMutableString *jsonUrl;
             [self updateCollectionViewCells];
         }
     }
+     
     
     if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"save"]) {
         if ([[result objectForKey:@"resultCode"] integerValue] == 1){
@@ -459,6 +484,9 @@ static NSMutableString *jsonUrl;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }
+     */
+    
+    connection = nil;   // release our connection
 }
 
 -(void)updateCollectionViewCells
@@ -469,9 +497,10 @@ static NSMutableString *jsonUrl;
     
     self.currentStatusArray = statusArray;
     
-    for (int i=0; i<unitSize; i++) {
+    for (int i=0; i<_end - _start; i++) {
         if ((statusArray.count > i)){
             UICollectionViewCell *cell = [self.timeUnitCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            /*
             if ([[statusArray objectAtIndex:i] integerValue] >= self.maxCount){
                 cell.backgroundColor = [UIColor redColor];
                 cell.selectedBackgroundView=nil;
@@ -480,6 +509,10 @@ static NSMutableString *jsonUrl;
                 CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
                 cell.selectedBackgroundView = backgroundView;
             }
+             */
+            cell.backgroundColor = [UIColor colorWithWhite:235.0/256.0 alpha:1.0];
+            CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
+            cell.selectedBackgroundView = backgroundView;
         }
     }
     

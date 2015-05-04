@@ -20,12 +20,6 @@ extern NSString *const kStadiumDetailJsonUrl;
 // 获取场地状态
 extern NSString *const kSportPlaceStatusJsonUrl;
 
-// 登录
-extern NSString *const kUserLoginUrl;
-
-// 注册
-extern NSString *const kUserRegisterUrl;
-
 // Alipay回调
 extern NSString *const kAlipayCallbackUrl;
 
@@ -34,6 +28,12 @@ extern NSString *const kTimeStampUrl;
 
 // 登录
 extern NSString *const kLoginUrl;
+
+// 注册
+extern NSString *const kRegisterUrl;
+
+// 订单列表
+extern NSString *const kOrderListJsonUrl;
 
 
 // demo data

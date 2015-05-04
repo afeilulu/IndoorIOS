@@ -13,12 +13,11 @@ NSString *const kSecretKey = @"wmdpzsdl";
 NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteListAjax.action";
 NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteDetailAjax.action";
 NSString *const kSportPlaceStatusJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportPlaceStatusAjax.action";
-NSString *const kUserLoginUrl = @"";
-NSString *const kUserRegisterUrl = @"";
+NSString *const kRegisterUrl = @"";
 NSString *const kAlipayCallbackUrl = @"http://www.chinaairdome.com:8888/alipay_notify.jsp";
 NSString *const kTimeStampUrl  = @"http://www.chinaairdome.com:8888/App-getCurrentTimeAjax.action";
 NSString *const kLoginUrl  = @"http://www.chinaairdome.com:8888/App-loginAjax.action";
-
+NSString *const kOrderListJsonUrl = @"http://www.chinaairdome.com:8888/App-getOrderListAjax.action";
 
 
 // demo data

@@ -19,4 +19,7 @@
 @property (nonatomic, strong) NSString *sportSiteId;
 @property (nonatomic, strong) NSString *sportTypeId;
 
+@property (nonatomic) int start;
+@property (nonatomic) int end;
+
 @end

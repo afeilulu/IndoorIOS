@@ -88,41 +88,6 @@ static NSAttributedString *cr;
         [self loadTableViewData];
     }
     
-    /*
-     // date list init
-     dateList = [[NSMutableArray alloc] init];
-     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-     NSDateComponents *comps = [[NSDateComponents alloc] init];
-     NSInteger unitFlags = NSYearCalendarUnit |
-     NSMonthCalendarUnit |
-     NSDayCalendarUnit |
-     NSWeekdayCalendarUnit |
-     NSHourCalendarUnit |
-     NSMinuteCalendarUnit |
-     NSSecondCalendarUnit;
-     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-     [dateFormatter setDateFormat:@"yyyyMMdd"];
-     int n;
-     for (n=0;n<7; n=n+1) {
-     NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
-     comps = [calendar components:unitFlags fromDate:tmpDate];
-     int week = [comps weekday];
-     int month = [comps month];
-     int day = [comps day];
-     
-     NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
-     NSString *subTitleString = [Utils getWeekName:week];
-     ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
-     NSString *dateString = [dateFormatter stringFromDate:tmpDate];
-     item.objectTag = dateString;// save for next view after date view item clicked
-     [dateList addObject:item];
-     }
-     
-     POHorizontalList *list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 200.0, 400.0, 82.0) items:dateList];
-     [list setDelegate:self];
-     [self.view addSubview:list];
-     */
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -284,16 +249,16 @@ static NSAttributedString *cr;
 
 -(void)customActionPressed :(id)sender
 {
+    // set back title to blank
+    UIBarButtonItem *blankButton =
+    [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:blankButton];
+    
     CADUser *user = CADUserManager.sharedInstance.getUser;
     if (user == nil || user.phone == nil){
-        // set back title to blank
-        UIBarButtonItem *blankButton =
-        [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                         style:UIBarButtonItemStylePlain
-                                        target:nil
-                                        action:nil];
-        [[self navigationItem] setBackBarButtonItem:blankButton];
-        
         [self performSegueWithIdentifier:@"login" sender:sender];
     }else {
         [self performSegueWithIdentifier:@"choose" sender:sender];
@@ -304,8 +269,7 @@ static NSAttributedString *cr;
 {
     if ([segue.identifier isEqualToString:@"choose"]){
         
-        CADChooseViewController *destination = (CADChooseViewController *)[segue destinationViewController];
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), [destination class]);
+        CADChooseViewController *destination = [segue destinationViewController];
         [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
         [destination setSportSiteId:_stadiumId];
         

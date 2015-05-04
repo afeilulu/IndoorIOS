@@ -47,7 +47,7 @@
         for (NSString *dateitem in dates) {
             
             // show date
-            NSString *titleString = [NSString stringWithFormat:@"%@月%@日",[dateitem substringWithRange:NSMakeRange(4, 2)],[dateitem substringWithRange:NSMakeRange(6, 2)]];
+            NSString *titleString = [NSString stringWithFormat:@"%@月%@日",[dateitem substringWithRange:NSMakeRange(5, 2)],[dateitem substringWithRange:NSMakeRange(8, 2)]];
             TextItem *dateText = [[TextItem alloc] initWithFrame:CGRectZero title:titleString color:[self tintColor] size:16];
             [dateText setFrame:CGRectMake(0, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS) * page, pageSize.width, pageSize.height)];
             [self.scrollView addSubview:dateText];
