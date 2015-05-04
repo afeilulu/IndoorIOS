@@ -13,11 +13,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *siteLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *sportImageView;
-@property (nonatomic, weak) IBOutlet UILabel *unitLabel1;
-@property (nonatomic, weak) IBOutlet UILabel *unitLabel2;
-@property (nonatomic, weak) IBOutlet UILabel *unitLabel3;
-@property (nonatomic, weak) IBOutlet UILabel *unitLabel4;
 @property (nonatomic, weak) IBOutlet UILabel *createTimeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *statusLabel;
+@property (nonatomic, weak) IBOutlet UILabel *moneyLabel;
 
 @end

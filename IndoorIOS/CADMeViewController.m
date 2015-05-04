@@ -14,6 +14,7 @@
 #import "CADOrderListItem.h"
 #import "CADParseOrderList.h"
 #import "CADOrderTableViewCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation CADMeViewController
 
@@ -148,12 +149,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    static NSString *CellIdentifier = @"CellIdentifier";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    
-    
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"normalCell"];
         
@@ -172,75 +167,66 @@
         CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                           objectAtIndex:indexPath.row];
         
+        // 图片
         cell.sportImageView.image = [UIImage imageNamed:@"user_profile"];
         
+        // 订单创建时间
+        cell.createTimeLabel.text = listItem.createTime;
+        
+        // 金额
+        cell.moneyLabel.text = listItem.totalMoney;
+        
+        // 订单状态
+        cell.statusLabel.text = listItem.orderStatus;
+        cell.statusLabel.layer.cornerRadius = 5;
+        if ([listItem.orderStatus isEqualToString:@"已支付"]){
+            [cell.statusLabel setBackgroundColor:[UIColor greenColor]];
+        }
+        if ([listItem.orderStatus isEqualToString:@"支付中"]){
+            [cell.statusLabel setBackgroundColor:[UIColor magentaColor]];
+        }
+        if ([listItem.orderStatus isEqualToString:@"未支付"]){
+            [cell.statusLabel setBackgroundColor:[UIColor lightGrayColor]];
+        }
+        
+        // 场馆名称 和 预订时间
         NSArray *tmpStrings = [[listItem.orderTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString:@" "];
         cell.timeLabel.text = [tmpStrings objectAtIndex:tmpStrings.count - 1];
         cell.siteLabel.text = [tmpStrings objectAtIndex:0];
         
-        if ([listItem.siteTimeList count] == 4) {
-            cell.unitLabel1.hidden = false;
-            cell.unitLabel2.hidden = false;
-            cell.unitLabel3.hidden = false;
-            cell.unitLabel4.hidden = false;
-            cell.unitLabel1.text = [listItem.siteTimeList objectAtIndex:0];
-            cell.unitLabel2.text = [listItem.siteTimeList objectAtIndex:1];
-            cell.unitLabel3.text = [listItem.siteTimeList objectAtIndex:2];
-            cell.unitLabel4.text = [listItem.siteTimeList objectAtIndex:3];
+        if (_maxTimeUnitCount < [listItem.siteTimeList count]){
+            _maxTimeUnitCount = [listItem.siteTimeList count];
         }
         
-        if ([listItem.siteTimeList count] == 3) {
-            cell.unitLabel1.hidden = false;
-            cell.unitLabel2.hidden = false;
-            cell.unitLabel3.hidden = false;
-            cell.unitLabel4.hidden = true;
-            cell.unitLabel1.text = [listItem.siteTimeList objectAtIndex:0];
-            cell.unitLabel2.text = [listItem.siteTimeList objectAtIndex:1];
-            cell.unitLabel3.text = [listItem.siteTimeList objectAtIndex:2];
+        // 因为可能会被重用，先删除无用的lableView
+        for (int i = [listItem.siteTimeList count]; i < _maxTimeUnitCount; i++) {
+            UILabel *aLabel = (UILabel *)[cell viewWithTag:100 + i];
+            if (aLabel != nil){
+                [aLabel removeFromSuperview];
+            }
         }
         
-        if ([listItem.siteTimeList count] == 2) {
-            cell.unitLabel1.hidden = false;
-            cell.unitLabel2.hidden = false;
-            cell.unitLabel3.hidden = true;
-            cell.unitLabel4.hidden = true;
-            cell.unitLabel1.text = [listItem.siteTimeList objectAtIndex:0];
-            cell.unitLabel2.text = [listItem.siteTimeList objectAtIndex:1];
+        // 重用已有的lavelView
+        for (int i = 0; i < [listItem.siteTimeList count]; i++) {
+            
+            UILabel *aLabel;
+            aLabel = (UILabel *)[cell viewWithTag:100 + i];
+            if (aLabel == nil) {
+                aLabel = [[UILabel alloc] init];
+            }
+            
+            aLabel.frame = CGRectMake(80, 50 + i * 22, 250, 22);
+            aLabel.text = [NSString stringWithString:[listItem.siteTimeList objectAtIndex:i]];
+            aLabel.textColor = [UIColor grayColor];
+            [aLabel setFont:[UIFont systemFontOfSize:14.0]];
+            aLabel.tag = 100 + i;//tag the labels
+            [cell.contentView addSubview:aLabel];
         }
-        
-        if ([listItem.siteTimeList count] == 1 ) {
-            cell.unitLabel1.text = [listItem.siteTimeList objectAtIndex:0];
-            cell.unitLabel1.hidden = false;
-            cell.unitLabel2.hidden = true;
-            cell.unitLabel3.hidden = true;
-            cell.unitLabel4.hidden = true;
-        }
-        
-        if ([listItem.siteTimeList count] == 0 ) {
-            cell.unitLabel1.hidden = true;
-            cell.unitLabel2.hidden = true;
-            cell.unitLabel3.hidden = true;
-            cell.unitLabel4.hidden = true;
-        }
-        
-        cell.createTimeLabel.text = listItem.createTime;
-        cell.statusLabel.text = listItem.orderStatus;
         
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
     }
-    
-    
-    
-    /*
-     cell.textLabel.numberOfLines = 0;
-     [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-     cell.textLabel.text = [NSString stringWithFormat: @"%@",[self.stadiumProperties objectAtIndex:indexPath.row]];
-     //    [cell.textLabel setAttributedText:[_stadiumProperties objectAtIndex:indexPath.row]];
-     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-     */
     
     return nil;
 }
@@ -261,8 +247,6 @@
          CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
          return labelSize.height + 20;
           */
-         
-//         return 164 - 22 * (4 - [listItem.siteTimeList count]);
          return 76 + 22 * [listItem.siteTimeList count];
      }
  }
@@ -271,9 +255,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 1) {
-        NSString *rowString = [NSString stringWithFormat:@"选中行 %i", indexPath.row];
-        UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"选中的行信息" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alter show];
+        CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
+                                                          objectAtIndex:indexPath.row];
+        
+        if (listItem.remainTime == 0){
+            NSString *rowString = [NSString stringWithFormat:@"%@已过期，请重新预订。", listItem.orderSeq];
+            UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"订单" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alter show];
+        } else {
+            // go pay view controller
+        }
         
     }
     

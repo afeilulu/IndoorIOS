@@ -25,4 +25,6 @@
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
 
+@property (nonatomic) int maxTimeUnitCount;
+
 @end
