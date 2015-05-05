@@ -66,8 +66,8 @@
         NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60)];
         NSString *tomorrow = [dateFormatter stringFromDate:tmpDate];
         
-//        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','startDate':'2015-01-01','endDate':'%@','randTime':'%@','secret':'%@'}",user.phone,tomorrow,timeStamp,[Utils md5:beforeMd5]];
-                NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'14791188498','startDate':'2015-03-08','endDate':'2015-04-09','randTime':'43243243543','secret':'M89FFNNKMNJ894893NNNNN'}"];
+        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','startDate':'2015-01-01','endDate':'%@','randTime':'%@','secret':'%@'}",user.phone,tomorrow,timeStamp,[Utils md5:beforeMd5]];
+//                NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'14791188498','startDate':'2015-03-08','endDate':'2015-04-09','randTime':'43243243543','secret':'M89FFNNKMNJ894893NNNNN'}"];
         [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
         self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
         
@@ -217,13 +217,13 @@
             
             aLabel.frame = CGRectMake(80, 50 + i * 22, 250, 22);
             aLabel.text = [NSString stringWithString:[listItem.siteTimeList objectAtIndex:i]];
-            aLabel.textColor = [UIColor grayColor];
+            aLabel.textColor = [UIColor lightGrayColor];
             [aLabel setFont:[UIFont systemFontOfSize:14.0]];
             aLabel.tag = 100 + i;//tag the labels
             [cell.contentView addSubview:aLabel];
         }
         
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
     }
@@ -263,7 +263,11 @@
             UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"订单" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alter show];
         } else {
-            // go pay view controller
+            // segue to pay view controller
+            // show detail in payVeiewController
+            // and select pay by which method
+            // TODO:set sender
+            [self performSegueWithIdentifier:@"PayView" sender:nil];
         }
         
     }
@@ -369,13 +373,20 @@
                 
 //                _orderInfo = [NSMutableArray arrayWithArray:strongParser.orderList];
                 
+                // 账户信息
+                CADUser *user = CADUserManager.sharedInstance.getUser;
+                
                 if (_sections == nil){
                     _sections = [[NSMutableArray alloc] init];
                 } else {
                     [_sections removeAllObjects];
                 }
                 if (_headers == nil){
-                    _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"订单", nil];
+                    if ((NSNull *)user.name != [NSNull null]){
+                        _headers = [[NSMutableArray alloc] initWithObjects:user.name,@"订单", nil];
+                    } else {
+                        _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"订单", nil];
+                    }
                 }
                 if (_personInfo == nil) {
                     _personInfo = [[NSMutableArray alloc] init];
@@ -384,26 +395,21 @@
                     [_personInfo removeAllObjects];
                 }
                 
-                // 账户信息
-                CADUser *user = CADUserManager.sharedInstance.getUser;
-                
-                if ((NSNull *)user.name != [NSNull null])
-                    [_personInfo addObject:user.name];
                 if ((NSNull *)user.phone != [NSNull null])
-                    [_personInfo addObject:user.phone];
+                    [_personInfo addObject:[NSString stringWithFormat:@"手机：%@",user.phone]];
                 if ((NSNull *)user.mail != [NSNull null])
-                    [_personInfo addObject:user.mail];
+                    [_personInfo addObject:[NSString stringWithFormat:@"邮箱：%@",user.mail]];
                 if ((NSNull *)user.qq != [NSNull null])
-                    [_personInfo addObject:user.qq];
+                    [_personInfo addObject:[NSString stringWithFormat:@"QQ：%@",user.qq]];
                 if ((NSNull *)user.fee != [NSNull null])
-                    [_personInfo addObject:user.fee];
+                    [_personInfo addObject:[NSString stringWithFormat:@"余额：%@",user.fee]];
                 
-                [_personInfo addObject:[[NSString alloc] initWithFormat:@"%@",user.score]];
+                [_personInfo addObject:[NSString stringWithFormat:@"积分：%@",user.score]];
                 
-                if ((NSNull *)user.sex_code != [NSNull null])
-                    [_personInfo addObject:user.sex_code];
-                if ((NSNull *)user.imgUrl != [NSNull null])
-                    [_personInfo addObject:user.imgUrl];
+//                if ((NSNull *)user.sex_code != [NSNull null])
+//                    [_personInfo addObject:user.sex_code];
+//                if ((NSNull *)user.imgUrl != [NSNull null])
+//                    [_personInfo addObject:user.imgUrl];
                 
                 [_sections addObject:_personInfo];
                 [_sections addObject:strongParser.orderList];

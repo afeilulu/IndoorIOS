@@ -148,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPI-8N-Bao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3377" y="1020"/>
+            <point key="canvasLocation" x="2625" y="1028"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Xdx-dw-Hcf">
@@ -262,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RDk-DK-dPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4099" y="1020"/>
+            <point key="canvasLocation" x="3377" y="1028"/>
         </scene>
         <!--Choose View Controller-->
         <scene sceneID="gWB-zP-Nj7">
@@ -330,6 +330,7 @@
                     </view>
                     <connections>
                         <outlet property="timeUnitCollectionView" destination="Eeq-So-yyO" id="wid-ke-EqH"/>
+                        <segue destination="HJV-5N-v2v" kind="show" identifier="PayView" id="tku-hW-jf6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OH1-x8-xjp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -375,7 +376,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="veS-Tr-dUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4099" y="272"/>
+            <point key="canvasLocation" x="3377" y="1874"/>
         </scene>
         <!--教 练-->
         <scene sceneID="E8q-GO-DdP">
@@ -441,7 +442,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Caj-ep-mek">
                                             <rect key="frame" x="504" y="71" width="36" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4l-Hr-7q9">
@@ -489,6 +490,7 @@
                     <connections>
                         <outlet property="stretchView" destination="mU2-FZ-sJW" id="epC-uz-rCG"/>
                         <segue destination="xqs-2u-UQv" kind="show" identifier="login" id="xch-Rx-REy"/>
+                        <segue destination="HJV-5N-v2v" kind="show" identifier="PayView" id="Tmo-6c-aqD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUh-Al-qnA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -579,5 +581,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xch-Rx-REy"/>
+        <segue reference="Tmo-6c-aqD"/>
     </inferredMetricsTieBreakers>
 </document>
