@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "POHorizontalList.h"
 
-@interface CADChooseViewController : UIViewController<UICollectionViewDataSource,POHorizontalListDelegate>{
+@interface CADChooseViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,POHorizontalListDelegate>{
     NSMutableArray *dateList;
 }
 @property (nonatomic, strong) NSString *selectedDate;
@@ -21,5 +21,9 @@
 
 @property (nonatomic) int start;
 @property (nonatomic) int end;
+@property (nonatomic, strong) NSDictionary *statusDictionary;
+@property (nonatomic, strong) NSArray *places;
+@property (nonatomic) int currentHour;
+@property (nonatomic, strong) NSString *today;
 
 @end

@@ -276,47 +276,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
                                 <rect key="frame" x="0.0" y="144" width="600" height="227"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="EZs-gJ-zjp">
-                                    <size key="itemSize" width="157" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="2"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cellID" id="3cQ-iF-jf2" customClass="Cell">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="157" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6x-so-MHV">
-                                                    <rect key="frame" x="8" y="14" width="167" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottomMargin" secondItem="R6x-so-MHV" secondAttribute="bottom" constant="7" id="2Fd-Uw-FF0"/>
-                                            <constraint firstItem="R6x-so-MHV" firstAttribute="leading" secondItem="3cQ-iF-jf2" secondAttribute="leadingMargin" id="58y-ho-fN8"/>
-                                            <constraint firstItem="R6x-so-MHV" firstAttribute="top" secondItem="3cQ-iF-jf2" secondAttribute="topMargin" constant="6" id="f64-jm-h4H"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="R6x-so-MHV" secondAttribute="trailing" constant="-26" id="xbW-vp-3m2"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="label" destination="R6x-so-MHV" id="692-VU-vcQ"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                <collectionViewLayout key="collectionViewLayout" id="X0d-MX-bqe" customClass="CADStickyLayout"/>
+                                <cells/>
                                 <connections>
-                                    <outlet property="dataSource" destination="hBU-cS-oG0" id="7JN-Dt-rAI"/>
-                                    <outlet property="delegate" destination="hBU-cS-oG0" id="57U-fi-yGO"/>
+                                    <outlet property="dataSource" destination="hBU-cS-oG0" id="Vbe-5N-jQ1"/>
+                                    <outlet property="delegate" destination="hBU-cS-oG0" id="tZZ-FO-Pvd"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -580,7 +547,7 @@
         <image name="user_profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="tku-hW-jf6"/>
         <segue reference="xch-Rx-REy"/>
-        <segue reference="Tmo-6c-aqD"/>
     </inferredMetricsTieBreakers>
 </document>

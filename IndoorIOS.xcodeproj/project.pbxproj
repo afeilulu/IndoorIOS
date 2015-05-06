@@ -51,6 +51,15 @@
 		759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */; };
 		759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AF11A221E3A00EB82D8 /* Security.framework */; };
 		75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BA7C811AF1C87000D50D55 /* CADMeViewController.m */; };
+		75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */; };
+		75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C491AF90EA1000C3AD1 /* CADDateCollectionViewCell.m */; };
+		75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C84C4A1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib */; };
+		75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C4E1AF90ED4000C3AD1 /* CADContentCollectionViewCell.m */; };
+		75C84C511AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C84C4F1AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib */; };
+		75C84C551AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C531AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m */; };
+		75C84C561AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C84C541AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib */; };
+		75C851991AF9F946000C3AD1 /* time_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 75C851971AF9F946000C3AD1 /* time_line.png */; };
+		75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75C851981AF9F946000C3AD1 /* time_line@2x.png */; };
 		75CCCB851A1E01CB0005CB6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCCB841A1E01CB0005CB6B /* main.m */; };
 		75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 75CCCB871A1E01CB0005CB6B /* AppDelegate.mm */; };
 		75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCCB8A1A1E01CB0005CB6B /* ViewController.m */; };
@@ -229,6 +238,19 @@
 		759C8AF11A221E3A00EB82D8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		75BA7C801AF1C87000D50D55 /* CADMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADMeViewController.h; sourceTree = "<group>"; };
 		75BA7C811AF1C87000D50D55 /* CADMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADMeViewController.m; sourceTree = "<group>"; };
+		75C84C3F1AF8BAD6000C3AD1 /* CADStickyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStickyLayout.h; sourceTree = "<group>"; };
+		75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStickyLayout.m; sourceTree = "<group>"; };
+		75C84C481AF90EA1000C3AD1 /* CADDateCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDateCollectionViewCell.h; sourceTree = "<group>"; };
+		75C84C491AF90EA1000C3AD1 /* CADDateCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADDateCollectionViewCell.m; sourceTree = "<group>"; };
+		75C84C4A1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADDateCollectionViewCell.xib; sourceTree = "<group>"; };
+		75C84C4D1AF90ED4000C3AD1 /* CADContentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADContentCollectionViewCell.h; sourceTree = "<group>"; };
+		75C84C4E1AF90ED4000C3AD1 /* CADContentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADContentCollectionViewCell.m; sourceTree = "<group>"; };
+		75C84C4F1AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADContentCollectionViewCell.xib; sourceTree = "<group>"; };
+		75C84C521AF9EF80000C3AD1 /* CADTimeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADTimeCollectionViewCell.h; sourceTree = "<group>"; };
+		75C84C531AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADTimeCollectionViewCell.m; sourceTree = "<group>"; };
+		75C84C541AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADTimeCollectionViewCell.xib; sourceTree = "<group>"; };
+		75C851971AF9F946000C3AD1 /* time_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_line.png; sourceTree = "<group>"; };
+		75C851981AF9F946000C3AD1 /* time_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_line@2x.png"; sourceTree = "<group>"; };
 		75CCCB7F1A1E01CB0005CB6B /* IndoorIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CCCB831A1E01CB0005CB6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75CCCB841A1E01CB0005CB6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -366,6 +388,17 @@
 				7535474E1AE66568005A5791 /* Cell.m */,
 				7535474F1AE66568005A5791 /* CustomCellBackground.h */,
 				753547501AE66568005A5791 /* CustomCellBackground.m */,
+				75C84C3F1AF8BAD6000C3AD1 /* CADStickyLayout.h */,
+				75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */,
+				75C84C481AF90EA1000C3AD1 /* CADDateCollectionViewCell.h */,
+				75C84C491AF90EA1000C3AD1 /* CADDateCollectionViewCell.m */,
+				75C84C4A1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib */,
+				75C84C4D1AF90ED4000C3AD1 /* CADContentCollectionViewCell.h */,
+				75C84C4E1AF90ED4000C3AD1 /* CADContentCollectionViewCell.m */,
+				75C84C4F1AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib */,
+				75C84C521AF9EF80000C3AD1 /* CADTimeCollectionViewCell.h */,
+				75C84C531AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m */,
+				75C84C541AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -737,6 +770,8 @@
 		75EF6BED1AE9F56600418E02 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				75C851971AF9F946000C3AD1 /* time_line.png */,
+				75C851981AF9F946000C3AD1 /* time_line@2x.png */,
 				75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */,
 				75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */,
 				75EF6BEE1AE9F56600418E02 /* ironman.png */,
@@ -813,14 +848,19 @@
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
+				75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
+				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
 				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
 				75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */,
+				75C851991AF9F946000C3AD1 /* time_line.png in Resources */,
+				75C84C561AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib in Resources */,
 				75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */,
 				75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */,
+				75C84C511AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,11 +876,13 @@
 				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				758A21511ADE573100413251 /* DataVerifier.m in Sources */,
+				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
 				758A21541ADE573100413251 /* openssl_wrapper.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
 				758A21501ADE573100413251 /* DataSigner.m in Sources */,
 				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
+				75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */,
 				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
 				753547741AE66941005A5791 /* SportDayRule.m in Sources */,
 				7535475C1AE66568005A5791 /* Cell.m in Sources */,
@@ -857,9 +899,11 @@
 				75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */,
 				753547831AE6694A005A5791 /* Utils.m in Sources */,
 				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
+				75C84C551AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m in Sources */,
 				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
 				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
+				75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,
