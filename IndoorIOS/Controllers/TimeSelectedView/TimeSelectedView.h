@@ -11,9 +11,9 @@
 @property (nonatomic, strong) NSMutableDictionary *textItemToShow;
 @property (nonatomic) int totalPage;
 
-//- (id)initWithFrame:(CGRect)frame items:(NSMutableArray *)items;
+- (id)initWithFrame:(CGRect)frame params:(NSMutableDictionary *)orderParams selectedDate:(NSString *)selectedDate;
 
-- (id)initWithFrame:(CGRect)frame items:(NSMutableDictionary *)items dates:(NSMutableArray *) dates selectedSport:(int) selectedSport;
+//- (id)initWithFrame:(CGRect)frame items:(NSMutableDictionary *)items dates:(NSMutableArray *) dates selectedSport:(int) selectedSport;
 
 - (NSMutableArray *)getStringArrayByIndex:(NSMutableArray *) sortedArray;
 

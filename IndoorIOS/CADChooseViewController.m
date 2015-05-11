@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
 
-//#define unitSize    48  // 0:00 - 24:00 minUnit is 30mins
+#define timeSelectedViewHeight    100
 
 #import "CADChooseViewController.h"
 #import "Cell.h"
@@ -19,6 +19,8 @@
 #import "CADDateCollectionViewCell.h"
 #import "CADContentCollectionViewCell.h"
 #import "CADTimeCollectionViewCell.h"
+#import "CADUserManager.h"
+#import "CADUser.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -34,9 +36,7 @@ static NSMutableString *jsonUrl;
 // ["20141208","20141209","20141210"...] selected cell index in CollectionView
 @property (nonatomic,strong) NSMutableArray *selectedDateSortedArray;
 
-// dictionary for commit by day
-// key = "20141220" value = selected index of collectionview
-@property (nonatomic,strong) NSMutableDictionary *dateToIndexDictionary;
+@property (nonatomic,strong) NSMutableDictionary *dateToIndexPathDictionary;
 
 @property (retain, nonatomic) TimeSelectedView *timeSelectedView;
 @property (retain, nonatomic) IconDescription *iconDescriptionView;
@@ -64,13 +64,12 @@ static NSMutableString *jsonUrl;
     CGFloat scale_screen = [UIScreen mainScreen].scale;
     self.screenWidth = screen_width/scale_screen;
     self.screenHeight = screen_height/scale_screen;
+    self.iconDescriptionViewStartY = self.screenHeight - timeSelectedViewHeight * scale_screen + 35;
+    
+    NSLog(@"%@ - %d", NSStringFromClass([self class]), screen_height);
+    NSLog(@"%@ - %d", NSStringFromClass([self class]), self.screenHeight);
     
     self.timeUnitCollectionView.allowsMultipleSelection = YES;
-    
-    // get sport day rule
-    // get singleton
-//    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    // TODO: set max count
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
@@ -94,7 +93,6 @@ static NSMutableString *jsonUrl;
         int day = [comps day];
         
         self.currentHour = [comps hour];
-        NSLog(@"%@ - %i", NSStringFromClass([self class]), self.currentHour);
         
         NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
         NSString *subTitleString = [Utils getWeekName:week];
@@ -116,10 +114,10 @@ static NSMutableString *jsonUrl;
     [list setItemSelectedAtIndex:0];
     
     self.selectedDateSortedArray = [[NSMutableArray alloc] init];
-    self.dateToIndexDictionary = [[NSMutableDictionary alloc] init];
+    self.dateToIndexPathDictionary = [[NSMutableDictionary alloc] init];
+    self.orderParams = [[NSMutableDictionary alloc] init];
     
-    self.iconDescriptionViewStartY = self.screenHeight - 200;
-    self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
+    self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
     [self.view addSubview:self.iconDescriptionView];
     
     // add submit button
@@ -153,8 +151,32 @@ static NSMutableString *jsonUrl;
         return;
     }
     
-    // 提交预订给服务器
-    /*
+    // 提交预订给服务器,返回订单详情
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSubmitOrderJsonUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+    
+    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
+    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
+    NSString *phone = [[CADUserManager sharedInstance] getUser].phone;
+    
+    [self.orderParams setObject:phone forKey:@"phone"];
+    [self.orderParams setObject:timeStamp forKey:@"randTime"];
+    [self.orderParams setObject:[Utils md5:beforeMd5] forKey:@"secret"];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.orderParams
+                                                       options:(NSJSONWritingOptions) 0
+                                                         error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString=%@",jsonString];
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+
+    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+    
+    // show in the status bar that network activity is starting
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    /* POST in JSON format sample
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:saveUrl]];
     [postRequest setHTTPMethod:@"POST"];
     [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -312,21 +334,19 @@ static NSMutableString *jsonUrl;
         self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
     }
     
-    NSString *selectedIndex = [NSString stringWithFormat:@"%i",indexPath.row];
-    
-    NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
+    NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
     if (tmpArray == nil){
         tmpArray = [[NSMutableArray alloc] init];
-        [self.dateToIndexDictionary setObject:tmpArray forKey:self.selectedDate];
+        [self.dateToIndexPathDictionary setObject:tmpArray forKey:self.selectedDate];
     }
     
-    if (![tmpArray containsObject:selectedIndex]){
-        [tmpArray addObject:selectedIndex];
+    if (![tmpArray containsObject:indexPath]){
+        [tmpArray addObject:indexPath];
         
         // sort
-        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
+//        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
         
-        [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+//        [self.dateToIndexPathDictionary setObject:sortedArray forKey:self.selectedDate];
     }
     
     [self.iconDescriptionView removeFromSuperview];
@@ -335,10 +355,10 @@ static NSMutableString *jsonUrl;
         self.timeSelectedView = nil;
     }
     
-    CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
-    int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
-    NSLog(@"starty=%i",startY);
-    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, startY+5, self.screenWidth-4, 173) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray selectedSport:self.selectedSportIndex];
+//    CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
+//    int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
+    [self generateOrderParams];
+    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight) params:self.orderParams selectedDate:_selectedDate];
     [self.view addSubview:self.timeSelectedView];
     
 //    [self.view bringSubviewToFront:self.timeUnitCollectionView];
@@ -348,23 +368,21 @@ static NSMutableString *jsonUrl;
 {
     NSLog(@"didDeselectItemAtIndexPath : %i",indexPath.row);
     
-    NSString *selectedIndex = [NSString stringWithFormat:@"%i",indexPath.row];
-    
-    NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
-    if (tmpArray == nil || ![tmpArray containsObject:selectedIndex]){
+    NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
+    if (tmpArray == nil || ![tmpArray containsObject:indexPath]){
         return;
     }
     
-    [tmpArray removeObject:selectedIndex];
+    [tmpArray removeObject:indexPath];
     if (tmpArray.count == 0){
         [self.selectedDateSortedArray removeObject:self.selectedDate];
-        [self.dateToIndexDictionary removeObjectForKey:self.selectedDate];
+        [self.dateToIndexPathDictionary removeObjectForKey:self.selectedDate];
         // sort using a selector
         self.selectedDateSortedArray = [NSMutableArray arrayWithArray:[self.selectedDateSortedArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)]];
     } else {
         // sort
-        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
-        [self.dateToIndexDictionary setObject:sortedArray forKey:self.selectedDate];
+//        NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[tmpArray sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"intValue" ascending:YES]]]];
+//        [self.dateToIndexPathDictionary setObject:sortedArray forKey:self.selectedDate];
     }
     
     if (self.timeSelectedView != nil){
@@ -373,12 +391,13 @@ static NSMutableString *jsonUrl;
     }
     
     if ([self.selectedDateSortedArray count] == 0){
-        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(0,self.iconDescriptionViewStartY, self.screenWidth, 40)];
+        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
         [self.view addSubview:self.iconDescriptionView];
     } else {
-        CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
-        int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
-        self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, startY+5, self.screenWidth-4, 173) items:self.dateToIndexDictionary dates:self.selectedDateSortedArray selectedSport:self.selectedSportIndex];
+//        CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
+//        int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
+        [self generateOrderParams];
+        self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight) params:self.orderParams selectedDate:self.selectedDate];
         [self.view addSubview:self.timeSelectedView];
     }
     
@@ -388,6 +407,19 @@ static NSMutableString *jsonUrl;
 {
     
     // 这里定义不能点击（选择）的单元
+    
+    NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
+    if (tmpArray.count >= kMaxOrderPlace) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"当前场次组合最多可选4片场地！"
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        return NO;
+    }
+    
     // if you want some cells to be unselectable, list them here
     if (indexPath.section == 0 || indexPath.row == 0) {
         return NO; // do nothing while header or left side clicked
@@ -404,10 +436,20 @@ static NSMutableString *jsonUrl;
 #pragma mark  POHorizontalListDelegate
 
 - (void) didSelectItem:(ListItem *)item {
-    NSLog(@"%@",item.objectTag);
     
+    // clear selected while date changed
+    [self.dateToIndexPathDictionary removeAllObjects];
+    [self.selectedDateSortedArray removeAllObjects];
+    
+    if (self.timeSelectedView != nil){
+        [self.timeSelectedView removeFromSuperview];
+        self.timeSelectedView = nil;
+    }
+    
+    // set new selectedDate
     self.selectedDate = [NSString stringWithFormat:@"%@",item.objectTag];
     
+    /*
     // clear current select in collection view
     for (NSIndexPath *indexPath in [self.timeUnitCollectionView indexPathsForSelectedItems]){
         [self.timeUnitCollectionView deselectItemAtIndexPath:indexPath animated:NO];
@@ -416,12 +458,12 @@ static NSMutableString *jsonUrl;
     // 重新显示已经被选中的单元表现为被选中状态
     if ([self.selectedDateSortedArray containsObject:self.selectedDate]){
         // show already selected cell in collection view on selected date
-        NSMutableArray *tmpArray = [self.dateToIndexDictionary objectForKey:self.selectedDate];
-        for (NSString *item in tmpArray) {
-            int index = item.intValue;
-            [self.timeUnitCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
+        NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
+        for (NSIndexPath *indexPath in tmpArray) {
+            [self.timeUnitCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredVertically];
         }
     }
+     */
     
     // get status of today by post
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSportPlaceStatusJsonUrl]];
@@ -517,18 +559,38 @@ static NSMutableString *jsonUrl;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
     NSError* error;
-    self.statusDictionary = [NSJSONSerialization
-                      JSONObjectWithData:self.jsonData
-                      options:kNilOptions
-                      error:&error];
+    
     if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSportPlaceStatusJsonUrl]) {
+        self.statusDictionary = [NSJSONSerialization
+                                 JSONObjectWithData:self.jsonData
+                                 options:kNilOptions
+                                 error:&error];
         _start = [[self.statusDictionary objectForKey:@"startTime"] intValue];
         _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
         _places = [self.statusDictionary objectForKey:@"places"];
         
-        NSLog(@"%@ - %i - %i", NSStringFromClass([self class]), _start,_end);
-        
         [_timeUnitCollectionView reloadData];
+    }
+    
+    if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSubmitOrderJsonUrl]) {
+        NSDictionary *submitOrderResult = [NSJSONSerialization
+                                           JSONObjectWithData:self.jsonData
+                                           options:kNilOptions
+                                           error:&error];
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
+        
+        if ([[submitOrderResult objectForKey:@"success"] boolValue] == true){
+            
+        } else {
+            NSString *desc = [submitOrderResult objectForKey:@"msg"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提交订单错误"
+                                                                message:desc
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            
+        }
     }
     
     /*
@@ -555,6 +617,59 @@ static NSMutableString *jsonUrl;
      */
     
     connection = nil;   // release our connection
+}
+
+- (void)generateOrderParams
+{
+    [self.orderParams removeAllObjects];
+    int totalMoney = 0;
+    NSMutableArray *sportPlaceTimeList = [[NSMutableArray alloc] init];
+    
+    for (int i=0; i < [self.selectedDateSortedArray count]; i++) {
+        
+        NSArray *oneDayData = [self.dateToIndexPathDictionary objectForKey:[self.selectedDateSortedArray objectAtIndex:i]];
+        
+        for (NSIndexPath *indexPath in oneDayData) {
+            NSMutableDictionary *aUnit = [[NSMutableDictionary alloc] init];
+            [aUnit setObject:[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"id"] forKey:@"sportPlaceId"];
+            [aUnit setObject:[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"name"] forKey:@"sportPlaceName"];
+            
+            int unitSize = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitSize"] intValue];
+            NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start];
+            NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+            int price = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"] intValue];
+            
+            [aUnit setObject:startTime forKey:@"startTime"];
+            
+            // 异常内容处理
+            NSDictionary *unitStatus = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitStatus"];
+            if ([unitStatus count] > 0) {
+                NSArray *keys = [unitStatus allKeys];
+                NSString *aKey = [[NSString alloc] initWithFormat:@"%i",indexPath.row - 1 + _start ];
+                if ([keys containsObject:aKey]) {
+                    NSDictionary *abnomalContent = [unitStatus objectForKey:aKey];
+                    
+                    if ([abnomalContent objectForKey:@"price"] != nil) {
+                        price = [[abnomalContent objectForKey:@"price"] intValue];
+                    }
+                    
+                    if ([abnomalContent objectForKey:@"unitSize"] != nil) {
+                        unitSize = [[abnomalContent objectForKey:@"unitSize"] intValue];
+                        endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+                    }
+                    
+                }
+            }
+            
+            [aUnit setObject:endTime forKey:@"endTime"];
+            [sportPlaceTimeList addObject:aUnit];
+            totalMoney = totalMoney + price;
+        }
+        
+    }
+    
+    [self.orderParams setObject:[[NSString alloc] initWithFormat:@"%i",totalMoney] forKey:@"pay"];
+    [self.orderParams setObject:sportPlaceTimeList forKey:@"sportPlaceTimeList"];
 }
 
 @end

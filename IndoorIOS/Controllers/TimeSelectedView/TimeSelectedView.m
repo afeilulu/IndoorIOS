@@ -5,6 +5,81 @@
 
 @implementation TimeSelectedView
 
+- (id)initWithFrame:(CGRect)frame params:(NSMutableDictionary *)orderParams selectedDate:(NSString *)selectedDate
+{
+    
+    self = [super initWithFrame:frame];
+    
+    CALayer *roundCorner = [self layer];
+    [roundCorner setMasksToBounds:YES];
+    [roundCorner setCornerRadius:8.0];
+    [roundCorner setBorderColor:[self tintColor].CGColor];
+    [roundCorner setBorderWidth:1.0];
+    
+    int screen_width = [[UIScreen mainScreen] currentMode].size.width;
+    CGFloat scale_screen = [UIScreen mainScreen].scale;
+    int itemWidth = (screen_width/scale_screen - 10 ) / 2;
+    
+    self.totalPage = 1;
+
+    if (self) {
+        
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        
+        CGSize pageSize = CGSizeMake(itemWidth, RECT_HEIGHT);
+        
+        // start to display
+        // show date
+        NSString *titleString = [NSString stringWithFormat:@"%@月%@日",[selectedDate substringWithRange:NSMakeRange(5, 2)],[selectedDate substringWithRange:NSMakeRange(8, 2)]];
+        TextItem *dateText = [[TextItem alloc] initWithFrame:CGRectZero title:titleString color:[self tintColor] size:16];
+        [dateText setFrame:CGRectMake(0, DISTANCE_BETWEEN_TEXT_ITEMS, pageSize.width, pageSize.height)];
+        [self.scrollView addSubview:dateText];
+        
+        // show total
+        TextItem *sumLabel = [[TextItem alloc] initWithFrame:CGRectZero title:@"合计：" color:[UIColor grayColor] size:16];
+        [sumLabel setFrame:CGRectMake(screen_width/scale_screen - 130, DISTANCE_BETWEEN_TEXT_ITEMS, 40, 40)];
+        [self.scrollView addSubview:sumLabel];
+        
+        TextItem *sumNumber = [[TextItem alloc] initWithFrame:CGRectZero title:[orderParams objectForKey:@"pay"] color:[self tintColor] size:22];
+        [sumNumber setFrame:CGRectMake(screen_width/scale_screen - 90, DISTANCE_BETWEEN_TEXT_ITEMS, 40, 40)];
+        [self.scrollView addSubview:sumNumber];
+
+        
+        int line=0;
+        
+        // show time text item
+        NSArray *timeList = [orderParams objectForKey:@"sportPlaceTimeList"];
+        for (int i=0; i<timeList.count; i++) {
+            NSDictionary *item = [timeList objectAtIndex:i];
+            NSString *title = [[NSString alloc] initWithFormat:@"%@ %@-%@",[item objectForKey:@"sportPlaceName"],[[item objectForKey:@"startTime"] substringFromIndex:11],[[item objectForKey:@"endTime"] substringFromIndex:11]];
+            TextItem *timeText = [[TextItem alloc] initWithFrame:CGRectZero title:title color:[UIColor grayColor] size:16];
+            
+            int startX;
+            if (i % 2 ==0) {
+                startX = 0;
+                line++;
+            } else {
+                startX = itemWidth + 5;
+            }
+            
+            [timeText setFrame:CGRectMake(startX, (pageSize.height + DISTANCE_BETWEEN_TEXT_ITEMS)*line, pageSize.width, pageSize.height)];
+            [self.scrollView addSubview:timeText];
+            
+        }
+        
+        self.scrollView.contentSize = CGSizeMake(screen_width/scale_screen - 4, RECT_HEIGHT + 100);
+        self.scrollView.showsHorizontalScrollIndicator = NO;
+        self.scrollView.showsVerticalScrollIndicator = NO;
+        self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+        [self addSubview:self.scrollView];
+    }
+    
+    return self;
+
+    
+}
+
+/*
 - (id)initWithFrame:(CGRect)frame items:(NSMutableDictionary *)items dates:(NSMutableArray *) dates selectedSport:(int) selectedSport
 {
     self = [super initWithFrame:frame];
@@ -93,6 +168,7 @@
 
     return self;
 }
+ */
 
 /**
  * 获取显示日期列表

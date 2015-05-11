@@ -11,7 +11,14 @@
 @interface CADRegisterViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *Username;
+@property (weak, nonatomic) IBOutlet UITextField *Valicode;
 @property (weak, nonatomic) IBOutlet UITextField *Password;
-@property (weak, nonatomic) IBOutlet UITextField *ConfirmPassword;
+- (IBAction)GetValiCodeAction:(id)sender;
 - (IBAction)RegisterAction:(id)sender;
+
+@property (nonatomic,strong) NSString *inputValicode;
+
+@property (nonatomic, strong) NSMutableData *jsonData;
+@property (nonatomic,strong) NSURLConnection *jsonConnection;
+
 @end

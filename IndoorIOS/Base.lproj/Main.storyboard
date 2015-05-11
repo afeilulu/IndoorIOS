@@ -195,8 +195,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4te-dP-Ej0">
-                                <rect key="frame" x="48" y="155" width="504" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4te-dP-Ej0">
+                                <rect key="frame" x="48" y="155" width="396" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                             </textField>
@@ -206,7 +206,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p1l-Dc-dki">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码 (6 - 12位)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p1l-Dc-dki">
                                 <rect key="frame" x="48" y="193" width="504" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
@@ -222,18 +222,36 @@
                                     <action selector="RegisterAction:" destination="cic-Ay-AAg" eventType="touchUpInside" id="OC5-4m-gtC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaG-wV-IaQ">
+                                <rect key="frame" x="452" y="155" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="TIi-dz-j8Q"/>
+                                </constraints>
+                                <state key="normal" title="获取验证码">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="GetValiCodeAction:" destination="cic-Ay-AAg" eventType="touchUpInside" id="ABb-zs-R8h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4te-dP-Ej0" firstAttribute="top" secondItem="XjZ-Cs-ph6" secondAttribute="bottom" constant="8" id="Alx-T0-BCU"/>
                             <constraint firstItem="8En-4W-OAB" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="32" id="BrS-qa-u8m"/>
+                            <constraint firstItem="p1l-Dc-dki" firstAttribute="top" secondItem="eaG-wV-IaQ" secondAttribute="bottom" constant="8" id="GrZ-2U-HaB"/>
                             <constraint firstItem="p1l-Dc-dki" firstAttribute="top" secondItem="4te-dP-Ej0" secondAttribute="bottom" constant="16" id="J5Q-vt-fvL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uVE-lh-OB6" secondAttribute="trailing" constant="32" id="Jl3-I6-Aty"/>
                             <constraint firstItem="p1l-Dc-dki" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="32" id="OKr-Pk-vue"/>
                             <constraint firstItem="8En-4W-OAB" firstAttribute="top" secondItem="dhS-Q6-GCX" secondAttribute="bottom" constant="8" id="QAG-vU-UJG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eaG-wV-IaQ" secondAttribute="trailing" constant="32" id="Qwe-a3-qse"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4te-dP-Ej0" secondAttribute="trailing" constant="32" id="RdV-2z-On6"/>
                             <constraint firstItem="XjZ-Cs-ph6" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="32" id="S4N-3V-pIA"/>
                             <constraint firstItem="p1l-Dc-dki" firstAttribute="top" secondItem="4te-dP-Ej0" secondAttribute="bottom" constant="8" id="S5e-te-htQ"/>
+                            <constraint firstItem="eaG-wV-IaQ" firstAttribute="leading" secondItem="4te-dP-Ej0" secondAttribute="trailing" constant="8" id="eQu-k8-s6f"/>
+                            <constraint firstItem="eaG-wV-IaQ" firstAttribute="top" secondItem="XjZ-Cs-ph6" secondAttribute="bottom" constant="8" id="k5k-fN-mzP"/>
                             <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="p1l-Dc-dki" secondAttribute="bottom" constant="16" id="lVs-il-XH3"/>
                             <constraint firstItem="4te-dP-Ej0" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="32" id="mqu-I9-Jxz"/>
                             <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="p1l-Dc-dki" secondAttribute="bottom" constant="16" id="mwu-w2-QGl"/>
@@ -249,15 +267,16 @@
                             <mask key="constraints">
                                 <exclude reference="z5e-1w-dai"/>
                                 <exclude reference="Alx-T0-BCU"/>
+                                <exclude reference="RdV-2z-On6"/>
                                 <exclude reference="J5Q-vt-fvL"/>
                                 <exclude reference="mwu-w2-QGl"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="ConfirmPassword" destination="p1l-Dc-dki" id="XN6-1T-4Uw"/>
-                        <outlet property="Password" destination="4te-dP-Ej0" id="cqB-7r-vng"/>
+                        <outlet property="Password" destination="p1l-Dc-dki" id="csV-qX-hBi"/>
                         <outlet property="Username" destination="XjZ-Cs-ph6" id="Br6-Rg-5oy"/>
+                        <outlet property="Valicode" destination="4te-dP-Ej0" id="cyn-dH-iWU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RDk-DK-dPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -277,7 +296,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Eeq-So-yyO">
-                                <rect key="frame" x="0.0" y="144" width="600" height="227"/>
+                                <rect key="frame" x="0.0" y="134" width="600" height="312"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="X0d-MX-bqe" customClass="CADStickyLayout"/>
                                 <cells/>
@@ -289,9 +308,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Eeq-So-yyO" firstAttribute="top" secondItem="LPX-RV-O97" secondAttribute="bottom" constant="80" id="JW2-Tw-pak"/>
+                            <constraint firstItem="Eeq-So-yyO" firstAttribute="top" secondItem="LPX-RV-O97" secondAttribute="bottom" constant="70" id="JW2-Tw-pak"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Eeq-So-yyO" secondAttribute="trailing" constant="-16" id="PnT-uZ-prZ"/>
-                            <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="Eeq-So-yyO" secondAttribute="bottom" constant="180" id="Q3U-Or-4C9"/>
+                            <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="Eeq-So-yyO" secondAttribute="bottom" constant="105" id="Q3U-Or-4C9"/>
                             <constraint firstItem="Eeq-So-yyO" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="-16" id="f6s-iW-2LR"/>
                         </constraints>
                     </view>
@@ -317,7 +336,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jca-ZU-LnF">
-                                <rect key="frame" x="16" y="558" width="568" height="34"/>
+                                <rect key="frame" x="16" y="509" width="568" height="34"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

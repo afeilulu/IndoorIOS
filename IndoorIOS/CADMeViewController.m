@@ -55,7 +55,7 @@
     } else {
         NSString *timeStamp = CADUserManager.sharedInstance.getTimeStamp;
         NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-        
+           
         // 从服务器获取订单
         NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kOrderListJsonUrl]];
         [postRequest setHTTPMethod:@"POST"];
@@ -284,10 +284,10 @@
 - (void)handleError:(NSError *)error
 {
     NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接服务器"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }
@@ -356,7 +356,13 @@
     
     parser.errorHandler = ^(NSError *parseError) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self handleError:parseError];
+            NSString *errorMessage = [parseError localizedDescription];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"获取订单异常"
+                                                                message:errorMessage
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
         });
     };
     

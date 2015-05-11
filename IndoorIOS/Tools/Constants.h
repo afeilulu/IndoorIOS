@@ -35,9 +35,14 @@ extern NSString *const kRegisterUrl;
 // 订单列表
 extern NSString *const kOrderListJsonUrl;
 
+// 单日预订最大场次
+extern int const kMaxOrderPlace;
 
-// demo data
-extern NSString *const kStadiums;
+// 提交订单
+extern NSString *const kSubmitOrderJsonUrl;
+
+// 获取手机验证码
+extern NSString *const kValiCodeJsonUrl;
 
 @interface Constants : NSObject
 

@@ -197,7 +197,7 @@
      */
     CGSize size = [text sizeWithAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15]}];
     if (columnIndex == 0) {
-        size.width += 12; // In our design the first column should be the widest one
+        size.width += 16; // In our design the first column should be the widest one
     }
     return CGSizeMake([@(size.width + 9) floatValue], 40); // Extra space of 9px for all the items
 }

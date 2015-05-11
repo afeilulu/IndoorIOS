@@ -8,7 +8,8 @@
     
     int screen_width = [[UIScreen mainScreen] currentMode].size.width;
     CGFloat scale_screen = [UIScreen mainScreen].scale;
-    int itemWidth = (screen_width/scale_screen - 20 ) / 3;
+//    int itemWidth = (screen_width/scale_screen - 20 ) / 3 ;
+    int itemWidth = screen_width/scale_screen - 100;
     
     if (self) {
         [self setUserInteractionEnabled:YES];

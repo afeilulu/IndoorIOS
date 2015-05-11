@@ -77,8 +77,6 @@
 //        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'account':'18092558744','password':'111111','randTime':'43243243543','secret':'M89FFNNKMNJ894893NNNNN'}"];
         NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
         NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), beforeMd5);
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), [Utils md5:beforeMd5]);
         NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'account':'%@','password':'%@','randTime':'%@','secret':'%@'}",_UserName.text,_Password.text,timeStamp,[Utils md5:beforeMd5]];
         
         [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];

@@ -15,8 +15,14 @@
 {
     self = [super initWithFrame:frame];
     
+    CALayer *roundCorner = [self layer];
+    [roundCorner setMasksToBounds:YES];
+    [roundCorner setCornerRadius:8.0];
+    [roundCorner setBorderColor:[self tintColor].CGColor];
+    [roundCorner setBorderWidth:1.0];
+    
     if (self) {
-        UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(50.0, 0.0, 30.0, 18.0)];
+        UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(50.0, 10.0, 30.0, 18.0)];
         CALayer *roundCorner = [imageView1 layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:2.0];
@@ -29,10 +35,10 @@
         [titleLabel1 setOpaque: NO];
         [titleLabel1 setText:@"可选"];
         [titleLabel1 setTextColor:[UIColor grayColor]];
-        [titleLabel1 setFrame:CGRectMake(85.0, 0, 40.0, 20.0)];
+        [titleLabel1 setFrame:CGRectMake(85.0, 10, 40.0, 20.0)];
         [self addSubview:titleLabel1];
 
-        UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(130.0, 0.0, 30.0, 18.0)];
+        UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(130.0, 10.0, 30.0, 18.0)];
         roundCorner = [imageView2 layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:2.0];
@@ -45,10 +51,10 @@
         [titleLabel2 setOpaque: NO];
         [titleLabel2 setText:@"已选"];
         [titleLabel2 setTextColor:[UIColor grayColor]];
-        [titleLabel2 setFrame:CGRectMake(165.0, 0, 40.0, 20.0)];
+        [titleLabel2 setFrame:CGRectMake(165.0, 10, 40.0, 20.0)];
         [self addSubview:titleLabel2];
         
-        UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(210.0, 0.0, 30.0, 18.0)];
+        UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(210.0, 10.0, 30.0, 18.0)];
         roundCorner = [imageView3 layer];
         [roundCorner setMasksToBounds:YES];
         [roundCorner setCornerRadius:2.0];
@@ -61,7 +67,7 @@
         [titleLabel3 setOpaque: NO];
         [titleLabel3 setText:@"已售"];
         [titleLabel3 setTextColor:[UIColor grayColor]];
-        [titleLabel3 setFrame:CGRectMake(245.0, 0, 40.0, 20.0)];
+        [titleLabel3 setFrame:CGRectMake(245.0, 10, 40.0, 20.0)];
         [self addSubview:titleLabel3];
     }
     return self;
