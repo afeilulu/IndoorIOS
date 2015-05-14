@@ -55,7 +55,7 @@
     } else {
         NSString *timeStamp = CADUserManager.sharedInstance.getTimeStamp;
         NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-           
+
         // 从服务器获取订单
         NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kOrderListJsonUrl]];
         [postRequest setHTTPMethod:@"POST"];

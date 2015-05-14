@@ -28,4 +28,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary *orderParams;
 
+@property (nonatomic) BOOL isLoadingStatus;
+
 @end

@@ -117,8 +117,8 @@ static NSMutableString *jsonUrl;
     self.dateToIndexPathDictionary = [[NSMutableDictionary alloc] init];
     self.orderParams = [[NSMutableDictionary alloc] init];
     
-    self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
-    [self.view addSubview:self.iconDescriptionView];
+//    self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
+//    [self.view addSubview:self.iconDescriptionView];
     
     // add submit button
     UIBarButtonItem *submitButton =
@@ -366,7 +366,6 @@ static NSMutableString *jsonUrl;
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"didDeselectItemAtIndexPath : %i",indexPath.row);
     
     NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
     if (tmpArray == nil || ![tmpArray containsObject:indexPath]){
@@ -390,7 +389,7 @@ static NSMutableString *jsonUrl;
         self.timeSelectedView = nil;
     }
     
-    if ([self.selectedDateSortedArray count] == 0){
+    if ([self.selectedDateSortedArray count] == 0 && self.iconDescriptionView == nil){
         self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
         [self.view addSubview:self.iconDescriptionView];
     } else {
@@ -408,12 +407,17 @@ static NSMutableString *jsonUrl;
     
     // 这里定义不能点击（选择）的单元
     
+    // 正在加载状态数据时，不能选择
+    if (self.isLoadingStatus) {
+        return NO;
+    }
+    
     NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
     if (tmpArray.count >= kMaxOrderPlace) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"当前场次组合最多可选4片场地！"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"当前场次组合\n最多可选4片场地！"
                                                             message:nil
                                                            delegate:nil
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil];
         [alertView show];
         
@@ -440,6 +444,11 @@ static NSMutableString *jsonUrl;
     // clear selected while date changed
     [self.dateToIndexPathDictionary removeAllObjects];
     [self.selectedDateSortedArray removeAllObjects];
+    
+    if (self.iconDescriptionView != nil) {
+        [self.iconDescriptionView removeFromSuperview];
+        self.iconDescriptionView = nil;
+    }
     
     if (self.timeSelectedView != nil){
         [self.timeSelectedView removeFromSuperview];
@@ -481,6 +490,7 @@ static NSMutableString *jsonUrl;
     
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.isLoadingStatus = true;
     
 }
 
@@ -570,6 +580,13 @@ static NSMutableString *jsonUrl;
         _places = [self.statusDictionary objectForKey:@"places"];
         
         [_timeUnitCollectionView reloadData];
+        self.isLoadingStatus = false;
+        
+        // 显示图标描述
+        if (self.iconDescriptionView == nil){
+            self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
+            [self.view addSubview:self.iconDescriptionView];
+        }
     }
     
     if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSubmitOrderJsonUrl]) {
@@ -586,7 +603,7 @@ static NSMutableString *jsonUrl;
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提交订单错误"
                                                                 message:desc
                                                                delegate:nil
-                                                      cancelButtonTitle:@"OK"
+                                                      cancelButtonTitle:@"确定"
                                                       otherButtonTitles:nil];
             [alertView show];
             
