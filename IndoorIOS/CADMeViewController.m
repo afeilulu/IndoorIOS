@@ -14,6 +14,7 @@
 #import "CADOrderListItem.h"
 #import "CADParseOrderList.h"
 #import "CADOrderTableViewCell.h"
+#import "CADPayViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation CADMeViewController
@@ -223,7 +224,7 @@
             [cell.contentView addSubview:aLabel];
         }
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;
     }
@@ -263,11 +264,14 @@
             UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"订单" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alter show];
         } else {
-            // segue to pay view controller
-            // show detail in payVeiewController
-            // and select pay by which method
-            // TODO:set sender
-            [self performSegueWithIdentifier:@"PayView" sender:nil];
+            // set back title
+            UIBarButtonItem *blankButton =
+            [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                             style:UIBarButtonItemStylePlain
+                                            target:nil
+                                            action:nil];
+            [[self navigationItem] setBackBarButtonItem:blankButton];
+            [self performSegueWithIdentifier:@"PayView" sender:listItem];
         }
         
     }
@@ -434,6 +438,15 @@
     // ownership of appListData has been transferred to the parse operation
     // and should no longer be referenced in this thread
     self.jsonData = nil;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"PayView"]){
+        
+        CADPayViewController *destination = [segue destinationViewController];
+        [destination setOrderInfo:sender];
+    }
 }
 
 @end

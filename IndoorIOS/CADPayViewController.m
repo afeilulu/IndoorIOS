@@ -12,11 +12,11 @@
 #import "DataSigner.h"
 #import "Constants.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "CADUserManager.h"
+#import "CADUser.h"
+#import "Utils.h"
 
 @interface CADPayViewController ()
-
-@property (weak, nonatomic) IBOutlet UIButton *ConfirmPayButton;
-- (IBAction)payAction:(id)sender;
 
 @end
 
@@ -26,12 +26,35 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    _ConfirmPayButton.layer.cornerRadius = 5.0;
+    self.RemainPayButton.layer.cornerRadius = 5;
+    self.AlipayButton.layer.cornerRadius = 5;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    // TODO:update user info
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kGetUserInfoJsonUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+    
+    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
+    CADUser *user = [[CADUserManager sharedInstance] getUser];
+    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','randTime':'%@','secret':'%@'}",user.phone,timeStamp,[Utils md5:beforeMd5]];
+    
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+    
+    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+    
+    // show in the status bar that network activity is starting
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // 显示余额
+    // 显示倒计时
+    // 显示详情
 }
 
 #pragma mark -
 #pragma mark   ==============产生随机订单号==============
-
 
 - (NSString *)generateTradeNO
 {
@@ -49,9 +72,41 @@
     return resultStr;
 }
 
+#pragma mark -
+#pragma mark   ==============查询账户是否存在==============
 
-- (IBAction)payAction:(id)sender {
-    NSLog(@"pay clicked");
+- (IBAction)checkAccount:(id)sender {
+    BOOL hasAuthorized = [[AlipaySDK defaultService] isLogined];
+    NSLog(@"result = %d",hasAuthorized);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询账户"
+                                                    message:hasAuthorized?@"有":@"没有"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (IBAction)RemainPayAction:(id)sender {
+    CADUser *user = [[CADUserManager sharedInstance] getUser];
+    
+    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kFeePayUrl]];
+    [postRequest setHTTPMethod:@"POST"];
+
+    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
+    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'orderId':'%@','phone':'%@','payPassword':'123456','randTime':'%@','secret':'%@'}",self.orderInfo.orderId, user.phone,timeStamp,[Utils md5:beforeMd5]];
+    
+    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+    
+    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+    
+    // show in the status bar that network activity is starting
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (IBAction)AlipayAction:(id)sender {
+    NSLog(@"Alipay clicked");
     
     /*
      *商户的唯一的parnter和seller。
@@ -87,16 +142,19 @@
     Order *order = [[Order alloc] init];
     order.partner = partner;
     order.seller = seller;
-    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-    order.productName = @"商品标题"; //商品标题
-    order.productDescription = @"商品描述"; //商品描述
-    order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
+//    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
+    order.tradeNO = self.orderInfo.orderId;
+    order.productName =  @"铁人场地预订"; //商品标题
+    order.productDescription = self.orderInfo.orderTitle; //商品描述;
+//    order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
+    order.amount = self.orderInfo.totalMoney;
     order.notifyURL =  kAlipayCallbackUrl; //回调URL
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
     order.inputCharset = @"utf-8";
-    order.itBPay = @"30m";
+//    order.itBPay = @"30m";
+    order.itBPay =[[NSString alloc] initWithFormat:@"%im",self.orderInfo.remainTime];
     order.showUrl = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
@@ -118,22 +176,180 @@
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             NSLog(@"同步返回 reslut = %@",resultDic);
+            int resultCode = [[resultDic objectForKey:@"resultStatus"] intValue];
+            NSString *title = [[NSString alloc] init];
+            switch (resultCode) {
+                case 9000:
+                    title = @"订单支付成功";
+                    break;
+                case 8000:
+                    title = @"正在处理中";
+                    break;
+                case 4000:
+                    title = @"订单支付失败";
+                    break;
+                case 6001:
+                    title = @"用户中途取消";
+                    break;
+                case 6002:
+                    title = @"网络连接出错";
+                    break;
+            }
+            NSString *memo = [resultDic objectForKey:@"memo"];
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                                message:memo
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
         }];
     }
 }
 
-#pragma mark -
-#pragma mark   ==============查询账户是否存在==============
+// -------------------------------------------------------------------------------
+//	handleError:error
+//  Reports any error with an alert which was received from connection or loading failures.
+// -------------------------------------------------------------------------------
+- (void)handleError:(NSError *)error
+{
+    NSString *errorMessage = [error localizedDescription];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Can not connect server"
+                                                        message:errorMessage
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
 
-- (IBAction)checkAccount:(id)sender {
-    BOOL hasAuthorized = [[AlipaySDK defaultService] isLogined];
-    NSLog(@"result = %d",hasAuthorized);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"查询账户"
-                                                    message:hasAuthorized?@"有":@"没有"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"确定"
-                                          otherButtonTitles: nil];
-    [alert show];
+// The following are delegate methods for NSURLConnection. Similar to callback functions, this is how
+// the connection object,  which is working in the background, can asynchronously communicate back to
+// its delegate on the thread from which it was started - in this case, the main thread.
+//
+#pragma mark - NSURLConnectionDelegate
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveResponse:response
+//  Called when enough data has been read to construct an NSURLResponse object.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    self.jsonData = [NSMutableData data];    // start off with new data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didReceiveData:data
+//  Called with a single immutable NSData object to the delegate, representing the next
+//  portion of the data loaded from the connection.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.jsonData appendData:data];  // append incoming data
+}
+
+// -------------------------------------------------------------------------------
+//	connection:didFailWithError:error
+//  Will be called at most once, if an error occurs during a resource load.
+//  No other callbacks will be made after.
+// -------------------------------------------------------------------------------
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    if (error.code == kCFURLErrorNotConnectedToInternet)
+    {
+        // if we can identify the error, we can present a more precise message to the user.
+        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"No Connection Error"};
+        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
+                                                         code:kCFURLErrorNotConnectedToInternet
+                                                     userInfo:userInfo];
+        [self handleError:noConnectionError];
+    }
+    else
+    {
+        // otherwise handle the error generically
+        [self handleError:error];
+    }
+    
+    self.jsonConnection = nil;   // release our connection
+}
+
+// -------------------------------------------------------------------------------
+//	connectionDidFinishLoading:connection
+//  Called when all connection processing has completed successfully, before the delegate
+//  is released by the connection.
+// -------------------------------------------------------------------------------
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // 重新获取用户信息
+    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kGetUserInfoJsonUrl]]) {
+        self.jsonConnection = nil;   // release our connection
+        
+        NSError* error;
+        NSDictionary *result = [NSJSONSerialization
+                                JSONObjectWithData:self.jsonData
+                                options:kNilOptions
+                                error:&error];
+        
+        CADUser *user = [[CADUserManager sharedInstance] getUser];
+        
+        if ([[result objectForKey:@"success"] boolValue] == true){
+            NSDictionary *userInfo = [result objectForKey:@"userInfo"];
+            
+            user.fee = [userInfo objectForKey:@"fee"];
+            user.idString = [userInfo objectForKey:@"id"];
+            user.mail = [userInfo objectForKey:@"mail"];
+            user.phone = [userInfo objectForKey:@"phone"];
+            user.sex_code = [userInfo objectForKey:@"sex_code"];
+            user.sex_name = [userInfo objectForKey:@"sec_name"];
+            user.imgUrl = [userInfo objectForKey:@"image_url"];
+            user.address = [userInfo objectForKey:@"address"];
+            user.area_code = [userInfo objectForKey:@"area_code"];
+            user.area_name = [userInfo objectForKey:@"area_name"];
+            user.name = [userInfo objectForKey:@"name"];
+            user.score = [userInfo objectForKey:@"score"];
+            user.qq = [userInfo objectForKey:@"qq"];
+            
+            [self.RemainPayButton setTitle:[[NSString alloc] initWithFormat:@"余额(%@)",user.fee] forState:UIControlStateNormal];
+            
+            int fee = [user.fee intValue];
+            if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
+                [self.RemainPayButton setEnabled:false];
+            } else {
+                [self.RemainPayButton setEnabled:true];
+            }
+        } else {
+            NSString *domain = @"com.chinaairdome.indoorios";
+            NSString *desc = [result objectForKey:@"msg"];
+            
+            // if we can identify the error, we can present a more precise message to the user.
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:desc};
+            NSError *error = [NSError errorWithDomain:domain
+                                                 code:-105
+                                             userInfo:userInfo];
+            [self handleError:error];
+            
+        }
+        
+    }
+    
+    // 余额支付结果
+    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kFeePayUrl]]) {
+        self.jsonConnection = nil;   // release our connection
+        
+        NSError* error;
+        NSDictionary *result = [NSJSONSerialization
+                                JSONObjectWithData:self.jsonData
+                                options:kNilOptions
+                                error:&error];
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), result);
+    }
+    
+    // ownership of appListData has been transferred to the parse operation
+    // and should no longer be referenced in this thread
+    self.jsonData = nil;
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "CADStickyLayout.h"
 
 //#define NUMBEROFCOLUMNS 8
-#define SPACING 5
+#define SPACING 2
 
 @interface CADStickyLayout ()
 

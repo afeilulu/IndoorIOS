@@ -21,6 +21,7 @@
 #import "CADTimeCollectionViewCell.h"
 #import "CADUserManager.h"
 #import "CADUser.h"
+#import "CADPayViewController.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -325,8 +326,6 @@ static NSMutableString *jsonUrl;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"collectionView clicked : %i",indexPath.row);
-    
     if (![self.selectedDateSortedArray containsObject:self.selectedDate]){
         [self.selectedDateSortedArray addObject:self.selectedDate];
         
@@ -350,6 +349,7 @@ static NSMutableString *jsonUrl;
     }
     
     [self.iconDescriptionView removeFromSuperview];
+    self.iconDescriptionView = nil;
     if (self.timeSelectedView != nil){
         [self.timeSelectedView removeFromSuperview];
         self.timeSelectedView = nil;
@@ -594,13 +594,35 @@ static NSMutableString *jsonUrl;
                                            JSONObjectWithData:self.jsonData
                                            options:kNilOptions
                                            error:&error];
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
         
         if ([[submitOrderResult objectForKey:@"success"] boolValue] == true){
             
+            NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
+            
+            CADOrderListItem *orderInfo = [[CADOrderListItem alloc] init];
+            [orderInfo setSiteTimeList:[submitOrderResult objectForKey:@"siteTimeList"]];
+            [orderInfo setTotalMoney:[submitOrderResult objectForKey:@"totalMoney"]];
+            [orderInfo setZflx:[submitOrderResult objectForKey:@"zflx"]];
+            [orderInfo setRemainTime:[[submitOrderResult objectForKey:@"remainTime"] intValue]];
+            [orderInfo setOrderTitle:[submitOrderResult objectForKey:@"orderTitle"]];
+            [orderInfo setOrderStatus:[submitOrderResult objectForKey:@"orderStatus"]];
+            [orderInfo setOrderSeq:[submitOrderResult objectForKey:@"orderSeq"]];
+            [orderInfo setOrderId:[submitOrderResult objectForKey:@"orderId"]];
+            [orderInfo setFpPrintYn:[submitOrderResult objectForKey:@"fpPrintYn"]];
+            [orderInfo setCreateTime:[submitOrderResult objectForKey:@"createTime"]];
+            
+            // set back title
+            UIBarButtonItem *blankButton =
+            [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                             style:UIBarButtonItemStylePlain
+                                            target:nil
+                                            action:nil];
+            [[self navigationItem] setBackBarButtonItem:blankButton];
+            [self performSegueWithIdentifier:@"PayView" sender:orderInfo];
+            
         } else {
             NSString *desc = [submitOrderResult objectForKey:@"msg"];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提交订单错误"
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单提交失败"
                                                                 message:desc
                                                                delegate:nil
                                                       cancelButtonTitle:@"确定"
@@ -687,6 +709,15 @@ static NSMutableString *jsonUrl;
     
     [self.orderParams setObject:[[NSString alloc] initWithFormat:@"%i",totalMoney] forKey:@"pay"];
     [self.orderParams setObject:sportPlaceTimeList forKey:@"sportPlaceTimeList"];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"PayView"]){
+        
+        CADPayViewController *destination = [segue destinationViewController];
+        [destination setOrderInfo:sender];
+    }
 }
 
 @end

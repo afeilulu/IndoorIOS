@@ -22,6 +22,9 @@
     // Do any additional setup after loading the view.
     
     _inputValicode = [[NSString alloc] init];
+    
+    self.GetCodeButton.layer.cornerRadius = 5;
+    self.RegisterButton.layer.cornerRadius = 5;
 }
 
 - (void)didReceiveMemoryWarning {

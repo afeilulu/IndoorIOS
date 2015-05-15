@@ -38,6 +38,8 @@
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
+    self.LoginButton.layer.cornerRadius = 5;
+    
     // TODO: to delete
     [_UserName setText:@"13359290886"];
     [_Password setText:@"aaaaaa"];

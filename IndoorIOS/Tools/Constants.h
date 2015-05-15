@@ -44,6 +44,12 @@ extern NSString *const kSubmitOrderJsonUrl;
 // 获取手机验证码
 extern NSString *const kValiCodeJsonUrl;
 
+// 获取用户信息
+extern NSString *const kGetUserInfoJsonUrl;
+
+// 余额支付
+extern NSString *const kFeePayUrl;
+
 @interface Constants : NSObject
 
 @end

@@ -56,7 +56,7 @@ static NSAttributedString *cr;
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
     _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
     
-    if ( !_stadiumRecord.gotDetail) {
+    if ( !_stadiumRecord.gotDetail || _stadiumRecord.productTypes.count == 0) {
         // 从服务器获取场馆详情
         NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
         [postRequest setHTTPMethod:@"POST"];
@@ -249,7 +249,7 @@ static NSAttributedString *cr;
 
 -(void)customActionPressed :(id)sender
 {
-    // set back title to blank
+    // set back title
     UIBarButtonItem *blankButton =
     [[UIBarButtonItem alloc] initWithTitle:@"取消"
                                      style:UIBarButtonItemStylePlain

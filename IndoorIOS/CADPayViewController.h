@@ -13,12 +13,18 @@
 #endif
 
 #import <UIKit/UIKit.h>
+#import "CADOrderListItem.h"
 
 @interface CADPayViewController : UIViewController;
 
-@property (nonatomic, strong) NSString *selectedDate;
-@property (nonatomic, strong) NSString *selectedStadiumId;
-@property (nonatomic) int selectedSportIndex;
+@property (nonatomic, strong) CADOrderListItem *orderInfo;
 
+@property (weak, nonatomic) IBOutlet UIButton *RemainPayButton;
+@property (weak, nonatomic) IBOutlet UIButton *AlipayButton;
 
+- (IBAction)RemainPayAction:(id)sender;
+- (IBAction)AlipayAction:(id)sender;
+
+@property (nonatomic, strong) NSURLConnection *jsonConnection;
+@property (nonatomic, strong) NSMutableData *jsonData;
 @end

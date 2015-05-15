@@ -20,6 +20,8 @@ NSString *const kLoginUrl  = @"http://www.chinaairdome.com:8888/App-loginAjax.ac
 NSString *const kOrderListJsonUrl = @"http://www.chinaairdome.com:8888/App-getOrderListAjax.action";
 NSString *const kSubmitOrderJsonUrl = @"http://www.chinaairdome.com:8888/App-submitOrderAjax.action";
 NSString *const kValiCodeJsonUrl=@"http://www.chinaairdome.com:8888/App-getValidateCodeAjax.action";
+NSString *const kGetUserInfoJsonUrl = @"http://www.chinaairdome.com:8888/App-getUserInfoAjax.action";
+NSString *const kFeePayUrl = @"http://www.chinaairdome.com:8888/App-feePayAjax.action";
 
 int const kMaxOrderPlace = 4;
 

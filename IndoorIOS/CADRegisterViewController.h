@@ -13,6 +13,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *Username;
 @property (weak, nonatomic) IBOutlet UITextField *Valicode;
 @property (weak, nonatomic) IBOutlet UITextField *Password;
+@property (weak, nonatomic) IBOutlet UIButton *GetCodeButton;
+@property (weak, nonatomic) IBOutlet UIButton *RegisterButton;
+
+
 - (IBAction)GetValiCodeAction:(id)sender;
 - (IBAction)RegisterAction:(id)sender;
 

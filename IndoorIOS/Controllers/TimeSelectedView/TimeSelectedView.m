@@ -40,7 +40,7 @@
         [sumLabel setFrame:CGRectMake(screen_width/scale_screen - 130, DISTANCE_BETWEEN_TEXT_ITEMS, 40, 40)];
         [self.scrollView addSubview:sumLabel];
         
-        TextItem *sumNumber = [[TextItem alloc] initWithFrame:CGRectZero title:[orderParams objectForKey:@"pay"] color:[self tintColor] size:22];
+        TextItem *sumNumber = [[TextItem alloc] initWithFrame:CGRectZero title:[[NSString alloc] initWithFormat:@"%@元",[orderParams objectForKey:@"pay"]] color:[self tintColor] size:22];
         [sumNumber setFrame:CGRectMake(screen_width/scale_screen - 90, DISTANCE_BETWEEN_TEXT_ITEMS, 40, 40)];
         [self.scrollView addSubview:sumNumber];
 
