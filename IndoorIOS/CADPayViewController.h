@@ -27,4 +27,17 @@
 
 @property (nonatomic, strong) NSURLConnection *jsonConnection;
 @property (nonatomic, strong) NSMutableData *jsonData;
+
+@property (weak, nonatomic) IBOutlet UIView *orderContainer;
+@property (weak, nonatomic) IBOutlet UILabel *OrderSeqLabel;
+@property (weak, nonatomic) IBOutlet UILabel *SiteNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *place1Label;
+@property (weak, nonatomic) IBOutlet UILabel *place2Label;
+@property (weak, nonatomic) IBOutlet UILabel *place3Label;
+@property (weak, nonatomic) IBOutlet UILabel *place4Label;
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+
+
 @end

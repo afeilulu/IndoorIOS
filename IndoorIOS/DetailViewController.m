@@ -276,10 +276,11 @@ static NSAttributedString *cr;
     }
 }
 
+
 #pragma mark  POHorizontalListDelegate
 
 - (void) didSelectItem:(ListItem *)item {
-    
+    /* useless currently
     if (self.selectedSportIndex < 0){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"请选择运动项目"
                                                             message:nil
@@ -307,7 +308,9 @@ static NSAttributedString *cr;
     [[self navigationItem] setBackBarButtonItem:newBackButton];
     
     [self.navigationController pushViewController:viewController animated:YES];
+     */
 }
+
 
 #pragma mark - NSURLConnectionDelegate
 

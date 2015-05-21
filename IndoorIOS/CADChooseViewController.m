@@ -67,9 +67,6 @@ static NSMutableString *jsonUrl;
     self.screenHeight = screen_height/scale_screen;
     self.iconDescriptionViewStartY = self.screenHeight - timeSelectedViewHeight * scale_screen + 35;
     
-    NSLog(@"%@ - %d", NSStringFromClass([self class]), screen_height);
-    NSLog(@"%@ - %d", NSStringFromClass([self class]), self.screenHeight);
-    
     self.timeUnitCollectionView.allowsMultipleSelection = YES;
     
     // date list init
@@ -599,17 +596,19 @@ static NSMutableString *jsonUrl;
             
             NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
             
+            NSDictionary *orderInfoDic=[submitOrderResult objectForKey:@"orderInfo"];
+            
             CADOrderListItem *orderInfo = [[CADOrderListItem alloc] init];
-            [orderInfo setSiteTimeList:[submitOrderResult objectForKey:@"siteTimeList"]];
-            [orderInfo setTotalMoney:[submitOrderResult objectForKey:@"totalMoney"]];
-            [orderInfo setZflx:[submitOrderResult objectForKey:@"zflx"]];
-            [orderInfo setRemainTime:[[submitOrderResult objectForKey:@"remainTime"] intValue]];
-            [orderInfo setOrderTitle:[submitOrderResult objectForKey:@"orderTitle"]];
-            [orderInfo setOrderStatus:[submitOrderResult objectForKey:@"orderStatus"]];
-            [orderInfo setOrderSeq:[submitOrderResult objectForKey:@"orderSeq"]];
-            [orderInfo setOrderId:[submitOrderResult objectForKey:@"orderId"]];
-            [orderInfo setFpPrintYn:[submitOrderResult objectForKey:@"fpPrintYn"]];
-            [orderInfo setCreateTime:[submitOrderResult objectForKey:@"createTime"]];
+            [orderInfo setSiteTimeList:[orderInfoDic objectForKey:@"siteTimeList"]];
+            [orderInfo setTotalMoney:[orderInfoDic objectForKey:@"totalMoney"]];
+            [orderInfo setZflx:[orderInfoDic objectForKey:@"zflx"]];
+            [orderInfo setRemainTime:[[orderInfoDic objectForKey:@"remainTime"] intValue]];
+            [orderInfo setOrderTitle:[orderInfoDic objectForKey:@"orderTitle"]];
+            [orderInfo setOrderStatus:[orderInfoDic objectForKey:@"orderStatus"]];
+            [orderInfo setOrderSeq:[orderInfoDic objectForKey:@"orderSeq"]];
+            [orderInfo setOrderId:[orderInfoDic objectForKey:@"orderId"]];
+            [orderInfo setFpPrintYn:[orderInfoDic objectForKey:@"fpPrintYn"]];
+            [orderInfo setCreateTime:[orderInfoDic objectForKey:@"createTime"]];
             
             // set back title
             UIBarButtonItem *blankButton =
@@ -661,7 +660,7 @@ static NSMutableString *jsonUrl;
 - (void)generateOrderParams
 {
     [self.orderParams removeAllObjects];
-    int totalMoney = 0;
+    float totalMoney = 0;
     NSMutableArray *sportPlaceTimeList = [[NSMutableArray alloc] init];
     
     for (int i=0; i < [self.selectedDateSortedArray count]; i++) {
@@ -676,7 +675,7 @@ static NSMutableString *jsonUrl;
             int unitSize = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitSize"] intValue];
             NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start];
             NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
-            int price = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"] intValue];
+            double price = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"] floatValue];
             
             [aUnit setObject:startTime forKey:@"startTime"];
             
@@ -689,7 +688,7 @@ static NSMutableString *jsonUrl;
                     NSDictionary *abnomalContent = [unitStatus objectForKey:aKey];
                     
                     if ([abnomalContent objectForKey:@"price"] != nil) {
-                        price = [[abnomalContent objectForKey:@"price"] intValue];
+                        price = [[abnomalContent objectForKey:@"price"] floatValue];
                     }
                     
                     if ([abnomalContent objectForKey:@"unitSize"] != nil) {
@@ -707,7 +706,7 @@ static NSMutableString *jsonUrl;
         
     }
     
-    [self.orderParams setObject:[[NSString alloc] initWithFormat:@"%i",totalMoney] forKey:@"pay"];
+    [self.orderParams setObject:[[NSString alloc] initWithFormat:@"%.2f",totalMoney] forKey:@"pay"];
     [self.orderParams setObject:sportPlaceTimeList forKey:@"sportPlaceTimeList"];
 }
 

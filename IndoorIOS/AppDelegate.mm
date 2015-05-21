@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "CADPayViewController.h"
 
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
@@ -33,7 +34,7 @@ BMKMapManager* _mapManager;
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-//    [self.window addSubview:navigationController.view];
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -89,16 +90,75 @@ BMKMapManager* _mapManager;
     //如果极简 SDK 不可用,会跳转支付宝钱包进行支付,需要将支付宝钱包的支付结果回传给 SDK
     if ([url.host isEqualToString:@"safepay"]) {
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            // 使用支付宝钱包时，回调到这里
             NSLog(@"异步返回 safepay result = %@",resultDic);
+            [self alipayResultHandler:resultDic];
         }];
     }
     if ([url.host isEqualToString:@"platformapi"]){
         //支付宝钱包快登授权返回 authCode
         [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"异步返回 platformapi result = %@",resultDic);
+            [self alipayResultHandler:resultDic];
         }];
     }
     return YES;
+}
+
+-(void) alipayResultHandler:(NSDictionary*) resultDic
+{
+    int resultCode = [[resultDic objectForKey:@"resultStatus"] intValue];
+    NSString *title = [[NSString alloc] init];
+    bool success = false;
+    switch (resultCode) {
+        case 9000:
+            title = @"订单支付成功";
+            success = true;
+            break;
+        case 8000:
+            title = @"正在处理中";
+            break;
+        case 4000:
+            title = @"订单支付失败";
+            break;
+        case 6001:
+            title = @"用户中途取消";
+            break;
+        case 6002:
+            title = @"网络连接出错";
+            break;
+    }
+    NSString *memo = [resultDic objectForKey:@"memo"];
+    
+    if (success){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:memo
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                            message:memo
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+
+}
+
+#pragma mark - alvert view button action
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        
+        UIViewController *vc = ((UINavigationController *)((UITabBarController*)self.window.rootViewController).selectedViewController).visibleViewController;
+        
+        if ([vc isKindOfClass:[CADPayViewController class]]) {
+            [vc.navigationController popToRootViewControllerAnimated:YES];
+        }
+        
+    }
 }
 
 @end

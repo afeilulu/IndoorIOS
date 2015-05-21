@@ -50,6 +50,9 @@ extern NSString *const kGetUserInfoJsonUrl;
 // 余额支付
 extern NSString *const kFeePayUrl;
 
+// 支付宝支付前验证
+extern NSString *const kPreAliPayUrl;
+
 @interface Constants : NSObject
 
 @end
