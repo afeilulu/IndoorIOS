@@ -14,6 +14,7 @@
 #import "BMapKit.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
+#import "CADDetailDownloader.h"
 
 @interface ViewController ()
 
@@ -58,6 +59,7 @@
     
     //    _locService = [[BMKLocationService alloc]init];
     
+    self.detailDownloadsInProgress = [NSMutableDictionary dictionary];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -390,6 +392,7 @@
     parser.completionBlock = ^(void) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadData];
+            [self startDownloadAllStadiumDetail];
         });
     };
     
@@ -398,6 +401,33 @@
     // ownership of appListData has been transferred to the parse operation
     // and should no longer be referenced in this thread
     self.stadiumJsonData = nil;
+}
+
+- (void) startDownloadAllStadiumDetail
+{
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    int stadiumCount = stadiumManager.stadiumList.count;
+    if (stadiumCount > 0){
+        for (NSString *key in stadiumManager.stadiumList) {
+            StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:key];
+            
+            CADDetailDownloader *downloader = (self.detailDownloadsInProgress)[key];
+            if (downloader == nil)
+            {
+                downloader = [[CADDetailDownloader alloc] init];
+                downloader.stadiumRecord = stadium;
+                [downloader setCompletionHandler:^{
+                    
+                    // Remove from the in progress list.
+                    // This will result in it being deallocated.
+                    [self.detailDownloadsInProgress removeObjectForKey:key];
+                    
+                }];
+                (self.detailDownloadsInProgress)[key] = downloader;
+                [downloader startDownload];
+            }
+        }
+    }
 }
 
 @end

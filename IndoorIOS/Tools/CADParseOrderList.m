@@ -56,6 +56,8 @@
             [orderItem setSiteTimeList:[item objectForKey:@"siteTimeList"]];
             [orderItem setTotalMoney:[item objectForKey:@"totalMoney"]];
             [orderItem setZflx:[item objectForKey:@"zflx"]];
+            [orderItem setSportId:[item objectForKey:@"sportId"]];
+            [orderItem setSportTypeId:[item objectForKey:@"sportTypeId"]];
             
             [_workingArray addObject:orderItem];
         }

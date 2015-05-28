@@ -20,5 +20,6 @@
 @property (nonatomic, strong) NSString *zflx;
 @property (nonatomic, strong) NSString *totalMoney;
 @property (nonatomic, strong) NSString *fpPrintYn;
-
+@property (nonatomic, strong) NSString *sportId; // 场馆id
+@property (nonatomic, strong) NSString *sportTypeId; // 运动id
 @end

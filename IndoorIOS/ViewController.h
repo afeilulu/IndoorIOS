@@ -16,5 +16,7 @@
 
 - (void) loadData;
 
+@property (nonatomic, strong) NSMutableDictionary *detailDownloadsInProgress;
+
 @end
 

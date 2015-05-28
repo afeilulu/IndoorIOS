@@ -70,6 +70,7 @@
 		75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC891AECD01D001FEF9C /* CADUserManager.m */; };
 		75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */; };
 		75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */; };
+		75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE62031B1733CB001E3637 /* CADDetailDownloader.m */; };
 		75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */; };
 		75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */; };
 		75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EE89D01AF2117A00E64310 /* CADParseOrderList.m */; };
@@ -328,6 +329,8 @@
 		75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseTimeStamp.m; sourceTree = "<group>"; };
 		75CCFC8E1AEE0CF4001FEF9C /* CADParseUserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseUserLogin.h; sourceTree = "<group>"; };
 		75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseUserLogin.m; sourceTree = "<group>"; };
+		75CE62021B1733CB001E3637 /* CADDetailDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDetailDownloader.h; sourceTree = "<group>"; };
+		75CE62031B1733CB001E3637 /* CADDetailDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADDetailDownloader.m; sourceTree = "<group>"; };
 		75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_profile.png; sourceTree = "<group>"; };
 		75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_profile@2x.png"; sourceTree = "<group>"; };
 		75EE89CF1AF2117A00E64310 /* CADParseOrderList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseOrderList.h; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 				75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */,
 				75EE89CF1AF2117A00E64310 /* CADParseOrderList.h */,
 				75EE89D01AF2117A00E64310 /* CADParseOrderList.m */,
+				75CE62021B1733CB001E3637 /* CADDetailDownloader.h */,
+				75CE62031B1733CB001E3637 /* CADDetailDownloader.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -897,6 +902,7 @@
 				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
 				75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */,
+				75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */,
 				753547831AE6694A005A5791 /* Utils.m in Sources */,
 				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
 				75C84C551AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m in Sources */,

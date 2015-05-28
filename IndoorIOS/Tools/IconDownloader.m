@@ -52,6 +52,8 @@
 
 #define kImageHeight 200
 #define kImageWidth 400
+#define kIconHeight 48
+#define kIconWidth 48
 
 @interface IconDownloader ()
 @property (nonatomic, strong) NSMutableData *activeDownload;
@@ -66,11 +68,28 @@
 // -------------------------------------------------------------------------------
 //	startDownload
 // -------------------------------------------------------------------------------
-- (void)startDownload
+- (void)startDownloadWithSportTypeId:(NSString *)sportTypeId
 {
     self.activeDownload = [NSMutableData data];
+    self.sportTypeId = sportTypeId;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.stadiumRecord.imageURLString]];
+    NSURLRequest *request = nil;
+    if ([sportTypeId length] < 10) {
+        self.isIcon = false;
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.stadiumRecord.imageURLString]];
+    } else {
+        self.isIcon = true;
+        for (NSDictionary *sport in self.stadiumRecord.productTypes) {
+            if ([sportTypeId isEqualToString:[sport objectForKey:@"id"]]) {
+                NSString *imageUrl = [[NSString alloc] initWithFormat:@"%@&sportTypeID=%@",[sport objectForKey:@"simage_url"],[sport objectForKey:@"id"] ];
+                request = [NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]];
+                break;
+            }
+        }
+        
+    }
+    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.stadiumRecord.imageURLString]];
     
     // alloc+init and start an NSURLConnection; release on completion/failure
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -119,19 +138,42 @@
     // Set appIcon and clear temporary data/image
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
-    if (image.size.height != kImageHeight)
-	{
-        CGSize itemSize = CGSizeMake(kImageWidth, kImageHeight);
-		UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
-		CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-		[image drawInRect:imageRect];
-		self.stadiumRecord.image = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
+    if (!self.isIcon) {
+        if (image.size.height != kImageHeight)
+        {
+            CGSize itemSize = CGSizeMake(kImageWidth, kImageHeight);
+            UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
+            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+            [image drawInRect:imageRect];
+            self.stadiumRecord.image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+        }
+        else
+        {
+            self.stadiumRecord.image = image;
+        }
+    } else {
+        if (!self.stadiumRecord.imagesOfSportType) {
+            self.stadiumRecord.imagesOfSportType = [[NSMutableDictionary alloc] init];
+        }
+        
+        if (image.size.height != kIconHeight)
+        {
+            CGSize itemSize = CGSizeMake(kIconWidth, kIconHeight);
+            UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
+            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+            [image drawInRect:imageRect];
+            [self.stadiumRecord.imagesOfSportType setObject:UIGraphicsGetImageFromCurrentImageContext() forKey:self.sportTypeId];
+            UIGraphicsEndImageContext();
+        }
+        else
+        {
+            [self.stadiumRecord.imagesOfSportType setObject:UIGraphicsGetImageFromCurrentImageContext() forKey:self.sportTypeId];
+        }
+        
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"icon downloaded");
     }
-    else
-    {
-        self.stadiumRecord.image = image;
-    }
+    
     
     self.activeDownload = nil;
     

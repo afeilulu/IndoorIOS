@@ -15,6 +15,9 @@
 #import "CADUserManager.h"
 #import "CADUser.h"
 #import "Utils.h"
+#import "StadiumManager.h"
+#import "StadiumRecord.h"
+#import "ParseStadiumDetail.h"
 
 @interface CADPayViewController ()
 
@@ -36,35 +39,62 @@
     NSArray *tmpStrings = [[self.orderInfo.orderTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString:@" "];
     self.dateLabel.text = [tmpStrings objectAtIndex:tmpStrings.count - 1];
     self.SiteNameLabel.text = [tmpStrings objectAtIndex:0];
-
-    int lastTag = 0;
-    for (int i = 0; i < [self.orderInfo.siteTimeList count]; i++) {
-        UILabel *aLabel=[[UILabel alloc] init];
-        aLabel.frame = CGRectMake(68, 152 + i * 22, 250, 22);
-        aLabel.text = [NSString stringWithString:[self.orderInfo.siteTimeList objectAtIndex:i]];
-        aLabel.textColor = [UIColor lightGrayColor];
-        [aLabel setFont:[UIFont systemFontOfSize:14.0]];
-        aLabel.tag = 100 + i;//tag the labels
-        lastTag = 100 + i;
-        [self.orderContainer addSubview:aLabel];
+    
+    // 总额
+    self.totalLabel.text = [[NSString alloc] initWithFormat:@"应付金额:%@元",self.orderInfo.totalMoney];
+    
+    // 地址
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:self.orderInfo.sportId];
+    if (stadium.gotDetail) {
+        self.addressLabel.text = stadium.address;
+    } else {
+        // need get stadium detail
+        // 从服务器获取场馆详情
+        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
+        [postRequest setHTTPMethod:@"POST"];
+        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@'}",self.orderInfo.sportId];
+        [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+        self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
+        NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+        
+        // show in the status bar that network activity is starting
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
     
-    UIView *lastTimeView = [self.orderContainer viewWithTag:lastTag];
-    CGRect bound = lastTimeView.frame;
-    
-    
-    UILabel *aLabel=[[UILabel alloc] init];
-    aLabel.frame = CGRectMake(120, bound.origin.y + bound.size.height + 8, 250, 22);
-    aLabel.text = [[NSString alloc] initWithFormat:@"应付金额:%@元",self.orderInfo.totalMoney];
-    aLabel.textColor = [UIColor orangeColor];
-    [aLabel setFont:[UIFont systemFontOfSize:22.0]];
-    [self.orderContainer addSubview:aLabel];
-    
-    CGRect aFrame = self.orderContainer.frame;
-    aFrame.size.height = aLabel.frame.origin.y + aLabel.frame.size.height + 25;
-    self.orderContainer.frame = aFrame;
-    [self.orderContainer setBackgroundColor:[UIColor orangeColor]];
-    
+    // 详细
+    int count = [self.orderInfo.siteTimeList count];
+    if (count == 4) {
+        self.place4Label.text = [self.orderInfo.siteTimeList objectAtIndex:3];
+        self.place3Label.text = [self.orderInfo.siteTimeList objectAtIndex:2];
+        self.place2Label.text = [self.orderInfo.siteTimeList objectAtIndex:1];
+        self.place1Label.text = [self.orderInfo.siteTimeList objectAtIndex:0];
+    }
+    if (count == 3) {
+        self.place3Label.text = [self.orderInfo.siteTimeList objectAtIndex:2];
+        self.place2Label.text = [self.orderInfo.siteTimeList objectAtIndex:1];
+        self.place1Label.text = [self.orderInfo.siteTimeList objectAtIndex:0];
+
+        self.orderContainerHeightConstraint.constant =self.orderContainerHeightConstraint.constant - self.place4HeightConstraint.constant;
+        self.place4HeightConstraint.constant = 0;
+    }
+    if (count == 2) {
+        self.place2Label.text = [self.orderInfo.siteTimeList objectAtIndex:1];
+        self.place1Label.text = [self.orderInfo.siteTimeList objectAtIndex:0];
+
+        self.orderContainerHeightConstraint.constant =self.orderContainerHeightConstraint.constant - 2 * self.place4HeightConstraint.constant;
+        self.place3HeightConstraint.constant = 0;
+        self.place4HeightConstraint.constant = 0;
+    }
+    if (count == 1) {
+        self.place1Label.text = [self.orderInfo.siteTimeList objectAtIndex:0];
+        
+        self.orderContainerHeightConstraint.constant =self.orderContainerHeightConstraint.constant - 3 * self.place4HeightConstraint.constant;
+        self.place2HeightConstraint.constant = 0;
+        self.place3HeightConstraint.constant = 0;
+        self.place4HeightConstraint.constant = 0;
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -185,10 +215,10 @@
 - (void)handleError:(NSError *)error
 {
     NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Can not connect server"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接服务器"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }
@@ -288,8 +318,10 @@
             int fee = [user.fee intValue];
             if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
                 [self.RemainPayButton setEnabled:false];
+                self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
             } else {
                 [self.RemainPayButton setEnabled:true];
+                self.RemainPayButton.backgroundColor = self.view.tintColor;
             }
         } else {
             NSString *domain = @"com.chinaairdome.indoorios";
@@ -360,6 +392,38 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }
+    }
+    
+    // 获取场馆详情
+    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kStadiumDetailJsonUrl]]) {
+        self.jsonConnection = nil;   // release our connection
+        
+        // create the queue to run our ParseOperation
+        self.queue = [[NSOperationQueue alloc] init];
+        
+        ParseStadiumDetail *parser = [[ParseStadiumDetail alloc] initWithData:self.jsonData];
+        
+        parser.errorHandler = ^(NSError *parseError) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self handleError:parseError];
+            });
+        };
+        
+        parser.completionBlock = ^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 重新设置地址
+                StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+                StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:self.orderInfo.sportId];
+                if (stadium.gotDetail) {
+                    self.addressLabel.text = stadium.address;
+                }
+            });
+            // we are finished with the queue and our ParseOperation
+            self.queue = nil;
+        };
+        
+        [self.queue addOperation:parser]; // this will start the "ParseOperation"
+        
     }
     
     // ownership of appListData has been transferred to the parse operation

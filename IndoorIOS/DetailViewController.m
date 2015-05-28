@@ -5,6 +5,7 @@
 //  Created by 陈革非 on 14/12/6.
 //  Copyright (c) 2014年 chinaairdome. All rights reserved.
 //
+#define heightOfHeaderInSection 30
 
 #import "DetailViewController.h"
 #import "IconDownloader.h"
@@ -74,18 +75,18 @@ static NSAttributedString *cr;
         // show in the status bar that network activity is starting
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
-        // 获取图片显示
-        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-        NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:1];
-        [self startIconDownload:_stadiumRecord forIndexPath:indexPath];
     } else {
-        if (_stadiumRecord.image){
-            // 直接显示图片
-            _stretchView.image = _stadiumRecord.image;
-        }
-        
         // 直接组织数据
         [self loadTableViewData];
+    }
+    
+    if (!self.stadiumRecord.image) {
+        // 获取图片显示
+        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+        [self startIconDownload:_stadiumRecord forSport:@"home"];
+    } else {
+        // 直接显示图片
+        _stretchView.image = _stadiumRecord.image;
     }
     
 }
@@ -108,24 +109,27 @@ static NSAttributedString *cr;
 // -------------------------------------------------------------------------------
 //	startIconDownload:forIndexPath:
 // -------------------------------------------------------------------------------
-- (void)startIconDownload:(StadiumRecord *)stadium forIndexPath:(NSIndexPath *)indexPath
+- (void)startIconDownload:(StadiumRecord *)stadium forSport:(NSString *)sportTypeId
 {
-    IconDownloader *iconDownloader = (self.imageDownloadsInProgress)[indexPath];
+    IconDownloader *iconDownloader = (self.imageDownloadsInProgress)[sportTypeId];
     if (iconDownloader == nil)
     {
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.stadiumRecord = stadium;
         [iconDownloader setCompletionHandler:^{
             
-            _stretchView.image = stadium.image;
+            if ([sportTypeId length]<10) { // the length for distingwish image of stadium or of sport type
+                _stretchView.image = stadium.image;
+            }
             
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
-            [self.imageDownloadsInProgress removeObjectForKey:indexPath];
+            [self.imageDownloadsInProgress removeObjectForKey:sportTypeId];
             
+            [self.tableView reloadData];
         }];
-        (self.imageDownloadsInProgress)[indexPath] = iconDownloader;
-        [iconDownloader startDownload];
+        (self.imageDownloadsInProgress)[sportTypeId] = iconDownloader;
+        [iconDownloader startDownloadWithSportTypeId:sportTypeId];
     }
 }
 
@@ -142,16 +146,32 @@ static NSAttributedString *cr;
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    /* Create custom view to display section header... */
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
-    [label setFont:[UIFont systemFontOfSize:18]];
-    NSString *string =[_headers objectAtIndex:section];
-    /* Section header is in 0th index... */
-    [label setText:string];
-    [view addSubview:label];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, heightOfHeaderInSection)];
+    
+    if (section == 0){
+        /* Create custom view to display section header... */
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
+        [label setFont:[UIFont systemFontOfSize:18]];
+        NSString *string =[_headers objectAtIndex:section];
+        /* Section header is in 0th index... */
+        [label setText:string];
+        [view addSubview:label];
+    }
     
     if (section > 0){
+        
+        UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, -5, 40.0, 40.0)];
+        UIImage *image = [_stadiumRecord.imagesOfSportType objectForKey:[self.sportTypeIds objectAtIndex:section-1]];
+        [imageView1 setImage:image];
+        [view addSubview:imageView1];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 5, tableView.frame.size.width, 18)];
+        [label setFont:[UIFont systemFontOfSize:18]];
+        NSString *string =[_headers objectAtIndex:section];
+        /* Section header is in 0th index... */
+        [label setText:string];
+        [view addSubview:label];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         //set the position of the button
         button.frame = CGRectMake(tableView.frame.size.width - 100, 5, 100, 18);
@@ -168,7 +188,7 @@ static NSAttributedString *cr;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+    return heightOfHeaderInSection;
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -417,6 +437,10 @@ static NSAttributedString *cr;
 
 - (void)loadTableViewData
 {
+    // get stadium information
+    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+    _stadiumRecord = [stadiumManager getStadiumRecordById:_stadiumId];
+    
     if (!_stadiumRecord.gotDetail)
         return;
     
@@ -444,10 +468,10 @@ static NSAttributedString *cr;
     [timePeriod appendString:_stadiumRecord.close_time];
     [addressInfo addObject:timePeriod];
     NSMutableString *address=[NSMutableString stringWithString:@""];
-    [address appendString:_stadiumRecord.area_code];
-    [address appendString:@" "];
-    [address appendString:_stadiumRecord.area_name];
-    [address appendString:@" "];
+//    [address appendString:_stadiumRecord.area_code];
+//    [address appendString:@" "];
+//    [address appendString:_stadiumRecord.area_name];
+//    [address appendString:@" "];
     [address appendString:_stadiumRecord.address];
     [addressInfo addObject:address];
     if ((NSNull *)_stadiumRecord.bus_road != [NSNull null])
@@ -475,6 +499,14 @@ static NSAttributedString *cr;
         [_sections addObject:sportInfo];
         [_headers addObject:[sport objectForKey:@"name"]];
         [_sportTypeIds addObject:[sport objectForKey:@"id"]];
+        
+    }
+    
+    // download sport type image
+    for (NSDictionary *sport in _stadiumRecord.productTypes) {
+        if (![_stadiumRecord.imagesOfSportType objectForKey:[sport objectForKey:@"id"]]) {
+                [self startIconDownload:_stadiumRecord forSport:[sport objectForKey:@"id"]];
+        }
     }
     
     [self.tableView reloadData];

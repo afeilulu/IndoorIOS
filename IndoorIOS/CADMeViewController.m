@@ -15,6 +15,8 @@
 #import "CADParseOrderList.h"
 #import "CADOrderTableViewCell.h"
 #import "CADPayViewController.h"
+#import "StadiumManager.h"
+#import "IconDownloader.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation CADMeViewController
@@ -38,6 +40,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -169,7 +172,37 @@
                                                           objectAtIndex:indexPath.row];
         
         // 图片
-        cell.sportImageView.image = [UIImage imageNamed:@"user_profile"];
+//        cell.sportImageView.image = [UIImage imageNamed:@"user_profile"];
+        // TODO:load image
+        StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+        StadiumRecord *stadiumRecord = [stadiumManager getStadiumRecordById:listItem.sportId];
+        if (stadiumRecord.gotDetail) {
+            if ([stadiumRecord.imagesOfSportType objectForKey:listItem.sportTypeId]) {
+                cell.sportImageView.image = [stadiumRecord.imagesOfSportType objectForKey:listItem.sportTypeId];
+            } else {
+                cell.sportImageView.image = [UIImage imageNamed:@"user_profile"];
+                // download sport type image
+                if (![stadiumRecord.imagesOfSportType objectForKey:listItem.sportTypeId]) {
+                    [self startIconDownload:stadiumRecord forSport:listItem.sportTypeId];
+                }
+            }
+        }
+        /*
+        // Only load cached images; defer new downloads until scrolling ends
+        if (!appRecord.appIcon)
+        {
+            if (self.tableView.dragging == NO && self.tableView.decelerating == NO)
+            {
+                [self startIconDownload:appRecord forIndexPath:indexPath];
+            }
+            // if a download is deferred or in progress, return a placeholder image
+            cell.imageView.image = [UIImage imageNamed:@"Placeholder.png"];
+        }
+        else
+        {
+            cell.imageView.image = appRecord.appIcon;
+        }
+         */
         
         // 订单创建时间
         cell.createTimeLabel.text = listItem.createTime;
@@ -184,7 +217,13 @@
             [cell.statusLabel setBackgroundColor:[UIColor greenColor]];
         }
         if ([listItem.orderStatus isEqualToString:@"支付中"]){
-            [cell.statusLabel setBackgroundColor:[UIColor magentaColor]];
+            if (listItem.remainTime > 0) {
+                [cell.statusLabel setBackgroundColor:[UIColor magentaColor]];
+            } else {
+                cell.statusLabel.text = @"未支付";
+                [cell.statusLabel setBackgroundColor:[UIColor lightGrayColor]];
+            }
+            
         }
         if ([listItem.orderStatus isEqualToString:@"未支付"]){
             [cell.statusLabel setBackgroundColor:[UIColor lightGrayColor]];
@@ -258,7 +297,7 @@
     if (indexPath.section == 1) {
         CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                           objectAtIndex:indexPath.row];
-        
+        /* comment for debug
         if (listItem.remainTime == 0){
             NSString *rowString = [NSString stringWithFormat:@"%@已过期，请重新预订。", listItem.orderSeq];
             UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"订单" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -273,6 +312,16 @@
             [[self navigationItem] setBackBarButtonItem:blankButton];
             [self performSegueWithIdentifier:@"PayView" sender:listItem];
         }
+         */
+        
+        UIBarButtonItem *blankButton =
+        [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+        [[self navigationItem] setBackBarButtonItem:blankButton];
+        [self performSegueWithIdentifier:@"PayView" sender:listItem];
+        
         
     }
     
@@ -446,6 +495,29 @@
         
         CADPayViewController *destination = [segue destinationViewController];
         [destination setOrderInfo:sender];
+    }
+}
+
+// -------------------------------------------------------------------------------
+//	startIconDownload:forIndexPath:
+// -------------------------------------------------------------------------------
+- (void)startIconDownload:(StadiumRecord *)stadium forSport:(NSString *)sportTypeId
+{
+    IconDownloader *iconDownloader = (self.imageDownloadsInProgress)[sportTypeId];
+    if (iconDownloader == nil)
+    {
+        iconDownloader = [[IconDownloader alloc] init];
+        iconDownloader.stadiumRecord = stadium;
+        [iconDownloader setCompletionHandler:^{
+            
+            // Remove the IconDownloader from the in progress list.
+            // This will result in it being deallocated.
+            [self.imageDownloadsInProgress removeObjectForKey:sportTypeId];
+            
+            [self.tableView reloadData];
+        }];
+        (self.imageDownloadsInProgress)[sportTypeId] = iconDownloader;
+        [iconDownloader startDownloadWithSportTypeId:sportTypeId];
     }
 }
 

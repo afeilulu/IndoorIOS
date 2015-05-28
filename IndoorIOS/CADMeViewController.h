@@ -27,4 +27,7 @@
 
 @property (nonatomic) int maxTimeUnitCount;
 
+// the set of IconDownloader objects for each image
+@property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
+
 @end

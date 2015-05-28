@@ -54,9 +54,11 @@
 @interface IconDownloader : NSObject
 
 @property (nonatomic, strong) StadiumRecord *stadiumRecord;
+@property (nonatomic) bool isIcon;
+@property (nonatomic, strong) NSString *sportTypeId;
 @property (nonatomic, copy) void (^completionHandler)(void);
 
-- (void)startDownload;
+- (void)startDownloadWithSportTypeId:(NSString *)sportTypeId;
 - (void)cancelDownload;
 
 @end

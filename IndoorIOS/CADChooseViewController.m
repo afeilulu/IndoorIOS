@@ -609,6 +609,8 @@ static NSMutableString *jsonUrl;
             [orderInfo setOrderId:[orderInfoDic objectForKey:@"orderId"]];
             [orderInfo setFpPrintYn:[orderInfoDic objectForKey:@"fpPrintYn"]];
             [orderInfo setCreateTime:[orderInfoDic objectForKey:@"createTime"]];
+            [orderInfo setSportId:[orderInfoDic objectForKey:@"sportId"]];
+            [orderInfo setSportTypeId:[orderInfoDic objectForKey:@"sportTypeId"]];
             
             // set back title
             UIBarButtonItem *blankButton =

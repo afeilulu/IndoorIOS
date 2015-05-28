@@ -40,6 +40,14 @@
 
     self.LoginButton.layer.cornerRadius = 5;
     
+    // set back title
+    UIBarButtonItem *blankButton =
+    [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:blankButton];
+    
     // TODO: to delete
     [_UserName setText:@"13359290886"];
     [_Password setText:@"aaaaaa"];
