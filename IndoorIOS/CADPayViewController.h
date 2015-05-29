@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
 
+@property (weak, nonatomic) IBOutlet UIImageView *sportImageView;
 @property (weak, nonatomic) IBOutlet UIView *orderContainer;
 @property (weak, nonatomic) IBOutlet UILabel *OrderSeqLabel;
 @property (weak, nonatomic) IBOutlet UILabel *SiteNameLabel;

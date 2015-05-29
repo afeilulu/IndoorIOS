@@ -548,6 +548,7 @@
                         <outlet property="place3Label" destination="GGf-eV-T00" id="5VQ-P9-ILn"/>
                         <outlet property="place4HeightConstraint" destination="cpt-X8-wtI" id="4mo-Xs-nql"/>
                         <outlet property="place4Label" destination="NFv-eq-gth" id="efH-jk-Fki"/>
+                        <outlet property="sportImageView" destination="EvS-KH-IzZ" id="Zm0-kt-4Td"/>
                         <outlet property="totalLabel" destination="0A7-ab-18x" id="3ye-x4-Kot"/>
                     </connections>
                 </viewController>

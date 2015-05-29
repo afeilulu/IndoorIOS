@@ -22,7 +22,7 @@
 @property (nonatomic) int start;
 @property (nonatomic) int end;
 @property (nonatomic, strong) NSDictionary *statusDictionary;
-@property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong) NSMutableArray *places;
 @property (nonatomic) int currentHour;
 @property (nonatomic, strong) NSString *today;
 

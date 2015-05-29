@@ -62,6 +62,9 @@
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     }
     
+    // 运动图片
+    self.sportImageView.image = [stadium.imagesOfSportType objectForKey:self.orderInfo.sportTypeId];
+    
     // 详细
     int count = [self.orderInfo.siteTimeList count];
     if (count == 4) {
@@ -98,7 +101,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    // TODO:update user info
+    // update user info
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kGetUserInfoJsonUrl]];
     [postRequest setHTTPMethod:@"POST"];
     
@@ -114,10 +117,6 @@
     
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    // 显示余额
-    // 显示倒计时
-    // 显示详情
 }
 
 #pragma mark -

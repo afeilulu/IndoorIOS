@@ -438,6 +438,12 @@ static NSMutableString *jsonUrl;
 
 - (void) didSelectItem:(ListItem *)item {
     
+    if (self.isLoadingStatus) {
+        return;
+    }
+    
+    [self.timeUnitCollectionView setHidden:true];
+    
     // clear selected while date changed
     [self.dateToIndexPathDictionary removeAllObjects];
     [self.selectedDateSortedArray removeAllObjects];
@@ -572,18 +578,23 @@ static NSMutableString *jsonUrl;
                                  JSONObjectWithData:self.jsonData
                                  options:kNilOptions
                                  error:&error];
-        _start = [[self.statusDictionary objectForKey:@"startTime"] intValue];
-        _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
-        _places = [self.statusDictionary objectForKey:@"places"];
-        
-        [_timeUnitCollectionView reloadData];
+        if (self.statusDictionary) {
+            _start = [[self.statusDictionary objectForKey:@"startTime"] intValue];
+            _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
+            _places = [[NSMutableArray alloc] initWithArray:[self.statusDictionary objectForKey:@"places"]];
+            
+            [_timeUnitCollectionView reloadData];
+            [self.timeUnitCollectionView setHidden:false];
+        } 
+    
         self.isLoadingStatus = false;
-        
+    
         // 显示图标描述
         if (self.iconDescriptionView == nil){
             self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
             [self.view addSubview:self.iconDescriptionView];
         }
+            
     }
     
     if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSubmitOrderJsonUrl]) {
