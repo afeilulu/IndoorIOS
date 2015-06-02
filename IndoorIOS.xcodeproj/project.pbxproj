@@ -71,6 +71,16 @@
 		75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */; };
 		75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */; };
 		75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE62031B1733CB001E3637 /* CADDetailDownloader.m */; };
+		75CE620B1B1843C0001E3637 /* ic_bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62051B1843C0001E3637 /* ic_bus.png */; };
+		75CE620D1B1843C0001E3637 /* ic_clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62071B1843C0001E3637 /* ic_clock.png */; };
+		75CE62181B184BD5001E3637 /* ic_account.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62111B184BD5001E3637 /* ic_account.png */; };
+		75CE62191B184BD5001E3637 /* ic_account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62121B184BD5001E3637 /* ic_account@2x.png */; };
+		75CE621A1B184BD5001E3637 /* ic_bus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62131B184BD5001E3637 /* ic_bus@2x.png */; };
+		75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62161B184BD5001E3637 /* ic_supervisor.png */; };
+		75CE621E1B184BD5001E3637 /* ic_supervisor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62171B184BD5001E3637 /* ic_supervisor@2x.png */; };
+		75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE621F1B184DE9001E3637 /* ic_clock@2x.png */; };
+		75CE62231B184DE9001E3637 /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62201B184DE9001E3637 /* ic_location.png */; };
+		75CE62241B184DE9001E3637 /* ic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62211B184DE9001E3637 /* ic_location@2x.png */; };
 		75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */; };
 		75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */; };
 		75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EE89D01AF2117A00E64310 /* CADParseOrderList.m */; };
@@ -331,6 +341,16 @@
 		75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseUserLogin.m; sourceTree = "<group>"; };
 		75CE62021B1733CB001E3637 /* CADDetailDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDetailDownloader.h; sourceTree = "<group>"; };
 		75CE62031B1733CB001E3637 /* CADDetailDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADDetailDownloader.m; sourceTree = "<group>"; };
+		75CE62051B1843C0001E3637 /* ic_bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bus.png; sourceTree = "<group>"; };
+		75CE62071B1843C0001E3637 /* ic_clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_clock.png; sourceTree = "<group>"; };
+		75CE62111B184BD5001E3637 /* ic_account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_account.png; sourceTree = "<group>"; };
+		75CE62121B184BD5001E3637 /* ic_account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_account@2x.png"; sourceTree = "<group>"; };
+		75CE62131B184BD5001E3637 /* ic_bus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_bus@2x.png"; sourceTree = "<group>"; };
+		75CE62161B184BD5001E3637 /* ic_supervisor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_supervisor.png; sourceTree = "<group>"; };
+		75CE62171B184BD5001E3637 /* ic_supervisor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_supervisor@2x.png"; sourceTree = "<group>"; };
+		75CE621F1B184DE9001E3637 /* ic_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock@2x.png"; sourceTree = "<group>"; };
+		75CE62201B184DE9001E3637 /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_location.png; sourceTree = "<group>"; };
+		75CE62211B184DE9001E3637 /* ic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_location@2x.png"; sourceTree = "<group>"; };
 		75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_profile.png; sourceTree = "<group>"; };
 		75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_profile@2x.png"; sourceTree = "<group>"; };
 		75EE89CF1AF2117A00E64310 /* CADParseOrderList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseOrderList.h; sourceTree = "<group>"; };
@@ -775,6 +795,16 @@
 		75EF6BED1AE9F56600418E02 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				75CE621F1B184DE9001E3637 /* ic_clock@2x.png */,
+				75CE62201B184DE9001E3637 /* ic_location.png */,
+				75CE62211B184DE9001E3637 /* ic_location@2x.png */,
+				75CE62111B184BD5001E3637 /* ic_account.png */,
+				75CE62121B184BD5001E3637 /* ic_account@2x.png */,
+				75CE62131B184BD5001E3637 /* ic_bus@2x.png */,
+				75CE62161B184BD5001E3637 /* ic_supervisor.png */,
+				75CE62171B184BD5001E3637 /* ic_supervisor@2x.png */,
+				75CE62051B1843C0001E3637 /* ic_bus.png */,
+				75CE62071B1843C0001E3637 /* ic_clock.png */,
 				75C851971AF9F946000C3AD1 /* time_line.png */,
 				75C851981AF9F946000C3AD1 /* time_line@2x.png */,
 				75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */,
@@ -849,23 +879,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				75EF6BF41AE9F56600418E02 /* ironman.png in Resources */,
+				75CE620B1B1843C0001E3637 /* ic_bus.png in Resources */,
 				75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */,
+				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
 				75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
+				75CE621E1B184BD5001E3637 /* ic_supervisor@2x.png in Resources */,
+				75CE62181B184BD5001E3637 /* ic_account.png in Resources */,
+				75CE62241B184DE9001E3637 /* ic_location@2x.png in Resources */,
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
+				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
+				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
 				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
+				75CE621A1B184BD5001E3637 /* ic_bus@2x.png in Resources */,
 				75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */,
+				75CE620D1B1843C0001E3637 /* ic_clock.png in Resources */,
 				75C851991AF9F946000C3AD1 /* time_line.png in Resources */,
 				75C84C561AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib in Resources */,
 				75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */,
 				75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */,
 				75C84C511AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib in Resources */,
+				75CE62191B184BD5001E3637 /* ic_account@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

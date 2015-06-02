@@ -19,6 +19,9 @@
 
 @property (nonatomic, retain) NSObject *objectTag;
 @property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, retain) UILabel *titleLabel;
+@property (nonatomic, retain) UILabel *subTitleLabel;
+
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subTitle;
 @property (nonatomic) BOOL isSelected;

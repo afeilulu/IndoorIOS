@@ -19,6 +19,11 @@
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
 
+@property (nonatomic, strong) NSString *sportSiteId;
+@property (nonatomic, strong) NSString *sportTypeId;
+
+@property (nonatomic) bool isGoToChoose;
+
 - (IBAction)LoginAction:(id)sender;
 
 @end

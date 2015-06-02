@@ -53,6 +53,10 @@ extern NSString *const kFeePayUrl;
 // 支付宝支付前验证
 extern NSString *const kPreAliPayUrl;
 
+extern int const kSelectableColor;
+
+extern int const kUnSelectableColor;
+
 @interface Constants : NSObject
 
 @end

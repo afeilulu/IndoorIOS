@@ -280,13 +280,22 @@ static NSMutableString *jsonUrl;
             contentCell.layer.cornerRadius = 5;
             contentCell.contentLabel.font = [UIFont systemFontOfSize:13];
             contentCell.contentLabel.textColor = [UIColor blackColor];
-            contentCell.contentLabel.text = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"];
-//            if (indexPath.section % 2 != 0) {
-//                contentCell.backgroundColor = [UIColor colorWithWhite:242/255.0 alpha:1.0];
-//            } else {
-//                contentCell.backgroundColor = [UIColor whiteColor];
-//            }
-            contentCell.backgroundColor = [UIColor colorWithWhite:242/255.0 alpha:1.0];
+            
+            NSString *status=[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"status"];
+            if ([status isEqualToString:@"0"]) {
+                contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
+                contentCell.contentLabel.text = @"";
+                return contentCell;
+            }
+            
+            id price = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"];
+            if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+                contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
+                contentCell.contentLabel.text = @"";
+            } else {
+                contentCell.backgroundColor = [UIColor colorWithWhite:kSelectableColor/255.0 alpha:1.0];
+                contentCell.contentLabel.text = price;
+            }
             
             // 异常内容处理
             NSDictionary *unitStatus = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitStatus"];
@@ -296,9 +305,15 @@ static NSMutableString *jsonUrl;
                     NSDictionary *abnomalContent = [unitStatus objectForKey:key];
                     // 找到正确位置
                     if ([key intValue] == indexPath.row - 1 + _start) {
-                        if ([abnomalContent objectForKey:@"price"] != nil) {
-                            contentCell.contentLabel.text = [abnomalContent objectForKey:@"price"];
+                        id price = [abnomalContent objectForKey:@"price"];
+                        if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+                            contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
+                            contentCell.contentLabel.text = @"";
+                        } else {
+                            contentCell.backgroundColor = [UIColor colorWithWhite:kSelectableColor/255.0 alpha:1.0];
+                            contentCell.contentLabel.text = price;
                         }
+                        
                         if ([abnomalContent objectForKey:@"status"] != nil) {
                             // TODO:content exception handle
                         }
@@ -312,7 +327,7 @@ static NSMutableString *jsonUrl;
             
             // 当天已过时间处理
             if ([self.selectedDate isEqualToString:self.today] && indexPath.row - 1 + _start < self.currentHour) {
-                contentCell.backgroundColor = [UIColor colorWithWhite:235/256.0 alpha:1.0];
+                contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
                 contentCell.contentLabel.text = @"";
             }
             
@@ -409,6 +424,52 @@ static NSMutableString *jsonUrl;
         return NO;
     }
     
+    // if you want some cells to be unselectable, list them here
+    if (indexPath.section == 0 || indexPath.row == 0) {
+        return NO; // do nothing while header or left side clicked
+    }
+    
+    // 当天已过时间处理
+    if ([self.selectedDate isEqualToString:self.today] && indexPath.row - 1 + _start < self.currentHour) {
+        return NO;
+    }
+    
+    // 状态
+    NSString *status=[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"status"];
+    if ([status isEqualToString:@"0"]) {
+            return NO;
+    }
+    
+    // 如果没有价格显示，不能选择 ***************************************
+    id price = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"];
+    if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+        return NO;
+    }
+    
+    // 异常内容处理
+    NSDictionary *unitStatus = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitStatus"];
+    if ([unitStatus count] > 0) {
+        NSArray *keys = [unitStatus allKeys];
+        for (NSString *key in keys) {
+            NSDictionary *abnomalContent = [unitStatus objectForKey:key];
+            // 找到正确位置
+            if ([key intValue] == indexPath.row - 1 + _start) {
+                id price = [abnomalContent objectForKey:@"price"];
+                if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+                    return NO;
+                }
+                if ([abnomalContent objectForKey:@"status"] != nil) {
+                    // TODO:content exception handle
+                }
+                
+                if ([abnomalContent objectForKey:@"unitSize"] != nil) {
+                    // TODO:content exception handle
+                }
+            }
+        }
+    }
+//    **************************************
+    
     NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
     if (tmpArray.count >= kMaxOrderPlace) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"当前场次组合\n最多可选4片场地！"
@@ -418,16 +479,6 @@ static NSMutableString *jsonUrl;
                                                   otherButtonTitles:nil];
         [alertView show];
         
-        return NO;
-    }
-    
-    // if you want some cells to be unselectable, list them here
-    if (indexPath.section == 0 || indexPath.row == 0) {
-        return NO; // do nothing while header or left side clicked
-    }
-    
-    // 当天已过时间处理
-    if ([self.selectedDate isEqualToString:self.today] && indexPath.row - 1 + _start < self.currentHour) {
         return NO;
     }
     
@@ -507,10 +558,10 @@ static NSMutableString *jsonUrl;
 - (void)handleError:(NSError *)error
 {
     NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接服务器"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }
@@ -585,6 +636,9 @@ static NSMutableString *jsonUrl;
             
             [_timeUnitCollectionView reloadData];
             [self.timeUnitCollectionView setHidden:false];
+            
+            // scroll to top left
+            [self.timeUnitCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally|UICollectionViewScrollPositionCenteredVertically animated:true];
         } 
     
         self.isLoadingStatus = false;

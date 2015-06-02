@@ -57,7 +57,7 @@
         self.navigationController.navigationBar.translucent = NO;
     }
     
-    //    _locService = [[BMKLocationService alloc]init];
+    _locService = [[BMKLocationService alloc]init];
     
     self.detailDownloadsInProgress = [NSMutableDictionary dictionary];
 }
@@ -66,13 +66,13 @@
     
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-    //    _locService.delegate = self;
+        _locService.delegate = self;
     
     // 开始普通定位
-    //    [_locService startUserLocationService];
-    //    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    //    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
-    //    _mapView.showsUserLocation = YES;//显示定位图层
+    [_locService startUserLocationService];
+    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
+    _mapView.showsUserLocation = YES;//显示定位图层
     
     // get singleton
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
@@ -100,7 +100,7 @@
 -(void)viewWillDisappear:(BOOL)animated {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
-    //    _locService.delegate = nil;
+    _locService.delegate = nil;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,7 +8,6 @@
 
 #import "Constants.h"
 
-
 NSString *const kSecretKey = @"wmdpzsdl";
 NSString *const kStadiumsJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteListAjax.action";
 NSString *const kStadiumDetailJsonUrl = @"http://www.chinaairdome.com:8888/App-getSportSiteDetailAjax.action";
@@ -25,6 +24,10 @@ NSString *const kFeePayUrl = @"http://www.chinaairdome.com:8888/App-feePayAjax.a
 NSString *const kPreAliPayUrl = @"http://www.chinaairdome.com:8888/App-aliPayAjax.action";
 
 int const kMaxOrderPlace = 4;
+
+int const kSelectableColor = 242;
+int const kUnSelectableColor = 235;
+
 
 @implementation Constants
 

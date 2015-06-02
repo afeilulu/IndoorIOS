@@ -30,27 +30,27 @@
         [roundCorner setBorderWidth:1.0];
         [roundCorner setBackgroundColor:[UIColor clearColor].CGColor];
         
-        UILabel *titleLabel = [[UILabel alloc] init];
-        [titleLabel setBackgroundColor:[UIColor clearColor]];
-        [titleLabel setFont:[UIFont systemFontOfSize:20.0]];
-        [titleLabel setOpaque: NO];
-        [titleLabel setText:title];
-        [titleLabel setTextColor:[self tintColor]];
-        titleRect = CGRectMake(10.0, imageRect.origin.y + 10.0, 80.0, 20.0);
-        [titleLabel setFrame:titleRect];
+        _titleLabel = [[UILabel alloc] init];
+        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setFont:[UIFont systemFontOfSize:22.0]];
+        [_titleLabel setOpaque: NO];
+        [_titleLabel setText:title];
+        [_titleLabel setTextColor:[self tintColor]];
+        titleRect = CGRectMake(20.0, imageRect.origin.y + 10.0, 80.0, 20.0);
+        [_titleLabel setFrame:titleRect];
         
-        UILabel *subTitleLabel = [[UILabel alloc] init];
-        [subTitleLabel setBackgroundColor:[UIColor clearColor]];
-        [subTitleLabel setFont:[UIFont systemFontOfSize:16.0]];
-        [subTitleLabel setOpaque: NO];
-        [subTitleLabel setText:subTitle];
-        [subTitleLabel setTextColor:[self tintColor]];
+        _subTitleLabel = [[UILabel alloc] init];
+        [_subTitleLabel setBackgroundColor:[UIColor clearColor]];
+        [_subTitleLabel setFont:[UIFont systemFontOfSize:16.0]];
+        [_subTitleLabel setOpaque: NO];
+        [_subTitleLabel setText:subTitle];
+        [_subTitleLabel setTextColor:[self tintColor]];
         subTitleRect = CGRectMake(20.0, imageRect.origin.y + 40.0, 80.0, 20.0);
-        [subTitleLabel setFrame:subTitleRect];
+        [_subTitleLabel setFrame:subTitleRect];
         
         [self addSubview:self.imageView];
-        [self addSubview:titleLabel];
-        [self addSubview:subTitleLabel];
+        [self addSubview:_titleLabel];
+        [self addSubview:_subTitleLabel];
     }
     
     return self;

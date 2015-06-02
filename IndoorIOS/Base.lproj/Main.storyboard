@@ -149,6 +149,7 @@
                         <outlet property="LoginButton" destination="8U8-O6-2De" id="FEV-oQ-nm7"/>
                         <outlet property="Password" destination="i6v-ww-cnu" id="Mny-TN-Ezm"/>
                         <outlet property="UserName" destination="cA0-Ij-LY8" id="kRp-DB-kZU"/>
+                        <segue destination="hBU-cS-oG0" kind="show" identifier="choose" id="wzF-5f-ihK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPI-8N-Bao" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -297,7 +298,7 @@
         <!--预订场地-->
         <scene sceneID="gWB-zP-Nj7">
             <objects>
-                <viewController storyboardIdentifier="chooseview" title="预订场地" id="hBU-cS-oG0" customClass="CADChooseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chooseview" title="预订场地" hidesBottomBarWhenPushed="YES" id="hBU-cS-oG0" customClass="CADChooseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LPX-RV-O97"/>
                         <viewControllerLayoutGuide type="bottom" id="PXz-TJ-vlM"/>
@@ -679,7 +680,7 @@
         <scene sceneID="vIn-QM-1is">
             <objects>
                 <navigationController id="vHi-Fc-fSv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="教 练" image="teacher.png" id="WKH-qD-ozN"/>
+                    <tabBarItem key="tabBarItem" title="教 练" image="ic_supervisor.png" id="WKH-qD-ozN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wIA-QW-XI2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -716,7 +717,7 @@
         <scene sceneID="6Hd-uK-MK4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jg7-op-7Oc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="场 地" image="ironman.png" id="Qir-bM-pP8"/>
+                    <tabBarItem key="tabBarItem" title="场 地" image="ic_location.png" id="Qir-bM-pP8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="urr-fU-cTF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -735,7 +736,7 @@
         <scene sceneID="v5s-J2-Ar8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fCh-PJ-8pj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="user.png" id="9aw-oU-ZnZ"/>
+                    <tabBarItem key="tabBarItem" title="我" image="ic_account.png" id="9aw-oU-ZnZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JJd-l1-nqf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -752,13 +753,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ironman.png" width="32" height="32"/>
-        <image name="teacher.png" width="32" height="32"/>
-        <image name="user.png" width="32" height="32"/>
+        <image name="ic_account.png" width="24" height="24"/>
+        <image name="ic_location.png" width="24" height="24"/>
+        <image name="ic_supervisor.png" width="24" height="24"/>
         <image name="user_profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xch-Rx-REy"/>
-        <segue reference="Tmo-6c-aqD"/>
+        <segue reference="tku-hW-jf6"/>
+        <segue reference="bcp-k1-FjW"/>
+        <segue reference="S9T-iw-V3D"/>
     </inferredMetricsTieBreakers>
 </document>

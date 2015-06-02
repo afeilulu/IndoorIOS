@@ -20,6 +20,7 @@
 #import "BMKAnnotationView.h"
 #import "CADUser.h"
 #import "CADUserManager.h"
+#import "CADLoginViewController.h"
 
 static NSAttributedString *cr;
 
@@ -179,6 +180,7 @@ static NSAttributedString *cr;
         [button setTag:section];
         [button addTarget:self action:@selector(customActionPressed:) forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor= [UIColor clearColor];
+        button.titleLabel.font = [UIFont systemFontOfSize:16.0];
         [view addSubview:button];
     }
     
@@ -202,35 +204,52 @@ static NSAttributedString *cr;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
     }
-    
-    //    NSString *CellIdentifier = [NSString  stringWithFormat:@"Cell_%d",indexPath.row];
-    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    //    if (cell == nil) {
-    //
-    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    //
-    //    }
-    
-    /*
-     UILabel *title = [[UILabel alloc] init];
-     [title setBackgroundColor:[UIColor clearColor]];
-     [title setFont:[UIFont boldSystemFontOfSize:12.0]];
-     [title setOpaque: NO];
-     [title setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
-     CGRect textRect = CGRectMake(0.0, 0.0, 200.0, 50.0);
-     [title setFrame:textRect];
-     [cell.contentView addSubview:title];
-     */
-    
     
     cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
                                       objectAtIndex:indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+//    UILabel *attr = (UILabel *)[cell viewWithTag:1000];
+    
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                cell.imageView.image = [UIImage imageNamed:@"ic_clock"];
+                break;
+            case 1:
+                cell.imageView.image = [UIImage imageNamed:@"ic_location"];
+                break;
+            case 2:
+                cell.imageView.image = [UIImage imageNamed:@"ic_bus"];
+                break;
+        }
+        
+//        [attr removeFromSuperview];
+    } else {
+        cell.imageView.image = nil;
+        
+        /*
+        if (!attr) {
+            attr = [[UILabel alloc] init];
+            attr.textAlignment = NSTextAlignmentCenter;
+            [attr setBackgroundColor:[UIColor orangeColor]];
+            [attr setFont:[UIFont systemFontOfSize:17.0]];
+            attr.textColor = [UIColor whiteColor];
+            CGRect textRect = CGRectMake(cell.contentView.frame.size.width - 110, 5.0, 100.0, cell.contentView.frame.size.height - 10);
+            [attr setFrame:textRect];
+            [attr setTag:1000];
+            [attr.layer setMasksToBounds:YES];
+            attr.layer.cornerRadius = 5;
+            [cell.contentView addSubview:attr];
+        }
+        [attr setText:[NSString stringWithFormat: @"测试文本 %i",indexPath.row]];
+         */
+        
+    }
+    
+    
     
     /*
      cell.textLabel.numberOfLines = 0;
@@ -292,6 +311,15 @@ static NSAttributedString *cr;
         CADChooseViewController *destination = [segue destinationViewController];
         [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
         [destination setSportSiteId:_stadiumId];
+        
+    }
+    
+    if ([segue.identifier isEqualToString:@"login"]){
+        
+        CADLoginViewController *destination = [segue destinationViewController];
+        [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
+        [destination setSportSiteId:_stadiumId];
+        [destination setIsGoToChoose:true];
         
     }
 }
@@ -476,8 +504,8 @@ static NSAttributedString *cr;
     [addressInfo addObject:address];
     if ((NSNull *)_stadiumRecord.bus_road != [NSNull null])
         [addressInfo addObject:_stadiumRecord.bus_road];
-    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
-        [addressInfo addObject:_stadiumRecord.phone];
+//    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
+//        [addressInfo addObject:_stadiumRecord.phone];
     
     [_sections addObject:addressInfo];
     [_headers addObject:@"地址"];
@@ -490,7 +518,7 @@ static NSAttributedString *cr;
         for (NSDictionary *item in attrsOfSport) {
             NSMutableString *itemInfo=[NSMutableString stringWithString:@""];
             [itemInfo appendString:[item objectForKey:@"attr_name"]];
-            [itemInfo appendString:@" "];
+            [itemInfo appendString:@" | "];
             [itemInfo appendString:[item objectForKey:@"attr_value"]];
             
             [sportInfo addObject:itemInfo];

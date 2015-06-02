@@ -297,7 +297,7 @@
     if (indexPath.section == 1) {
         CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                           objectAtIndex:indexPath.row];
-        /* comment for debug
+        
         if (listItem.remainTime == 0){
             NSString *rowString = [NSString stringWithFormat:@"%@已过期，请重新预订。", listItem.orderSeq];
             UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"订单" message:rowString delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -312,16 +312,6 @@
             [[self navigationItem] setBackBarButtonItem:blankButton];
             [self performSegueWithIdentifier:@"PayView" sender:listItem];
         }
-         */
-        
-        UIBarButtonItem *blankButton =
-        [[UIBarButtonItem alloc] initWithTitle:@"取消"
-                                         style:UIBarButtonItemStylePlain
-                                        target:nil
-                                        action:nil];
-        [[self navigationItem] setBackBarButtonItem:blankButton];
-        [self performSegueWithIdentifier:@"PayView" sender:listItem];
-        
         
     }
     

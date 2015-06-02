@@ -12,6 +12,7 @@
 #import "CADParseTimeStamp.h"
 #import "CADUserManager.h"
 #import "Utils.h"
+#import "CADChooseViewController.h"
 
 @interface CADLoginViewController ()
 
@@ -256,6 +257,12 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // dismiss a View controller from a Push Segue
                     [self.navigationController popViewControllerAnimated:YES];
+                    
+                    // go to choose view
+                    if (self.isGoToChoose) {
+                        [self performSegueWithIdentifier:@"choose" sender:nil];
+                    }
+                    
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -276,4 +283,14 @@
     self.jsonData = nil;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"choose"]){
+        
+        CADChooseViewController *destination = [segue destinationViewController];
+        [destination setSportTypeId:self.sportTypeId];
+        [destination setSportSiteId:self.sportSiteId];
+        
+    }
+}
 @end
