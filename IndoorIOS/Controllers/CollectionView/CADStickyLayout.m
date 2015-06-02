@@ -9,7 +9,7 @@
 #import "CADStickyLayout.h"
 
 //#define NUMBEROFCOLUMNS 8
-#define SPACING 2
+#define SPACING 1
 
 @interface CADStickyLayout ()
 
@@ -62,22 +62,25 @@
     
     // The following code is only executed the first time we prepare the layout
     self.itemAttributes = [@[] mutableCopy];
-    self.itemsSize = [@[] mutableCopy];
+    self.itemsSizeInSections = [[NSMutableDictionary alloc] init];
     
-    // Tip: If we don't know the number of columns we can call the following method and use the NSUInteger object instead of the NUMBEROFCOLUMNS macro
-//     NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
-    NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
-    
-    // We calculate the item size of each column
-    if (self.itemsSize.count != numberOfItems) {
-        [self calculateItemsSize];
-    }
+    // 获取header中的item个数，因为他是固定的。用它作为参照物，计算stepSize
+    int numberOfItemsInHeader = [self.collectionView numberOfItemsInSection:0];
     
     // We loop through all items
     for (int section = 0; section < [self.collectionView numberOfSections]; section++) {
+        NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
+        NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+        if (!itemsSize || itemsSize.count != numberOfItems) {
+            int stepSize = 1;
+            stepSize = (numberOfItemsInHeader-1)/(numberOfItems-1);
+            [self calculateItemsSizeAtSection:section withStepSize:stepSize];
+        }
+        
         NSMutableArray *sectionAttributes = [@[] mutableCopy];
         for (NSUInteger index = 0; index < numberOfItems; index++) {
-            CGSize itemSize = [self.itemsSize[index] CGSizeValue];
+            itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+            CGSize itemSize = [itemsSize[index] CGSizeValue];
             
             // We create the UICollectionViewLayoutAttributes object for each item and add it to our array.
             // We will use this later in layoutAttributesForItemAtIndexPath:
@@ -87,7 +90,7 @@
             if (section == 0) {
                 attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width, itemSize.height));
             } else {
-                attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width - SPACING, itemSize.height - SPACING));
+                attributes.frame = CGRectIntegral(CGRectMake(xOffset, yOffset, itemSize.width - SPACING - SPACING, itemSize.height - SPACING));
             }
             
             if (section == 0 && index == 0) {
@@ -161,7 +164,7 @@
     return YES; // Set this to YES to call prepareLayout on every scroll
 }
 
-- (CGSize)sizeForItemWithColumnIndex:(NSUInteger)columnIndex
+- (CGSize)sizeForItemWithColumnIndex:(NSUInteger)columnIndex withStepSize:(NSUInteger)stepSize
 {
     NSString *text = @"-100元";
     /*
@@ -198,18 +201,26 @@
     CGSize size = [text sizeWithAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15]}];
     if (columnIndex == 0) {
         size.width += 16; // In our design the first column should be the widest one
+        return CGSizeMake([@(size.width + 9) floatValue], 40);
     }
-    return CGSizeMake([@(size.width + 9) floatValue], 40); // Extra space of 9px for all the items
+    float width = [@(size.width + 9) floatValue];
+    width = width * stepSize;
+    return CGSizeMake(width, 40); // Extra space of 9px for all the items
 }
 
-- (void)calculateItemsSize
-{
-    NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
+- (void)calculateItemsSizeAtSection:(NSInteger)section withStepSize:(NSInteger)stepSize
+{ 
+    NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
+    NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+    if (!itemsSize) {
+        itemsSize = [[NSMutableArray alloc] init];
+        [self.itemsSizeInSections setObject:itemsSize forKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+    }
     for (NSUInteger index = 0; index < numberOfItems; index++) {
-        if (self.itemsSize.count <= index) {
-            CGSize itemSize = [self sizeForItemWithColumnIndex:index];
+        if (itemsSize.count <= index) {
+            CGSize itemSize = [self sizeForItemWithColumnIndex:index withStepSize:stepSize];
             NSValue *itemSizeValue = [NSValue valueWithCGSize:itemSize];
-            [self.itemsSize addObject:itemSizeValue];
+            [itemsSize addObject:itemSizeValue];
         }
     }
 }

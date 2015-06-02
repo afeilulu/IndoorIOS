@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CADStickyLayout : UICollectionViewLayout
+@interface CADStickyLayout : UICollectionViewFlowLayout
 
 @property (strong, nonatomic) NSMutableArray *itemAttributes;
-@property (strong, nonatomic) NSMutableArray *itemsSize;
+//@property (strong, nonatomic) NSMutableArray *itemsSize;
+@property (strong, nonatomic) NSMutableDictionary *itemsSizeInSections;
 @property (nonatomic, assign) CGSize contentSize;
 
 @end

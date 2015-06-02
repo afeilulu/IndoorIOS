@@ -235,7 +235,18 @@ static NSMutableString *jsonUrl;
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    return _end - _start + 1;
+    if (section > 0) {
+        int unitSize = [[[self.places objectAtIndex:section - 1] objectForKey:@"unitSize"] intValue];
+        if (unitSize == 0) {
+            unitSize = 1;
+        }
+        int numberOfItemsInSection = (_end - _start)/unitSize + 1;
+        return  numberOfItemsInSection;
+    } else {
+        return _end - _start + 1;
+    }
+    
+//    return _end - _start + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -281,6 +292,7 @@ static NSMutableString *jsonUrl;
             contentCell.contentLabel.font = [UIFont systemFontOfSize:13];
             contentCell.contentLabel.textColor = [UIColor blackColor];
             
+            // 状态为0 不可用
             NSString *status=[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"status"];
             if ([status isEqualToString:@"0"]) {
                 contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
@@ -288,6 +300,26 @@ static NSMutableString *jsonUrl;
                 return contentCell;
             }
             
+            // 开始和结束时间不同不可用
+            NSString *open_time = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"open_time"];
+            NSString *close_time = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"close_time"];
+            int open_int=self.start;
+            int close_int=self.end;
+            if ([open_time rangeOfString:@":"].location != NSNotFound) {
+                open_int = [[open_time componentsSeparatedByString:@":"][0] intValue];
+            }
+            if ([close_time rangeOfString:@":"].location != NSNotFound) {
+                close_int = [[close_time componentsSeparatedByString:@":"][0] intValue];
+            }
+            if ((open_int < self.start && indexPath.row - 1 + self.start < open_int)
+                || (close_int < self.end && indexPath.row - 1 + self.start >= close_int))
+            {
+                contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
+                contentCell.contentLabel.text = @"";
+                return contentCell;
+            }
+            
+            // 无价格不可用
             id price = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"];
             if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
                 contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
@@ -315,7 +347,9 @@ static NSMutableString *jsonUrl;
                         }
                         
                         if ([abnomalContent objectForKey:@"status"] != nil) {
-                            // TODO:content exception handle
+                            // status could be 'stated' or 'disable'
+                            contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
+                            contentCell.contentLabel.text = @"";
                         }
                         
                         if ([abnomalContent objectForKey:@"unitSize"] != nil) {
@@ -434,10 +468,27 @@ static NSMutableString *jsonUrl;
         return NO;
     }
     
-    // 状态
+    // 状态为0 不可用
     NSString *status=[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"status"];
     if ([status isEqualToString:@"0"]) {
             return NO;
+    }
+    
+    // 开始和结束时间不同不可用
+    NSString *open_time = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"open_time"];
+    NSString *close_time = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"close_time"];
+    int open_int=self.start;
+    int close_int=self.end;
+    if ([open_time rangeOfString:@":"].location != NSNotFound) {
+        open_int = [[open_time componentsSeparatedByString:@":"][0] intValue];
+    }
+    if ([close_time rangeOfString:@":"].location != NSNotFound) {
+        close_int = [[close_time componentsSeparatedByString:@":"][0] intValue];
+    }
+    if ((open_int < self.start && indexPath.row - 1 + self.start < open_int)
+        || (close_int < self.end && indexPath.row - 1 + self.start >= close_int))
+    {
+        return NO;
     }
     
     // 如果没有价格显示，不能选择 ***************************************
@@ -458,8 +509,10 @@ static NSMutableString *jsonUrl;
                 if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
                     return NO;
                 }
+                
                 if ([abnomalContent objectForKey:@"status"] != nil) {
-                    // TODO:content exception handle
+                    // status could be 'stated' or 'disable'
+                    return NO;
                 }
                 
                 if ([abnomalContent objectForKey:@"unitSize"] != nil) {
@@ -468,7 +521,7 @@ static NSMutableString *jsonUrl;
             }
         }
     }
-//    **************************************
+    // **************************************
     
     NSMutableArray *tmpArray = [self.dateToIndexPathDictionary objectForKey:self.selectedDate];
     if (tmpArray.count >= kMaxOrderPlace) {
