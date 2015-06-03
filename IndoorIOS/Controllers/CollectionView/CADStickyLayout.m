@@ -209,7 +209,7 @@
 }
 
 - (void)calculateItemsSizeAtSection:(NSInteger)section withStepSize:(NSInteger)stepSize
-{ 
+{
     NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
     NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
     if (!itemsSize) {
