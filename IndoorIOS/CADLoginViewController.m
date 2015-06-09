@@ -50,8 +50,8 @@
     [[self navigationItem] setBackBarButtonItem:blankButton];
     
     // TODO: to delete
-    [_UserName setText:@"13359290886"];
-    [_Password setText:@"aaaaaa"];
+//    [_UserName setText:@"13359290886"];
+//    [_Password setText:@"aaaaaa"];
 }
 
 - (void)didReceiveMemoryWarning {

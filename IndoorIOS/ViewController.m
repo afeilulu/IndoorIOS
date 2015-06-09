@@ -50,15 +50,17 @@
         [locationManager requestAlwaysAuthorization];
     }
     
-    // 初始化定位服务
-    //适配ios7
+    
+    // 适配ios7
     if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
     {
         self.navigationController.navigationBar.translucent = NO;
     }
     
+    // 初始化定位服务
     _locService = [[BMKLocationService alloc]init];
     
+    // 下载所有场馆信息用
     self.detailDownloadsInProgress = [NSMutableDictionary dictionary];
 }
 
@@ -66,13 +68,14 @@
     
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-        _locService.delegate = self;
+    _locService.delegate = self;
     
     // 开始普通定位
-    [_locService startUserLocationService];
-    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
-    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
-    _mapView.showsUserLocation = YES;//显示定位图层
+    // 暂时不用定位
+//    [_locService startUserLocationService];
+//    _mapView.showsUserLocation = NO;//先关闭显示的定位图层
+//    _mapView.userTrackingMode = BMKUserTrackingModeFollow;//设置定位的状态
+//    _mapView.showsUserLocation = YES;//显示定位图层
     
     // get singleton
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
@@ -305,10 +308,10 @@
 - (void)handleError:(NSError *)error
 {
     NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接到服务器"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }

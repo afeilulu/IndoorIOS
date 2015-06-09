@@ -712,7 +712,7 @@ static NSMutableString *jsonUrl;
         
         if ([[submitOrderResult objectForKey:@"success"] boolValue] == true){
             
-            NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
+//            NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
             
             NSDictionary *orderInfoDic=[submitOrderResult objectForKey:@"orderInfo"];
             
