@@ -207,8 +207,16 @@ static NSAttributedString *cr;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
-                                      objectAtIndex:indexPath.row];
+//    cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
+//                                      objectAtIndex:indexPath.row];
+    
+    id info = [[_sections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    if ([info isKindOfClass:[NSString class]]) {
+        cell.textLabel.text = info;
+    }
+    if ([info isKindOfClass:[NSMutableAttributedString class]]) {
+        [cell.textLabel setAttributedText:info];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
 //    UILabel *attr = (UILabel *)[cell viewWithTag:1000];
@@ -518,10 +526,13 @@ static NSAttributedString *cr;
         for (NSDictionary *item in attrsOfSport) {
             NSMutableString *itemInfo=[NSMutableString stringWithString:@""];
             [itemInfo appendString:[item objectForKey:@"attr_name"]];
-            [itemInfo appendString:@" | "];
+            [itemInfo appendString:@" "];
             [itemInfo appendString:[item objectForKey:@"attr_value"]];
             
-            [sportInfo addObject:itemInfo];
+            NSMutableAttributedString *itemAttributedString = [[NSMutableAttributedString alloc] initWithString:itemInfo];
+            [itemAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0, ((NSString *)[item objectForKey:@"attr_name"]).length) ];
+            [sportInfo addObject:itemAttributedString];
+//            [sportInfo addObject:itemInfo];
         }
         
         [_sections addObject:sportInfo];

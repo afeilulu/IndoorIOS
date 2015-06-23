@@ -49,9 +49,18 @@
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:blankButton];
     
-    // TODO: to delete
-//    [_UserName setText:@"13359290886"];
-//    [_Password setText:@"aaaaaa"];
+    UIImageView *iconPhone = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_phone"]];
+    iconPhone.frame = CGRectMake(0, 0, 25, 25);
+    iconPhone.backgroundColor = nil;
+    self.UserName.leftView = iconPhone;
+    self.UserName.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIImageView *iconKey = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_key"]];
+    iconKey.frame = CGRectMake(0, 0, 25, 25);
+    iconKey.backgroundColor = nil;
+    self.Password.leftView = iconKey;
+    self.Password.leftViewMode = UITextFieldViewModeAlways;
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -25,5 +25,4 @@
 @property (nonatomic) bool isGoToChoose;
 
 - (IBAction)LoginAction:(id)sender;
-
 @end

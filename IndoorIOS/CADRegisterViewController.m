@@ -25,6 +25,30 @@
     
     self.GetCodeButton.layer.cornerRadius = 5;
     self.RegisterButton.layer.cornerRadius = 5;
+    
+    UIImageView *iconPhone = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_phone"]];
+    iconPhone.frame = CGRectMake(0, 0, 25, 25);
+    iconPhone.backgroundColor = nil;
+    self.Username.leftView = iconPhone;
+    self.Username.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIImageView *iconKey = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_key"]];
+    iconKey.frame = CGRectMake(0, 0, 25, 25);
+    iconKey.backgroundColor = nil;
+    self.Password.leftView = iconKey;
+    self.Password.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIImageView *iconKey2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_key"]];
+    iconKey2.frame = CGRectMake(0, 0, 25, 25);
+    iconKey2.backgroundColor = nil;
+    self.PasswordConfirm.leftView = iconKey2;
+    self.PasswordConfirm.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIImageView *iconSms = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_sms"]];
+    iconSms.frame = CGRectMake(0, 0, 25, 25);
+    iconSms.backgroundColor = nil;
+    self.Valicode.leftView = iconSms;
+    self.Valicode.leftViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,6 +129,16 @@
     if ([_Password.text length] > 12) {
         UIAlertView * alertView = [[UIAlertView alloc] init];
         alertView.title = @"密码长度太长";
+        alertView.delegate = nil;
+        [alertView addButtonWithTitle:@"确定"];
+        [alertView show];
+        
+        return;
+    }
+    
+    if (![_Password.text isEqualToString:_PasswordConfirm.text]) {
+        UIAlertView * alertView = [[UIAlertView alloc] init];
+        alertView.title = @"确认密码不匹配";
         alertView.delegate = nil;
         [alertView addButtonWithTitle:@"确定"];
         [alertView show];

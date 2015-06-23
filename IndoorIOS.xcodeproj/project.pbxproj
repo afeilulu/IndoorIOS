@@ -26,6 +26,9 @@
 		753547881AE669CF005A5791 /* ParseOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547841AE669CF005A5791 /* ParseOperation.m */; };
 		753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547851AE669CF005A5791 /* ParseStadiumDetail.m */; };
 		7535478D1AE72CC6005A5791 /* CADStretchableTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */; };
+		7536AB901B39210C00FF0B3C /* ic_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB8D1B39210C00FF0B3C /* ic_phone.png */; };
+		7536AB931B3922C900FF0B3C /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB911B3922C900FF0B3C /* ic_key.png */; };
+		7536AB941B3922C900FF0B3C /* ic_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB921B3922C900FF0B3C /* ic_sms.png */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* CADChooseViewController.m */; };
@@ -135,6 +138,9 @@
 		753547871AE669CF005A5791 /* ParseOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseOperation.h; sourceTree = "<group>"; };
 		7535478B1AE72CC6005A5791 /* CADStretchableTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStretchableTableHeaderView.h; sourceTree = "<group>"; };
 		7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStretchableTableHeaderView.m; sourceTree = "<group>"; };
+		7536AB8D1B39210C00FF0B3C /* ic_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_phone.png; sourceTree = "<group>"; };
+		7536AB911B3922C900FF0B3C /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
+		7536AB921B3922C900FF0B3C /* ic_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_sms.png; sourceTree = "<group>"; };
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
@@ -262,7 +268,7 @@
 		75C84C541AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADTimeCollectionViewCell.xib; sourceTree = "<group>"; };
 		75C851971AF9F946000C3AD1 /* time_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_line.png; sourceTree = "<group>"; };
 		75C851981AF9F946000C3AD1 /* time_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_line@2x.png"; sourceTree = "<group>"; };
-		75CCCB7F1A1E01CB0005CB6B /* IndoorIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75CCCB7F1A1E01CB0005CB6B /* 泡泡体育.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "泡泡体育.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CCCB831A1E01CB0005CB6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75CCCB841A1E01CB0005CB6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75CCCB861A1E01CB0005CB6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -679,7 +685,7 @@
 		75CCCB801A1E01CB0005CB6B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				75CCCB7F1A1E01CB0005CB6B /* IndoorIOS.app */,
+				75CCCB7F1A1E01CB0005CB6B /* 泡泡体育.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -796,6 +802,9 @@
 			isa = PBXGroup;
 			children = (
 				75CE621F1B184DE9001E3637 /* ic_clock@2x.png */,
+				7536AB911B3922C900FF0B3C /* ic_key.png */,
+				7536AB921B3922C900FF0B3C /* ic_sms.png */,
+				7536AB8D1B39210C00FF0B3C /* ic_phone.png */,
 				75CE62201B184DE9001E3637 /* ic_location.png */,
 				75CE62211B184DE9001E3637 /* ic_location@2x.png */,
 				75CE62111B184BD5001E3637 /* ic_account.png */,
@@ -836,7 +845,7 @@
 			);
 			name = IndoorIOS;
 			productName = IndoorIOS;
-			productReference = 75CCCB7F1A1E01CB0005CB6B /* IndoorIOS.app */;
+			productReference = 75CCCB7F1A1E01CB0005CB6B /* 泡泡体育.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -883,8 +892,11 @@
 				75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */,
 				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
+				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
 				758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
+				7536AB901B39210C00FF0B3C /* ic_phone.png in Resources */,
+				7536AB941B3922C900FF0B3C /* ic_sms.png in Resources */,
 				75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
 				75CE621E1B184BD5001E3637 /* ic_supervisor@2x.png in Resources */,
@@ -1094,7 +1106,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libs";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC\n\n";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "泡泡体育";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
@@ -1126,7 +1138,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/libs";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC\n\n";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "泡泡体育";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
