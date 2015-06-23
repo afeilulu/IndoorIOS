@@ -98,6 +98,31 @@
         self.place4HeightConstraint.constant = 0;
     }
 
+    if ([self.orderInfo.orderStatus isEqualToString:@"已支付"] || [self.orderInfo.orderStatus isEqualToString:@"支付中"] ){
+//        [self.RemainPayButton setEnabled:false];
+//        self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
+//        [self.AlipayButton setEnabled:false];
+//        self.AlipayButton.backgroundColor = [UIColor lightGrayColor];
+        [self.RemainPayButton removeFromSuperview];
+        [self.AlipayButton removeFromSuperview];
+        
+        [self setTitle:self.orderInfo.orderStatus];
+    } else if(self.orderInfo.remainTime == 0){
+//        [self.RemainPayButton setEnabled:false];
+//        self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
+//        [self.AlipayButton setEnabled:false];
+//        self.AlipayButton.backgroundColor = [UIColor lightGrayColor];
+        
+        [self.RemainPayButton removeFromSuperview];
+        [self.AlipayButton removeFromSuperview];
+    } else {
+        [self.RemainPayButton setEnabled:true];
+        self.RemainPayButton.backgroundColor = self.view.tintColor;
+        [self.AlipayButton setEnabled:true];
+        self.AlipayButton.backgroundColor = self.view.tintColor;
+        
+        [self setTitle:[[NSString alloc] initWithFormat:@"确认支付(%i分钟内支付有效)",self.orderInfo.remainTime]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -313,14 +338,15 @@
             user.qq = [userInfo objectForKey:@"qq"];
             
             [self.RemainPayButton setTitle:[[NSString alloc] initWithFormat:@"余额(%@)",user.fee] forState:UIControlStateNormal];
-            
-            int fee = [user.fee intValue];
-            if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
-                [self.RemainPayButton setEnabled:false];
-                self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
-            } else {
-                [self.RemainPayButton setEnabled:true];
-                self.RemainPayButton.backgroundColor = self.view.tintColor;
+            if (self.RemainPayButton.isEnabled){
+                int fee = [user.fee intValue];
+                if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
+                    [self.RemainPayButton setEnabled:false];
+                    self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
+                } else {
+                    [self.RemainPayButton setEnabled:true];
+                    self.RemainPayButton.backgroundColor = self.view.tintColor;
+                }
             }
         } else {
             NSString *domain = @"com.chinaairdome.indoorios";

@@ -26,7 +26,7 @@ NSString *const kPreAliPayUrl = @"http://www.chinaairdome.com:8888/App-aliPayAja
 int const kMaxOrderPlace = 4;
 
 int const kSelectableColor = 242;
-int const kUnSelectableColor = 235;
+int const kUnSelectableColor = 205;
 
 
 @implementation Constants

@@ -157,6 +157,15 @@ static NSAttributedString *cr;
         /* Section header is in 0th index... */
         [label setText:string];
         [view addSubview:label];
+        
+        // create score label
+        if ((NSNull *)_stadiumRecord.score != [NSNull null]){
+            UILabel *score = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 60, 5, 60, 20)];
+            [score setFont:[UIFont systemFontOfSize:20]];
+            [score setTextColor:[UIColor orangeColor]];
+            [score setText:_stadiumRecord.score];
+            [view addSubview:score];
+        }
     }
     
     if (section > 0){

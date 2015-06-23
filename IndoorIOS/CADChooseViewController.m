@@ -732,7 +732,7 @@ static NSMutableString *jsonUrl;
             
             // set back title
             UIBarButtonItem *blankButton =
-            [[UIBarButtonItem alloc] initWithTitle:@"取消"
+            [[UIBarButtonItem alloc] initWithTitle:@"返回"
                                              style:UIBarButtonItemStylePlain
                                             target:nil
                                             action:nil];
