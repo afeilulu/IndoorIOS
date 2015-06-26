@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *Valicode;
 @property (weak, nonatomic) IBOutlet UITextField *Password;
 @property (weak, nonatomic) IBOutlet UITextField *PasswordConfirm;
+@property (weak, nonatomic) IBOutlet UITextField *Email;
 
 @property (weak, nonatomic) IBOutlet UIButton *GetCodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *RegisterButton;
