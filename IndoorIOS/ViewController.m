@@ -39,6 +39,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 教练tab先不要
+    NSUInteger indexToRemove = 1;
+    NSMutableArray *controllersToKeep = [NSMutableArray arrayWithArray:self.tabBarController.viewControllers];
+    [controllersToKeep removeObjectAtIndex:indexToRemove];
+    [self.tabBarController setViewControllers:controllersToKeep animated:YES];
+    
     // 加载地图
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.view = _mapView;
