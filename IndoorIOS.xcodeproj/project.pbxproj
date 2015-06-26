@@ -31,6 +31,10 @@
 		7536AB941B3922C900FF0B3C /* ic_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB921B3922C900FF0B3C /* ic_sms.png */; };
 		754D061D1A22BAAD00D454AB /* libbaidumapapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754D061C1A22BAAD00D454AB /* libbaidumapapi.a */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
+		756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF11B3CFBB800298472 /* ic_filter_drama.png */; };
+		756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */; };
+		756CACF71B3CFBB800298472 /* ic_phone_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF31B3CFBB800298472 /* ic_phone_black.png */; };
+		756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */; };
 		757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* CADChooseViewController.m */; };
 		757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */; };
 		758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 758A20731ADE2A7000413251 /* AlipaySDK.bundle */; };
@@ -144,6 +148,10 @@
 		754D061C1A22BAAD00D454AB /* libbaidumapapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbaidumapapi.a; path = libs/libbaidumapapi.a; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
+		756CACF11B3CFBB800298472 /* ic_filter_drama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_filter_drama.png; sourceTree = "<group>"; };
+		756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_filter_drama@2x.png"; sourceTree = "<group>"; };
+		756CACF31B3CFBB800298472 /* ic_phone_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_phone_black.png; sourceTree = "<group>"; };
+		756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_phone_black@2x.png"; sourceTree = "<group>"; };
 		757630E91A39E72E007E32E5 /* CADChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChooseViewController.h; sourceTree = "<group>"; };
 		757630EA1A39E72E007E32E5 /* CADChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChooseViewController.m; sourceTree = "<group>"; };
 		757D788A1AF74334007D4D93 /* CADOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -806,6 +814,10 @@
 				7536AB921B3922C900FF0B3C /* ic_sms.png */,
 				7536AB8D1B39210C00FF0B3C /* ic_phone.png */,
 				75CE62201B184DE9001E3637 /* ic_location.png */,
+				756CACF11B3CFBB800298472 /* ic_filter_drama.png */,
+				756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */,
+				756CACF31B3CFBB800298472 /* ic_phone_black.png */,
+				756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */,
 				75CE62211B184DE9001E3637 /* ic_location@2x.png */,
 				75CE62111B184BD5001E3637 /* ic_account.png */,
 				75CE62121B184BD5001E3637 /* ic_account@2x.png */,
@@ -899,9 +911,11 @@
 				7536AB941B3922C900FF0B3C /* ic_sms.png in Resources */,
 				75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */,
 				759C8AE51A221C1C00EB82D8 /* mapapi.bundle in Resources */,
+				756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */,
 				75CE621E1B184BD5001E3637 /* ic_supervisor@2x.png in Resources */,
 				75CE62181B184BD5001E3637 /* ic_account.png in Resources */,
 				75CE62241B184DE9001E3637 /* ic_location@2x.png in Resources */,
+				756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */,
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
@@ -914,6 +928,8 @@
 				75CE620D1B1843C0001E3637 /* ic_clock.png in Resources */,
 				75C851991AF9F946000C3AD1 /* time_line.png in Resources */,
 				75C84C561AF9EF80000C3AD1 /* CADTimeCollectionViewCell.xib in Resources */,
+				756CACF71B3CFBB800298472 /* ic_phone_black.png in Resources */,
+				756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */,
 				75CCCB901A1E01CB0005CB6B /* Images.xcassets in Resources */,
 				75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */,
 				75C84C511AF90ED4000C3AD1 /* CADContentCollectionViewCell.xib in Resources */,

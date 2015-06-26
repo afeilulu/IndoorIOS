@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSArray *productTypes;
 @property (nonatomic, strong) NSMutableDictionary *imagesOfSportType;
 
+@property (nonatomic, strong) NSArray *pms;
+
 // flag for assure get only once
 @property (nonatomic) bool gotDetail;
 

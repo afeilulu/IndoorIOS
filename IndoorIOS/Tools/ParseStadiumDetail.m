@@ -86,6 +86,7 @@ static NSString *kMaxCountInt   = @"maxCount";
         
         [stadium setAttributes:[sportSiteInfo objectForKey:@"attributes"]];
         [stadium setProductTypes:[sportSiteInfo objectForKey:@"productTypes"]];
+        [stadium setPms:[sportSiteInfo objectForKey:@"pms"]];
         
     } else {
         NSString *domain = @"com.chinaairdome.indoorios";

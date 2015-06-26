@@ -150,6 +150,7 @@ static NSAttributedString *cr;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, heightOfHeaderInSection)];
     
     if (section == 0){
+        
         /* Create custom view to display section header... */
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 18)];
         [label setFont:[UIFont systemFontOfSize:18]];
@@ -158,7 +159,7 @@ static NSAttributedString *cr;
         [label setText:string];
         [view addSubview:label];
         
-        // create score label
+        // create score label as section header
         if ((NSNull *)_stadiumRecord.score != [NSNull null]){
             UILabel *score = [[UILabel alloc] initWithFrame:CGRectMake(tableView.frame.size.width - 60, 5, 60, 20)];
             [score setFont:[UIFont systemFontOfSize:20]];
@@ -240,6 +241,12 @@ static NSAttributedString *cr;
                 break;
             case 2:
                 cell.imageView.image = [UIImage imageNamed:@"ic_bus"];
+                break;
+            case 3:
+                cell.imageView.image = [UIImage imageNamed:@"ic_filter_drama"];
+                break;
+            case 4:
+                cell.imageView.image = [UIImage imageNamed:@"ic_phone_black"];
                 break;
         }
         
@@ -505,13 +512,17 @@ static NSAttributedString *cr;
     [_headers removeAllObjects];
     [_sportTypeIds removeAllObjects];
     
-    // 地址信息
+    // 详细信息
     NSMutableArray* addressInfo = [[NSMutableArray alloc] init];
     NSMutableString *timePeriod=[NSMutableString stringWithString:@""];
+    
+    // 场馆时间
     [timePeriod appendString:_stadiumRecord.open_time];
     [timePeriod appendString:@"-"];
     [timePeriod appendString:_stadiumRecord.close_time];
     [addressInfo addObject:timePeriod];
+    
+    // 场馆地址
     NSMutableString *address=[NSMutableString stringWithString:@""];
 //    [address appendString:_stadiumRecord.area_code];
 //    [address appendString:@" "];
@@ -519,13 +530,31 @@ static NSAttributedString *cr;
 //    [address appendString:@" "];
     [address appendString:_stadiumRecord.address];
     [addressInfo addObject:address];
+    
+    // 场馆公交
     if ((NSNull *)_stadiumRecord.bus_road != [NSNull null])
         [addressInfo addObject:_stadiumRecord.bus_road];
-//    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
-//        [addressInfo addObject:_stadiumRecord.phone];
+    else {
+        [addressInfo addObject:@""];
+    }
+    
+    // 场馆空气质量
+    if (_stadiumRecord.pms && _stadiumRecord.pms.count > 0) {
+        [addressInfo addObject:[[NSString alloc] initWithFormat:@"PM2.5 %@", _stadiumRecord.pms[0]]];
+    } else {
+        [addressInfo addObject:@""];
+    }
+    
+    
+    // 场馆电话
+    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
+        [addressInfo addObject:_stadiumRecord.phone];
+    else {
+        [addressInfo addObject:@""];
+    }
     
     [_sections addObject:addressInfo];
-    [_headers addObject:@"地址"];
+    [_headers addObject:@"场馆信息"];
     
     // 运动信息
     for (NSDictionary *sport in _stadiumRecord.productTypes) {
