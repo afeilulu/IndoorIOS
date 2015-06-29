@@ -50,11 +50,13 @@
     self.Valicode.leftView = iconSms;
     self.Valicode.leftViewMode = UITextFieldViewModeAlways;
     
+    /*
     UIImageView *iconEmail = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_email"]];
     iconEmail.frame = CGRectMake(0, 0, 25, 25);
     iconEmail.backgroundColor = nil;
     self.Email.leftView = iconEmail;
     self.Email.leftViewMode = UITextFieldViewModeAlways;
+     */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,7 +153,7 @@
         
         return;
     }
-    
+    /*
     if (_Email.text.length == 0) {
         UIAlertView * alertView = [[UIAlertView alloc] init];
         alertView.title = @"请输入电子邮箱";
@@ -181,13 +183,13 @@
         [alertView show];
         
         return;
-    }
+    }*/
     
     // 注册
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kRegisterUrl]];
     [postRequest setHTTPMethod:@"POST"];
     
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','validateCode':'%@','password':'%@','mail':'%@'}",_Username.text,_Valicode.text,_Password.text,_Email.text];
+    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','validateCode':'%@','password':'%@'}",_Username.text,_Valicode.text,_Password.text];
     [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
     
     self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];

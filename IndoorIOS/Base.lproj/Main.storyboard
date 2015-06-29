@@ -237,7 +237,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVE-lh-OB6">
-                                <rect key="frame" x="24" y="315" width="552" height="40"/>
+                                <rect key="frame" x="24" y="277" width="552" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="uUZ-SN-oGT"/>
@@ -251,16 +251,9 @@
                                     <action selector="RegisterAction:" destination="cic-Ay-AAg" eventType="touchUpInside" id="OC5-4m-gtC"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="电子邮箱" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DaZ-pM-7jb">
-                                <rect key="frame" x="24" y="269" width="552" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="DaZ-pM-7jb" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="8" id="0Y7-8e-p7X"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="DaZ-pM-7jb" secondAttribute="trailing" constant="8" id="1bk-g3-u4p"/>
                             <constraint firstItem="4te-dP-Ej0" firstAttribute="top" secondItem="XjZ-Cs-ph6" secondAttribute="bottom" constant="8" id="Alx-T0-BCU"/>
                             <constraint firstItem="8En-4W-OAB" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="32" id="BrS-qa-u8m"/>
                             <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="tRk-4t-8sX" secondAttribute="bottom" constant="16" id="GWO-Ux-9AF"/>
@@ -273,9 +266,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="4te-dP-Ej0" secondAttribute="trailing" constant="32" id="RdV-2z-On6"/>
                             <constraint firstItem="XjZ-Cs-ph6" firstAttribute="leading" secondItem="m2T-Cv-r9p" secondAttribute="leadingMargin" constant="8" id="S4N-3V-pIA"/>
                             <constraint firstItem="p1l-Dc-dki" firstAttribute="top" secondItem="4te-dP-Ej0" secondAttribute="bottom" constant="8" id="S5e-te-htQ"/>
-                            <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="DaZ-pM-7jb" secondAttribute="bottom" constant="16" id="WqQ-KN-4yt"/>
                             <constraint firstItem="eaG-wV-IaQ" firstAttribute="leading" secondItem="4te-dP-Ej0" secondAttribute="trailing" constant="8" id="eQu-k8-s6f"/>
-                            <constraint firstItem="DaZ-pM-7jb" firstAttribute="top" secondItem="tRk-4t-8sX" secondAttribute="bottom" constant="8" id="h3A-gD-0la"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tRk-4t-8sX" secondAttribute="trailing" constant="8" id="jP1-H5-P7i"/>
                             <constraint firstItem="eaG-wV-IaQ" firstAttribute="top" secondItem="XjZ-Cs-ph6" secondAttribute="bottom" constant="8" id="k5k-fN-mzP"/>
                             <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="p1l-Dc-dki" secondAttribute="bottom" constant="16" id="lVs-il-XH3"/>
@@ -288,6 +279,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="p1l-Dc-dki" secondAttribute="trailing" constant="8" id="tzb-6W-icn"/>
                             <constraint firstItem="tRk-4t-8sX" firstAttribute="top" secondItem="p1l-Dc-dki" secondAttribute="bottom" constant="8" id="ySF-qd-eQg"/>
                             <constraint firstItem="4te-dP-Ej0" firstAttribute="top" secondItem="XjZ-Cs-ph6" secondAttribute="bottom" constant="8" id="ypr-3M-Iv0"/>
+                            <constraint firstItem="uVE-lh-OB6" firstAttribute="top" secondItem="tRk-4t-8sX" secondAttribute="bottom" constant="16" id="yzg-hz-gyR"/>
                             <constraint firstItem="XjZ-Cs-ph6" firstAttribute="top" secondItem="8En-4W-OAB" secondAttribute="bottom" constant="16" id="z5e-1w-dai"/>
                             <constraint firstAttribute="trailingMargin" secondItem="XjZ-Cs-ph6" secondAttribute="trailing" constant="8" id="zz8-Yw-qzT"/>
                         </constraints>
@@ -304,7 +296,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="Email" destination="DaZ-pM-7jb" id="9Xj-1v-GgO"/>
                         <outlet property="GetCodeButton" destination="eaG-wV-IaQ" id="GXG-UU-rMS"/>
                         <outlet property="Password" destination="p1l-Dc-dki" id="csV-qX-hBi"/>
                         <outlet property="PasswordConfirm" destination="tRk-4t-8sX" id="v85-o8-mZt"/>
