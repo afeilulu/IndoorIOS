@@ -11,7 +11,6 @@
 #import "StadiumManager.h"
 #import "ParseOperation.h"
 #import "DetailViewController.h"
-#import "BMapKit.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import "CADDetailDownloader.h"
@@ -226,7 +225,8 @@
     centCoor.longitude = (CLLocationDegrees)((maxLng+minLng) * 0.5f);
     BMKCoordinateSpan span;
     //计算地理位置的跨度
-    span.latitudeDelta = maxLat - minLat;
+    int offset = 8; // to make targets will be shown more center
+    span.latitudeDelta = maxLat - minLat + offset;
     span.longitudeDelta = maxLng - minLng;
     //得出数据的坐标区域
     BMKCoordinateRegion region = BMKCoordinateRegionMake(centCoor, span);

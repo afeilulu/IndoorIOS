@@ -74,7 +74,8 @@ static NSMutableString *jsonUrl;
     CGFloat scale_screen = [UIScreen mainScreen].scale;
     self.screenWidth = screen_width/scale_screen;
     self.screenHeight = screen_height/scale_screen;
-    self.iconDescriptionViewStartY = self.screenHeight - timeSelectedViewHeight * scale_screen + 35;
+//    self.iconDescriptionViewStartY = self.screenHeight - timeSelectedViewHeight * scale_screen + 35;
+    self.iconDescriptionViewStartY = self.screenHeight - timeSelectedViewHeight - 65;
     
     self.timeUnitCollectionView.allowsMultipleSelection = YES;
     

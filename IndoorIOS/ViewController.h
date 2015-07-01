@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BMapKit.h"
+#import <BaiduMapAPI/BMapKit.h>
 
 @interface ViewController : UIViewController <BMKMapViewDelegate,BMKLocationServiceDelegate>{
     IBOutlet BMKMapView* _mapView;

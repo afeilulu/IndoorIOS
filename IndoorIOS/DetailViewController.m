@@ -17,7 +17,7 @@
 #import "CADChooseViewController.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
-#import "BMKAnnotationView.h"
+#import <BaiduMapAPI/BMKAnnotationView.h>
 #import "CADUser.h"
 #import "CADUserManager.h"
 #import "CADLoginViewController.h"
