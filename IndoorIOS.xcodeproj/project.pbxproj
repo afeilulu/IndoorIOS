@@ -36,6 +36,7 @@
 		756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */; };
 		756CACFE1B3D374E00298472 /* ic_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACFD1B3D374E00298472 /* ic_sms.png */; };
 		757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* CADChooseViewController.m */; };
+		757D542E1B44205A00DE3452 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 757D542D1B44205A00DE3452 /* mapapi.bundle */; };
 		757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */; };
 		758A20741ADE2A7000413251 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 758A20731ADE2A7000413251 /* AlipaySDK.bundle */; };
 		758A20761ADE2A8300413251 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A20751ADE2A8300413251 /* AlipaySDK.framework */; };
@@ -154,6 +155,7 @@
 		756CACFD1B3D374E00298472 /* ic_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_sms.png; sourceTree = "<group>"; };
 		757630E91A39E72E007E32E5 /* CADChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChooseViewController.h; sourceTree = "<group>"; };
 		757630EA1A39E72E007E32E5 /* CADChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChooseViewController.m; sourceTree = "<group>"; };
+		757D542D1B44205A00DE3452 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		757D788A1AF74334007D4D93 /* CADOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderTableViewCell.h; sourceTree = "<group>"; };
 		757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADOrderTableViewCell.m; sourceTree = "<group>"; };
 		758A20731ADE2A7000413251 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = SOURCE_ROOT; };
@@ -614,6 +616,7 @@
 		759C8AE31A221C0900EB82D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				757D542D1B44205A00DE3452 /* mapapi.bundle */,
 				758A20731ADE2A7000413251 /* AlipaySDK.bundle */,
 			);
 			path = Resources;
@@ -794,6 +797,7 @@
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
+				757D542E1B44205A00DE3452 /* mapapi.bundle in Resources */,
 				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
 				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
