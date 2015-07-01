@@ -330,16 +330,34 @@
                                     <outlet property="delegate" destination="hBU-cS-oG0" id="tZZ-FO-Pvd"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dX3-0x-VZV">
+                                <rect key="frame" x="24" y="503" width="552" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="pak-ja-AjN"/>
+                                </constraints>
+                                <state key="normal" title="提交订单">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitOrder:" destination="hBU-cS-oG0" eventType="touchUpInside" id="gLy-AB-26y"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="dX3-0x-VZV" secondAttribute="bottom" constant="8" id="A5w-g1-qZp"/>
                             <constraint firstItem="Eeq-So-yyO" firstAttribute="top" secondItem="LPX-RV-O97" secondAttribute="bottom" constant="70" id="JW2-Tw-pak"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Eeq-So-yyO" secondAttribute="trailing" constant="-16" id="PnT-uZ-prZ"/>
                             <constraint firstItem="PXz-TJ-vlM" firstAttribute="top" secondItem="Eeq-So-yyO" secondAttribute="bottom" constant="105" id="Q3U-Or-4C9"/>
                             <constraint firstItem="Eeq-So-yyO" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="-16" id="f6s-iW-2LR"/>
+                            <constraint firstItem="dX3-0x-VZV" firstAttribute="leading" secondItem="Uyx-Dt-biI" secondAttribute="leadingMargin" constant="8" id="jc2-OD-QV2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dX3-0x-VZV" secondAttribute="trailing" constant="8" id="x1R-82-t0X"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="commitButton" destination="dX3-0x-VZV" id="dYI-l7-fmS"/>
                         <outlet property="timeUnitCollectionView" destination="Eeq-So-yyO" id="wid-ke-EqH"/>
                         <segue destination="HJV-5N-v2v" kind="show" identifier="PayView" id="tku-hW-jf6"/>
                     </connections>

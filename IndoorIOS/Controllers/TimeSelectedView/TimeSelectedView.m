@@ -10,11 +10,11 @@
     
     self = [super initWithFrame:frame];
     
-    CALayer *roundCorner = [self layer];
-    [roundCorner setMasksToBounds:YES];
-    [roundCorner setCornerRadius:8.0];
-    [roundCorner setBorderColor:[self tintColor].CGColor];
-    [roundCorner setBorderWidth:1.0];
+//    CALayer *roundCorner = [self layer];
+//    [roundCorner setMasksToBounds:YES];
+//    [roundCorner setCornerRadius:8.0];
+//    [roundCorner setBorderColor:[self tintColor].CGColor];
+//    [roundCorner setBorderWidth:1.0];
     
     int screen_width = [[UIScreen mainScreen] currentMode].size.width;
     CGFloat scale_screen = [UIScreen mainScreen].scale;
@@ -29,6 +29,7 @@
         CGSize pageSize = CGSizeMake(itemWidth, RECT_HEIGHT);
         
         // start to display
+        /*
         // show date
         NSString *titleString = [NSString stringWithFormat:@"%@月%@日",[selectedDate substringWithRange:NSMakeRange(5, 2)],[selectedDate substringWithRange:NSMakeRange(8, 2)]];
         TextItem *dateText = [[TextItem alloc] initWithFrame:CGRectZero title:titleString color:[self tintColor] size:16];
@@ -43,7 +44,7 @@
         TextItem *sumNumber = [[TextItem alloc] initWithFrame:CGRectZero title:[[NSString alloc] initWithFormat:@"%@元",[orderParams objectForKey:@"pay"]] color:[self tintColor] size:22];
         [sumNumber setFrame:CGRectMake(screen_width/scale_screen - 100, DISTANCE_BETWEEN_TEXT_ITEMS, 40, 40)];
         [self.scrollView addSubview:sumNumber];
-
+         */
         
         int line=0;
         
@@ -57,7 +58,9 @@
             int startX;
             if (i % 2 ==0) {
                 startX = 0;
-                line++;
+                if (i>0) {
+                    line++;
+                }
             } else {
                 startX = itemWidth + 5;
             }

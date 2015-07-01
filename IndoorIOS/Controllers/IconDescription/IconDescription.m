@@ -16,11 +16,11 @@
 {
     self = [super initWithFrame:frame];
     
-    CALayer *roundCorner = [self layer];
-    [roundCorner setMasksToBounds:YES];
-    [roundCorner setCornerRadius:8.0];
-    [roundCorner setBorderColor:[self tintColor].CGColor];
-    [roundCorner setBorderWidth:1.0];
+//    CALayer *roundCorner = [self layer];
+//    [roundCorner setMasksToBounds:YES];
+//    [roundCorner setCornerRadius:8.0];
+//    [roundCorner setBorderColor:[self tintColor].CGColor];
+//    [roundCorner setBorderWidth:1.0];
     
     if (self) {
         UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(50.0, 10.0, 30.0, 18.0)];

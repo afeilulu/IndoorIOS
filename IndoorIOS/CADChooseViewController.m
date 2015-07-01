@@ -60,6 +60,15 @@ static NSMutableString *jsonUrl;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // 适配ios7
+    if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
+    {
+        self.navigationController.navigationBar.translucent = NO;
+    }
+    
+    [self.commitButton setHidden:true];
+    self.commitButton.layer.cornerRadius = 5.0;
+    
     int screen_width = [[UIScreen mainScreen] currentMode].size.width;
     int screen_height = [[UIScreen mainScreen] currentMode].size.height;
     CGFloat scale_screen = [UIScreen mainScreen].scale;
@@ -119,12 +128,14 @@ static NSMutableString *jsonUrl;
 //    [self.view addSubview:self.iconDescriptionView];
     
     // add submit button
+    /*
     UIBarButtonItem *submitButton =
     [[UIBarButtonItem alloc] initWithTitle:@"提交"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
                                     action:@selector(submitButtonPressed)];
     self.navigationItem.rightBarButtonItem = submitButton;
+    */
     
     self.timeUnitCollectionView.delegate = self;
     self.timeUnitCollectionView.dataSource = self;
@@ -139,6 +150,10 @@ static NSMutableString *jsonUrl;
     [self.timeUnitCollectionView registerNib:nib1 forCellWithReuseIdentifier:self.contentCellIdentifier];
     UINib *nib2 = [UINib nibWithNibName:@"CADTimeCollectionViewCell" bundle:nil];
     [self.timeUnitCollectionView registerNib:nib2 forCellWithReuseIdentifier:self.timeCellIdentifier];
+}
+
+- (IBAction)submitOrder:(id)sender {
+    [self submitButtonPressed];
 }
 
 - (void)submitButtonPressed{
@@ -404,8 +419,10 @@ static NSMutableString *jsonUrl;
 //    CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
 //    int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
     [self generateOrderParams];
-    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight) params:self.orderParams selectedDate:_selectedDate];
+    self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight - 48) params:self.orderParams selectedDate:_selectedDate];
     [self.view addSubview:self.timeSelectedView];
+    [self.commitButton setHidden:false];
+    [self.commitButton setTitle:[[NSString alloc] initWithFormat:@"提交订单(%@元)",[self.orderParams objectForKey:@"pay" ]] forState:UIControlStateNormal];
     
 //    [self.view bringSubviewToFront:self.timeUnitCollectionView];
 }
@@ -436,14 +453,17 @@ static NSMutableString *jsonUrl;
     }
     
     if ([self.selectedDateSortedArray count] == 0 && self.iconDescriptionView == nil){
-        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
+        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight - 48)];
         [self.view addSubview:self.iconDescriptionView];
+        [self.commitButton setHidden:true];
     } else {
 //        CGFloat collectionViewHeight = CGRectGetHeight(self.timeUnitCollectionView.bounds);
 //        int startY = self.timeUnitCollectionView.frame.origin.y + collectionViewHeight;
         [self generateOrderParams];
-        self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight) params:self.orderParams selectedDate:self.selectedDate];
+        self.timeSelectedView = [[TimeSelectedView alloc] initWithFrame:CGRectMake(2, self.iconDescriptionViewStartY, self.screenWidth-4, timeSelectedViewHeight - 48) params:self.orderParams selectedDate:self.selectedDate];
         [self.view addSubview:self.timeSelectedView];
+        [self.commitButton setHidden:false];
+        [self.commitButton setTitle:[[NSString alloc] initWithFormat:@"提交订单(%@元)",[self.orderParams objectForKey:@"pay" ]] forState:UIControlStateNormal];
     }
     
 }
@@ -698,8 +718,9 @@ static NSMutableString *jsonUrl;
     
         // 显示图标描述
         if (self.iconDescriptionView == nil){
-            self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight)];
+            self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight - 48)];
             [self.view addSubview:self.iconDescriptionView];
+            [self.commitButton setHidden:true];
         }
             
     }

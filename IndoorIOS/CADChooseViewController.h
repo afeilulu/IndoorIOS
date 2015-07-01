@@ -30,4 +30,6 @@
 
 @property (nonatomic) BOOL isLoadingStatus;
 
+@property (weak, nonatomic) IBOutlet UIButton *commitButton;
+
 @end
