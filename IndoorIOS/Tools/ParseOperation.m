@@ -78,6 +78,8 @@ static NSString *kLatStr  = @"lat";
             self.workingEntry.lat = [item objectForKey:kLatStr];
             self.workingEntry.lng = [item objectForKey:kLngStr];
             self.workingEntry.imageURLString = [item objectForKey:kPicUrlStr];
+            self.workingEntry.score = [item objectForKey:@"score"];
+            self.workingEntry.pms = [item objectForKey:@"pms"];
             
             [stadiumManager.stadiumList setObject:self.workingEntry forKey:self.workingEntry.idString];
         }

@@ -815,8 +815,8 @@ static NSMutableString *jsonUrl;
             [aUnit setObject:[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"name"] forKey:@"sportPlaceName"];
             
             int unitSize = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitSize"] intValue];
-            NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start];
-            NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %i:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+            NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start];
+            NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
             double price = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"] floatValue];
             
             [aUnit setObject:startTime forKey:@"startTime"];
@@ -835,7 +835,7 @@ static NSMutableString *jsonUrl;
                     
                     if ([abnomalContent objectForKey:@"unitSize"] != nil) {
                         unitSize = [[abnomalContent objectForKey:@"unitSize"] intValue];
-                        endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+                        endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
                     }
                     
                 }
