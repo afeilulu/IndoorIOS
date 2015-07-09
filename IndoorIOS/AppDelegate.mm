@@ -98,7 +98,7 @@ BMKMapManager* _mapManager;
     if ([url.host isEqualToString:@"platformapi"]){
         //支付宝钱包快登授权返回 authCode
         [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"异步返回 platformapi result = %@",resultDic);
+//            NSLog(@"异步返回 platformapi result = %@",resultDic);
             [self alipayResultHandler:resultDic];
         }];
     }

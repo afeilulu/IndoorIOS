@@ -53,6 +53,15 @@ extern NSString *const kFeePayUrl;
 // 支付宝支付前验证
 extern NSString *const kPreAliPayUrl;
 
+// 重置密码前获取验证码
+extern NSString *const kValiCodeOfResetPasswordJsonUrl;
+
+// 重置密码
+extern NSString *const kResetPasswordJsonUrl;
+
+// 修改密码
+extern NSString *const KModifyPasswordJsonUrl;
+
 extern int const kSelectableColor;
 
 extern int const kUnSelectableColor;

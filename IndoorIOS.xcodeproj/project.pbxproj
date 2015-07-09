@@ -58,6 +58,7 @@
 		759C8AEE1A221E1700EB82D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AED1A221E1700EB82D8 /* SystemConfiguration.framework */; };
 		759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */; };
 		759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AF11A221E3A00EB82D8 /* Security.framework */; };
+		75B6F8361B4E1C6600C39E13 /* CADResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */; };
 		75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BA7C811AF1C87000D50D55 /* CADMeViewController.m */; };
 		75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */; };
 		75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84C491AF90EA1000C3AD1 /* CADDateCollectionViewCell.m */; };
@@ -263,6 +264,8 @@
 		759C8AED1A221E1700EB82D8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		759C8AF11A221E3A00EB82D8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		75B6F8341B4E1C6600C39E13 /* CADResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADResetPasswordViewController.h; sourceTree = "<group>"; };
+		75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADResetPasswordViewController.m; sourceTree = "<group>"; };
 		75BA7C801AF1C87000D50D55 /* CADMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADMeViewController.h; sourceTree = "<group>"; };
 		75BA7C811AF1C87000D50D55 /* CADMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADMeViewController.m; sourceTree = "<group>"; };
 		75C84C3F1AF8BAD6000C3AD1 /* CADStickyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStickyLayout.h; sourceTree = "<group>"; };
@@ -669,6 +672,8 @@
 				75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */,
 				75BA7C801AF1C87000D50D55 /* CADMeViewController.h */,
 				75BA7C811AF1C87000D50D55 /* CADMeViewController.m */,
+				75B6F8341B4E1C6600C39E13 /* CADResetPasswordViewController.h */,
+				75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -825,6 +830,7 @@
 				753547611AE66568005A5791 /* TimeSelectedView.m in Sources */,
 				758A214F1ADE573100413251 /* base64.m in Sources */,
 				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
+				75B6F8361B4E1C6600C39E13 /* CADResetPasswordViewController.m in Sources */,
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				758A21511ADE573100413251 /* DataVerifier.m in Sources */,
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,

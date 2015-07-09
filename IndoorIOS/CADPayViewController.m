@@ -553,7 +553,7 @@
                        orderSpec, signedString, @"RSA"];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"同步返回 reslut = %@",resultDic);
+//            NSLog(@"同步返回 reslut = %@",resultDic);
             int resultCode = [[resultDic objectForKey:@"resultStatus"] intValue];
             NSString *title = [[NSString alloc] init];
             bool success = false;

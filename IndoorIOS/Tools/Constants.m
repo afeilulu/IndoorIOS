@@ -22,6 +22,9 @@ NSString *const kValiCodeJsonUrl=@"http://www.paopaoty.com/App-getValidateCodeAj
 NSString *const kGetUserInfoJsonUrl = @"http://www.paopaoty.com/App-getUserInfoAjax.action";
 NSString *const kFeePayUrl = @"http://www.paopaoty.com/App-feePayAjax.action";
 NSString *const kPreAliPayUrl = @"http://www.paopaoty.com/App-aliPayAjax.action";
+NSString *const kValiCodeOfResetPasswordJsonUrl = @"http://www.paopaoty.com/App-getValidateCodeForGMAjax.action";
+NSString *const kResetPasswordJsonUrl = @"http://www.paopaoty.com/App-resetPasswordAjax.action";
+NSString *const KModifyPasswordJsonUrl =@"http://www.paopaoty.com/App-changePasswordAjax.action";
 
 int const kMaxOrderPlace = 4;
 
