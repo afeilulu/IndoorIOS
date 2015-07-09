@@ -170,6 +170,7 @@
             coors.longitude = [stadium.lng floatValue];
             item.coordinate = coors;
             item.title = [stadium name];
+            item.subtitle = [[NSString alloc] initWithFormat:@"评分:%@   PM2.5:%@",stadium.score,stadium.pms.count>0?stadium.pms[0]:@""];
             item.stadiumId = [stadium idString];
             //            NSLog(@"%@",item.title);
             [_mapView addAnnotation:item];

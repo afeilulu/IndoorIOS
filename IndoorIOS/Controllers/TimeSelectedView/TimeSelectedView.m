@@ -52,7 +52,7 @@
         NSArray *timeList = [orderParams objectForKey:@"sportPlaceTimeList"];
         for (int i=0; i<timeList.count; i++) {
             NSDictionary *item = [timeList objectAtIndex:i];
-            NSString *title = [[NSString alloc] initWithFormat:@"%@ %@-%@",[item objectForKey:@"sportPlaceName"],[[item objectForKey:@"startTime"] substringFromIndex:11],[[item objectForKey:@"endTime"] substringFromIndex:11]];
+            NSString *title = [[NSString alloc] initWithFormat:@"%@ %@-%@",[item objectForKey:@"sportPlaceName"],[[item objectForKey:@"startTime"] substringWithRange:NSMakeRange(11, 5)],[[item objectForKey:@"endTime"] substringWithRange:NSMakeRange(11, 5)]];
             TextItem *timeText = [[TextItem alloc] initWithFrame:CGRectZero title:title color:[UIColor grayColor] size:16];
             
             int startX;
