@@ -61,6 +61,10 @@
             
             [_workingArray addObject:orderItem];
         }
+        
+        if (_workingArray.count == 0) {
+            [_workingArray addObject:@"您还没有任何预订"];
+        }
     } else {
         NSString *domain = @"com.chinaairdome.indoorios";
         //        NSString *desc = NSLocalizedString(@"Unable to…", @"aaa");

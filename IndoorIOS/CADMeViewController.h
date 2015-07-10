@@ -31,4 +31,11 @@
 // the set of IconDownloader objects for each image
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
 
+@property (nonatomic, strong) UIButton* monthButton;
+@property (nonatomic, strong) UIButton* yearButton;
+@property (nonatomic, strong) UIButton* allButton;
+
+@property (nonatomic, strong) NSString* tomorrow;
+@property (nonatomic) int whichButtonIsClicked;
+
 @end
