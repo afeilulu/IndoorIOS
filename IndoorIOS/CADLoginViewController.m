@@ -137,7 +137,7 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"登录错误"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }

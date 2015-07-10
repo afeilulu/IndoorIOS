@@ -41,6 +41,11 @@
     self.tableView.dataSource = self;
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
+    
+    // 增加设置--修改密码section
+    _setting = [[NSMutableArray alloc] init];
+    [_setting addObject:@"修改密码"];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,6 +169,18 @@
         
         return cell;
     } else if (indexPath.section == 1){
+        // 设置
+        // 修改密码
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"normalCell"];
+        
+        cell.textLabel.text = (NSString*)[[_sections objectAtIndex:indexPath.section]
+                                          objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    } else if (indexPath.section == 2){
         
         static NSString *CellIdentifier = @"OrderCell";
         CADOrderTableViewCell *cell = (CADOrderTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -275,9 +292,7 @@
  - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
  {
 
-     if (indexPath.section == 0) {
-         return 44;
-     } else {
+     if (indexPath.section == 2) {
          CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                            objectAtIndex:indexPath.row];
          /*
@@ -288,13 +303,27 @@
          return labelSize.height + 20;
           */
          return 76 + 22 * [listItem.siteTimeList count];
+     } else {
+         return 44;
      }
  }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 1) {
+    // 修改密码
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        // set back title
+        UIBarButtonItem *blankButton =
+        [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+        [[self navigationItem] setBackBarButtonItem:blankButton];
+        [self performSegueWithIdentifier:@"changePassword" sender:nil];
+    }
+    
+    if (indexPath.section == 2) {
         CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                           objectAtIndex:indexPath.row];
         
@@ -432,9 +461,9 @@
                 }
                 if (_headers == nil){
                     if ((NSNull *)user.name != [NSNull null]){
-                        _headers = [[NSMutableArray alloc] initWithObjects:user.name,@"订单", nil];
+                        _headers = [[NSMutableArray alloc] initWithObjects:user.name,@"设置",@"订单", nil];
                     } else {
-                        _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"订单", nil];
+                        _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"设置",@"订单", nil];
                     }
                 }
                 if (_personInfo == nil) {
@@ -461,6 +490,7 @@
 //                    [_personInfo addObject:user.imgUrl];
                 
                 [_sections addObject:_personInfo];
+                [_sections addObject:_setting];
                 [_sections addObject:strongParser.orderList];
                 
                 [self.tableView reloadData];

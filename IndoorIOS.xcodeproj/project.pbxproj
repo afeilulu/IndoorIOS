@@ -35,6 +35,7 @@
 		756CACF71B3CFBB800298472 /* ic_phone_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF31B3CFBB800298472 /* ic_phone_black.png */; };
 		756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */; };
 		756CACFE1B3D374E00298472 /* ic_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACFD1B3D374E00298472 /* ic_sms.png */; };
+		757588CF1B4FA1190053DCF3 /* CADChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757588CE1B4FA1190053DCF3 /* CADChangePasswordViewController.m */; };
 		757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757630EA1A39E72E007E32E5 /* CADChooseViewController.m */; };
 		757D542E1B44205A00DE3452 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 757D542D1B44205A00DE3452 /* mapapi.bundle */; };
 		757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */; };
@@ -154,6 +155,8 @@
 		756CACF31B3CFBB800298472 /* ic_phone_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_phone_black.png; sourceTree = "<group>"; };
 		756CACF41B3CFBB800298472 /* ic_phone_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_phone_black@2x.png"; sourceTree = "<group>"; };
 		756CACFD1B3D374E00298472 /* ic_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_sms.png; sourceTree = "<group>"; };
+		757588CD1B4FA1190053DCF3 /* CADChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChangePasswordViewController.h; sourceTree = "<group>"; };
+		757588CE1B4FA1190053DCF3 /* CADChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChangePasswordViewController.m; sourceTree = "<group>"; };
 		757630E91A39E72E007E32E5 /* CADChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChooseViewController.h; sourceTree = "<group>"; };
 		757630EA1A39E72E007E32E5 /* CADChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChooseViewController.m; sourceTree = "<group>"; };
 		757D542D1B44205A00DE3452 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = BaiduMapAPI.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
@@ -674,6 +677,8 @@
 				75BA7C811AF1C87000D50D55 /* CADMeViewController.m */,
 				75B6F8341B4E1C6600C39E13 /* CADResetPasswordViewController.h */,
 				75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */,
+				757588CD1B4FA1190053DCF3 /* CADChangePasswordViewController.h */,
+				757588CE1B4FA1190053DCF3 /* CADChangePasswordViewController.m */,
 			);
 			path = IndoorIOS;
 			sourceTree = "<group>";
@@ -861,6 +866,7 @@
 				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
 				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
+				757588CF1B4FA1190053DCF3 /* CADChangePasswordViewController.m in Sources */,
 				75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */,
 				758A21551ADE573100413251 /* RSADataSigner.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,

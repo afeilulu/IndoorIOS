@@ -487,6 +487,95 @@
             </objects>
             <point key="canvasLocation" x="3377" y="272"/>
         </scene>
+        <!--Change Password View Controller-->
+        <scene sceneID="zaP-OZ-8Rv">
+            <objects>
+                <viewController id="xHE-qY-Vh6" customClass="CADChangePasswordViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qre-8C-Xjz"/>
+                        <viewControllerLayoutGuide type="bottom" id="way-cv-xwY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j8c-hc-hGg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ohl-5k-Xd1">
+                                <rect key="frame" x="24" y="117" width="552" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="原密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mzY-ev-7DC">
+                                <rect key="frame" x="24" y="155" width="552" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="修改密码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oan-tM-slc">
+                                <rect key="frame" x="48" y="72" width="504" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="新密码 (6 - 12位)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f8G-wD-1r7">
+                                <rect key="frame" x="24" y="193" width="552" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bqF-jr-0sF">
+                                <rect key="frame" x="24" y="231" width="552" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCH-H9-a0x">
+                                <rect key="frame" x="24" y="277" width="552" height="40"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Zt6-Rd-OQ4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="确 定">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="RegisterAction:" destination="cic-Ay-AAg" eventType="touchUpInside" id="TyY-oJ-dGu"/>
+                                    <action selector="okAction:" destination="xHE-qY-Vh6" eventType="touchUpInside" id="JAi-WK-sv2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bqF-jr-0sF" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="8" id="1K4-nt-vHj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bqF-jr-0sF" secondAttribute="trailing" constant="8" id="7h8-dC-6I7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mzY-ev-7DC" secondAttribute="trailing" constant="8" id="8il-a6-D8j"/>
+                            <constraint firstItem="Ohl-5k-Xd1" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="8" id="Ai2-kL-3wz"/>
+                            <constraint firstItem="bqF-jr-0sF" firstAttribute="top" secondItem="f8G-wD-1r7" secondAttribute="bottom" constant="8" id="BaI-Sx-obg"/>
+                            <constraint firstItem="Ohl-5k-Xd1" firstAttribute="top" secondItem="Oan-tM-slc" secondAttribute="bottom" constant="16" id="ErS-Oi-YSl"/>
+                            <constraint firstItem="f8G-wD-1r7" firstAttribute="top" secondItem="mzY-ev-7DC" secondAttribute="bottom" constant="8" id="GSy-1V-ihK"/>
+                            <constraint firstItem="f8G-wD-1r7" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="8" id="IF0-Vz-RRv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gCH-H9-a0x" secondAttribute="trailing" constant="8" id="KER-o5-KFQ"/>
+                            <constraint firstItem="gCH-H9-a0x" firstAttribute="top" secondItem="bqF-jr-0sF" secondAttribute="bottom" constant="16" id="LJs-cV-2Kp"/>
+                            <constraint firstItem="gCH-H9-a0x" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="8" id="MBh-QK-Sa3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="f8G-wD-1r7" secondAttribute="trailing" constant="8" id="Nlv-lu-rpX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ohl-5k-Xd1" secondAttribute="trailing" constant="8" id="hxU-Vd-HTZ"/>
+                            <constraint firstItem="mzY-ev-7DC" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="8" id="lUe-Yt-tyt"/>
+                            <constraint firstItem="Oan-tM-slc" firstAttribute="top" secondItem="Qre-8C-Xjz" secondAttribute="bottom" constant="8" id="ooC-nh-KF4"/>
+                            <constraint firstItem="mzY-ev-7DC" firstAttribute="top" secondItem="Ohl-5k-Xd1" secondAttribute="bottom" constant="8" id="uYb-3v-zwF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Oan-tM-slc" secondAttribute="trailing" constant="32" id="xqk-db-gmL"/>
+                            <constraint firstItem="Oan-tM-slc" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="32" id="z1X-nN-xoC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="confirmPassword" destination="bqF-jr-0sF" id="3G6-UE-QhW"/>
+                        <outlet property="freshPassword" destination="f8G-wD-1r7" id="uzW-Ir-UGp"/>
+                        <outlet property="okButton" destination="gCH-H9-a0x" id="f9d-it-yh2"/>
+                        <outlet property="oldPassword" destination="mzY-ev-7DC" id="cgT-p3-HKA"/>
+                        <outlet property="phone" destination="Ohl-5k-Xd1" id="LHG-SJ-Xni"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPC-3D-hUr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2625" y="2290"/>
+        </scene>
         <!--确认支付-->
         <scene sceneID="1HM-Cy-qd8">
             <objects>
@@ -822,6 +911,7 @@
                         <outlet property="stretchView" destination="mU2-FZ-sJW" id="epC-uz-rCG"/>
                         <segue destination="xqs-2u-UQv" kind="show" identifier="login" id="xch-Rx-REy"/>
                         <segue destination="HJV-5N-v2v" kind="show" identifier="PayView" id="Tmo-6c-aqD"/>
+                        <segue destination="xHE-qY-Vh6" kind="show" identifier="changePassword" id="Fav-b2-VRL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUh-Al-qnA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -911,8 +1001,8 @@
         <image name="user_profile.png" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="S9T-iw-V3D"/>
+        <segue reference="xch-Rx-REy"/>
+        <segue reference="Tmo-6c-aqD"/>
         <segue reference="wzF-5f-ihK"/>
-        <segue reference="tku-hW-jf6"/>
     </inferredMetricsTieBreakers>
 </document>

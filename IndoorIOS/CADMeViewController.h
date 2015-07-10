@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray* headers;
 
 @property (nonatomic, strong) NSMutableArray* personInfo;
+@property (nonatomic, strong) NSMutableArray* setting;
 @property (nonatomic, strong) NSMutableArray* orderInfo;
 
 @property (nonatomic, strong) NSURLConnection *jsonConnection;
