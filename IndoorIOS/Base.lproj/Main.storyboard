@@ -36,7 +36,7 @@
                         <viewControllerLayoutGuide type="top" id="JKR-rT-4Y6"/>
                         <viewControllerLayoutGuide type="bottom" id="ZHl-VI-lv8"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PKF-mM-Ktm">
+                    <view key="view" contentMode="scaleToFill" id="PKF-mM-Ktm" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -169,6 +169,9 @@
                                 <exclude reference="vxS-Lr-H8u"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <action selector="viewTouchDown:" destination="xqs-2u-UQv" eventType="touchDown" id="Cr4-at-svC"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="LoginButton" destination="8U8-O6-2De" id="FEV-oQ-nm7"/>
@@ -217,7 +220,7 @@
                         <viewControllerLayoutGuide type="top" id="dhS-Q6-GCX"/>
                         <viewControllerLayoutGuide type="bottom" id="Eou-O9-WQB"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="m2T-Cv-r9p">
+                    <view key="view" contentMode="scaleToFill" id="m2T-Cv-r9p" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -319,6 +322,9 @@
                                 <exclude reference="mwu-w2-QGl"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <action selector="viewTouchDown:" destination="cic-Ay-AAg" eventType="touchDown" id="Yip-ne-HcS"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="GetCodeButton" destination="eaG-wV-IaQ" id="GXG-UU-rMS"/>
@@ -341,7 +347,7 @@
                         <viewControllerLayoutGuide type="top" id="dk9-D1-vpL"/>
                         <viewControllerLayoutGuide type="bottom" id="ID7-Oh-JAD"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1Hs-ZU-2Fe">
+                    <view key="view" contentMode="scaleToFill" id="1Hs-ZU-2Fe" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -417,6 +423,9 @@
                                 <exclude reference="UtQ-Cz-iYp"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <action selector="viewTouchDown:" destination="yMV-U6-Hpt" eventType="touchDown" id="rH7-dm-cBu"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="Username" destination="0FT-me-rgC" id="n4S-Kt-gNp"/>
@@ -495,7 +504,7 @@
                         <viewControllerLayoutGuide type="top" id="Qre-8C-Xjz"/>
                         <viewControllerLayoutGuide type="bottom" id="way-cv-xwY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="j8c-hc-hGg">
+                    <view key="view" contentMode="scaleToFill" id="j8c-hc-hGg" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -563,6 +572,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Oan-tM-slc" secondAttribute="trailing" constant="32" id="xqk-db-gmL"/>
                             <constraint firstItem="Oan-tM-slc" firstAttribute="leading" secondItem="j8c-hc-hGg" secondAttribute="leadingMargin" constant="32" id="z1X-nN-xoC"/>
                         </constraints>
+                        <connections>
+                            <action selector="viewTouchDown:" destination="xHE-qY-Vh6" eventType="touchDown" id="qKz-By-5K7"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="confirmPassword" destination="bqF-jr-0sF" id="3G6-UE-QhW"/>

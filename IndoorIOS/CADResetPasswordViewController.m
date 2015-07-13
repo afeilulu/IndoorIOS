@@ -40,6 +40,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 点击背景隐藏键盘
+- (IBAction)viewTouchDown:(id)sender {
+    // 发送resignFirstResponder.
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
+
 /*
 #pragma mark - Navigation
 

@@ -61,6 +61,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)viewTouchDown:(id)sender {
+    // 发送resignFirstResponder.
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
 
 - (IBAction)okAction:(id)sender {
     if ([_phone.text length] != 11){
@@ -199,17 +203,24 @@
                                 options:kNilOptions
                                 error:&error];
         
-        NSString *errorMsg = [result objectForKey:@"msg"];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorMsg
-                                                            message:nil
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        
         if ([[result objectForKey:@"success"] boolValue] == true){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"密码修改成功，请重新登录。"
+                                                                message:nil
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+            
             [CADUserManager.sharedInstance clear];
             [self.navigationController popViewControllerAnimated:true];
+        } else {
+            NSString *errorMsg = [result objectForKey:@"msg"];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:errorMsg
+                                                                message:nil
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
         }
         
     }

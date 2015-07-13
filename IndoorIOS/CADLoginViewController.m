@@ -78,6 +78,12 @@
 }
 */
 
+// 点击背景隐藏键盘
+- (IBAction)viewTouchDown:(id)sender {
+    // 发送resignFirstResponder.
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
 
 - (IBAction)LoginAction:(id)sender {
     
