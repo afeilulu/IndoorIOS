@@ -50,6 +50,9 @@
         } else {
             NSString *domain = @"com.chinaairdome.indoorios";
             NSString *desc = [result objectForKey:@"msg"];
+            if (!desc) {
+                desc=@"抱歉，服务器无响应，请稍候再试。";
+            }
             NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
             error = [NSError errorWithDomain:domain code:-102 userInfo:userInfo];
             

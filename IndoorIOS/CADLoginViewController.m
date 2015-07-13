@@ -68,6 +68,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    CADUser *user = CADUserManager.sharedInstance.getUser;
+    if (user && user.phone){
+        [self.navigationController popViewControllerAnimated:true];
+    }
+}
+
 /*
 #pragma mark - Navigation
 

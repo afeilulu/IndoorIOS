@@ -46,10 +46,6 @@
     
     self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
-    // 增加设置--修改密码section
-    _setting = [[NSMutableArray alloc] init];
-    [_setting addObject:@"修改密码"];
-    
     // 结束时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -197,6 +193,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    // 详细信息
     if (indexPath.section == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"normalCell"];
         
@@ -386,6 +383,22 @@
         [self performSegueWithIdentifier:@"changePassword" sender:nil];
     }
     
+    // 退出登录
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        [CADUserManager.sharedInstance clear];
+        
+        // 清除表数据
+        [_headers removeAllObjects];
+        [_sections removeAllObjects];
+        [self.tableView reloadData];
+        
+        // 清除数据
+        self.monthButton = nil;
+        
+        // 重新显示本页
+        [self viewWillAppear:true];
+    }
+    
     if (indexPath.section == 2) {
         CADOrderListItem *listItem = (CADOrderListItem *)[[_sections objectAtIndex:indexPath.section]
                                                           objectAtIndex:indexPath.row];
@@ -557,16 +570,11 @@
                 } else {
                     [_sections removeAllObjects];
                 }
-                if (_headers == nil){
-                    if ((NSNull *)user.name != [NSNull null]){
-                        _headers = [[NSMutableArray alloc] initWithObjects:user.name,@"设置",@"订单", nil];
-                    } else {
-                        _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"设置",@"订单", nil];
-                    }
-                }
+                
+                _headers = [[NSMutableArray alloc] initWithObjects:@"账户",@"设置",@"订单", nil];
+                
                 if (_personInfo == nil) {
                     _personInfo = [[NSMutableArray alloc] init];
-                    
                 } else {
                     [_personInfo removeAllObjects];
                 }
@@ -586,6 +594,15 @@
 //                    [_personInfo addObject:user.sex_code];
 //                if ((NSNull *)user.imgUrl != [NSNull null])
 //                    [_personInfo addObject:user.imgUrl];
+                
+                // 增加设置section
+                if (_setting == nil){
+                    _setting = [[NSMutableArray alloc] init];
+                } else {
+                    [_setting removeAllObjects];
+                }
+                [_setting addObject:@"修改密码"];
+                [_setting addObject:@"退出登录"];
                 
                 [_sections addObject:_personInfo];
                 [_sections addObject:_setting];
