@@ -50,8 +50,7 @@
 
 #import "IconDownloader.h"
 
-#define kImageHeight 200
-#define kImageWidth 400
+#define kImageHeight 150
 #define kIconHeight 48
 #define kIconWidth 48
 
@@ -141,7 +140,7 @@
     if (!self.isIcon) {
         if (image.size.height != kImageHeight)
         {
-            CGSize itemSize = CGSizeMake(kImageWidth, kImageHeight);
+            CGSize itemSize = CGSizeMake(image.size.width/image.size.height * kImageHeight, kImageHeight);
             UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
             CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
             [image drawInRect:imageRect];
@@ -171,7 +170,7 @@
             [self.stadiumRecord.imagesOfSportType setObject:UIGraphicsGetImageFromCurrentImageContext() forKey:self.sportTypeId];
         }
         
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"icon downloaded");
+//        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"icon downloaded");
     }
     
     

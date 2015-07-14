@@ -43,6 +43,7 @@ static NSAttributedString *cr;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [_stretchView setContentMode:UIViewContentModeScaleAspectFill];
     _stretchableTableHeaderView = [CADStretchableTableHeaderView new];
     [_stretchableTableHeaderView stretchHeaderForTableView:self.tableView withView:_stretchView];
     
@@ -232,23 +233,7 @@ static NSAttributedString *cr;
 //    UILabel *attr = (UILabel *)[cell viewWithTag:1000];
     
     if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-                cell.imageView.image = [UIImage imageNamed:@"ic_clock"];
-                break;
-            case 1:
-                cell.imageView.image = [UIImage imageNamed:@"ic_location"];
-                break;
-            case 2:
-                cell.imageView.image = [UIImage imageNamed:@"ic_bus"];
-                break;
-            case 3:
-                cell.imageView.image = [UIImage imageNamed:@"ic_filter_drama"];
-                break;
-            case 4:
-                cell.imageView.image = [UIImage imageNamed:@"ic_phone_black"];
-                break;
-        }
+        cell.imageView.image = [UIImage imageNamed:_iconNames[indexPath.row]];
         
 //        [attr removeFromSuperview];
     } else {
@@ -496,6 +481,10 @@ static NSAttributedString *cr;
     if (!_stadiumRecord.gotDetail)
         return;
     
+    if (_iconNames==nil) {
+        _iconNames = [[NSMutableArray alloc] init];
+    }
+    
     if (_sections==nil) {
         _sections = [[NSMutableArray alloc] init];
     }
@@ -508,6 +497,7 @@ static NSAttributedString *cr;
         _sportTypeIds = [[NSMutableArray alloc] init];
     }
     
+    [_iconNames removeAllObjects];
     [_sections removeAllObjects];
     [_headers removeAllObjects];
     [_sportTypeIds removeAllObjects];
@@ -521,6 +511,7 @@ static NSAttributedString *cr;
     [timePeriod appendString:@"-"];
     [timePeriod appendString:_stadiumRecord.close_time];
     [addressInfo addObject:timePeriod];
+    [_iconNames addObject:@"ic_clock"];
     
     // 场馆地址
     NSMutableString *address=[NSMutableString stringWithString:@""];
@@ -530,27 +521,25 @@ static NSAttributedString *cr;
 //    [address appendString:@" "];
     [address appendString:_stadiumRecord.address];
     [addressInfo addObject:address];
+    [_iconNames addObject:@"ic_location"];
     
     // 场馆公交
-    if ((NSNull *)_stadiumRecord.bus_road != [NSNull null])
+    if ((NSNull *)_stadiumRecord.bus_road != [NSNull null]) {
         [addressInfo addObject:_stadiumRecord.bus_road];
-    else {
-        [addressInfo addObject:@""];
+        [_iconNames addObject:@"ic_bus"];
     }
     
     // 场馆空气质量
     if (_stadiumRecord.pms && _stadiumRecord.pms.count > 0) {
         [addressInfo addObject:[[NSString alloc] initWithFormat:@"PM2.5 %@", _stadiumRecord.pms[0]]];
-    } else {
-        [addressInfo addObject:@""];
+        [_iconNames addObject:@"ic_filter_drama"];
     }
     
     
     // 场馆电话
-    if ((NSNull *)_stadiumRecord.phone != [NSNull null])
+    if ((NSNull *)_stadiumRecord.phone != [NSNull null]) {
         [addressInfo addObject:_stadiumRecord.phone];
-    else {
-        [addressInfo addObject:@""];
+        [_iconNames addObject:@"ic_phone_black"];
     }
     
     [_sections addObject:addressInfo];
@@ -564,8 +553,12 @@ static NSAttributedString *cr;
         for (NSDictionary *item in attrsOfSport) {
             NSMutableString *itemInfo=[NSMutableString stringWithString:@""];
             [itemInfo appendString:[item objectForKey:@"attr_name"]];
-            [itemInfo appendString:@" "];
+            while ([itemInfo sizeWithAttributes:nil].width <80) {
+                [itemInfo appendString:@" "];
+            }
+            [itemInfo appendString:@"【"];
             [itemInfo appendString:[item objectForKey:@"attr_value"]];
+            [itemInfo appendString:@"】"];
             
             NSMutableAttributedString *itemAttributedString = [[NSMutableAttributedString alloc] initWithString:itemInfo];
             [itemAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0, ((NSString *)[item objectForKey:@"attr_name"]).length) ];

@@ -28,6 +28,9 @@ BMKMapManager* _mapManager;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // launch screen显示增加1秒
+//    [NSThread sleepForTimeInterval:1.0];
+    
     // 要使用百度地图，请先启动BaiduMapManager
     _mapManager = [[BMKMapManager alloc]init];
     BOOL ret = [_mapManager start:@"lcYxq08FGbAZ8OqlYLsn5qlT" generalDelegate:self];
