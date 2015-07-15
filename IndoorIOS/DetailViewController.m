@@ -556,9 +556,7 @@ static NSAttributedString *cr;
             while ([itemInfo sizeWithAttributes:nil].width <80) {
                 [itemInfo appendString:@" "];
             }
-            [itemInfo appendString:@"【"];
             [itemInfo appendString:[item objectForKey:@"attr_value"]];
-            [itemInfo appendString:@"】"];
             
             NSMutableAttributedString *itemAttributedString = [[NSMutableAttributedString alloc] initWithString:itemInfo];
             [itemAttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(0, ((NSString *)[item objectForKey:@"attr_name"]).length) ];
