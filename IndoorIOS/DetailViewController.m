@@ -379,10 +379,10 @@ static NSAttributedString *cr;
 - (void)handleError:(NSError *)error
 {
     NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot connect to Server"
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接到服务器"
                                                         message:errorMessage
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:@"确定"
                                               otherButtonTitles:nil];
     [alertView show];
 }

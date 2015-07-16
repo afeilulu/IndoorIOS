@@ -493,9 +493,9 @@
     /*============================================================================*/
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
-    NSString *partner = @"2088811279837648";
-    NSString *seller = @"info@chinaairdome.com";
-    NSString *privateKey = @"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAO7tQfnnNNKh+1rn2CqsxFW098XqwW17A9UhILCIGR7zWd82oBGOI027qm6pBnNNgf+GQ6yKGgIqIXNNtffpX5hcQK542M28gxY4LvqJi0O/hJR7UTwSNcIplViQrwQM9MXKrhmubTCy+F7B04ZCUAM8GJ6mvsZmHxnTHl4yTiohAgMBAAECgYBPk+5ZkcxiK1lQmc/BxvFNqoyr+tiZ4lMQdYwxv+K+EEdqtQLzVegkR9EoMlvXo4Uc2ldH7GdlOSsTAFsPS0dvDtnZxurfLy7Uggpjo+ICsgQqKro/lfvCfhCCHoTsvWsf0Ae0q91k13RqARkZyI7bvrkPd16ouwp9HysmJG5EwQJBAP6jGPEVaxeSkalclfHrqS7jM5KH7BMSL39blrcG59q9EhlfIinsdB21XiBlaKXkbwCqAAWn3raBe7oYWjMJvDUCQQDwNKJUDu+vbJqwtJV+vZjsN2bVUBxv+HR6nxXhpJm0rpwnEFSwt4WXi7MFIQ1QIihoyWqBNg22PU4LyoP6hju9AkEA4WNKG3Li5O2WQvuxuX3ntZnjt0raWhMZubg/EmhpZ0M9tvlvCv7B1N4Jn9FDLLuiyUqwVFE/n/nCo3kUteJjFQJAdMuC6pBgptGN3cHQttGFm8XMcIgFa8RJDp5vy0l3m00TjEL6ivqRMICyyRmrGX2iXGEjMjSQMj5Yxo7v4U6HmQJAMl0l0gptkDEy4c7c7Qvc+4Rf7UIxoGQuN/L5ru7wpxqNZswTQ8ZRzxuHf+Kse69clUaQwpxzY/onIGn+oSRgjg==";
+    NSString *partner = @"2088021166834335";
+    NSString *seller = @"postmaster@paopaoty.com";
+    NSString *privateKey = @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAPxel3RYoJ6DOUOfvPwcVpdesI/Qkh2GHkbghmj6qV50pWbu4q1FVLQ+tBcgvkK7+zkadJJ9A7o2xXIFd/OMgAS5SQPresEtu7mB310M2g8uTIywp2HTP4r2ZBy9AGPM6WQ9tqIvlbgAWgNook3d0dCQUKwaMeS1bkm8ZcjGe5pjAgMBAAECgYEA4DJ0YDK/9jHjdHT7IglWz8CaIBkNRVc5nIOoRKiyQCxmKEx+aanW9w1hVc6L16NCKlebSevvnMU9oO7EwkOGEWidTiJDuUsFz+fehFmRP9PrMTXY2+eNH64GmVxw2uG+uzsbYzwdSRYH1F3vkzABulFy82c1kzW4a+2YxfMwofkCQQD/3lDequ04Zz8avibRknH0MPB8JlWQe7o898lXCXKheb8WJ1m0Aof+iaq1Is7mJbJOwAeHSvGizSSWA0JFQN5lAkEA/H/Qqn6iWh9zPdFUcpikHKyKWBoqxSHxFNqcUHCudIVgGqkUPUIBDdpy+pkxFIWM4oR2tkbDdvi1lFNJij7FJwJBAJtz7XwrKu7uw4cy6hC/wZ4Tsbgr7iZXFaJ/BQNtSQjUGAWUqMpWE1vRNjbQzBVF59wyjSBkpwQ7ULQXjMbYj4UCQQCGktSy2dVLtTFlhBi/Du2AvtDpDeE3udRUqgLfuH6yaZeD/hNkZrZLHN9lApqu9lLVM4ZVtbddxEZ6rD0oqjXHAkBmJ5wG69pQiCWtZtGOca1UkeZMuf4+JAZD4+VHS+YIlTMYThE8XljP7AG/js5XUnQA4HC+kmkioWafZryeqSUS";
     /*============================================================================*/
     /*============================================================================*/
     /*============================================================================*/
@@ -521,7 +521,16 @@
     order.seller = seller;
     //    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
     order.tradeNO = payId;
-    order.productName =  @"铁人场地预订"; //商品标题
+    //商品标题
+    NSString *aMonth =  [[NSString alloc] initWithFormat:@"%i",[self.dateLabel.text substringWithRange:NSMakeRange(5, 2)].intValue];
+    NSString *aDay =  [[NSString alloc] initWithFormat:@"%i",[self.dateLabel.text substringWithRange:NSMakeRange(8, 2)].intValue];
+    NSArray *timeSlot1Array = [[self.orderInfo.siteTimeList[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString:@" "];
+    ;
+    if (self.orderInfo.siteTimeList.count > 1) {
+        order.productName = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@等预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
+    } else {
+        order.productName = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
+    }
     order.productDescription = self.orderInfo.orderTitle; //商品描述;
 //        order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
     order.amount = self.orderInfo.totalMoney;

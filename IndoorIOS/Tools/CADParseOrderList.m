@@ -58,6 +58,8 @@
             [orderItem setZflx:[item objectForKey:@"zflx"]];
             [orderItem setSportId:[item objectForKey:@"sportId"]];
             [orderItem setSportTypeId:[item objectForKey:@"sportTypeId"]];
+            [orderItem setSportTypeName:[item objectForKey:@"sportTypeName"]];
+            [orderItem setSportTypeSmallImage:[item objectForKey:@"sportTypeSmallImage"]];
             
             [_workingArray addObject:orderItem];
         }

@@ -22,4 +22,7 @@
 @property (nonatomic, strong) NSString *fpPrintYn;
 @property (nonatomic, strong) NSString *sportId; // 场馆id
 @property (nonatomic, strong) NSString *sportTypeId; // 运动id
+@property (nonatomic, strong) NSString *sportTypeName; // 运动名称
+@property (nonatomic, strong) NSString *sportTypeSmallImage;// 运动小图片地址
+
 @end
