@@ -30,7 +30,7 @@ static NSAttributedString *cr;
 @property (nonatomic, strong) NSMutableData *jsonData;
 @property (nonatomic, strong) NSOperationQueue *queue;
 @property (nonatomic) CGSize imageSize;
-@property (nonatomic) int selectedSportIndex;
+@property (nonatomic) NSInteger selectedSportIndex;
 
 // the set of IconDownloader objects for each image
 @property (nonatomic, strong) NSMutableDictionary *imageDownloadsInProgress;
@@ -137,7 +137,7 @@ static NSAttributedString *cr;
 
 #pragma mark-- UITableViewDelegate
 
-- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _sections.count;
 }
 
@@ -204,7 +204,7 @@ static NSAttributedString *cr;
     return heightOfHeaderInSection;
 }
 
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[_sections objectAtIndex:section] count];
 }
 

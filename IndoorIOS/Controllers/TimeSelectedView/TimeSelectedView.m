@@ -182,7 +182,7 @@
     
     int lastNumber = -100;
     NSMutableString *oneString;
-    int count = [sortedArray count];
+    NSInteger count = [sortedArray count];
     for (int i = 0; i<count; i++) {
         int intValue = ((NSNumber *)[sortedArray objectAtIndex:i]).intValue;
         if (sortedArray.count == 1){

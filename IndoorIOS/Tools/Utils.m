@@ -12,7 +12,7 @@
 
 @implementation Utils
 
-+ (NSString *) getWeekName:(int) week{
++ (NSString *) getWeekName:(NSInteger) week{
     switch (week) {
             
         case 1:
@@ -53,7 +53,7 @@
 {
     const char* cStr = [input UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(cStr, strlen(cStr), result);
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
     
     static const char HexEncodeChars[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     char *resultData = malloc(CC_MD5_DIGEST_LENGTH * 2 + 1);

@@ -360,9 +360,9 @@ RSA *d2i_Netscape_RSA(RSA **a, const unsigned char **pp, long length,
 /* The following 2 functions sign and verify a X509_SIG ASN1 object
  * inside PKCS#1 padded RSA encryption */
 int RSA_sign(int type, const unsigned char *m, unsigned int m_length,
-	unsigned char *sigret, unsigned int *siglen, RSA *rsa);
+	unsigned char *sigret, NSUInteger *siglen, RSA *rsa);
 int RSA_verify(int type, const unsigned char *m, unsigned int m_length,
-	const unsigned char *sigbuf, unsigned int siglen, RSA *rsa);
+	const unsigned char *sigbuf, NSUInteger siglen, RSA *rsa);
 
 /* The following 2 function sign and verify a ASN1_OCTET_STRING
  * object inside PKCS#1 padded RSA encryption */

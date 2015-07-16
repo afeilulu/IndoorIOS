@@ -70,7 +70,7 @@
     self.sportImageView.image = [stadium.imagesOfSportType objectForKey:self.orderInfo.sportTypeId];
     
     // 详细
-    int count = [self.orderInfo.siteTimeList count];
+    NSInteger count = [self.orderInfo.siteTimeList count];
     if (count == 4) {
         self.place4Label.text = [self.orderInfo.siteTimeList objectAtIndex:3];
         self.place3Label.text = [self.orderInfo.siteTimeList objectAtIndex:2];
@@ -151,6 +151,7 @@
 #pragma mark -
 #pragma mark   ==============产生随机订单号==============
 
+/*
 - (NSString *)generateTradeNO
 {
     static int kNumber = 15;
@@ -166,6 +167,7 @@
     }
     return resultStr;
 }
+ */
 
 #pragma mark -
 #pragma mark   ==============查询账户是否存在==============

@@ -636,14 +636,14 @@ void	EVP_EncodeInit(EVP_ENCODE_CTX *ctx);
 void	EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx,unsigned char *out,int *outl,
 		const unsigned char *in,int inl);
 void	EVP_EncodeFinal(EVP_ENCODE_CTX *ctx,unsigned char *out,int *outl);
-int	EVP_EncodeBlock(unsigned char *t, const unsigned char *f, int n);
+int	EVP_EncodeBlock(unsigned char *t, const unsigned char *f, NSInteger n);
 
 void	EVP_DecodeInit(EVP_ENCODE_CTX *ctx);
 int	EVP_DecodeUpdate(EVP_ENCODE_CTX *ctx,unsigned char *out,int *outl,
 		const unsigned char *in, int inl);
 int	EVP_DecodeFinal(EVP_ENCODE_CTX *ctx, unsigned
 		char *out, int *outl);
-int	EVP_DecodeBlock(unsigned char *t, const unsigned char *f, int n);
+int	EVP_DecodeBlock(unsigned char *t, const unsigned char *f, NSInteger n);
 
 void EVP_CIPHER_CTX_init(EVP_CIPHER_CTX *a);
 int EVP_CIPHER_CTX_cleanup(EVP_CIPHER_CTX *a);

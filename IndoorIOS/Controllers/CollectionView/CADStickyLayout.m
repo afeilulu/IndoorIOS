@@ -65,14 +65,14 @@
     self.itemsSizeInSections = [[NSMutableDictionary alloc] init];
     
     // 获取header中的item个数，因为他是固定的。用它作为参照物，计算stepSize
-    int numberOfItemsInHeader = [self.collectionView numberOfItemsInSection:0];
+    NSInteger numberOfItemsInHeader = [self.collectionView numberOfItemsInSection:0];
     
     // We loop through all items
     for (int section = 0; section < [self.collectionView numberOfSections]; section++) {
         NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
         NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
         if (!itemsSize || itemsSize.count != numberOfItems) {
-            int stepSize = 1;
+            NSInteger stepSize = 1;
             stepSize = (numberOfItemsInHeader-1)/(numberOfItems-1);
             [self calculateItemsSizeAtSection:section withStepSize:stepSize];
         }
@@ -211,10 +211,10 @@
 - (void)calculateItemsSizeAtSection:(NSInteger)section withStepSize:(NSInteger)stepSize
 {
     NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
-    NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+    NSMutableArray *itemsSize = [self.itemsSizeInSections objectForKey:[[NSString alloc] initWithFormat:@"%td",section ]];
     if (!itemsSize) {
         itemsSize = [[NSMutableArray alloc] init];
-        [self.itemsSizeInSections setObject:itemsSize forKey:[[NSString alloc] initWithFormat:@"%i",section ]];
+        [self.itemsSizeInSections setObject:itemsSize forKey:[[NSString alloc] initWithFormat:@"%td",section ]];
     }
     for (NSUInteger index = 0; index < numberOfItems; index++) {
         if (itemsSize.count <= index) {

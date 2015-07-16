@@ -100,7 +100,7 @@
 
 #pragma mark-- UITableViewDelegate
 
-- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _headers.count;
 }
 
@@ -187,7 +187,7 @@
     return heightOfHeaderInSection;
 }
 
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[_sections objectAtIndex:section] count];
 }
 
@@ -305,7 +305,7 @@
             }
             
             // 因为可能会被重用，先删除无用的lableView
-            for (int i = [listItem.siteTimeList count]; i < _maxTimeUnitCount; i++) {
+            for (NSInteger i = [listItem.siteTimeList count]; i < _maxTimeUnitCount; i++) {
                 UILabel *aLabel = (UILabel *)[cell viewWithTag:100 + i];
                 if (aLabel != nil){
                     [aLabel removeFromSuperview];

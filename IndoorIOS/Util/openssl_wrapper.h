@@ -7,11 +7,11 @@
 //
 #import <Foundation/Foundation.h>
 
-int rsa_sign_with_private_key_pem(char *message, int message_length
-                                  , unsigned char *signature, unsigned int *signature_length
+NSInteger rsa_sign_with_private_key_pem(char *message, NSInteger message_length
+                                  , unsigned char *signature, NSUInteger *signature_length
                                   , char *private_key_file_path);
-int rsa_verify_with_public_key_pem(char *message, int message_length
-                                   , unsigned char *signature, unsigned int signature_length
+NSInteger rsa_verify_with_public_key_pem(char *message, NSInteger message_length
+                                   , unsigned char *signature, NSUInteger signature_length
                                    , char *public_key_file_path);
 
 NSString *base64StringFromData(NSData *signature);

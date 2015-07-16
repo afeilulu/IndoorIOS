@@ -96,13 +96,13 @@ static NSMutableString *jsonUrl;
     for (n=0;n<7; n=n+1) {
         NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60 * n)];
         comps = [calendar components:unitFlags fromDate:tmpDate];
-        int week = [comps weekday];
-        int month = [comps month];
-        int day = [comps day];
+        NSInteger week = [comps weekday];
+        NSInteger month = [comps month];
+        NSInteger day = [comps day];
         
         self.currentHour = [comps hour];
         
-        NSString *titleString = [NSString stringWithFormat:@"%i.%i",month,day];
+        NSString *titleString = [NSString stringWithFormat:@"%td.%td",month,day];
         NSString *subTitleString = [Utils getWeekName:week];
         ListItem *item = [[ListItem alloc] initWithFrame:CGRectZero  title:titleString subTitle:subTitleString];
         NSString *dateString = [dateFormatter stringFromDate:tmpDate];
@@ -285,7 +285,7 @@ static NSMutableString *jsonUrl;
             CADTimeCollectionViewCell *timeCell = (CADTimeCollectionViewCell *)[cv dequeueReusableCellWithReuseIdentifier:self.timeCellIdentifier forIndexPath:indexPath];
             timeCell.timeLabel.font = [UIFont systemFontOfSize:13];
             timeCell.timeLabel.textColor = [UIColor blackColor];
-            timeCell.timeLabel.text = [[NSString alloc] initWithFormat:@"%i:00", _start + indexPath.row - 1 ];
+            timeCell.timeLabel.text = [[NSString alloc] initWithFormat:@"%td:00", _start + indexPath.row - 1 ];
             timeCell.backgroundColor = [UIColor whiteColor];
             
             return timeCell;
@@ -817,8 +817,8 @@ static NSMutableString *jsonUrl;
             [aUnit setObject:[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"name"] forKey:@"sportPlaceName"];
             
             int unitSize = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitSize"] intValue];
-            NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start];
-            NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+            NSString *startTime = [[NSString alloc] initWithFormat:@"%@ %td:00:00",self.selectedDate,indexPath.row - 1 + _start];
+            NSString *endTime = [[NSString alloc] initWithFormat:@"%@ %td:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
             double price = [[[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"] floatValue];
             
             [aUnit setObject:startTime forKey:@"startTime"];
@@ -827,7 +827,7 @@ static NSMutableString *jsonUrl;
             NSDictionary *unitStatus = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"unitStatus"];
             if ([unitStatus count] > 0) {
                 NSArray *keys = [unitStatus allKeys];
-                NSString *aKey = [[NSString alloc] initWithFormat:@"%i",indexPath.row - 1 + _start ];
+                NSString *aKey = [[NSString alloc] initWithFormat:@"%td",indexPath.row - 1 + _start ];
                 if ([keys containsObject:aKey]) {
                     NSDictionary *abnomalContent = [unitStatus objectForKey:aKey];
                     
@@ -837,7 +837,7 @@ static NSMutableString *jsonUrl;
                     
                     if ([abnomalContent objectForKey:@"unitSize"] != nil) {
                         unitSize = [[abnomalContent objectForKey:@"unitSize"] intValue];
-                        endTime = [[NSString alloc] initWithFormat:@"%@ %i:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
+                        endTime = [[NSString alloc] initWithFormat:@"%@ %td:00:00",self.selectedDate,indexPath.row - 1 + _start + unitSize];
                     }
                     
                 }

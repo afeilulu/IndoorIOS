@@ -160,7 +160,7 @@
     [_mapView setVisibleMapRect:fitMapRect animated:YES];
     
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    int stadiumCount = stadiumManager.stadiumList.count;
+    NSInteger stadiumCount = stadiumManager.stadiumList.count;
     if (stadiumCount > 0){
         for (NSString *key in stadiumManager.stadiumList) {
             StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:key];
@@ -189,7 +189,7 @@
     CLLocationDegrees maxLng = 120;
     
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    int stadiumCount = stadiumManager.stadiumList.count;
+    NSInteger stadiumCount = stadiumManager.stadiumList.count;
     if (stadiumCount > 0){
         int i=0;
         for (NSString *key in stadiumManager.stadiumList) {
@@ -416,7 +416,7 @@
 - (void) startDownloadAllStadiumDetail
 {
     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-    int stadiumCount = stadiumManager.stadiumList.count;
+    NSInteger stadiumCount = stadiumManager.stadiumList.count;
     if (stadiumCount > 0){
         for (NSString *key in stadiumManager.stadiumList) {
             StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:key];
