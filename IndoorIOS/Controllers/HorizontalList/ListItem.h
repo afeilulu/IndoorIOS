@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#define ITEM_WIDTH              72.0
+#define ITEM_HEIGHT              72.0
+
 @interface ListItem : UIView {
     CGRect textRect;
     CGRect imageRect;

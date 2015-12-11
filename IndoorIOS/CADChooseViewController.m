@@ -698,6 +698,7 @@ static NSMutableString *jsonUrl;
     
     NSError* error;
     
+    // 处理获取场馆时间安排
     if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSportPlaceStatusJsonUrl]) {
         self.statusDictionary = [NSJSONSerialization
                                  JSONObjectWithData:self.jsonData
@@ -708,12 +709,22 @@ static NSMutableString *jsonUrl;
             _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
             _places = [[NSMutableArray alloc] initWithArray:[self.statusDictionary objectForKey:@"places"]];
             
-            [_timeUnitCollectionView reloadData];
-            [self.timeUnitCollectionView setHidden:false];
+            if (_start >= _end) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"获取场地时间安排"
+                                                                    message:@"未知异常"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            } else {
             
-            // scroll to top left
-            [self.timeUnitCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally|UICollectionViewScrollPositionCenteredVertically animated:true];
-        } 
+                [_timeUnitCollectionView reloadData];
+                [self.timeUnitCollectionView setHidden:false];
+            
+                // scroll to top left
+                [self.timeUnitCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally|UICollectionViewScrollPositionCenteredVertically animated:true];
+            }
+        }
     
         self.isLoadingStatus = false;
     
@@ -726,6 +737,8 @@ static NSMutableString *jsonUrl;
             
     }
     
+    
+    // 处理订单提交
     if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSubmitOrderJsonUrl]) {
         NSDictionary *submitOrderResult = [NSJSONSerialization
                                            JSONObjectWithData:self.jsonData

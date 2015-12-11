@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import "CADDetailDownloader.h"
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 
 @interface ViewController ()
 

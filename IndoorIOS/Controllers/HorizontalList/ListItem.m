@@ -21,7 +21,7 @@
         self.isSelected = NO;
         self.title = title;
         self.subTitle = subTitle;
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 72.0, 72.0)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, ITEM_WIDTH, ITEM_HEIGHT)];
 
         CALayer *roundCorner = [self.imageView layer];
         [roundCorner setMasksToBounds:YES];
@@ -36,7 +36,8 @@
         [_titleLabel setOpaque: NO];
         [_titleLabel setText:title];
         [_titleLabel setTextColor:[self tintColor]];
-        titleRect = CGRectMake(20.0, imageRect.origin.y + 10.0, 80.0, 20.0);
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleRect = CGRectMake(0, imageRect.origin.y + 15.0, ITEM_WIDTH, 20.0);
         [_titleLabel setFrame:titleRect];
         
         _subTitleLabel = [[UILabel alloc] init];
@@ -45,7 +46,8 @@
         [_subTitleLabel setOpaque: NO];
         [_subTitleLabel setText:subTitle];
         [_subTitleLabel setTextColor:[self tintColor]];
-        subTitleRect = CGRectMake(20.0, imageRect.origin.y + 40.0, 80.0, 20.0);
+        _subTitleLabel.textAlignment = NSTextAlignmentCenter;
+        subTitleRect = CGRectMake(0, imageRect.origin.y + 40.0, ITEM_WIDTH, 20.0);
         [_subTitleLabel setFrame:subTitleRect];
         
         [self addSubview:self.imageView];

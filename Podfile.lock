@@ -1,0 +1,24 @@
+PODS:
+  - AlipaySDK-2.0 (3.0.1.3):
+    - AlipaySDK-2.0/Core (= 3.0.1.3)
+  - AlipaySDK-2.0/Core (3.0.1.3)
+  - AlipaySDK-2.0/Order (3.0.1.3):
+    - AlipaySDK-2.0/Core
+    - OpenSSL
+    - PupaFoundation
+  - BaiduMapKit (2.9.1)
+  - OpenSSL (1.0.205)
+  - PupaFoundation (1.1.6)
+
+DEPENDENCIES:
+  - AlipaySDK-2.0
+  - AlipaySDK-2.0/Order
+  - BaiduMapKit
+
+SPEC CHECKSUMS:
+  AlipaySDK-2.0: 2e334f94da489de54a5a4cc48d6456d41a8cc010
+  BaiduMapKit: 97d2d44b41a876de2371fb91ddf78cdf84dafa05
+  OpenSSL: 162687d7e96a3edeb4cf443ca6ce7cdb2912df7b
+  PupaFoundation: 2c132c6f43485e7cecf3b64ea0725274e64041b1
+
+COCOAPODS: 0.39.0

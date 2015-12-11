@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "CADPayViewController.h"
 #import "Order.h"
-#import "DataSigner.h"
 #import "Constants.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "CADUserManager.h"
@@ -18,6 +17,7 @@
 #import "StadiumManager.h"
 #import "StadiumRecord.h"
 #import "ParseStadiumDetail.h"
+#import "NSString+AlipaySigner.h"
 
 @interface CADPayViewController ()
 
@@ -554,9 +554,10 @@
 //    NSLog(@"orderSpec = %@",orderSpec);
     
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
-    id<DataSigner> signer = CreateRSADataSigner(privateKey);
-    NSString *signedString = [signer signString:orderSpec];
-    
+//    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+//    NSString *signedString = [signer signString:orderSpec];
+    NSString *signedString = [[[NSString alloc] init] alipayOrderRSASignWithPrivateKey:privateKey];
+                                                    
     //将签名成功字符串格式化为订单字符串,请严格按照该格式
     NSString *orderString = nil;
     if (signedString != nil) {
