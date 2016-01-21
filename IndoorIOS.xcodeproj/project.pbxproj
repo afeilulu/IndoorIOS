@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 751B22EA1C50CA8F0031F782 /* Home.storyboard */; };
 		7535475C1AE66568005A5791 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535474E1AE66568005A5791 /* Cell.m */; };
 		7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547501AE66568005A5791 /* CustomCellBackground.m */; };
 		7535475E1AE66568005A5791 /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547531AE66568005A5791 /* ListItem.m */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		2CA4581E5004DCF612DDA833 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		751B22EA1C50CA8F0031F782 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Home.storyboard; path = storyboard/Home.storyboard; sourceTree = "<group>"; };
 		7535474D1AE66568005A5791 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		7535474E1AE66568005A5791 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		7535474F1AE66568005A5791 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		751B22E91C50CA3E0031F782 /* storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				751B22EA1C50CA8F0031F782 /* Home.storyboard */,
+			);
+			name = storyboard;
+			sourceTree = "<group>";
+		};
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +430,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				751B22E91C50CA3E0031F782 /* storyboard */,
 				75EF6BED1AE9F56600418E02 /* Resources */,
 				753547771AE6694A005A5791 /* Tools */,
 				7535476A1AE66941005A5791 /* model */,
@@ -588,6 +599,7 @@
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
 				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
+				751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */,
 				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
 				75CE621A1B184BD5001E3637 /* ic_bus@2x.png in Resources */,
