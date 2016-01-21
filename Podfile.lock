@@ -24,12 +24,16 @@ PODS:
   - BaiduMapKit (2.9.1)
   - OpenSSL (1.0.205)
   - PupaFoundation (1.1.6)
+  - SDWebImage (3.7.4):
+    - SDWebImage/Core (= 3.7.4)
+  - SDWebImage/Core (3.7.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AlipaySDK-2.0
   - AlipaySDK-2.0/Order
   - BaiduMapKit
+  - SDWebImage (~> 3.6)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -37,5 +41,6 @@ SPEC CHECKSUMS:
   BaiduMapKit: 97d2d44b41a876de2371fb91ddf78cdf84dafa05
   OpenSSL: 162687d7e96a3edeb4cf443ca6ce7cdb2912df7b
   PupaFoundation: 2c132c6f43485e7cecf3b64ea0725274e64041b1
+  SDWebImage: 247edd7dd80dd6124197b0d6a17846fe9d1df968
 
 COCOAPODS: 0.39.0
