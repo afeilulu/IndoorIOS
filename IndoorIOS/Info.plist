@@ -33,6 +33,13 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>20150906</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>alipay</string>
+		<string>wechat</string>
+		<string>weixin</string>
+		<string>baidumap</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -44,8 +51,6 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>定位</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -53,13 +58,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>alipay</string>
-		<string>wechat</string>
-		<string>weixin</string>
-		<string>baidumap</string>
 	</array>
 </dict>
 </plist>

@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
 
-@interface CADBaiduMapViewController : UIViewController
+@interface CADBaiduMapViewController : UIViewController <BMKMapViewDelegate,BMKLocationServiceDelegate>{
+    IBOutlet BMKMapView* _mapView;
+    BMKLocationService* _locService;
+}
+
+- (void) loadData;
+
+@property (nonatomic, strong) NSMutableDictionary *detailDownloadsInProgress;
 
 @end

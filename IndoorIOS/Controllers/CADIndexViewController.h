@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
 
-@interface CADIndexViewController : UIViewController
+@interface CADIndexViewController  : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,BMKMapViewDelegate,BMKLocationServiceDelegate>{
+    BMKMapView* mapView;
+    BMKLocationService* _locService;
+}
+
+@property (nonatomic, strong) NSMutableDictionary *detailDownloadsInProgress;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end

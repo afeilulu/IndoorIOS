@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "CADPayViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
@@ -38,9 +39,43 @@ BMKMapManager* _mapManager;
         NSLog(@"manager start failed!");
     }
     
+    // [self.window makeKeyAndVisible];
+    
+    ///////////////////////////////////////////////////////////////////////////////////
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+//    UITabBarController* tabController = (UITabBarController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Home" class:[UITableViewController class]];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
+    UITabBarController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarcontroller"];
+    
+    [self.window setRootViewController:rootViewController];
+    
+    [self setupNavigationTitleLabelStyle];
+    [self setupStatusBarStyle];
+    
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+#pragma mark -
+#pragma mark App Style Setup Methods
+
+- (void)setupNavigationTitleLabelStyle
+{
+    NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
+    [titleBarAttributes setValue:[UIFont fontWithName:@"GillSans-Light" size:20] forKey:NSFontAttributeName];
+    [titleBarAttributes setValue:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    [[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+}
+
+- (void)setupStatusBarStyle
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

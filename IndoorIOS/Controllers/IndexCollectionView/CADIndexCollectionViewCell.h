@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CADIndexCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UILabel *title;
+
+-(void)LoadCell:(NSString*)title;
 
 @end

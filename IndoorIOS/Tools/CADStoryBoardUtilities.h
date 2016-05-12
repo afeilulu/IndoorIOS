@@ -6,8 +6,10 @@
 //  Copyright © 2016年 chinaairdome. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 @interface CADStoryBoardUtilities : NSObject
+
++ (UIViewController*)viewControllerForStoryboardName:(NSString*)storyboardName class:(id)aclass ;
 
 @end

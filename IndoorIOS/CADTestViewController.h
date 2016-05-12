@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CADNetworkLoadingViewController.h"
 
-@interface CADTestViewController : UIViewController
+@interface CADTestViewController : UIViewController <CADNetworkLoadingViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *networkLoadingContainerView;
 
 @end

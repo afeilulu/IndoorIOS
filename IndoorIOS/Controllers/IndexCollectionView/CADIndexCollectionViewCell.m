@@ -10,4 +10,8 @@
 
 @implementation CADIndexCollectionViewCell
 
+- (void)LoadCell:(NSString *)title{
+    self.title.text = title;
+}
+
 @end

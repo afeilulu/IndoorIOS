@@ -10,6 +10,8 @@
 
 @interface CADTestViewController ()
 
+@property (nonatomic, strong) CADNetworkLoadingViewController *networkLoadingViewController;
+
 @end
 
 @implementation CADTestViewController
@@ -22,6 +24,26 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark Container Segue Methods
+
+- (void) prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:NSStringFromClass([CADNetworkLoadingViewController class])])
+    {
+        self.networkLoadingViewController = segue.destinationViewController;
+        self.networkLoadingViewController.delegate = self;
+    }
+}
+
+#pragma mark -
+#pragma mark KMNetworkLoadingViewDelegate
+
+-(void)retryRequest;
+{
+    // TODO
 }
 
 /*
