@@ -114,8 +114,6 @@
 /* Begin PBXFileReference section */
 		2CA4581E5004DCF612DDA833 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7509EDAE1C796769009CD66D /* Index.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Index.storyboard; path = storyboard/Index.storyboard; sourceTree = "<group>"; };
-		7509EDB31C79725D009CD66D /* CADBaiduMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADBaiduMapViewController.h; sourceTree = "<group>"; };
-		7509EDB41C79725D009CD66D /* CADBaiduMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADBaiduMapViewController.m; sourceTree = "<group>"; };
 		7509EDB61C7983D5009CD66D /* CADIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADIndexViewController.h; sourceTree = "<group>"; };
 		7509EDB71C7983D5009CD66D /* CADIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADIndexViewController.m; sourceTree = "<group>"; };
 		750F75A61CE5735600B1722A /* CAD_NSArray+SafeValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAD_NSArray+SafeValues.h"; sourceTree = "<group>"; };
@@ -134,17 +132,13 @@
 		750F75B31CE5735600B1722A /* UIFont+GillSansFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GillSansFonts.m"; sourceTree = "<group>"; };
 		750F75B51CE5735600B1722A /* CADGillSansLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADGillSansLabel.h; sourceTree = "<group>"; };
 		750F75B61CE5735600B1722A /* CADGillSansLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADGillSansLabel.m; sourceTree = "<group>"; };
-		750F75C01CE5765500B1722A /* CADIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADIndexViewController.m; sourceTree = "<group>"; };
 		750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADBaiduMapViewController.m; sourceTree = "<group>"; };
-		750F75C21CE5765500B1722A /* CADIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADIndexViewController.h; sourceTree = "<group>"; };
 		750F75C31CE5765500B1722A /* CADBaiduMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADBaiduMapViewController.h; sourceTree = "<group>"; };
 		750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADNetworkLoadingViewController.m; sourceTree = "<group>"; };
 		750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADNetworkLoadingViewController.h; sourceTree = "<group>"; };
 		751B22EA1C50CA8F0031F782 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Home.storyboard; path = storyboard/Home.storyboard; sourceTree = "<group>"; };
 		751B22ED1C50CCDE0031F782 /* CADStoryBoardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStoryBoardUtilities.h; sourceTree = "<group>"; };
 		751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStoryBoardUtilities.m; sourceTree = "<group>"; };
-		751B22F01C50CDDF0031F782 /* CADNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADNetworkLoadingViewController.h; sourceTree = "<group>"; };
-		751B22F11C50CDDF0031F782 /* CADNetworkLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADNetworkLoadingViewController.m; sourceTree = "<group>"; };
 		751B22F31C50CE9C0031F782 /* CADActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADActivityIndicator.h; sourceTree = "<group>"; };
 		751B22F41C50CE9C0031F782 /* CADActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADActivityIndicator.m; sourceTree = "<group>"; };
 		7535474D1AE66568005A5791 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
@@ -347,9 +341,7 @@
 		750F75B71CE5735600B1722A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				750F75C01CE5765500B1722A /* CADIndexViewController.m */,
 				750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */,
-				750F75C21CE5765500B1722A /* CADIndexViewController.h */,
 				750F75C31CE5765500B1722A /* CADBaiduMapViewController.h */,
 				750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */,
 				750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */,
@@ -377,10 +369,6 @@
 				7535474C1AE66568005A5791 /* CollectionView */,
 				753547511AE66568005A5791 /* HorizontalList */,
 				753547571AE66568005A5791 /* TimeSelectedView */,
-				751B22F01C50CDDF0031F782 /* CADNetworkLoadingViewController.h */,
-				751B22F11C50CDDF0031F782 /* CADNetworkLoadingViewController.m */,
-				7509EDB31C79725D009CD66D /* CADBaiduMapViewController.h */,
-				7509EDB41C79725D009CD66D /* CADBaiduMapViewController.m */,
 				7509EDB61C7983D5009CD66D /* CADIndexViewController.h */,
 				7509EDB71C7983D5009CD66D /* CADIndexViewController.m */,
 			);
