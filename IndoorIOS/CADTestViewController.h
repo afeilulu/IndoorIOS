@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CADNetworkLoadingViewController.h"
+#import "Utilities/Utils/CADNetworkLoadingViewController.h"
 
 @interface CADTestViewController : UIViewController <CADNetworkLoadingViewDelegate>
 

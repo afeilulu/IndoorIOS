@@ -8,11 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		7509EDAF1C796769009CD66D /* Index.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7509EDAE1C796769009CD66D /* Index.storyboard */; };
-		7509EDB51C79725D009CD66D /* CADBaiduMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7509EDB41C79725D009CD66D /* CADBaiduMapViewController.m */; };
 		7509EDB81C7983D5009CD66D /* CADIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7509EDB71C7983D5009CD66D /* CADIndexViewController.m */; };
+		750F75B81CE5735600B1722A /* CAD_NSArray+SafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75A71CE5735600B1722A /* CAD_NSArray+SafeValues.m */; };
+		750F75B91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75A91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m */; };
+		750F75BA1CE5735600B1722A /* CAD_NSString+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75AB1CE5735600B1722A /* CAD_NSString+UrlEncoding.m */; };
+		750F75BB1CE5735600B1722A /* CAD_NSURL+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75AD1CE5735600B1722A /* CAD_NSURL+Parameters.m */; };
+		750F75BC1CE5735600B1722A /* NSBundle+Loader.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75AF1CE5735600B1722A /* NSBundle+Loader.m */; };
+		750F75BD1CE5735600B1722A /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75B11CE5735600B1722A /* NSString+MD5.m */; };
+		750F75BE1CE5735600B1722A /* UIFont+GillSansFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75B31CE5735600B1722A /* UIFont+GillSansFonts.m */; };
+		750F75BF1CE5735600B1722A /* CADGillSansLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75B61CE5735600B1722A /* CADGillSansLabel.m */; };
+		750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */; };
+		750F75C81CE5765500B1722A /* CADNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */; };
 		751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 751B22EA1C50CA8F0031F782 /* Home.storyboard */; };
 		751B22EF1C50CCDE0031F782 /* CADStoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */; };
-		751B22F21C50CDDF0031F782 /* CADNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22F11C50CDDF0031F782 /* CADNetworkLoadingViewController.m */; };
 		751B22F51C50CE9C0031F782 /* CADActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22F41C50CE9C0031F782 /* CADActivityIndicator.m */; };
 		7535475C1AE66568005A5791 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535474E1AE66568005A5791 /* Cell.m */; };
 		7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547501AE66568005A5791 /* CustomCellBackground.m */; };
@@ -110,6 +118,28 @@
 		7509EDB41C79725D009CD66D /* CADBaiduMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADBaiduMapViewController.m; sourceTree = "<group>"; };
 		7509EDB61C7983D5009CD66D /* CADIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADIndexViewController.h; sourceTree = "<group>"; };
 		7509EDB71C7983D5009CD66D /* CADIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADIndexViewController.m; sourceTree = "<group>"; };
+		750F75A61CE5735600B1722A /* CAD_NSArray+SafeValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAD_NSArray+SafeValues.h"; sourceTree = "<group>"; };
+		750F75A71CE5735600B1722A /* CAD_NSArray+SafeValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAD_NSArray+SafeValues.m"; sourceTree = "<group>"; };
+		750F75A81CE5735600B1722A /* CAD_NSDictionary+SafeValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAD_NSDictionary+SafeValues.h"; sourceTree = "<group>"; };
+		750F75A91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAD_NSDictionary+SafeValues.m"; sourceTree = "<group>"; };
+		750F75AA1CE5735600B1722A /* CAD_NSString+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAD_NSString+UrlEncoding.h"; sourceTree = "<group>"; };
+		750F75AB1CE5735600B1722A /* CAD_NSString+UrlEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAD_NSString+UrlEncoding.m"; sourceTree = "<group>"; };
+		750F75AC1CE5735600B1722A /* CAD_NSURL+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAD_NSURL+Parameters.h"; sourceTree = "<group>"; };
+		750F75AD1CE5735600B1722A /* CAD_NSURL+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAD_NSURL+Parameters.m"; sourceTree = "<group>"; };
+		750F75AE1CE5735600B1722A /* NSBundle+Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Loader.h"; sourceTree = "<group>"; };
+		750F75AF1CE5735600B1722A /* NSBundle+Loader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Loader.m"; sourceTree = "<group>"; };
+		750F75B01CE5735600B1722A /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		750F75B11CE5735600B1722A /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		750F75B21CE5735600B1722A /* UIFont+GillSansFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+GillSansFonts.h"; sourceTree = "<group>"; };
+		750F75B31CE5735600B1722A /* UIFont+GillSansFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+GillSansFonts.m"; sourceTree = "<group>"; };
+		750F75B51CE5735600B1722A /* CADGillSansLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADGillSansLabel.h; sourceTree = "<group>"; };
+		750F75B61CE5735600B1722A /* CADGillSansLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADGillSansLabel.m; sourceTree = "<group>"; };
+		750F75C01CE5765500B1722A /* CADIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADIndexViewController.m; sourceTree = "<group>"; };
+		750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADBaiduMapViewController.m; sourceTree = "<group>"; };
+		750F75C21CE5765500B1722A /* CADIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADIndexViewController.h; sourceTree = "<group>"; };
+		750F75C31CE5765500B1722A /* CADBaiduMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADBaiduMapViewController.h; sourceTree = "<group>"; };
+		750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADNetworkLoadingViewController.m; sourceTree = "<group>"; };
+		750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADNetworkLoadingViewController.h; sourceTree = "<group>"; };
 		751B22EA1C50CA8F0031F782 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Home.storyboard; path = storyboard/Home.storyboard; sourceTree = "<group>"; };
 		751B22ED1C50CCDE0031F782 /* CADStoryBoardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStoryBoardUtilities.h; sourceTree = "<group>"; };
 		751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStoryBoardUtilities.m; sourceTree = "<group>"; };
@@ -274,6 +304,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		750F75A41CE5735600B1722A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				750F75A51CE5735600B1722A /* Categories */,
+				750F75B41CE5735600B1722A /* Labels */,
+				750F75B71CE5735600B1722A /* Utils */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		750F75A51CE5735600B1722A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				750F75A61CE5735600B1722A /* CAD_NSArray+SafeValues.h */,
+				750F75A71CE5735600B1722A /* CAD_NSArray+SafeValues.m */,
+				750F75A81CE5735600B1722A /* CAD_NSDictionary+SafeValues.h */,
+				750F75A91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m */,
+				750F75AA1CE5735600B1722A /* CAD_NSString+UrlEncoding.h */,
+				750F75AB1CE5735600B1722A /* CAD_NSString+UrlEncoding.m */,
+				750F75AC1CE5735600B1722A /* CAD_NSURL+Parameters.h */,
+				750F75AD1CE5735600B1722A /* CAD_NSURL+Parameters.m */,
+				750F75AE1CE5735600B1722A /* NSBundle+Loader.h */,
+				750F75AF1CE5735600B1722A /* NSBundle+Loader.m */,
+				750F75B01CE5735600B1722A /* NSString+MD5.h */,
+				750F75B11CE5735600B1722A /* NSString+MD5.m */,
+				750F75B21CE5735600B1722A /* UIFont+GillSansFonts.h */,
+				750F75B31CE5735600B1722A /* UIFont+GillSansFonts.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		750F75B41CE5735600B1722A /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				750F75B51CE5735600B1722A /* CADGillSansLabel.h */,
+				750F75B61CE5735600B1722A /* CADGillSansLabel.m */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		750F75B71CE5735600B1722A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				750F75C01CE5765500B1722A /* CADIndexViewController.m */,
+				750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */,
+				750F75C21CE5765500B1722A /* CADIndexViewController.h */,
+				750F75C31CE5765500B1722A /* CADBaiduMapViewController.h */,
+				750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */,
+				750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		751B22E91C50CA3E0031F782 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +556,7 @@
 		75CCCB811A1E01CB0005CB6B /* IndoorIOS */ = {
 			isa = PBXGroup;
 			children = (
+				750F75A41CE5735600B1722A /* Utilities */,
 				751B22E91C50CA3E0031F782 /* storyboard */,
 				75EF6BED1AE9F56600418E02 /* Resources */,
 				753547771AE6694A005A5791 /* Tools */,
@@ -730,6 +814,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750F75BB1CE5735600B1722A /* CAD_NSURL+Parameters.m in Sources */,
 				753547611AE66568005A5791 /* TimeSelectedView.m in Sources */,
 				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
 				7509EDB81C7983D5009CD66D /* CADIndexViewController.m in Sources */,
@@ -737,14 +822,16 @@
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
+				750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
+				750F75B81CE5735600B1722A /* CAD_NSArray+SafeValues.m in Sources */,
 				751B22EF1C50CCDE0031F782 /* CADStoryBoardUtilities.m in Sources */,
 				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
 				75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */,
 				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
+				750F75B91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m in Sources */,
 				753547741AE66941005A5791 /* SportDayRule.m in Sources */,
 				7535475C1AE66568005A5791 /* Cell.m in Sources */,
-				751B22F21C50CDDF0031F782 /* CADNetworkLoadingViewController.m in Sources */,
 				7535475E1AE66568005A5791 /* ListItem.m in Sources */,
 				753547801AE6694A005A5791 /* Constants.m in Sources */,
 				75FB5DB91C79F05700C35BDC /* CADIndexHeaderView.m in Sources */,
@@ -754,22 +841,26 @@
 				753697851C522BC600E47E42 /* CADTestViewController.m in Sources */,
 				75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */,
 				75EE89D41AF2129400E64310 /* CADOrderListItem.m in Sources */,
+				750F75BD1CE5735600B1722A /* NSString+MD5.m in Sources */,
+				750F75BE1CE5735600B1722A /* UIFont+GillSansFonts.m in Sources */,
 				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
 				751B22F51C50CE9C0031F782 /* CADActivityIndicator.m in Sources */,
 				75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */,
 				75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */,
+				750F75BA1CE5735600B1722A /* CAD_NSString+UrlEncoding.m in Sources */,
+				750F75BC1CE5735600B1722A /* NSBundle+Loader.m in Sources */,
 				753547831AE6694A005A5791 /* Utils.m in Sources */,
 				753547891AE669CF005A5791 /* ParseStadiumDetail.m in Sources */,
 				75C84C551AF9EF80000C3AD1 /* CADTimeCollectionViewCell.m in Sources */,
 				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
+				750F75BF1CE5735600B1722A /* CADGillSansLabel.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
 				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
 				757588CF1B4FA1190053DCF3 /* CADChangePasswordViewController.m in Sources */,
 				75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				758A20821ADE318A00413251 /* CADPayViewController.m in Sources */,
-				7509EDB51C79725D009CD66D /* CADBaiduMapViewController.m in Sources */,
 				75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */,
 				753547681AE66740005A5791 /* IconDescription.m in Sources */,
 				75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */,
@@ -779,6 +870,7 @@
 				75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */,
 				75EF6BFF1AEA41A000418E02 /* CADRegisterViewController.m in Sources */,
 				757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */,
+				750F75C81CE5765500B1722A /* CADNetworkLoadingViewController.m in Sources */,
 				75EF6BFC1AEA0EDE00418E02 /* CADLoginViewController.m in Sources */,
 				75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */,
 			);
