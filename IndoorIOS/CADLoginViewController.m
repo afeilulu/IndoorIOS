@@ -13,6 +13,9 @@
 #import "CADUserManager.h"
 #import "Utils.h"
 #import "CADChooseViewController.h"
+#import "AFNetworking.h"
+//@import AFNetworking;
+
 
 @interface CADLoginViewController ()
 
@@ -113,6 +116,7 @@
         NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
         NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'account':'%@','password':'%@','randTime':'%@','secret':'%@'}",_UserName.text,_Password.text,timeStamp,[Utils md5:beforeMd5]];
         
+        /*
         [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
         self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
         
@@ -122,9 +126,43 @@
         // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
         //
         NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
+        */
         
         // show in the status bar that network activity is starting
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        
+        NSString *param2 = [[NSString alloc] initWithFormat:@"{'account':'%@','password':'%@','randTime':'%@','secret':'%@'}",_UserName.text,_Password.text,timeStamp,[Utils md5:beforeMd5]];
+        NSDictionary *parameters = @{@"jsonString": param2};
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager POST:kLoginUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+                NSLog(@"JSON: %@", responseObject);
+                
+            } else {
+                NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"登录错误"
+                                                                    message:errmsg
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+            
+        } failure:^(NSURLSessionTask *operation, NSError *error) {
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            //        NSLog(@"Error: %@", error);
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"登录错误"
+                                                                message:[[NSString alloc] initWithFormat:@"%@",[error localizedDescription]]
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        }];
+        
     }
 }
 

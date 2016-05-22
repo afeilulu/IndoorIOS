@@ -46,8 +46,8 @@ BMKMapManager* _mapManager;
     
 //    UITabBarController* tabController = (UITabBarController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Home" class:[UITableViewController class]];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
-    UITabBarController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"tabBarcontroller"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
     
     [self.window setRootViewController:rootViewController];
     
