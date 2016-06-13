@@ -9,12 +9,14 @@
 #import "Constants.h"
 
 NSString *const kSecretKey = @"wmdpzsdl";
-NSString *const kStadiumsJsonUrl = @"http://www.paopaoty.com/App-getSportSiteListAjax.action";
+
+NSString *const kStadiumsJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteListAjax.action";
+
 NSString *const kStadiumDetailJsonUrl = @"http://www.paopaoty.com/App-getSportSiteDetailAjax.action";
 NSString *const kSportPlaceStatusJsonUrl = @"http://www.paopaoty.com/App-getSportPlaceStatusAjax.action";
 NSString *const kRegisterUrl = @"http://www.paopaoty.com/App-addCustomerAjax.action";
 NSString *const kAlipayCallbackUrl = @"http://www.paopaoty.com/AlipayNotify-sportOrder.action";
-NSString *const kTimeStampUrl  = @"http://www.paopaoty.com/App-getCurrentTimeAjax.action";
+NSString *const kTimeStampUrl  = @"http://www.paopaoty.com:8082/App-getCurrentTimeAjax.action";
 NSString *const kLoginUrl  = @"http://www.paopaoty.com:8082/App-loginAjax.action";
 NSString *const kOrderListJsonUrl = @"http://www.paopaoty.com/App-getOrderListAjax.action";
 NSString *const kSubmitOrderJsonUrl = @"http://www.paopaoty.com/App-submitOrderAjax.action";
@@ -25,6 +27,11 @@ NSString *const kPreAliPayUrl = @"http://www.paopaoty.com/App-aliPayAjax.action"
 NSString *const kValiCodeOfResetPasswordJsonUrl = @"http://www.paopaoty.com/App-getValidateCodeForGMAjax.action";
 NSString *const kResetPasswordJsonUrl = @"http://www.paopaoty.com/App-resetPasswordAjax.action";
 NSString *const KModifyPasswordJsonUrl =@"http://www.paopaoty.com/App-changePasswordAjax.action";
+
+NSString *const KGetCityUrl =@"http://www.paopaoty.com:8082/App-getSportCitiesAjax.action";
+NSString *const KRecommendStoreUrl =@"http://www.paopaoty.com:8082/App-recommendStoreAjax.action";
+NSString *const KRecommendTrainerUrl =@"http://www.paopaoty.com:8082/App-recommendTrainAjax.action";
+NSString *const KActivityListUrl =@"http://www.paopaoty.com:8082/App-activityListAjax.action";
 
 int const kMaxOrderPlace = 4;
 

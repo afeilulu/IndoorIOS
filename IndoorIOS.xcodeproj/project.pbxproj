@@ -45,6 +45,7 @@
 		7536AB901B39210C00FF0B3C /* ic_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB8D1B39210C00FF0B3C /* ic_phone.png */; };
 		7536AB931B3922C900FF0B3C /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB911B3922C900FF0B3C /* ic_key.png */; };
 		7536AB941B3922C900FF0B3C /* ic_email.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB921B3922C900FF0B3C /* ic_email.png */; };
+		753FFE521D06E29B003CFA66 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753FFE511D06E29B003CFA66 /* Start.storyboard */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF11B3CFBB800298472 /* ic_filter_drama.png */; };
 		756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */; };
@@ -82,6 +83,9 @@
 		75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC891AECD01D001FEF9C /* CADUserManager.m */; };
 		75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */; };
 		75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */; };
+		75CDB4291D0D3B0F00A3B3CF /* CADSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CDB4281D0D3B0F00A3B3CF /* CADSearchResultController.m */; };
+		75CE487D1D09A9FF00EEEB20 /* CADStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE487C1D09A9FF00EEEB20 /* CADStartViewController.m */; };
+		75CE48831D0A648600EEEB20 /* CADAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE48821D0A648600EEEB20 /* CADAlertManager.m */; };
 		75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CE62031B1733CB001E3637 /* CADDetailDownloader.m */; };
 		75CE620B1B1843C0001E3637 /* ic_bus.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62051B1843C0001E3637 /* ic_bus.png */; };
 		75CE620D1B1843C0001E3637 /* ic_clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62071B1843C0001E3637 /* ic_clock.png */; };
@@ -105,6 +109,8 @@
 		75EF6BF91AE9F56600418E02 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EF6BF31AE9F56600418E02 /* user@2x.png */; };
 		75EF6BFC1AEA0EDE00418E02 /* CADLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EF6BFB1AEA0EDE00418E02 /* CADLoginViewController.m */; };
 		75EF6BFF1AEA41A000418E02 /* CADRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */; };
+		75EFC2271D0D559100582E8E /* CADSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EFC2251D0D559100582E8E /* CADSearchResultCell.m */; };
+		75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EFC2261D0D559100582E8E /* CADSearchResultCell.xib */; };
 		75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */; };
 		75FB5DB91C79F05700C35BDC /* CADIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DB81C79F05700C35BDC /* CADIndexHeaderView.m */; };
 		75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DBB1C79FEFA00C35BDC /* CADIndexFooterView.m */; };
@@ -187,6 +193,7 @@
 		7536AB8D1B39210C00FF0B3C /* ic_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_phone.png; sourceTree = "<group>"; };
 		7536AB911B3922C900FF0B3C /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		7536AB921B3922C900FF0B3C /* ic_email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email.png; sourceTree = "<group>"; };
+		753FFE511D06E29B003CFA66 /* Start.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Start.storyboard; path = storyboard/Start.storyboard; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		756CACF11B3CFBB800298472 /* ic_filter_drama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_filter_drama.png; sourceTree = "<group>"; };
@@ -212,6 +219,7 @@
 		75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADResetPasswordViewController.m; sourceTree = "<group>"; };
 		75BA7C801AF1C87000D50D55 /* CADMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADMeViewController.h; sourceTree = "<group>"; };
 		75BA7C811AF1C87000D50D55 /* CADMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADMeViewController.m; sourceTree = "<group>"; };
+		75C7160F1D0D5FCD0061875D /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../Library/Developer/Xcode/DerivedData/IndoorIOS-azzvzvbpfbkzucaeuiexnvwzoman/Build/Products/Debug-iphoneos/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		75C84C3F1AF8BAD6000C3AD1 /* CADStickyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStickyLayout.h; sourceTree = "<group>"; };
 		75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStickyLayout.m; sourceTree = "<group>"; };
 		75C84C481AF90EA1000C3AD1 /* CADDateCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDateCollectionViewCell.h; sourceTree = "<group>"; };
@@ -243,6 +251,12 @@
 		75CCFC8C1AEE01E3001FEF9C /* CADParseTimeStamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseTimeStamp.m; sourceTree = "<group>"; };
 		75CCFC8E1AEE0CF4001FEF9C /* CADParseUserLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseUserLogin.h; sourceTree = "<group>"; };
 		75CCFC8F1AEE0CF4001FEF9C /* CADParseUserLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADParseUserLogin.m; sourceTree = "<group>"; };
+		75CDB4271D0D3B0F00A3B3CF /* CADSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADSearchResultController.h; sourceTree = "<group>"; };
+		75CDB4281D0D3B0F00A3B3CF /* CADSearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSearchResultController.m; sourceTree = "<group>"; };
+		75CE487B1D09A9FF00EEEB20 /* CADStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStartViewController.h; sourceTree = "<group>"; };
+		75CE487C1D09A9FF00EEEB20 /* CADStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStartViewController.m; sourceTree = "<group>"; };
+		75CE48811D0A648600EEEB20 /* CADAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADAlertManager.h; sourceTree = "<group>"; };
+		75CE48821D0A648600EEEB20 /* CADAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADAlertManager.m; sourceTree = "<group>"; };
 		75CE62021B1733CB001E3637 /* CADDetailDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDetailDownloader.h; sourceTree = "<group>"; };
 		75CE62031B1733CB001E3637 /* CADDetailDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADDetailDownloader.m; sourceTree = "<group>"; };
 		75CE62051B1843C0001E3637 /* ic_bus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_bus.png; sourceTree = "<group>"; };
@@ -271,6 +285,9 @@
 		75EF6BFB1AEA0EDE00418E02 /* CADLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADLoginViewController.m; sourceTree = "<group>"; };
 		75EF6BFD1AEA41A000418E02 /* CADRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADRegisterViewController.h; sourceTree = "<group>"; };
 		75EF6BFE1AEA41A000418E02 /* CADRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADRegisterViewController.m; sourceTree = "<group>"; };
+		75EFC2241D0D559100582E8E /* CADSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADSearchResultCell.h; sourceTree = "<group>"; };
+		75EFC2251D0D559100582E8E /* CADSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSearchResultCell.m; sourceTree = "<group>"; };
+		75EFC2261D0D559100582E8E /* CADSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADSearchResultCell.xib; sourceTree = "<group>"; };
 		75F4DCFF1C79A03E0081F182 /* CADIndexCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexCollectionViewCell.h; path = IndexCollectionView/CADIndexCollectionViewCell.h; sourceTree = "<group>"; };
 		75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADIndexCollectionViewCell.m; path = IndexCollectionView/CADIndexCollectionViewCell.m; sourceTree = "<group>"; };
 		75FB5DB71C79F05700C35BDC /* CADIndexHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexHeaderView.h; path = IndexCollectionView/CADIndexHeaderView.h; sourceTree = "<group>"; };
@@ -285,13 +302,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FE7F14D81F1D7E6C5F8444E /* libPods-IndoorIOS.a in Frameworks */,
 				759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */,
 				759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */,
 				759C8AEE1A221E1700EB82D8 /* SystemConfiguration.framework in Frameworks */,
 				759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */,
 				759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */,
 				759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */,
-				7FE7F14D81F1D7E6C5F8444E /* libPods-IndoorIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +371,8 @@
 				750F75C31CE5765500B1722A /* CADBaiduMapViewController.h */,
 				750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */,
 				750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */,
+				75CE48811D0A648600EEEB20 /* CADAlertManager.h */,
+				75CE48821D0A648600EEEB20 /* CADAlertManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -363,6 +382,7 @@
 			children = (
 				7509EDAE1C796769009CD66D /* Index.storyboard */,
 				751B22EA1C50CA8F0031F782 /* Home.storyboard */,
+				753FFE511D06E29B003CFA66 /* Start.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -370,6 +390,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				75CDB42A1D0D531800A3B3CF /* SearchResultTableCell */,
 				75F4DCF81C799FA30081F182 /* IndexCollectionView */,
 				757D78891AF74300007D4D93 /* OrderTableViewCell */,
 				7535478A1AE72CC6005A5791 /* StretchableTableHeaderView */,
@@ -380,6 +401,10 @@
 				753547571AE66568005A5791 /* TimeSelectedView */,
 				7509EDB61C7983D5009CD66D /* CADIndexViewController.h */,
 				7509EDB71C7983D5009CD66D /* CADIndexViewController.m */,
+				75CE487B1D09A9FF00EEEB20 /* CADStartViewController.h */,
+				75CE487C1D09A9FF00EEEB20 /* CADStartViewController.m */,
+				75CDB4271D0D3B0F00A3B3CF /* CADSearchResultController.h */,
+				75CDB4281D0D3B0F00A3B3CF /* CADSearchResultController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -511,6 +536,7 @@
 		754D06141A22B41200D454AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75C7160F1D0D5FCD0061875D /* libAFNetworking.a */,
 				753697811C522A1F00E47E42 /* UIKit.framework */,
 				759C8AF11A221E3A00EB82D8 /* Security.framework */,
 				759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */,
@@ -598,6 +624,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		75CDB42A1D0D531800A3B3CF /* SearchResultTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				75EFC2241D0D559100582E8E /* CADSearchResultCell.h */,
+				75EFC2251D0D559100582E8E /* CADSearchResultCell.m */,
+				75EFC2261D0D559100582E8E /* CADSearchResultCell.xib */,
+			);
+			path = SearchResultTableCell;
+			sourceTree = "<group>";
+		};
 		75EF6BED1AE9F56600418E02 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,12 +689,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75CCCBA21A1E01CC0005CB6B /* Build configuration list for PBXNativeTarget "IndoorIOS" */;
 			buildPhases = (
-				C907887317EB80B80947BB2F /* 📦 Check Pods Manifest.lock */,
+				C907887317EB80B80947BB2F /* [CP] Check Pods Manifest.lock */,
 				75CCCB7B1A1E01CB0005CB6B /* Sources */,
 				75CCCB7C1A1E01CB0005CB6B /* Frameworks */,
 				75CCCB7D1A1E01CB0005CB6B /* Resources */,
-				3FB681E513507D3B9D583E8A /* 📦 Embed Pods Frameworks */,
-				2D5F9CECC77769FF6BBB3AC3 /* 📦 Copy Pods Resources */,
+				3FB681E513507D3B9D583E8A /* [CP] Embed Pods Frameworks */,
+				2D5F9CECC77769FF6BBB3AC3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -715,6 +751,7 @@
 				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
+				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
 				756CACFE1B3D374E00298472 /* ic_sms.png in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
 				7536AB901B39210C00FF0B3C /* ic_phone.png in Resources */,
@@ -732,6 +769,7 @@
 				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
 				751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */,
 				75EF6BF81AE9F56600418E02 /* user.png in Resources */,
+				753FFE521D06E29B003CFA66 /* Start.storyboard in Resources */,
 				75CCCB931A1E01CB0005CB6B /* LaunchScreen.xib in Resources */,
 				75CE621A1B184BD5001E3637 /* ic_bus@2x.png in Resources */,
 				75EF6BF71AE9F56600418E02 /* teacher@2x.png in Resources */,
@@ -750,14 +788,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2D5F9CECC77769FF6BBB3AC3 /* 📦 Copy Pods Resources */ = {
+		2D5F9CECC77769FF6BBB3AC3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -765,14 +803,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IndoorIOS/Pods-IndoorIOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3FB681E513507D3B9D583E8A /* 📦 Embed Pods Frameworks */ = {
+		3FB681E513507D3B9D583E8A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -780,14 +818,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IndoorIOS/Pods-IndoorIOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C907887317EB80B80947BB2F /* 📦 Check Pods Manifest.lock */ = {
+		C907887317EB80B80947BB2F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -806,10 +844,12 @@
 				753547611AE66568005A5791 /* TimeSelectedView.m in Sources */,
 				753547761AE66941005A5791 /* StatusByDayRecord.m in Sources */,
 				7509EDB81C7983D5009CD66D /* CADIndexViewController.m in Sources */,
+				75CE487D1D09A9FF00EEEB20 /* CADStartViewController.m in Sources */,
 				75B6F8361B4E1C6600C39E13 /* CADResetPasswordViewController.m in Sources */,
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
+				75CDB4291D0D3B0F00A3B3CF /* CADSearchResultController.m in Sources */,
 				750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
 				750F75B81CE5735600B1722A /* CAD_NSArray+SafeValues.m in Sources */,
@@ -830,6 +870,7 @@
 				75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */,
 				75EE89D41AF2129400E64310 /* CADOrderListItem.m in Sources */,
 				750F75BD1CE5735600B1722A /* NSString+MD5.m in Sources */,
+				75EFC2271D0D559100582E8E /* CADSearchResultCell.m in Sources */,
 				750F75BE1CE5735600B1722A /* UIFont+GillSansFonts.m in Sources */,
 				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
@@ -844,6 +885,7 @@
 				75CCFC8D1AEE01E3001FEF9C /* CADParseTimeStamp.m in Sources */,
 				750F75BF1CE5735600B1722A /* CADGillSansLabel.m in Sources */,
 				753547601AE66568005A5791 /* TextItem.m in Sources */,
+				75CE48831D0A648600EEEB20 /* CADAlertManager.m in Sources */,
 				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
 				757588CF1B4FA1190053DCF3 /* CADChangePasswordViewController.m in Sources */,
 				75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */,
@@ -921,7 +963,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
@@ -958,8 +1000,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -976,7 +1019,10 @@
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -984,7 +1030,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = IndoorIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1009,6 +1055,7 @@
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1017,7 +1064,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = IndoorIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

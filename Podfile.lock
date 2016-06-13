@@ -1,48 +1,48 @@
 PODS:
-  - AFNetworking (3.0.4):
-    - AFNetworking/NSURLSession (= 3.0.4)
-    - AFNetworking/Reachability (= 3.0.4)
-    - AFNetworking/Security (= 3.0.4)
-    - AFNetworking/Serialization (= 3.0.4)
-    - AFNetworking/UIKit (= 3.0.4)
-  - AFNetworking/NSURLSession (3.0.4):
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.0.4)
-  - AFNetworking/Security (3.0.4)
-  - AFNetworking/Serialization (3.0.4)
-  - AFNetworking/UIKit (3.0.4):
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AlipaySDK-2.0 (3.0.1.3):
-    - AlipaySDK-2.0/Core (= 3.0.1.3)
-  - AlipaySDK-2.0/Core (3.0.1.3)
-  - AlipaySDK-2.0/Order (3.0.1.3):
+  - AlipaySDK-2.0 (15.0.2):
+    - AlipaySDK-2.0/Core (= 15.0.2)
+  - AlipaySDK-2.0/Core (15.0.2)
+  - AlipaySDK-2.0/Order (15.0.2):
     - AlipaySDK-2.0/Core
     - OpenSSL
     - PupaFoundation
-  - BaiduMapKit (2.9.1)
-  - OpenSSL (1.0.205)
-  - PupaFoundation (1.1.6)
-  - SDWebImage (3.7.4):
-    - SDWebImage/Core (= 3.7.4)
-  - SDWebImage/Core (3.7.4)
+  - BaiduMapKit (3.0.0)
+  - OpenSSL (1.0.208)
+  - PupaFoundation (1.1.8)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
+  - AFNetworking (~> 3.1.0)
   - AlipaySDK-2.0
   - AlipaySDK-2.0/Order
   - BaiduMapKit
-  - SDWebImage (~> 3.6)
+  - SDWebImage (~> 3.8.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  AlipaySDK-2.0: 2e334f94da489de54a5a4cc48d6456d41a8cc010
-  BaiduMapKit: 97d2d44b41a876de2371fb91ddf78cdf84dafa05
-  OpenSSL: 162687d7e96a3edeb4cf443ca6ce7cdb2912df7b
-  PupaFoundation: 2c132c6f43485e7cecf3b64ea0725274e64041b1
-  SDWebImage: 247edd7dd80dd6124197b0d6a17846fe9d1df968
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AlipaySDK-2.0: 346e006fd2999d5ca5dd8869d03bc0a260fc48e0
+  BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
+  OpenSSL: b187269d386b07452f56af273764ea0636dd5da8
+  PupaFoundation: 517b518ad1a43a83c4cf151c101763566ffc0c12
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: bb556418a80fb9160fcbf83d25162ea05d2368a0
+PODFILE CHECKSUM: 9e5f4f4ff1f2c753b6a89a238f89eb751ff693a4
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

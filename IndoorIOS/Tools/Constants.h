@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 // 加密私钥
-NSString *const kSecretKey;
+extern NSString *const kSecretKey;
 
 // 所有场馆地理位置
 extern NSString * const kStadiumsJsonUrl;
@@ -61,6 +61,18 @@ extern NSString *const kResetPasswordJsonUrl;
 
 // 修改密码
 extern NSString *const KModifyPasswordJsonUrl;
+
+// 获取城市
+extern NSString *const KGetCityUrl;
+
+// 获取推荐场馆
+extern NSString *const KRecommendStoreUrl;
+
+// 获取推荐教练
+extern NSString *const KRecommendTrainerUrl;
+
+// 获取活动列表
+extern NSString *const KActivityListUrl;
 
 extern int const kSelectableColor;
 

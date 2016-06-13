@@ -10,7 +10,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "CADPayViewController.h"
 #import "CADStoryBoardUtilities.h"
-
+#import "CADStartViewController.h"
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
 #import <CFNetwork/CFNetwork.h>
@@ -46,8 +46,12 @@ BMKMapManager* _mapManager;
     
 //    UITabBarController* tabController = (UITabBarController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Home" class:[UITableViewController class]];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UITabBarController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainTabBarController"];
+    /*
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Home" bundle:nil];
+    UITabBarController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"HomeTabBarController"];
+    */
+    
+    UINavigationController *rootViewController = (UINavigationController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Start" class:[CADStartViewController class]];
     
     [self.window setRootViewController:rootViewController];
     
