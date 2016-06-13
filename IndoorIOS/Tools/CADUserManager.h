@@ -15,9 +15,11 @@
 
 @property (nonatomic, strong) CADUser *user;
 @property (nonatomic, strong) NSString *timeStamp;
+@property (nonatomic, strong) NSString *cityName;
 
 - (NSString *)getTimeStamp;
 - (CADUser *)getUser;
+- (NSString *)getCityName;
 - (void) clear;
 
 @end

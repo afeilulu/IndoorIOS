@@ -9,6 +9,7 @@
 #import "CADStartViewController.h"
 #import "CADAlertManager.h"
 #import "StadiumRecord.h"
+#import "CADUserManager.h"
 
 @interface CADStartViewController ()
 
@@ -28,6 +29,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //初始化BMKLocationService
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    //启动LocationService
+    [_locService startUserLocationService];
+    
     self.resultsTableController = [[CADSearchResultController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
     self.searchController.searchResultsUpdater = self;
@@ -46,7 +53,7 @@
     
 
     self.afm = [AFHTTPSessionManager manager];
-    [self getCity];
+    
     [self getSportSiteList:@""];
 //    [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
 //    [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
@@ -175,7 +182,7 @@
                     
                     // TODO
                     // first set depending on location
-                    
+                    [self.cityButton setTitle:[CADUserManager sharedInstance].cityName];
                     
                     for (NSDictionary *city in self.cityArray) {
                         UIAlertAction *action = [UIAlertAction
@@ -445,4 +452,56 @@
     [self presentViewController:self.cityActionSheet animated:YES completion:nil];
     
 }
+
+#pragma mark - baidu location
+
+//实现相关delegate 处理位置信息更新
+//处理方向变更信息
+- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
+{
+//    NSLog(@"heading is %@",userLocation.heading);
+}
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    
+    CLGeocoder *Geocoder=[[CLGeocoder alloc]init];//CLGeocoder用法参加之前博客
+    CLGeocodeCompletionHandler handler = ^(NSArray *place, NSError *error) {
+        for (CLPlacemark *placemark in place) {
+//            NSLog(@"city %@",placemark.thoroughfare);//获取街道地址
+//            NSLog(@"cityName %@",placemark.locality);//获取城市名
+            [CADUserManager sharedInstance].cityName = placemark.locality;
+            
+            break;
+        }
+    
+        // getttingCityFalg make sure get city only once
+        if (self.gettingCityFlag == NO && ( self.cityArray == nil || self.cityArray.count == 0)) {
+            self.gettingCityFlag = YES;
+            [self getCity];
+        }
+        
+    };
+    CLLocation *loc = [[CLLocation alloc] initWithLatitude:userLocation.location.coordinate.latitude longitude:userLocation.location.coordinate.longitude];
+    [Geocoder reverseGeocodeLocation:loc completionHandler:handler];
+    
+
+    // 距离计算
+    // TODO:try not to calculate every time
+    if (self.userLastLat != userLocation.location.coordinate.latitude || self.userLastLng != userLocation.location.coordinate.longitude) {
+        
+        self.userLastLat = userLocation.location.coordinate.latitude;
+        self.userLastLng = userLocation.location.coordinate.longitude;
+        
+        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake(userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude));
+        for (StadiumRecord *item in self.sites) {
+            BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([item.lat doubleValue],[item.lng doubleValue]));
+            CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
+            item.distance = [[NSString alloc] initWithFormat:@"%.0f米",distance ];
+        }
+    }
+    
+}
+
 @end

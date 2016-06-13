@@ -38,6 +38,8 @@
 
 @property (nonatomic, strong) NSArray *pms;
 
+@property (nonatomic, strong) NSString *distance;
+
 // flag for assure get only once
 @property (nonatomic) bool gotDetail;
 

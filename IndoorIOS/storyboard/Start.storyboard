@@ -19,7 +19,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="PKE-hZ-Aao">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="Lrf-k6-aaz">
+                        <barButtonItem key="leftBarButtonItem" title="@" id="Lrf-k6-aaz">
                             <connections>
                                 <action selector="clickCityButton:" destination="UG6-LZ-416" id="7JI-1m-grx"/>
                             </connections>
@@ -50,6 +50,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bkC-vq-njd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

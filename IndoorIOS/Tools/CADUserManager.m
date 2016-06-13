@@ -32,6 +32,10 @@
     return _timeStamp;
 }
 
+-(NSString *)getCityName{
+    return _cityName;
+}
+
 -(void)clear{
     _user = nil;
     _timeStamp = nil;

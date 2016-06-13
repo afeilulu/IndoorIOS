@@ -21,7 +21,9 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
 }
 
 - (void)configureCell:(UITableViewCell *)cell forResult:(StadiumRecord *)site {
+    
     cell.textLabel.text = site.name;
+    cell.detailTextLabel.text = site.distance;
     
     // build the price and year string
     // use NSNumberFormatter to get the currency format out of this NSNumber (product.introPrice)
