@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60CFC20B07A04F9ACD24A6F0 /* libPods-IndoorIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ED38A8A6BD360F61F1DAFA9 /* libPods-IndoorIOS.a */; };
 		7509EDAF1C796769009CD66D /* Index.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7509EDAE1C796769009CD66D /* Index.storyboard */; };
 		7509EDB81C7983D5009CD66D /* CADIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7509EDB71C7983D5009CD66D /* CADIndexViewController.m */; };
 		750F75B81CE5735600B1722A /* CAD_NSArray+SafeValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75A71CE5735600B1722A /* CAD_NSArray+SafeValues.m */; };
@@ -114,11 +115,10 @@
 		75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */; };
 		75FB5DB91C79F05700C35BDC /* CADIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DB81C79F05700C35BDC /* CADIndexHeaderView.m */; };
 		75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DBB1C79FEFA00C35BDC /* CADIndexFooterView.m */; };
-		7FE7F14D81F1D7E6C5F8444E /* libPods-IndoorIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C18ED06064223B3DB90CE0D /* libPods-IndoorIOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5C18ED06064223B3DB90CE0D /* libPods-IndoorIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IndoorIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ED38A8A6BD360F61F1DAFA9 /* libPods-IndoorIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IndoorIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		736719CB9D6973960EF47F1F /* Pods-IndoorIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IndoorIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-IndoorIOS/Pods-IndoorIOS.release.xcconfig"; sourceTree = "<group>"; };
 		7509EDAE1C796769009CD66D /* Index.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Index.storyboard; path = storyboard/Index.storyboard; sourceTree = "<group>"; };
 		7509EDB61C7983D5009CD66D /* CADIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADIndexViewController.h; sourceTree = "<group>"; };
@@ -219,7 +219,6 @@
 		75B6F8351B4E1C6600C39E13 /* CADResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADResetPasswordViewController.m; sourceTree = "<group>"; };
 		75BA7C801AF1C87000D50D55 /* CADMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADMeViewController.h; sourceTree = "<group>"; };
 		75BA7C811AF1C87000D50D55 /* CADMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADMeViewController.m; sourceTree = "<group>"; };
-		75C7160F1D0D5FCD0061875D /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../Library/Developer/Xcode/DerivedData/IndoorIOS-azzvzvbpfbkzucaeuiexnvwzoman/Build/Products/Debug-iphoneos/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		75C84C3F1AF8BAD6000C3AD1 /* CADStickyLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStickyLayout.h; sourceTree = "<group>"; };
 		75C84C401AF8BAD6000C3AD1 /* CADStickyLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStickyLayout.m; sourceTree = "<group>"; };
 		75C84C481AF90EA1000C3AD1 /* CADDateCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADDateCollectionViewCell.h; sourceTree = "<group>"; };
@@ -302,13 +301,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FE7F14D81F1D7E6C5F8444E /* libPods-IndoorIOS.a in Frameworks */,
 				759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */,
 				759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */,
 				759C8AEE1A221E1700EB82D8 /* SystemConfiguration.framework in Frameworks */,
 				759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */,
 				759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */,
 				759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */,
+				60CFC20B07A04F9ACD24A6F0 /* libPods-IndoorIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,7 +535,6 @@
 		754D06141A22B41200D454AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				75C7160F1D0D5FCD0061875D /* libAFNetworking.a */,
 				753697811C522A1F00E47E42 /* UIKit.framework */,
 				759C8AF11A221E3A00EB82D8 /* Security.framework */,
 				759C8AEF1A221E2500EB82D8 /* CoreGraphics.framework */,
@@ -544,7 +542,7 @@
 				759C8AEB1A221E0B00EB82D8 /* OpenGLES.framework */,
 				759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */,
 				759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */,
-				5C18ED06064223B3DB90CE0D /* libPods-IndoorIOS.a */,
+				4ED38A8A6BD360F61F1DAFA9 /* libPods-IndoorIOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1036,7 +1034,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinaairdome.IndoorIOS;
 				PRODUCT_NAME = "泡泡体育";

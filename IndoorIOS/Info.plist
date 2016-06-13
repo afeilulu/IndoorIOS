@@ -52,8 +52,6 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>定位</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Start</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
