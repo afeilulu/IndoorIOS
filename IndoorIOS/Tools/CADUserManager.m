@@ -36,6 +36,10 @@
     return _cityName;
 }
 
+- (NSString *)getCityCode{
+    return _cityCode;
+}
+
 -(void)clear{
     _user = nil;
     _timeStamp = nil;

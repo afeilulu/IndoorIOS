@@ -11,6 +11,10 @@
 #import "StadiumRecord.h"
 #import "CADUserManager.h"
 
+#define leftAndRightPaddings 32.0
+#define numberOfItemPerRow 3.0
+#define heightAdjustment 30.0
+
 @interface CADStartViewController ()
 
 @end
@@ -35,6 +39,7 @@
     //启动LocationService
     [_locService startUserLocationService];
     
+    // 初始化搜索框
     self.resultsTableController = [[CADSearchResultController alloc] init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultsTableController];
     self.searchController.searchResultsUpdater = self;
@@ -51,13 +56,29 @@
     self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = true;
     
+    // 初始化collectionview
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    
+    self.sectionsTitle = [[NSArray alloc] initWithObjects:@"推荐场馆",@"推荐教练",@"推荐活动", nil];
+    self.section1 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+    self.section2 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+    self.section3 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
+    
+
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    NSLog(@"%@ - %f", NSStringFromClass([self class]), screenWidth);
+
+    CGFloat width = (screenWidth - leftAndRightPaddings) / numberOfItemPerRow;
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    layout.itemSize = CGSizeMake(width, width + heightAdjustment);
+    
+    
 
     self.afm = [AFHTTPSessionManager manager];
     
+    // get all sport sites
     [self getSportSiteList:@""];
-//    [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
-//    [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
-//    [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
     
 }
 
@@ -172,27 +193,43 @@
             [self.afm POST:KGetCityUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-//                    NSLog(@"JSON: %@", responseObject);
+                    NSLog(@"JSON: %@", responseObject);
                     self.cityArray = [responseObject objectForKey:@"list"];
                     
                     self.cityActionSheet =[UIAlertController
                                       alertControllerWithTitle:nil
                                       message:nil
                                       preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                    // firstly set depending on location
+                    [self.cityButton setTitle:[[CADUserManager sharedInstance].cityName substringWithRange:NSMakeRange(0, 2)]];
                     
-                    // TODO
-                    // first set depending on location
-                    [self.cityButton setTitle:[CADUserManager sharedInstance].cityName];
-                    
+                    // setting action sheet
+                    NSString *matchCity = [[CADUserManager sharedInstance].cityName substringWithRange:NSMakeRange(0, 2)];
                     for (NSDictionary *city in self.cityArray) {
                         UIAlertAction *action = [UIAlertAction
                                                         actionWithTitle:[city objectForKey:@"name"]
                                                         style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction *action)
                                                         {
-                                                            [self.cityButton setTitle:[city objectForKey:@"name"]];
+                                                            // update city name
+                                                            NSString *innerMatchCity = [[city objectForKey:@"name"] substringWithRange:NSMakeRange(0, 2)];
+                                                            [self.cityButton setTitle:innerMatchCity];
+                                                            
+                                                            // update city code
+                                                            for (NSDictionary *innerCity in self.cityArray) {
+                                                                if ([[[innerCity objectForKey:@"name"] substringWithRange:NSMakeRange(0, 2)] isEqualToString:innerMatchCity]) {
+                                                                    [CADUserManager sharedInstance].cityCode = [innerCity objectForKey:@"code"];
+                                                                    break;
+                                                                }
+                                                            }
                                                         }];
                         [self.cityActionSheet addAction:action];
+                        
+                        // update city code
+                        if ([[[city objectForKey:@"name"] substringWithRange:NSMakeRange(0, 2)] isEqualToString:matchCity]) {
+                            [CADUserManager sharedInstance].cityCode = [city objectForKey:@"code"];
+                        }
                     }
                     
                     UIAlertAction *cancelAction = [UIAlertAction
@@ -213,6 +250,11 @@
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [CADAlertManager showAlert:self setTitle:@"获取城市错误" setMessage:[error localizedDescription]];
             }];
+            
+            // TODO : specify city code
+            [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
+            [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
+            [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
             
         } else {
             NSString* errmsg = [responseObject objectForKey:@"errmsg"];
@@ -471,6 +513,8 @@
         for (CLPlacemark *placemark in place) {
 //            NSLog(@"city %@",placemark.thoroughfare);//获取街道地址
 //            NSLog(@"cityName %@",placemark.locality);//获取城市名
+            
+            // save city name
             [CADUserManager sharedInstance].cityName = placemark.locality;
             
             break;
@@ -503,5 +547,40 @@
     }
     
 }
+
+#pragma mark - collection view
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return self.sectionsTitle.count;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return self.section1.count;
+            break;
+        case 1:
+            return self.section2.count;
+            break;
+        case 2:
+            return self.section3.count;
+            break;
+    }
+    
+    return 0;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    return cell;
+}
+
+//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
+//
+//-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
 
 @end

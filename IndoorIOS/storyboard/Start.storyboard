@@ -16,7 +16,55 @@
                     <view key="view" contentMode="scaleToFill" id="4dn-Mo-FjO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XQ3-Yo-ptQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="3Af-as-sYk">
+                                    <size key="itemSize" width="200" height="200"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="P3A-3t-wmj">
+                                        <rect key="frame" x="8" y="122" width="200" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teacher.png" translatesAutoresizingMaskIntoConstraints="NO" id="hjP-hN-g67">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="hjP-hN-g67" secondAttribute="trailing" id="2Uq-ua-STW"/>
+                                            <constraint firstItem="hjP-hN-g67" firstAttribute="top" secondItem="P3A-3t-wmj" secondAttribute="top" id="FqN-Tf-LBb"/>
+                                            <constraint firstItem="hjP-hN-g67" firstAttribute="top" secondItem="P3A-3t-wmj" secondAttribute="top" id="JBm-6W-uE8"/>
+                                            <constraint firstAttribute="trailing" secondItem="hjP-hN-g67" secondAttribute="trailing" id="XTI-X0-Vex"/>
+                                            <constraint firstAttribute="bottom" secondItem="hjP-hN-g67" secondAttribute="bottom" id="eYb-7x-uwV"/>
+                                            <constraint firstAttribute="bottom" secondItem="hjP-hN-g67" secondAttribute="bottom" id="fb2-uS-dIe"/>
+                                            <constraint firstItem="hjP-hN-g67" firstAttribute="leading" secondItem="P3A-3t-wmj" secondAttribute="leading" id="gCT-rU-dfb"/>
+                                            <constraint firstItem="hjP-hN-g67" firstAttribute="leading" secondItem="P3A-3t-wmj" secondAttribute="leading" id="zL8-GH-WXj"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z0u-sd-8Sc">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XQ3-Yo-ptQ" secondAttribute="trailing" id="Y0f-qh-dhp"/>
+                            <constraint firstItem="owK-kR-edv" firstAttribute="top" secondItem="XQ3-Yo-ptQ" secondAttribute="bottom" id="gCF-PG-qzh"/>
+                            <constraint firstItem="XQ3-Yo-ptQ" firstAttribute="top" secondItem="4dn-Mo-FjO" secondAttribute="top" id="hod-wE-KKr"/>
+                            <constraint firstItem="XQ3-Yo-ptQ" firstAttribute="leading" secondItem="4dn-Mo-FjO" secondAttribute="leading" id="iQp-2F-hVC"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="PKE-hZ-Aao">
                         <barButtonItem key="leftBarButtonItem" title="@" id="Lrf-k6-aaz">
@@ -28,6 +76,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cityButton" destination="Lrf-k6-aaz" id="an7-S3-q14"/>
+                        <outlet property="collectionView" destination="XQ3-Yo-ptQ" id="qQw-EO-ley"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVl-9v-Jhs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -64,5 +113,6 @@
     </scenes>
     <resources>
         <image name="ic_account.png" width="24" height="24"/>
+        <image name="teacher.png" width="32" height="32"/>
     </resources>
 </document>
