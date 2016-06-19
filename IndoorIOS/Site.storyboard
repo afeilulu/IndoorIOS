@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Fdu-9u-w2u">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Site Detail View Controller-->
+        <scene sceneID="TMN-EN-uJ1">
+            <objects>
+                <tableViewController storyboardIdentifier="CADSiteDetailViewController" hidesBottomBarWhenPushed="YES" id="Fdu-9u-w2u" customClass="CADSiteDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="KsE-da-Lp6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tJb-6b-NPH">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Fdu-9u-w2u" id="VDq-Xi-DCm"/>
+                            <outlet property="delegate" destination="Fdu-9u-w2u" id="3dJ-g2-gBP"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="stretchView" destination="tJb-6b-NPH" id="yY1-5M-4Lc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="09m-Zn-vH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2507" y="251"/>
+        </scene>
+    </scenes>
+</document>

@@ -10,6 +10,9 @@
 #import "CADAlertManager.h"
 #import "StadiumRecord.h"
 #import "CADUserManager.h"
+#import "StartCollectionView/CADStartCollectionViewHeader.h"
+#import "SiteDetailView/CADSiteDetailViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 #define leftAndRightPaddings 32.0
 #define numberOfItemPerRow 3.0
@@ -571,16 +574,44 @@
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     return cell;
+    
 }
 
-//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//}
-//
-//-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-//    
-//}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setStadiumId:@"99242a58767c4b64831c9edfb2ef7440"];
+        [vc setTitle:@"天津泡泡体育馆"];
+    }
+}
+
+-(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+
+    if (kind == UICollectionElementKindSectionHeader) {
+         CADStartCollectionViewHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"startCollectionHeader" forIndexPath:indexPath];
+        
+        switch (indexPath.section) {
+            case 0:
+                [headerView setHeaderWithTitle:@"推荐场馆"];
+                break;
+            case 1:
+                [headerView setHeaderWithTitle:@"推荐教练"];
+                break;
+            case 2:
+                [headerView setHeaderWithTitle:@"推荐活动"];
+                break;
+        }
+        
+        return headerView;
+    }
+    
+    return nil;
+}
 
 @end
