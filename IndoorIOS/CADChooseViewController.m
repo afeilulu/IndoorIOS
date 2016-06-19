@@ -81,15 +81,15 @@ static NSMutableString *jsonUrl;
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
+    NSInteger unitFlags = NSCalendarUnitYear |
+    NSCalendarUnitMonth |
+    NSCalendarUnitDay |
+    NSCalendarUnitWeekday |
+    NSCalendarUnitHour |
+    NSCalendarUnitMinute |
+    NSCalendarUnitSecond;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     int n;

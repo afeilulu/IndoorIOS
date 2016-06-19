@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "POHorizontalList.h"
+#import "AFNetworking.h"
 
 @interface CADPreOrderViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,POHorizontalListDelegate>{
     NSMutableArray *dateList;
@@ -31,5 +32,8 @@
 @property (nonatomic) BOOL isLoadingStatus;
 
 @property (weak, nonatomic) IBOutlet UIButton *commitButton;
+
+@property (strong,nonatomic) NSString *timeStamp;
+@property (strong,nonatomic) AFHTTPSessionManager *afm;
 
 @end

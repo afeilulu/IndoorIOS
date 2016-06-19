@@ -13,7 +13,7 @@ NSString *const kSecretKey = @"wmdpzsdl";
 NSString *const kStadiumsJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteListAjax.action";
 
 NSString *const kStadiumDetailJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteDetailAjax.action";
-NSString *const kSportPlaceStatusJsonUrl = @"http://www.paopaoty.com/App-getSportPlaceStatusAjax.action";
+NSString *const kSportPlaceStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getSportPlaceStatusAjax.action";
 NSString *const kRegisterUrl = @"http://www.paopaoty.com/App-addCustomerAjax.action";
 NSString *const kAlipayCallbackUrl = @"http://www.paopaoty.com/AlipayNotify-sportOrder.action";
 NSString *const kTimeStampUrl  = @"http://www.paopaoty.com:8082/App-getCurrentTimeAjax.action";

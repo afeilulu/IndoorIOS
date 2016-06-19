@@ -65,6 +65,8 @@
 		758F90DE1D166D4000CBD7DA /* CADPreOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90DC1D166D4000CBD7DA /* CADPreOrderViewController.m */; };
 		758F90E21D168B4700CBD7DA /* CADSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90E11D168B4700CBD7DA /* CADSearchController.m */; };
 		758F90E51D168B5E00CBD7DA /* CADSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90E41D168B5E00CBD7DA /* CADSearchBar.m */; };
+		758F90E71D16A4AA00CBD7DA /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 758F90E61D16A4AA00CBD7DA /* Login.storyboard */; };
+		758F90EB1D16A58100CBD7DA /* CADLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90EA1D16A58100CBD7DA /* CADLoginController.m */; };
 		759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */; };
 		759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */; };
 		759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AEB1A221E0B00EB82D8 /* OpenGLES.framework */; };
@@ -231,6 +233,9 @@
 		758F90E11D168B4700CBD7DA /* CADSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSearchController.m; sourceTree = "<group>"; };
 		758F90E31D168B5E00CBD7DA /* CADSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADSearchBar.h; sourceTree = "<group>"; };
 		758F90E41D168B5E00CBD7DA /* CADSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSearchBar.m; sourceTree = "<group>"; };
+		758F90E61D16A4AA00CBD7DA /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Login.storyboard; path = storyboard/Login.storyboard; sourceTree = "<group>"; };
+		758F90E91D16A58100CBD7DA /* CADLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADLoginController.h; sourceTree = "<group>"; };
+		758F90EA1D16A58100CBD7DA /* CADLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADLoginController.m; sourceTree = "<group>"; };
 		759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		759C8AEB1A221E0B00EB82D8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -406,6 +411,7 @@
 				7509EDAE1C796769009CD66D /* Index.storyboard */,
 				751B22EA1C50CA8F0031F782 /* Home.storyboard */,
 				753FFE511D06E29B003CFA66 /* Start.storyboard */,
+				758F90E61D16A4AA00CBD7DA /* Login.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				758F90E81D16A58100CBD7DA /* LoginView */,
 				758F90DF1D168B0C00CBD7DA /* MySearchBar */,
 				758F90D41D166AC400CBD7DA /* PreOrderView */,
 				758F90CE1D164AC700CBD7DA /* SiteDetailView */,
@@ -624,6 +631,15 @@
 			path = MySearchBar;
 			sourceTree = "<group>";
 		};
+		758F90E81D16A58100CBD7DA /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				758F90E91D16A58100CBD7DA /* CADLoginController.h */,
+				758F90EA1D16A58100CBD7DA /* CADLoginController.m */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
 		75CCCB761A1E01CB0005CB6B = {
 			isa = PBXGroup;
 			children = (
@@ -832,6 +848,7 @@
 				756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */,
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
+				758F90E71D16A4AA00CBD7DA /* Login.storyboard in Resources */,
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
 				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
@@ -966,6 +983,7 @@
 				75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */,
 				753547681AE66740005A5791 /* IconDescription.m in Sources */,
 				75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */,
+				758F90EB1D16A58100CBD7DA /* CADLoginController.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				753547691AE66740005A5791 /* CADPointAnnotation.m in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,

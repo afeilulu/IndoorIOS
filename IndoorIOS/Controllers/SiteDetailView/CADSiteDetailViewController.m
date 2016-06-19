@@ -23,6 +23,7 @@
 #import "CADLoginViewController.h"
 #import "CADAlertManager.h"
 #import "CADPreOrderViewController.h"
+#import "CADLoginController.h"
 #import "CADStoryBoardUtilities.h"
 
 static NSAttributedString *cr;
@@ -298,7 +299,13 @@ static NSAttributedString *cr;
     
     CADUser *user = CADUserManager.sharedInstance.getUser;
     if (user == nil || user.phone == nil){
-        [self performSegueWithIdentifier:@"login" sender:sender];
+//        [self performSegueWithIdentifier:@"login" sender:sender];
+        CADLoginController* vc = (CADLoginController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Login" class:[CADLoginController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
+        [vc setSportSiteId:_stadiumId];
+        [vc setIsGoToChoose:true];
     }else {
 //        [self performSegueWithIdentifier:@"choose" sender:sender];
         
@@ -493,48 +500,42 @@ static NSAttributedString *cr;
             
             [self.afm POST:kStadiumDetailJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
-                if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+                if ([[responseObject objectForKey:@"success"] boolValue] == true){
 //                    NSLog(@"JSON: %@", responseObject);
                     
-                    if ([[responseObject objectForKey:@"success"] boolValue] == true){
-                        
-                        NSDictionary *sportSiteInfo = [responseObject objectForKey:@"sportSiteInfo"];
-                        NSString *id = [sportSiteInfo objectForKey:@"id"];
-                        
-                        // get singleton
-                        StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-                        StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:id];
-                        
-                        if (!stadium) {
-                            stadium = [[StadiumRecord alloc] init];
-                        }
-                        
-                        [stadium setGotDetail:TRUE];
-                        
-                        //        [stadium setImageURLString:[sportSiteInfo objectForKey:@"logo_url"]];
-                        
-                        [stadium setOpen_time:[sportSiteInfo objectForKey:@"open_time"]];
-                        [stadium setClose_time:[sportSiteInfo objectForKey:@"close_time"]];
-                        [stadium setScore:[sportSiteInfo objectForKey:@"score"]];
-                        [stadium setSummary:[sportSiteInfo objectForKey:@"summary"]];
-                        [stadium setAddress:[sportSiteInfo objectForKey:@"address"]];
-                        [stadium setBus_road:[sportSiteInfo objectForKey:@"bus_road"]];
-                        [stadium setPhone:[sportSiteInfo objectForKey:@"phone"]];
-                        
-                        [stadium setArea_code:[sportSiteInfo objectForKey:@"area_code"]];
-                        [stadium setArea_name:[sportSiteInfo objectForKey:@"area_name"]];
-                        
-                        [stadium setAttributes:[sportSiteInfo objectForKey:@"attributes"]];
-                        [stadium setProductTypes:[sportSiteInfo objectForKey:@"productTypes"]];
-                        [stadium setPms:[sportSiteInfo objectForKey:@"pms"]];
-                        
-                        [stadiumManager.stadiumList setValue:stadium forKey:id];
-                        
-                        [self loadTableViewData];
-                    } else {
-                        NSString* errmsg = [responseObject objectForKey:@"errmsg"];
-                        [CADAlertManager showAlert:self setTitle:@"获取场馆详情错误" setMessage:errmsg];
+                    NSDictionary *sportSiteInfo = [responseObject objectForKey:@"sportSiteInfo"];
+                    NSString *id = [sportSiteInfo objectForKey:@"id"];
+                    
+                    // get singleton
+                    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+                    StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:id];
+                    
+                    if (!stadium) {
+                        stadium = [[StadiumRecord alloc] init];
                     }
+                    
+                    [stadium setGotDetail:TRUE];
+                    
+                    //        [stadium setImageURLString:[sportSiteInfo objectForKey:@"logo_url"]];
+                    
+                    [stadium setOpen_time:[sportSiteInfo objectForKey:@"open_time"]];
+                    [stadium setClose_time:[sportSiteInfo objectForKey:@"close_time"]];
+                    [stadium setScore:[sportSiteInfo objectForKey:@"score"]];
+                    [stadium setSummary:[sportSiteInfo objectForKey:@"summary"]];
+                    [stadium setAddress:[sportSiteInfo objectForKey:@"address"]];
+                    [stadium setBus_road:[sportSiteInfo objectForKey:@"bus_road"]];
+                    [stadium setPhone:[sportSiteInfo objectForKey:@"phone"]];
+                    
+                    [stadium setArea_code:[sportSiteInfo objectForKey:@"area_code"]];
+                    [stadium setArea_name:[sportSiteInfo objectForKey:@"area_name"]];
+                    
+                    [stadium setAttributes:[sportSiteInfo objectForKey:@"attributes"]];
+                    [stadium setProductTypes:[sportSiteInfo objectForKey:@"productTypes"]];
+                    [stadium setPms:[sportSiteInfo objectForKey:@"pms"]];
+                    
+                    [stadiumManager.stadiumList setValue:stadium forKey:id];
+                    
+                    [self loadTableViewData];
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆详情错误" setMessage:errmsg];

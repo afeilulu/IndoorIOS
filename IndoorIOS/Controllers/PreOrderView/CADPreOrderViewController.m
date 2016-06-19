@@ -22,6 +22,8 @@
 #import "CADUserManager.h"
 #import "CADUser.h"
 #import "CADPayViewController.h"
+#import "CADAlertManager.h"
+
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -60,6 +62,8 @@ static NSMutableString *jsonUrl;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.afm = [AFHTTPSessionManager manager];
+    
     // 适配ios7
     if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0))
     {
@@ -81,15 +85,15 @@ static NSMutableString *jsonUrl;
     
     // date list init
     dateList = [[NSMutableArray alloc] init];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSYearCalendarUnit |
-    NSMonthCalendarUnit |
-    NSDayCalendarUnit |
-    NSWeekdayCalendarUnit |
-    NSHourCalendarUnit |
-    NSMinuteCalendarUnit |
-    NSSecondCalendarUnit;
+    NSInteger unitFlags = NSCalendarUnitYear |
+    NSCalendarUnitMonth |
+    NSCalendarUnitDay |
+    NSCalendarUnitWeekday |
+    NSCalendarUnitHour |
+    NSCalendarUnitMinute |
+    NSCalendarUnitSecond;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     int n;
@@ -602,6 +606,7 @@ static NSMutableString *jsonUrl;
     }
      */
     
+    /*
     // get status of today by post
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSportPlaceStatusJsonUrl]];
     [postRequest setHTTPMethod:@"POST"];
@@ -618,6 +623,9 @@ static NSMutableString *jsonUrl;
     
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+     */
+    
+    [self getSiteStatus];
     self.isLoadingStatus = true;
     
 }
@@ -875,5 +883,85 @@ static NSMutableString *jsonUrl;
         [destination setOrderInfo:sender];
     }
 }
+
+
+/*
+ * 获取场馆场地状态
+ */
+- (void) getSiteStatus {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','sportSiteId':'%@','sportTypeId':'%@','selectDate':'%@'}",self.timeStamp,[Utils md5:beforeMd5],_sportSiteId,_sportTypeId,_selectedDate]};
+            
+            [self.afm POST:kSportPlaceStatusJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                
+                if ([responseObject objectForKey:@"success"] != nil){
+
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取场馆场地状态错误" setMessage:errmsg];
+
+                } else {
+                    // NSLog(@"JSON: %@", responseObject);
+                    
+                    self.statusDictionary = responseObject;
+                    
+                    if (self.statusDictionary) {
+                        _start = [[self.statusDictionary objectForKey:@"startTime"] intValue];
+                        _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
+                        _places = [[NSMutableArray alloc] initWithArray:[self.statusDictionary objectForKey:@"places"]];
+                        
+                        if (_start >= _end) {
+                            [CADAlertManager showAlert:self setTitle:@"获取场馆场地状态错误" setMessage:@"未知异常"];
+                        } else {
+                            
+                            [_timeUnitCollectionView reloadData];
+                            [self.timeUnitCollectionView setHidden:false];
+                            
+                            // scroll to top left
+                            [self.timeUnitCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally|UICollectionViewScrollPositionCenteredVertically animated:true];
+                        }
+                    }
+                    
+                    // 显示图标描述
+                    if (self.iconDescriptionView == nil){
+                        self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight - 48)];
+                        [self.view addSubview:self.iconDescriptionView];
+                        [self.commitButton setHidden:true];
+                    }
+                }
+                
+                self.isLoadingStatus = false;
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取场馆场地状态错误" setMessage:[error localizedDescription]];
+                self.isLoadingStatus = false;
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+            
+            self.isLoadingStatus = false;
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+        
+        self.isLoadingStatus = false;
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
 
 @end
