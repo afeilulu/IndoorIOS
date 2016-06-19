@@ -11,12 +11,16 @@
 #import "Constants.h"
 #import "Utils.h"
 #import "CADSearchResultController.h"
+#import "CADSearchController.h"
 #import <BaiduMapAPI_Location/BMKLocationComponent.h> // 定位
 #import <BaiduMapAPI_Utils/BMKGeometry.h> // 距离计算
 
 @interface CADStartViewController : UIViewController <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate,BMKLocationServiceDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UISearchController* searchController;
+@property (strong, nonatomic) IBOutlet CADSearchController* searchController;
+// for state restoration
+@property BOOL searchControllerWasActive;
+@property BOOL searchControllerSearchFieldWasFirstResponder;
 
 @property (nonatomic, strong) CADSearchResultController *resultsTableController;
 @property (nonatomic, copy) NSMutableArray *filteredResults;
