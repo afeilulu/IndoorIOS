@@ -59,8 +59,10 @@
 		758A20821ADE318A00413251 /* CADPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758A20811ADE318A00413251 /* CADPayViewController.m */; };
 		758F90C81D151C1700CBD7DA /* CADStartCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90C71D151C1700CBD7DA /* CADStartCollectionViewHeader.m */; };
 		758F90CB1D151DAE00CBD7DA /* CADRecmSiteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90CA1D151DAE00CBD7DA /* CADRecmSiteCell.m */; };
-		758F90CD1D1630E100CBD7DA /* Site.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 758F90CC1D1630E100CBD7DA /* Site.storyboard */; };
 		758F90D11D164AC700CBD7DA /* CADSiteDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90D01D164AC700CBD7DA /* CADSiteDetailViewController.m */; };
+		758F90D91D166B9D00CBD7DA /* PreOrder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 758F90D81D166B9D00CBD7DA /* PreOrder.storyboard */; };
+		758F90DB1D166BB000CBD7DA /* Site.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 758F90DA1D166BB000CBD7DA /* Site.storyboard */; };
+		758F90DE1D166D4000CBD7DA /* CADPreOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90DC1D166D4000CBD7DA /* CADPreOrderViewController.m */; };
 		759C8AE81A221DEA00EB82D8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */; };
 		759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */; };
 		759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759C8AEB1A221E0B00EB82D8 /* OpenGLES.framework */; };
@@ -217,9 +219,12 @@
 		758F90C71D151C1700CBD7DA /* CADStartCollectionViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStartCollectionViewHeader.m; sourceTree = "<group>"; };
 		758F90C91D151DAE00CBD7DA /* CADRecmSiteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADRecmSiteCell.h; sourceTree = "<group>"; };
 		758F90CA1D151DAE00CBD7DA /* CADRecmSiteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADRecmSiteCell.m; sourceTree = "<group>"; };
-		758F90CC1D1630E100CBD7DA /* Site.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Site.storyboard; sourceTree = "<group>"; };
 		758F90CF1D164AC700CBD7DA /* CADSiteDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADSiteDetailViewController.h; sourceTree = "<group>"; };
 		758F90D01D164AC700CBD7DA /* CADSiteDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSiteDetailViewController.m; sourceTree = "<group>"; };
+		758F90D81D166B9D00CBD7DA /* PreOrder.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PreOrder.storyboard; path = storyboard/PreOrder.storyboard; sourceTree = "<group>"; };
+		758F90DA1D166BB000CBD7DA /* Site.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Site.storyboard; path = storyboard/Site.storyboard; sourceTree = "<group>"; };
+		758F90DC1D166D4000CBD7DA /* CADPreOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPreOrderViewController.m; sourceTree = "<group>"; };
+		758F90DD1D166D4000CBD7DA /* CADPreOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPreOrderViewController.h; sourceTree = "<group>"; };
 		759C8AE71A221DEA00EB82D8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		759C8AE91A221DFD00EB82D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		759C8AEB1A221E0B00EB82D8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -390,10 +395,11 @@
 		751B22E91C50CA3E0031F782 /* storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				758F90DA1D166BB000CBD7DA /* Site.storyboard */,
+				758F90D81D166B9D00CBD7DA /* PreOrder.storyboard */,
 				7509EDAE1C796769009CD66D /* Index.storyboard */,
 				751B22EA1C50CA8F0031F782 /* Home.storyboard */,
 				753FFE511D06E29B003CFA66 /* Start.storyboard */,
-				758F90CC1D1630E100CBD7DA /* Site.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -401,6 +407,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				758F90D41D166AC400CBD7DA /* PreOrderView */,
 				758F90CE1D164AC700CBD7DA /* SiteDetailView */,
 				758F90C21D151B3300CBD7DA /* StartCollectionView */,
 				75CDB42A1D0D531800A3B3CF /* SearchResultTableCell */,
@@ -588,6 +595,15 @@
 				758F90D01D164AC700CBD7DA /* CADSiteDetailViewController.m */,
 			);
 			path = SiteDetailView;
+			sourceTree = "<group>";
+		};
+		758F90D41D166AC400CBD7DA /* PreOrderView */ = {
+			isa = PBXGroup;
+			children = (
+				758F90DC1D166D4000CBD7DA /* CADPreOrderViewController.m */,
+				758F90DD1D166D4000CBD7DA /* CADPreOrderViewController.h */,
+			);
+			path = PreOrderView;
 			sourceTree = "<group>";
 		};
 		75CCCB761A1E01CB0005CB6B = {
@@ -782,6 +798,7 @@
 				7509EDAF1C796769009CD66D /* Index.storyboard in Resources */,
 				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
+				758F90D91D166B9D00CBD7DA /* PreOrder.storyboard in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
 				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
 				756CACFE1B3D374E00298472 /* ic_sms.png in Resources */,
@@ -792,8 +809,8 @@
 				756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */,
 				75CE621E1B184BD5001E3637 /* ic_supervisor@2x.png in Resources */,
 				75CE62181B184BD5001E3637 /* ic_account.png in Resources */,
+				758F90DB1D166BB000CBD7DA /* Site.storyboard in Resources */,
 				75CE62241B184DE9001E3637 /* ic_location@2x.png in Resources */,
-				758F90CD1D1630E100CBD7DA /* Site.storyboard in Resources */,
 				756CACF81B3CFBB800298472 /* ic_phone_black@2x.png in Resources */,
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
@@ -906,6 +923,7 @@
 				75EE89D41AF2129400E64310 /* CADOrderListItem.m in Sources */,
 				750F75BD1CE5735600B1722A /* NSString+MD5.m in Sources */,
 				75EFC2271D0D559100582E8E /* CADSearchResultCell.m in Sources */,
+				758F90DE1D166D4000CBD7DA /* CADPreOrderViewController.m in Sources */,
 				750F75BE1CE5735600B1722A /* UIFont+GillSansFonts.m in Sources */,
 				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,

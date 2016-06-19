@@ -48,6 +48,7 @@
     self.searchController.searchResultsUpdater = self;
     self.searchController.delegate = self;
     self.searchController.searchBar.delegate = self;
+    self.resultsTableController.tableView.delegate = self;
 //    self.searchController.searchBar.barStyle = UISearchBarStyleMinimal;
     self.searchController.searchBar.placeholder= NSLocalizedString(@"Search", @"SearchBar PlaceHolder");
     [self.searchController.searchBar sizeToFit];
@@ -167,6 +168,8 @@
     NSCompoundPredicate *finalCompoundPredicate =
     [NSCompoundPredicate andPredicateWithSubpredicates:andMatchPredicates];
     searchResults = [[searchResults filteredArrayUsingPredicate:finalCompoundPredicate] mutableCopy];
+    
+    self.filteredResults = searchResults;
     
     // hand over the filtered results to our search results table
     CADSearchResultController *searchResultController = (CADSearchResultController *)self.searchController.searchResultsController;
@@ -545,7 +548,13 @@
         for (StadiumRecord *item in self.sites) {
             BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([item.lat doubleValue],[item.lng doubleValue]));
             CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2);
-            item.distance = [[NSString alloc] initWithFormat:@"%.0f米",distance ];
+            
+            if (distance > 1000) {
+                distance = distance / 1000;
+                item.distance = [[NSString alloc] initWithFormat:@"%.2f千米",distance ];
+            } else {
+                item.distance = [[NSString alloc] initWithFormat:@"%.0f米",distance ];
+            }
         }
     }
     
@@ -612,6 +621,18 @@
     }
     
     return nil;
+}
+
+#pragma mark - table view delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    StadiumRecord *site = self.filteredResults[indexPath.row];
+    [vc setStadiumId:site.idString];
+    [vc setTitle:site.name];
+    
 }
 
 @end

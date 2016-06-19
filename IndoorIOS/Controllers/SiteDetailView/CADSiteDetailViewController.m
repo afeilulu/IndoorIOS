@@ -22,6 +22,8 @@
 #import "CADUserManager.h"
 #import "CADLoginViewController.h"
 #import "CADAlertManager.h"
+#import "CADPreOrderViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 static NSAttributedString *cr;
 
@@ -298,7 +300,13 @@ static NSAttributedString *cr;
     if (user == nil || user.phone == nil){
         [self performSegueWithIdentifier:@"login" sender:sender];
     }else {
-        [self performSegueWithIdentifier:@"choose" sender:sender];
+//        [self performSegueWithIdentifier:@"choose" sender:sender];
+        
+        CADPreOrderViewController* vc = (CADPreOrderViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PreOrder" class:[CADPreOrderViewController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
+        [vc setSportSiteId:_stadiumId];
     }
 }
 

@@ -14,11 +14,12 @@
 #import <BaiduMapAPI_Location/BMKLocationComponent.h> // 定位
 #import <BaiduMapAPI_Utils/BMKGeometry.h> // 距离计算
 
-@interface CADStartViewController : UIViewController <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate,BMKLocationServiceDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CADStartViewController : UIViewController <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate,BMKLocationServiceDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UISearchController* searchController;
 
 @property (nonatomic, strong) CADSearchResultController *resultsTableController;
+@property (nonatomic, copy) NSMutableArray *filteredResults;
 
 @property (strong,nonatomic) NSString *timeStamp;
 @property (strong,nonatomic) AFHTTPSessionManager *afm;

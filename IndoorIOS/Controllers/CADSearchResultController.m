@@ -7,6 +7,8 @@
 //
 
 #import "CADSearchResultController.h"
+#import "SiteDetailView/CADSiteDetailViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 NSString *const kCellIdentifier = @"cellID";
 NSString *const kTableCellNibName = @"CADSearchResultCell";
