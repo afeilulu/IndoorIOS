@@ -25,6 +25,7 @@
 #import "CADPreOrderViewController.h"
 #import "CADLoginController.h"
 #import "CADStoryBoardUtilities.h"
+#import <UIImageView+WebCache.h>
 
 static NSAttributedString *cr;
 
@@ -74,14 +75,7 @@ static NSAttributedString *cr;
         [self loadTableViewData];
     }
     
-    if (!self.stadiumRecord.image) {
-        // 获取图片显示
-        self.imageDownloadsInProgress = [NSMutableDictionary dictionary];
-        [self startIconDownload:_stadiumRecord forSport:@"home"];
-    } else {
-        // 直接显示图片
-        _stretchView.image = _stadiumRecord.image;
-    }
+    [_stretchView sd_setImageWithURL:[NSURL URLWithString:_stadiumRecord.imageURLString]];
     
 }
 

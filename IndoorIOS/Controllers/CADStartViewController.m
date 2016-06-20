@@ -13,6 +13,7 @@
 #import "StartCollectionView/CADStartCollectionViewHeader.h"
 #import "SiteDetailView/CADSiteDetailViewController.h"
 #import "CADStoryBoardUtilities.h"
+#import "StadiumManager.h"
 
 #define leftAndRightPaddings 32.0
 #define numberOfItemPerRow 3.0
@@ -331,17 +332,29 @@
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
                     NSLog(@"JSON: %@", responseObject);
                     
+                    // get singleton
+                    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+                    
                     NSArray *allSitesInDic = [responseObject objectForKey:@"list"];
                     self.sites = [[NSMutableArray alloc] init];
                     for (NSDictionary *item in allSitesInDic) {
-                        StadiumRecord *site = [[StadiumRecord alloc] init];
+                        
+                        NSString* id = [item objectForKey:@"id"];
+                        
+                        StadiumRecord *site = [stadiumManager.stadiumList objectForKey:id];
+                        if (!site) {
+                            site = [[StadiumRecord alloc] init];
+                        }
+                        
                         site.name = [item objectForKey:@"name"];
                         site.imageURLString = [item objectForKey:@"imgUrl"];
                         site.lat = [item objectForKey:@"lat"];
                         site.lng = [item objectForKey:@"lng"];
-                        site.idString = [item objectForKey:@"id"];
+                        site.idString = id;
+                        site.pms =[item objectForKey:@"pms"][0];
                         
                         [self.sites addObject:site];
+                        [stadiumManager.stadiumList setValue:site forKey:id];
                     }
                     
                 } else {
@@ -391,7 +404,8 @@
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
                     NSLog(@"JSON: %@", responseObject);
-                    
+                
+                    // TODO
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆错误" setMessage:errmsg];
