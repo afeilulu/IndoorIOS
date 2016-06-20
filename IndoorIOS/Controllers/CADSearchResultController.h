@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "StadiumRecord.h"
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
 
-@interface CADSearchResultController : UITableViewController
+@interface CADSearchResultController : UITableViewController<BMKMapViewDelegate>{
+    BMKMapView* mapView;
+}
 
 @property (nonatomic, strong) NSArray *filteredResults;
+
+-(void) reloadData;
 
 @end

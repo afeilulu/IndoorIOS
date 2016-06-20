@@ -207,8 +207,7 @@
     // hand over the filtered results to our search results table
     CADSearchResultController *searchResultController = (CADSearchResultController *)self.searchController.searchResultsController;
     searchResultController.filteredResults = searchResults;
-    [searchResultController.tableView reloadData];
-    
+    [searchResultController reloadData];
 }
 
 /*
@@ -351,7 +350,8 @@
                         site.lat = [item objectForKey:@"lat"];
                         site.lng = [item objectForKey:@"lng"];
                         site.idString = id;
-                        site.pms =[item objectForKey:@"pms"][0];
+                        site.pms =[item objectForKey:@"pms"];
+                        site.score = [item objectForKey:@"score"];
                         
                         [self.sites addObject:site];
                         [stadiumManager.stadiumList setValue:site forKey:id];
@@ -670,8 +670,9 @@
 }
 
 #pragma mark - table view delegate
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
     
