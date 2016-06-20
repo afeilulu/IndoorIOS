@@ -7,7 +7,10 @@
 //
 
 #import "CADUser.h"
+#import "MJExtension.h"
 
 @implementation CADUser
+
+MJExtensionCodingImplementation
 
 @end

@@ -1162,7 +1162,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chinaairdome.IndoorIOS;
 				PRODUCT_NAME = "泡泡体育";

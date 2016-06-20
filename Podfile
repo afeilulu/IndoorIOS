@@ -14,5 +14,6 @@ target 'IndoorIOS' do
   pod 'AlipaySDK-2.0' #支付宝SDK，支持bitcode
   pod 'AlipaySDK-2.0/Order' #支付宝订单签名RSASigner MD5Signer，暂不支持bitcode
   pod 'SDWebImage'
+  pod 'MJExtension' #字典和模型转换框架
 
 end

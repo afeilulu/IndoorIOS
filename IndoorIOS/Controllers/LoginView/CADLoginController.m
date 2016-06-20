@@ -156,6 +156,12 @@
                     
                     [[CADUserManager sharedInstance] setUser:user];
                     
+                    // save at local
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user];
+                    [defaults setObject:data forKey:@"user"];
+                    [defaults synchronize];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                     
                     // go to pre-order view
