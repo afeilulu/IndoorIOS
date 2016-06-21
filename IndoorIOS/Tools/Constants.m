@@ -33,6 +33,8 @@ NSString *const KRecommendStoreUrl =@"http://www.paopaoty.com:8082/App-recommend
 NSString *const KRecommendTrainerUrl =@"http://www.paopaoty.com:8082/App-recommendTrainAjax.action";
 NSString *const KActivityListUrl =@"http://www.paopaoty.com:8082/App-activityListAjax.action";
 
+NSString *const KImageUrl =@"http://www.paopaoty.com:8082/Image-getImage.action?imageName=";
+
 int const kMaxOrderPlace = 4;
 
 int const kSelectableColor = 242;

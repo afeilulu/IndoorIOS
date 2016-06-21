@@ -23,6 +23,8 @@
 		751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 751B22EA1C50CA8F0031F782 /* Home.storyboard */; };
 		751B22EF1C50CCDE0031F782 /* CADStoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */; };
 		751B22F51C50CE9C0031F782 /* CADActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22F41C50CE9C0031F782 /* CADActivityIndicator.m */; };
+		751D4DC21D1909D900A2D67B /* Trainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 751D4DC11D1909D900A2D67B /* Trainer.m */; };
+		751D4DC51D193FE200A2D67B /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = 751D4DC41D193FE200A2D67B /* Activity.m */; };
 		7535475C1AE66568005A5791 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7535474E1AE66568005A5791 /* Cell.m */; };
 		7535475D1AE66568005A5791 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547501AE66568005A5791 /* CustomCellBackground.m */; };
 		7535475E1AE66568005A5791 /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 753547531AE66568005A5791 /* ListItem.m */; };
@@ -158,6 +160,10 @@
 		751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADStoryBoardUtilities.m; sourceTree = "<group>"; };
 		751B22F31C50CE9C0031F782 /* CADActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADActivityIndicator.h; sourceTree = "<group>"; };
 		751B22F41C50CE9C0031F782 /* CADActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADActivityIndicator.m; sourceTree = "<group>"; };
+		751D4DC01D1909D900A2D67B /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
+		751D4DC11D1909D900A2D67B /* Trainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trainer.m; sourceTree = "<group>"; };
+		751D4DC31D193FE200A2D67B /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
+		751D4DC41D193FE200A2D67B /* Activity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		7535474D1AE66568005A5791 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
 		7535474E1AE66568005A5791 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		7535474F1AE66568005A5791 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
@@ -521,6 +527,10 @@
 				75CCFC861AECCEE7001FEF9C /* CADUser.m */,
 				75EE89D21AF2129400E64310 /* CADOrderListItem.h */,
 				75EE89D31AF2129400E64310 /* CADOrderListItem.m */,
+				751D4DC01D1909D900A2D67B /* Trainer.h */,
+				751D4DC11D1909D900A2D67B /* Trainer.m */,
+				751D4DC31D193FE200A2D67B /* Activity.h */,
+				751D4DC41D193FE200A2D67B /* Activity.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -935,6 +945,7 @@
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
+				751D4DC51D193FE200A2D67B /* Activity.m in Sources */,
 				75CDB4291D0D3B0F00A3B3CF /* CADSearchResultController.m in Sources */,
 				750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
@@ -993,6 +1004,7 @@
 				757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */,
 				750F75C81CE5765500B1722A /* CADNetworkLoadingViewController.m in Sources */,
 				75EF6BFC1AEA0EDE00418E02 /* CADLoginViewController.m in Sources */,
+				751D4DC21D1909D900A2D67B /* Trainer.m in Sources */,
 				758F90E51D168B5E00CBD7DA /* CADSearchBar.m in Sources */,
 				75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */,
 			);

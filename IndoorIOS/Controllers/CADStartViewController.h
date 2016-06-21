@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cityButton;
 - (IBAction)clickCityButton:(UIBarButtonItem *)sender;
 
-@property (nonatomic, strong) NSMutableArray *sites;
+@property (nonatomic, strong) NSMutableArray *sites; // 场馆
 
 @property (nonatomic, strong) BMKLocationService* locService;
 @property (nonatomic) double userLastLat;
@@ -42,8 +42,15 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong,nonatomic) NSArray *sectionsTitle;
-@property (strong,nonatomic) NSArray *section1;
-@property (strong,nonatomic) NSArray *section2;
-@property (strong,nonatomic) NSArray *section3;
+@property (nonatomic, strong) NSMutableArray *trainers; // 教练
+@property (nonatomic, strong) NSMutableArray *activities; // 活动
+
+@property (nonatomic) bool sitesFlag; // 场馆
+@property (nonatomic) bool trainersFlag; // 教练
+@property (nonatomic) bool activitiesFlag; // 活动
+
+@property (nonatomic) CGFloat flowItemWidth2;
+@property (nonatomic) CGFloat flowItemWidth3;
+
 
 @end

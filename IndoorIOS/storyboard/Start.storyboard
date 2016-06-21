@@ -37,19 +37,58 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="teacher.png" translatesAutoresizingMaskIntoConstraints="NO" id="hjP-hN-g67">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 </imageView>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3JH-mc-k0U">
+                                                    <rect key="frame" x="0.0" y="170" width="200" height="30"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fTD-m9-ZMC">
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1eh-m4-XWf">
+                                                                <rect key="frame" x="8" y="4" width="184" height="21"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="1eh-m4-XWf" firstAttribute="top" secondItem="fTD-m9-ZMC" secondAttribute="top" constant="4" id="VO4-j5-dP7"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1eh-m4-XWf" secondAttribute="trailing" constant="8" id="WUK-Jf-UHZ"/>
+                                                            <constraint firstAttribute="bottom" secondItem="1eh-m4-XWf" secondAttribute="bottom" constant="5" id="wOW-rE-szX"/>
+                                                            <constraint firstItem="1eh-m4-XWf" firstAttribute="leading" secondItem="fTD-m9-ZMC" secondAttribute="leading" constant="8" id="y7z-1N-hzk"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="si5-Uq-Io5"/>
+                                                    </constraints>
+                                                    <blurEffect style="light"/>
+                                                </visualEffectView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="hjP-hN-g67" secondAttribute="trailing" id="2Uq-ua-STW"/>
+                                            <constraint firstAttribute="bottom" secondItem="3JH-mc-k0U" secondAttribute="bottom" id="2za-RK-ai9"/>
+                                            <constraint firstAttribute="trailing" secondItem="3JH-mc-k0U" secondAttribute="trailing" id="Ab8-QV-80X"/>
                                             <constraint firstItem="hjP-hN-g67" firstAttribute="top" secondItem="P3A-3t-wmj" secondAttribute="top" id="FqN-Tf-LBb"/>
+                                            <constraint firstItem="3JH-mc-k0U" firstAttribute="top" secondItem="P3A-3t-wmj" secondAttribute="top" constant="80" id="IOo-FN-n1T"/>
                                             <constraint firstItem="hjP-hN-g67" firstAttribute="top" secondItem="P3A-3t-wmj" secondAttribute="top" id="JBm-6W-uE8"/>
+                                            <constraint firstItem="3JH-mc-k0U" firstAttribute="leading" secondItem="P3A-3t-wmj" secondAttribute="leading" id="Pfv-me-2vT"/>
                                             <constraint firstAttribute="trailing" secondItem="hjP-hN-g67" secondAttribute="trailing" id="XTI-X0-Vex"/>
                                             <constraint firstAttribute="bottom" secondItem="hjP-hN-g67" secondAttribute="bottom" id="eYb-7x-uwV"/>
                                             <constraint firstAttribute="bottom" secondItem="hjP-hN-g67" secondAttribute="bottom" id="fb2-uS-dIe"/>
                                             <constraint firstItem="hjP-hN-g67" firstAttribute="leading" secondItem="P3A-3t-wmj" secondAttribute="leading" id="gCT-rU-dfb"/>
                                             <constraint firstItem="hjP-hN-g67" firstAttribute="leading" secondItem="P3A-3t-wmj" secondAttribute="leading" id="zL8-GH-WXj"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="IOo-FN-n1T"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="siteImageView" destination="hjP-hN-g67" id="lSG-mt-xuA"/>
+                                            <outlet property="siteTitleLabel" destination="1eh-m4-XWf" id="OSb-2w-D54"/>
+                                            <outlet property="visualEffectView" destination="3JH-mc-k0U" id="8le-p1-i1a"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="startCollectionHeader" id="z0u-sd-8Sc" customClass="CADStartCollectionViewHeader">

@@ -14,8 +14,11 @@
 #import "SiteDetailView/CADSiteDetailViewController.h"
 #import "CADStoryBoardUtilities.h"
 #import "StadiumManager.h"
+#import "Trainer.h"
+#import "Activity.h"
+#import "CADRecmSiteCell.h"
 
-#define leftAndRightPaddings 32.0
+#define leftAndRightPaddings 8.0
 #define numberOfItemPerRow 3.0
 #define heightAdjustment 30.0
 
@@ -83,17 +86,15 @@
     self.collectionView.dataSource = self;
     
     self.sectionsTitle = [[NSArray alloc] initWithObjects:@"推荐场馆",@"推荐教练",@"推荐活动", nil];
-    self.section1 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
-    self.section2 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
-    self.section3 = [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5", nil];
-    
 
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     NSLog(@"%@ - %f", NSStringFromClass([self class]), screenWidth);
 
-    CGFloat width = (screenWidth - leftAndRightPaddings) / numberOfItemPerRow;
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
-    layout.itemSize = CGSizeMake(width, width + heightAdjustment);
+//    CGFloat width = (screenWidth - leftAndRightPaddings) / numberOfItemPerRow;
+//    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+//    layout.itemSize = CGSizeMake(width, width + heightAdjustment);
+    self.flowItemWidth3 = (screenWidth - leftAndRightPaddings * (numberOfItemPerRow + 1)) / numberOfItemPerRow;
+    self.flowItemWidth2 = (screenWidth - leftAndRightPaddings * (2 + 1)) / 2;
     
     
 
@@ -101,6 +102,10 @@
     
     // get all sport sites
     [self getSportSiteList:@""];
+    // TODO : specify city code
+//    [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
+    [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
+    [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
     
 }
 
@@ -231,7 +236,7 @@
             [self.afm POST:KGetCityUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     self.cityArray = [responseObject objectForKey:@"list"];
                     
                     self.cityActionSheet =[UIAlertController
@@ -289,11 +294,6 @@
                 [CADAlertManager showAlert:self setTitle:@"获取城市错误" setMessage:[error localizedDescription]];
             }];
             
-            // TODO : specify city code
-            [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
-            [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
-            [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
-            
         } else {
             NSString* errmsg = [responseObject objectForKey:@"errmsg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
@@ -329,14 +329,13 @@
                 
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     
                     // get singleton
                     StadiumManager *stadiumManager = [StadiumManager sharedInstance];
                     
-                    NSArray *allSitesInDic = [responseObject objectForKey:@"list"];
                     self.sites = [[NSMutableArray alloc] init];
-                    for (NSDictionary *item in allSitesInDic) {
+                    for (NSDictionary *item in [responseObject objectForKey:@"list"]) {
                         
                         NSString* id = [item objectForKey:@"id"];
                         
@@ -355,6 +354,9 @@
                         
                         [self.sites addObject:site];
                         [stadiumManager.stadiumList setValue:site forKey:id];
+                        
+                        self.sitesFlag= YES;
+                        [self collectionViewReloadData];
                     }
                     
                 } else {
@@ -403,7 +405,7 @@
                 
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                 
                     // TODO
                 } else {
@@ -451,8 +453,20 @@
                 
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     
+                    self.trainers = [[NSMutableArray alloc] init];
+                    for (NSDictionary *item in [responseObject objectForKey:@"list"]) {
+                        Trainer *trainer = [[Trainer alloc] init];
+                        trainer.name = [item objectForKey:@"name"];
+                        trainer.nick = [item objectForKey:@"nick"];
+                        trainer.idString = [item objectForKey:@"id"];
+                        trainer.imageUrl = [item objectForKey:@"image_url"];
+                        [self.trainers addObject:trainer];
+                    }
+                    
+                    self.trainersFlag = YES;
+                    [self collectionViewReloadData];
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取教练错误" setMessage:errmsg];
@@ -499,8 +513,18 @@
                 
                 [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     
+                    self.activities = [[NSMutableArray alloc] init];
+                    for (NSDictionary *item in [responseObject objectForKey:@"list"]) {
+                        Activity *activity = [[Activity alloc] init];
+                        activity.name = [item objectForKey:@"name"];
+                        activity.idString = [item objectForKey:@"id"];
+                        activity.imageUrl = [item objectForKey:@"logo_url"];
+                        [self.activities addObject:activity];
+                    }
+                    self.activitiesFlag = YES;
+                    [self collectionViewReloadData];
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:errmsg];
@@ -615,24 +639,56 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return self.section1.count;
+            return self.sites.count;
             break;
         case 1:
-            return self.section2.count;
+            return self.trainers.count;
             break;
         case 2:
-            return self.section3.count;
+            return self.activities.count;
             break;
     }
     
     return 0;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0 || indexPath.section == 2) {
+        // 场馆 活动 一行显示两个
+        return CGSizeMake(self.flowItemWidth2, self.flowItemWidth2 - heightAdjustment);
+    } else {
+        // 教练一行显示三个
+        return CGSizeMake(self.flowItemWidth3, self.flowItemWidth3 + heightAdjustment);
+    }
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    return cell;
+    CADRecmSiteCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    if (indexPath.section == 0) {
+        // 场馆
+        StadiumRecord *site = [self.sites objectAtIndex:indexPath.row];
+        [cell updateUI:site.name imageUrl:site.imageURLString type:0];
+    }
     
+    if (indexPath.section == 1) {
+        // 教练
+        Trainer *trainer = [self.trainers objectAtIndex:indexPath.row];
+        NSString *name = trainer.nick;
+        if (name.length == 0) {
+            name = trainer.name;
+        }
+        [cell updateUI:name imageUrl:[[NSString alloc] initWithFormat:@"%@%@",KImageUrl,trainer.imageUrl] type:1];
+    }
+    
+    if (indexPath.section == 2) {
+        // 活动
+        Activity *activity = [self.activities objectAtIndex:indexPath.row];
+        [cell updateUI:activity.name imageUrl:[[NSString alloc] initWithFormat:@"%@%@",KImageUrl,activity.imageUrl] type:2];
+    }
+
+    return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -641,8 +697,9 @@
         CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
         
         [self.navigationController pushViewController:vc animated:YES];
-        [vc setStadiumId:@"99242a58767c4b64831c9edfb2ef7440"];
-        [vc setTitle:@"天津泡泡体育馆"];
+        StadiumRecord *site = [self.sites objectAtIndex:indexPath.row];
+        [vc setStadiumId:site.idString];
+        [vc setTitle:site.name];
     }
 }
 
@@ -773,6 +830,12 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     
     // restore the text in the search field
     self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
+}
+
+- (void)collectionViewReloadData{
+    if (self.sitesFlag && self.trainersFlag && self.activitiesFlag) {
+        [self.collectionView reloadData];
+    }
 }
 
 @end

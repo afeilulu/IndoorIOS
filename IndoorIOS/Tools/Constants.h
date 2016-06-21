@@ -74,6 +74,9 @@ extern NSString *const KRecommendTrainerUrl;
 // 获取活动列表
 extern NSString *const KActivityListUrl;
 
+// 获取图片
+extern NSString *const KImageUrl;
+
 extern int const kSelectableColor;
 
 extern int const kUnSelectableColor;
