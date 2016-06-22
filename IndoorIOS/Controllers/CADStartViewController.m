@@ -710,13 +710,13 @@
         
         switch (indexPath.section) {
             case 0:
-                [headerView setHeaderWithTitle:@"推荐场馆"];
+                [headerView setHeaderWithTitle:@"推荐场馆" tag:indexPath.section];
                 break;
             case 1:
-                [headerView setHeaderWithTitle:@"推荐教练"];
+                [headerView setHeaderWithTitle:@"推荐教练" tag:indexPath.section];
                 break;
             case 2:
-                [headerView setHeaderWithTitle:@"推荐活动"];
+                [headerView setHeaderWithTitle:@"推荐活动" tag:indexPath.section];
                 break;
         }
         

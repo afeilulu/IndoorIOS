@@ -38,14 +38,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                                 </imageView>
                                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3JH-mc-k0U">
-                                                    <rect key="frame" x="0.0" y="170" width="200" height="30"/>
+                                                    <rect key="frame" x="0.0" y="175" width="200" height="25"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fTD-m9-ZMC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1eh-m4-XWf">
-                                                                <rect key="frame" x="8" y="4" width="184" height="21"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <rect key="frame" x="8" y="4" width="184" height="16"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -58,7 +58,7 @@
                                                         </constraints>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="si5-Uq-Io5"/>
+                                                        <constraint firstAttribute="height" constant="25" id="si5-Uq-Io5"/>
                                                     </constraints>
                                                     <blurEffect style="light"/>
                                                 </visualEffectView>
@@ -108,8 +108,50 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="detailDisclosure" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-wO-FuJ">
+                                            <rect key="frame" x="582" y="17" width="10" height="16"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="10" id="HNK-5Q-Up6"/>
+                                                <constraint firstAttribute="height" constant="16" id="i0q-mn-NgW"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hr-dJ-aEr">
+                                            <rect key="frame" x="544" y="10" width="36" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <state key="normal" title=" 更多 ">
+                                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="moreButtonAction:" destination="z0u-sd-8Sc" eventType="touchUpInside" id="ucw-Kq-Mjt"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ivx-wO-FuJ" firstAttribute="leading" secondItem="5hr-dJ-aEr" secondAttribute="trailing" constant="2" id="3iK-9K-sl8"/>
+                                        <constraint firstAttribute="trailing" secondItem="ivx-wO-FuJ" secondAttribute="trailing" id="6ie-YG-fBo"/>
+                                        <constraint firstItem="5hr-dJ-aEr" firstAttribute="top" secondItem="z0u-sd-8Sc" secondAttribute="top" constant="10" id="EI1-TN-T74"/>
+                                        <constraint firstItem="ivx-wO-FuJ" firstAttribute="leading" secondItem="5hr-dJ-aEr" secondAttribute="trailing" constant="4" id="N91-CK-oEe"/>
+                                        <constraint firstItem="ivx-wO-FuJ" firstAttribute="top" secondItem="z0u-sd-8Sc" secondAttribute="top" id="Qf7-Oj-5cP"/>
+                                        <constraint firstAttribute="trailing" secondItem="ivx-wO-FuJ" secondAttribute="trailing" constant="8" id="Uqz-PR-2TK"/>
+                                        <constraint firstItem="ivx-wO-FuJ" firstAttribute="top" secondItem="z0u-sd-8Sc" secondAttribute="top" id="XbQ-Ic-ohO"/>
+                                        <constraint firstItem="5hr-dJ-aEr" firstAttribute="centerY" secondItem="z0u-sd-8Sc" secondAttribute="centerY" id="iCg-3A-Th7"/>
+                                        <constraint firstAttribute="bottom" secondItem="ivx-wO-FuJ" secondAttribute="bottom" id="nWt-IQ-VEE"/>
+                                        <constraint firstItem="ivx-wO-FuJ" firstAttribute="centerY" secondItem="z0u-sd-8Sc" secondAttribute="centerY" id="peH-FE-UOK"/>
+                                        <constraint firstAttribute="bottom" secondItem="ivx-wO-FuJ" secondAttribute="bottom" id="ybO-q9-ZPv"/>
+                                        <constraint firstAttribute="bottom" secondItem="5hr-dJ-aEr" secondAttribute="bottom" constant="10" id="zNb-JN-WcM"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="6ie-YG-fBo"/>
+                                            <exclude reference="N91-CK-oEe"/>
+                                            <exclude reference="Qf7-Oj-5cP"/>
+                                            <exclude reference="XbQ-Ic-ohO"/>
+                                            <exclude reference="nWt-IQ-VEE"/>
+                                            <exclude reference="ybO-q9-ZPv"/>
+                                        </mask>
+                                    </variation>
                                     <connections>
+                                        <outlet property="moreButton" destination="5hr-dJ-aEr" id="m0x-jA-sH1"/>
                                         <outlet property="sectionTitle" destination="SjL-CN-BIW" id="2Iz-SN-BoY"/>
                                     </connections>
                                 </collectionReusableView>
@@ -169,6 +211,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="detailDisclosure" width="50" height="80"/>
         <image name="ic_account.png" width="24" height="24"/>
         <image name="teacher.png" width="32" height="32"/>
     </resources>

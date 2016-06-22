@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) NSArray *filteredResults;
 
+@property (nonatomic, strong) NSMutableArray *annotations;
+
 -(void) reloadData;
 
 @end

@@ -28,7 +28,7 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     CGFloat width = self.view.frame.size.width;
     CGFloat height = ceil(width * 2/3);
     mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
-    mapView.zoomLevel = 18;
+    mapView.zoomLevel = 14;
     
     self.tableView.tableHeaderView = mapView;
     
@@ -81,6 +81,13 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     [self.tableView reloadData];
     // 重新显示地图
     if (self.filteredResults.count > 0){
+        // clear firstly
+        if (!self.annotations){
+            self.annotations = [[NSMutableArray alloc] init];
+        }
+        [mapView removeAnnotations:self.annotations];
+        [self.annotations removeAllObjects];
+        
         [self loadData];
     }
 }
@@ -99,6 +106,9 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     //设置地图可视范围为数据所在的地图位置
     [mapView setVisibleMapRect:fitMapRect animated:YES];
     
+    if (!self.annotations){
+        self.annotations = [[NSMutableArray alloc] init];
+    }
     NSInteger stadiumCount = self.filteredResults.count;
     if (stadiumCount > 0){
         for (int i=0; i<stadiumCount; i++) {
@@ -113,6 +123,8 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
             item.stadiumId = [stadium idString];
             //            NSLog(@"%@",item.title);
             [mapView addAnnotation:item];
+            
+            [self.annotations addObject:item];
         }
     }
     
@@ -123,7 +135,7 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
  */
 - (BMKCoordinateRegion)getCenterRegion{
     CLLocationDegrees minLat = 25;
-    CLLocationDegrees maxLat = 40;
+    CLLocationDegrees maxLat = 30;
     CLLocationDegrees minLng = 100;
     CLLocationDegrees maxLng = 120;
     
@@ -161,12 +173,13 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     }
     
     //计算中心点
+    float positionAdjust = 0.5f; // to make view move center point
     CLLocationCoordinate2D centCoor;
-    centCoor.latitude = (CLLocationDegrees)((maxLat+minLat) * 0.5f);
+    centCoor.latitude = (CLLocationDegrees)((maxLat+minLat+positionAdjust) * 0.5f);
     centCoor.longitude = (CLLocationDegrees)((maxLng+minLng) * 0.5f);
     BMKCoordinateSpan span;
     //计算地理位置的跨度
-    int offset = 0; // to make targets will be shown more center
+    float offset = 0.8f; // to make annotation view will be shown more center
     span.latitudeDelta = maxLat - minLat + offset;
     span.longitudeDelta = maxLng - minLng;
     //得出数据的坐标区域
@@ -195,7 +208,8 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     if (annotationView == nil) {
         annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
         // 设置标注图片
-        ((BMKPinAnnotationView*)annotationView).image = [UIImage imageNamed:@"icon_nav_point"];
+//        ((BMKPinAnnotationView*)annotationView).image = [UIImage imageNamed:@"icon_nav_point"];
+        annotationView.image = [UIImage imageNamed:@"icon_nav_point"];
     }
     
     //    ((BMKPinAnnotationView*)annotationView).pinColor = BMKPinAnnotationColorGreen;
@@ -204,7 +218,7 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
     ((BMKPinAnnotationView*)annotationView).draggable = NO;
     
     // 设置位置
-    annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
+    annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.2));
     
     // 单击弹出泡泡，弹出泡泡前提annotation必须实现title属性
     annotationView.canShowCallout = YES;
@@ -216,7 +230,7 @@ NSString *const kTableCellNibName = @"CADSearchResultCell";
  * 响应点击百度地图标记
  */
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view{
-    NSLog(@"annotation clicked %@", view.reuseIdentifier);
+//    NSLog(@"annotation clicked %@", view.reuseIdentifier);
 }
 
 // 当点击annotation view弹出的泡泡时，调用此接口

@@ -10,7 +10,12 @@
 
 @implementation CADStartCollectionViewHeader
 
-- (void)setHeaderWithTitle:(NSString *)title{
+- (IBAction)moreButtonAction:(id)sender {
+    NSLog(@"%@ - %ld", NSStringFromClass([self class]), (long)((UIButton*)sender).tag);
+}
+
+- (void)setHeaderWithTitle:(NSString *)title tag:(NSInteger)tag{
     self.sectionTitle.text = title;
+    self.moreButton.tag = tag;
 }
 @end

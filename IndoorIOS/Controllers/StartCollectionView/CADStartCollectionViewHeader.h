@@ -11,6 +11,8 @@
 @interface CADStartCollectionViewHeader : UICollectionReusableView
 
 @property (weak, nonatomic) IBOutlet UILabel *sectionTitle;
+@property (weak, nonatomic) IBOutlet UIButton *moreButton;
 
--(void) setHeaderWithTitle:(NSString*)title;
+- (IBAction)moreButtonAction:(id)sender;
+-(void) setHeaderWithTitle:(NSString*)title tag:(NSInteger)tag;
 @end
