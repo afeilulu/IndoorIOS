@@ -23,6 +23,7 @@
 #import "CADUser.h"
 #import "CADPayViewController.h"
 #import "CADAlertManager.h"
+#import "CADStoryBoardUtilities.h"
 
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
@@ -169,6 +170,9 @@ static NSMutableString *jsonUrl;
         return;
     }
     
+    [self submitOrder];
+    
+    /*
     // 提交预订给服务器,返回订单详情
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSubmitOrderJsonUrl]];
     [postRequest setHTTPMethod:@"POST"];
@@ -193,6 +197,7 @@ static NSMutableString *jsonUrl;
     
     // show in the status bar that network activity is starting
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+     */
     
     /* POST in JSON format sample
     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:saveUrl]];
@@ -884,6 +889,7 @@ static NSMutableString *jsonUrl;
     }
 }
 
+#pragma mark - ajax interface
 
 /*
  * 获取场馆场地状态
@@ -963,5 +969,106 @@ static NSMutableString *jsonUrl;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+/**
+ * 提交订单
+ */
+-(void) submitOrder{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            [self.orderParams setObject:user.phone forKey:@"phone"];
+            [self.orderParams setObject:self.timeStamp forKey:@"randTime"];
+            [self.orderParams setObject:[Utils md5:beforeMd5] forKey:@"secret"];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.orderParams
+                                                               options:(NSJSONWritingOptions) 0
+                                                                 error:nil];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"%@",jsonString]};
+            
+            [self.afm POST:kSubmitOrderJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"提交订单错误" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    NSDictionary *orderInfoDic=[responseObject objectForKey:@"orderInfo"];
+                    
+                    CADOrderListItem *orderInfo = [[CADOrderListItem alloc] init];
+                    [orderInfo setSiteTimeList:[orderInfoDic objectForKey:@"siteTimeList"]];
+                    [orderInfo setTotalMoney:[orderInfoDic objectForKey:@"totalMoney"]];
+                    [orderInfo setZflx:[orderInfoDic objectForKey:@"zflx"]];
+                    [orderInfo setRemainTime:[[orderInfoDic objectForKey:@"remainTime"] intValue]];
+                    [orderInfo setOrderTitle:[orderInfoDic objectForKey:@"orderTitle"]];
+                    [orderInfo setOrderStatus:[orderInfoDic objectForKey:@"orderStatus"]];
+                    [orderInfo setOrderSeq:[orderInfoDic objectForKey:@"orderSeq"]];
+                    [orderInfo setOrderId:[orderInfoDic objectForKey:@"orderId"]];
+                    [orderInfo setFpPrintYn:[orderInfoDic objectForKey:@"fpPrintYn"]];
+                    [orderInfo setCreateTime:[orderInfoDic objectForKey:@"createTime"]];
+                    [orderInfo setSportId:[orderInfoDic objectForKey:@"sportId"]];
+                    [orderInfo setSportTypeId:[orderInfoDic objectForKey:@"sportTypeId"]];
+                    [orderInfo setSportTypeName:[orderInfoDic objectForKey:@"sportTypeName"]];
+                    [orderInfo setSportTypeSmallImage:[orderInfoDic objectForKey:@"sportTypeSmallImage"]];
+                    
+                    // set back title
+                    UIBarButtonItem *blankButton =
+                    [[UIBarButtonItem alloc] initWithTitle:@"返回"
+                                                     style:UIBarButtonItemStylePlain
+                                                    target:nil
+                                                    action:nil];
+                    [[self navigationItem] setBackBarButtonItem:blankButton];
+                    
+//                    [self performSegueWithIdentifier:@"PayView" sender:orderInfo];
+                    CADPayViewController* vc = (CADPayViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Pay" class:[CADPayViewController class]];
+                    [vc setOrderInfo:orderInfo];
+                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                }
+                
+                self.isLoadingStatus = false;
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"提交订单错误" setMessage:[error localizedDescription]];
+                self.isLoadingStatus = false;
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+            
+            self.isLoadingStatus = false;
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+        
+        self.isLoadingStatus = false;
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
 
 @end

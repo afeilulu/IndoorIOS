@@ -297,7 +297,9 @@ static NSAttributedString *cr;
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSData *data = [defaults objectForKey:@"user"];
         user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//        NSLog(@"%@ - %@", user.name,user.phone);
+        if (user != nil){
+            [CADUserManager.sharedInstance setUser:user];
+        }
         
     }
     
