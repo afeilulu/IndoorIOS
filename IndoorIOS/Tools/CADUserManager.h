@@ -18,10 +18,18 @@
 @property (nonatomic, strong) NSString *cityName;
 @property (nonatomic, strong) NSString *cityCode;
 
+@property float fee2Rmb;
+@property float downLimit;
+@property float maxRatio;
+
 - (NSString *)getTimeStamp;
 - (CADUser *)getUser;
 - (NSString *)getCityName;
 - (NSString *)getCityCode;
+- (float)fee2Rmb;
+- (float)downLimit;
+- (float)maxRatio;
+
 - (void) clear;
 
 @end

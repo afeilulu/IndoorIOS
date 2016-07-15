@@ -171,85 +171,12 @@ static NSMutableString *jsonUrl;
     }
     
     [self submitOrder];
-    
-    /*
-    // 提交预订给服务器,返回订单详情
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSubmitOrderJsonUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    
-    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
-    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-    NSString *phone = [[CADUserManager sharedInstance] getUser].phone;
-    
-    [self.orderParams setObject:phone forKey:@"phone"];
-    [self.orderParams setObject:timeStamp forKey:@"randTime"];
-    [self.orderParams setObject:[Utils md5:beforeMd5] forKey:@"secret"];
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.orderParams
-                                                       options:(NSJSONWritingOptions) 0
-                                                         error:nil];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString=%@",jsonString];
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-
-    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-     */
-    
-    /* POST in JSON format sample
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:saveUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [postRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableArray *dataArray = [[NSMutableArray alloc] init];
-    for (NSString *dateItem in [self.dateToIndexDictionary keyEnumerator]) {
-        NSArray *selectedIndexs = [self.dateToIndexDictionary objectForKey:dateItem];
-        NSMutableString *status=[[NSMutableString alloc] init];
-        for (int i=0; i<unitSize; i++) {
-            if ([selectedIndexs containsObject:[NSString stringWithFormat:@"%i",i]])
-                [status appendString:@"1,"];
-            else
-                [status appendString:@"0,"];
-        }
-        
-        StatusByDayRecord *statusByDayRecord = [[StatusByDayRecord alloc] init];
-//        statusByDayRecord.stadiumId = self.sportDayrule.stadiumId;
-//        statusByDayRecord.sportId = self.sportDayrule.sportId;
-        statusByDayRecord.date = dateItem;
-        statusByDayRecord.status = status;
-        
-        [dataArray addObject:statusByDayRecord.dictionary];
-    }
-    
-    NSError* error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataArray options:kNilOptions error:&error];
-    [postRequest setHTTPBody: jsonData];
-    
-    // Initialize the NSURLConnection and proceed as described in
-    // Retrieving the Contents of a URL
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    self.saveConn = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-     */
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - collectionView delegate
 
@@ -611,220 +538,10 @@ static NSMutableString *jsonUrl;
     }
      */
     
-    /*
-    // get status of today by post
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kSportPlaceStatusJsonUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@','sportTypeId':'%@','selectDate':'%@'}",_sportSiteId,_sportTypeId,_selectedDate];
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-    
-    // Test the validity of the connection object. The most likely reason for the connection object
-    // to be nil is a malformed URL, which is a programmatic error easily detected during development
-    // If the URL is more dynamic, then you should implement a more flexible validation technique, and
-    // be able to both recover from errors and communicate problems to the user in an unobtrusive manner.
-    //
-    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-     */
     
     [self getSiteStatus];
     self.isLoadingStatus = true;
     
-}
-
-#pragma mark - NSURLConnectionDelegate
-
-// -------------------------------------------------------------------------------
-//	handleError:error
-//  handle connection error
-//  Reports any error with an alert which was received from connection or loading failures.
-// -------------------------------------------------------------------------------
-- (void)handleError:(NSError *)error
-{
-    NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接服务器"
-                                                        message:errorMessage
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didReceiveResponse:response
-//  Called when enough data has been read to construct an NSURLResponse object.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    self.jsonData = [NSMutableData data];    // start off with new data
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didReceiveData:data
-//  Called with a single immutable NSData object to the delegate, representing the next
-//  portion of the data loaded from the connection.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.jsonData appendData:data];  // append incoming data
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didFailWithError:error
-//  Will be called at most once, if an error occurs during a resource load.
-//  No other callbacks will be made after.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    if (error.code == kCFURLErrorNotConnectedToInternet)
-    {
-        // if we can identify the error, we can present a more precise message to the user.
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"No Connection Error"};
-        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                                         code:kCFURLErrorNotConnectedToInternet
-                                                     userInfo:userInfo];
-        [self handleError:noConnectionError];
-    }
-    else
-    {
-        // otherwise handle the error generically
-        [self handleError:error];
-    }
-    
-    connection = nil;   // release our connection
-}
-
-// -------------------------------------------------------------------------------
-//	connectionDidFinishLoading:connection
-//  Called when all connection processing has completed successfully, before the delegate
-//  is released by the connection.
-// -------------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    NSError* error;
-    
-    // 处理获取场馆时间安排
-    if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSportPlaceStatusJsonUrl]) {
-        self.statusDictionary = [NSJSONSerialization
-                                 JSONObjectWithData:self.jsonData
-                                 options:kNilOptions
-                                 error:&error];
-        if (self.statusDictionary) {
-            _start = [[self.statusDictionary objectForKey:@"startTime"] intValue];
-            _end = [[self.statusDictionary objectForKey:@"endTime"] intValue];
-            _places = [[NSMutableArray alloc] initWithArray:[self.statusDictionary objectForKey:@"places"]];
-            
-            if (_start >= _end) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"获取场地时间安排"
-                                                                    message:@"未知异常"
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"确定"
-                                                          otherButtonTitles:nil];
-                [alertView show];
-            } else {
-            
-                [_timeUnitCollectionView reloadData];
-                [self.timeUnitCollectionView setHidden:false];
-            
-                // scroll to top left
-                [self.timeUnitCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:1] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally|UICollectionViewScrollPositionCenteredVertically animated:true];
-            }
-        }
-    
-        self.isLoadingStatus = false;
-    
-        // 显示图标描述
-        if (self.iconDescriptionView == nil){
-            self.iconDescriptionView = [[IconDescription alloc] initWithFrame:CGRectMake(2,self.iconDescriptionViewStartY, self.screenWidth - 4, timeSelectedViewHeight - 48)];
-            [self.view addSubview:self.iconDescriptionView];
-            [self.commitButton setHidden:true];
-        }
-            
-    }
-    
-    
-    // 处理订单提交
-    if ([[connection.currentRequest.URL absoluteString] isEqualToString:kSubmitOrderJsonUrl]) {
-        NSDictionary *submitOrderResult = [NSJSONSerialization
-                                           JSONObjectWithData:self.jsonData
-                                           options:kNilOptions
-                                           error:&error];
-        
-        if ([[submitOrderResult objectForKey:@"success"] boolValue] == true){
-            
-//            NSLog(@"%@ - %@", NSStringFromClass([self class]), submitOrderResult);
-            
-            NSDictionary *orderInfoDic=[submitOrderResult objectForKey:@"orderInfo"];
-            
-            CADOrderListItem *orderInfo = [[CADOrderListItem alloc] init];
-            [orderInfo setSiteTimeList:[orderInfoDic objectForKey:@"siteTimeList"]];
-            [orderInfo setTotalMoney:[orderInfoDic objectForKey:@"totalMoney"]];
-            [orderInfo setZflx:[orderInfoDic objectForKey:@"zflx"]];
-            [orderInfo setRemainTime:[[orderInfoDic objectForKey:@"remainTime"] intValue]];
-            [orderInfo setOrderTitle:[orderInfoDic objectForKey:@"orderTitle"]];
-            [orderInfo setOrderStatus:[orderInfoDic objectForKey:@"orderStatus"]];
-            [orderInfo setOrderSeq:[orderInfoDic objectForKey:@"orderSeq"]];
-            [orderInfo setOrderId:[orderInfoDic objectForKey:@"orderId"]];
-            [orderInfo setFpPrintYn:[orderInfoDic objectForKey:@"fpPrintYn"]];
-            [orderInfo setCreateTime:[orderInfoDic objectForKey:@"createTime"]];
-            [orderInfo setSportId:[orderInfoDic objectForKey:@"sportId"]];
-            [orderInfo setSportTypeId:[orderInfoDic objectForKey:@"sportTypeId"]];
-            [orderInfo setSportTypeName:[orderInfoDic objectForKey:@"sportTypeName"]];
-            [orderInfo setSportTypeSmallImage:[orderInfoDic objectForKey:@"sportTypeSmallImage"]];
-            
-            // set back title
-            UIBarButtonItem *blankButton =
-            [[UIBarButtonItem alloc] initWithTitle:@"返回"
-                                             style:UIBarButtonItemStylePlain
-                                            target:nil
-                                            action:nil];
-            [[self navigationItem] setBackBarButtonItem:blankButton];
-            [self performSegueWithIdentifier:@"PayView" sender:orderInfo];
-            
-        } else {
-            NSString *desc = [submitOrderResult objectForKey:@"msg"];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"订单提交失败"
-                                                                message:desc
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"确定"
-                                                      otherButtonTitles:nil];
-            [alertView show];
-            
-        }
-    }
-    
-    /*
-    if ([[NSString stringWithFormat:@"%@",[result objectForKey:@"action"]] isEqualToString:@"save"]) {
-        if ([[result objectForKey:@"resultCode"] integerValue] == 1){
-            // successfully saved
-            
-            // 这里会得到订单id
-            
-            // load payview
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            CADChooseViewController *viewController = (CADChooseViewController *)[storyboard instantiateViewControllerWithIdentifier:@"payview"];
-            
-            // set back title
-            UIBarButtonItem *newBackButton =
-            [[UIBarButtonItem alloc] initWithTitle:@"订单确认"
-                                             style:UIBarButtonItemStyleBordered
-                                            target:nil
-                                            action:nil];
-            [[self navigationItem] setBackBarButtonItem:newBackButton];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-    }
-     */
-    
-    connection = nil;   // release our connection
 }
 
 - (void)generateOrderParams
@@ -878,15 +595,6 @@ static NSMutableString *jsonUrl;
     
     [self.orderParams setObject:[[NSString alloc] initWithFormat:@"%.2f",totalMoney] forKey:@"pay"];
     [self.orderParams setObject:sportPlaceTimeList forKey:@"sportPlaceTimeList"];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"PayView"]){
-        
-        CADPayViewController *destination = [segue destinationViewController];
-        [destination setOrderInfo:sender];
-    }
 }
 
 #pragma mark - ajax interface
@@ -1041,7 +749,6 @@ static NSMutableString *jsonUrl;
                                                     action:nil];
                     [[self navigationItem] setBackBarButtonItem:blankButton];
                     
-//                    [self performSegueWithIdentifier:@"PayView" sender:orderInfo];
                     CADPayViewController* vc = (CADPayViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Pay" class:[CADPayViewController class]];
                     [vc setOrderInfo:orderInfo];
                     [self.navigationController pushViewController:vc animated:YES];

@@ -14,6 +14,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CADOrderListItem.h"
+#import "AFNetworking.h"
+#import "MarqueeLabel.h"
 
 @interface CADPayViewController : UIViewController;
 
@@ -47,5 +49,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *place3HeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *place2HeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderContainerHeightConstraint;
+
+@property (strong,nonatomic) NSString *timeStamp;
+@property (strong,nonatomic) AFHTTPSessionManager *afm;
+
+@property (weak, nonatomic) IBOutlet MarqueeLabel *ruleTips;
+@property (weak, nonatomic) IBOutlet UISwitch *switchButton;
+@property (weak, nonatomic) IBOutlet UITextField *useScoreText;
+
+- (IBAction)switchAction:(id)sender;
 
 @end

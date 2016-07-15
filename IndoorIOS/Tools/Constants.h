@@ -77,6 +77,9 @@ extern NSString *const KActivityListUrl;
 // 获取图片
 extern NSString *const KImageUrl;
 
+// 获取积分规则
+extern NSString *const KRuleJFDK;
+
 extern int const kSelectableColor;
 
 extern int const kUnSelectableColor;

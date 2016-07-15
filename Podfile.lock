@@ -22,7 +22,10 @@ PODS:
     - OpenSSL
     - PupaFoundation
   - BaiduMapKit (3.0.0)
-  - MJExtension (3.0.10)
+  - MarqueeLabel (2.7.8):
+    - MarqueeLabel/ObjC (= 2.7.8)
+  - MarqueeLabel/ObjC (2.7.8)
+  - MJExtension (3.0.11)
   - OpenSSL (1.0.208)
   - PupaFoundation (1.1.8)
   - SDWebImage (3.8.1):
@@ -34,6 +37,7 @@ DEPENDENCIES:
   - AlipaySDK-2.0
   - AlipaySDK-2.0/Order
   - BaiduMapKit
+  - MarqueeLabel
   - MJExtension
   - SDWebImage
 
@@ -41,11 +45,12 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AlipaySDK-2.0: 346e006fd2999d5ca5dd8869d03bc0a260fc48e0
   BaiduMapKit: de2a726d5296d6b2dc0e974b683af73153608dcd
-  MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
+  MarqueeLabel: 6fff28d8c12f30b4a8d01a9f5992b4924a857f2b
+  MJExtension: f9ae6ddc0f1c482c3c9af750280ccebd14381958
   OpenSSL: b187269d386b07452f56af273764ea0636dd5da8
   PupaFoundation: 517b518ad1a43a83c4cf151c101763566ffc0c12
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: 799d23ced30e2ecc7e4cfd898b0a6b1fc446458b
+PODFILE CHECKSUM: fdbd0564beb45ab1347966213c88de867be1783a
 
 COCOAPODS: 1.0.1

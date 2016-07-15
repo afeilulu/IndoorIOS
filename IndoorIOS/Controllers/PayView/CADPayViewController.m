@@ -18,6 +18,7 @@
 #import "StadiumRecord.h"
 #import "ParseStadiumDetail.h"
 #import "NSString+AlipaySigner.h"
+#import "CADAlertManager.h"
 
 @interface CADPayViewController ()
 
@@ -55,15 +56,7 @@
     } else {
         // need get stadium detail
         // 从服务器获取场馆详情
-        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kStadiumDetailJsonUrl]];
-        [postRequest setHTTPMethod:@"POST"];
-        NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'sportSiteId':'%@'}",self.orderInfo.sportId];
-        [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-        self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-        NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-        
-        // show in the status bar that network activity is starting
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        [self getSiteDetail];
     }
     
     // 运动图片
@@ -127,25 +120,19 @@
         
         [self setTitle:[[NSString alloc] initWithFormat:@"确认支付(%i分钟内支付有效)",self.orderInfo.remainTime]];
     }
+    
+    self.afm = [AFHTTPSessionManager manager];
+    
+    // auto-hiding keyboard
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(endEditing:)]];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     // update user info
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kGetUserInfoJsonUrl]];
-    [postRequest setHTTPMethod:@"POST"];
+    [self getUserInfo];
     
-    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
-    CADUser *user = [[CADUserManager sharedInstance] getUser];
-    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'phone':'%@','randTime':'%@','secret':'%@'}",user.phone,timeStamp,[Utils md5:beforeMd5]];
-    
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-    
-    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    // 获取积分规则
+    [self getRule];
 }
 
 #pragma mark -
@@ -218,269 +205,55 @@
 }
 
 - (IBAction)AlipayAction:(id)sender {
-    NSLog(@"Alipay clicked");
-    
-    // 先确认订单
-    NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kPreAliPayUrl]];
-    [postRequest setHTTPMethod:@"POST"];
-    
-    NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
-    NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-    NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'orderId':'%@','randTime':'%@','secret':'%@','payParam':{'orderId':'%@'}}",self.orderInfo.orderId,timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId];
-    
-    [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-    self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-    
-    NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-    
-    // show in the status bar that network activity is starting
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-}
-
-// -------------------------------------------------------------------------------
-//	handleError:error
-//  Reports any error with an alert which was received from connection or loading failures.
-// -------------------------------------------------------------------------------
-- (void)handleError:(NSError *)error
-{
-    NSString *errorMessage = [error localizedDescription];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"不能连接服务器"
-                                                        message:errorMessage
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-    [alertView show];
-}
-
-// The following are delegate methods for NSURLConnection. Similar to callback functions, this is how
-// the connection object,  which is working in the background, can asynchronously communicate back to
-// its delegate on the thread from which it was started - in this case, the main thread.
-//
-#pragma mark - NSURLConnectionDelegate
-
-// -------------------------------------------------------------------------------
-//	connection:didReceiveResponse:response
-//  Called when enough data has been read to construct an NSURLResponse object.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    self.jsonData = [NSMutableData data];    // start off with new data
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didReceiveData:data
-//  Called with a single immutable NSData object to the delegate, representing the next
-//  portion of the data loaded from the connection.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.jsonData appendData:data];  // append incoming data
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didFailWithError:error
-//  Will be called at most once, if an error occurs during a resource load.
-//  No other callbacks will be made after.
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    if (error.code == kCFURLErrorNotConnectedToInternet)
-    {
-        // if we can identify the error, we can present a more precise message to the user.
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey:@"No Connection Error"};
-        NSError *noConnectionError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                                         code:kCFURLErrorNotConnectedToInternet
-                                                     userInfo:userInfo];
-        [self handleError:noConnectionError];
-    }
-    else
-    {
-        // otherwise handle the error generically
-        [self handleError:error];
-    }
-    
-    self.jsonConnection = nil;   // release our connection
-}
-
-// -------------------------------------------------------------------------------
-//	connectionDidFinishLoading:connection
-//  Called when all connection processing has completed successfully, before the delegate
-//  is released by the connection.
-// -------------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-    // 重新获取用户信息
-    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kGetUserInfoJsonUrl]]) {
-        self.jsonConnection = nil;   // release our connection
-        
-        NSError* error;
-        NSDictionary *result = [NSJSONSerialization
-                                JSONObjectWithData:self.jsonData
-                                options:kNilOptions
-                                error:&error];
-        
-        CADUser *user = [[CADUserManager sharedInstance] getUser];
-        
-        if ([[result objectForKey:@"success"] boolValue] == true){
-            NSDictionary *userInfo = [result objectForKey:@"userInfo"];
-            
-            user.fee = [userInfo objectForKey:@"fee"];
-            user.idString = [userInfo objectForKey:@"id"];
-            user.mail = [userInfo objectForKey:@"mail"];
-            user.phone = [userInfo objectForKey:@"phone"];
-            user.sex_code = [userInfo objectForKey:@"sex_code"];
-            user.sex_name = [userInfo objectForKey:@"sec_name"];
-            user.imgUrl = [userInfo objectForKey:@"image_url"];
-            user.address = [userInfo objectForKey:@"address"];
-            user.area_code = [userInfo objectForKey:@"area_code"];
-            user.area_name = [userInfo objectForKey:@"area_name"];
-            user.name = [userInfo objectForKey:@"name"];
-            user.score = [userInfo objectForKey:@"score"];
-            user.qq = [userInfo objectForKey:@"qq"];
-            
-            [self.RemainPayButton setTitle:[[NSString alloc] initWithFormat:@"余额(%@)",user.fee] forState:UIControlStateNormal];
-            int fee = [user.fee intValue];
-            if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
-                [self.RemainPayButton setEnabled:false];
-                self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
-            } else {
-                [self.RemainPayButton setEnabled:true];
-                self.RemainPayButton.backgroundColor = self.view.tintColor;
-            }
-        } else {
-            NSString *domain = @"com.chinaairdome.indoorios";
-            NSString *desc = [result objectForKey:@"msg"];
-            
-            // if we can identify the error, we can present a more precise message to the user.
-            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:desc};
-            NSError *error = [NSError errorWithDomain:domain
-                                                 code:-105
-                                             userInfo:userInfo];
-            [self handleError:error];
-            
-        }
-        
-    }
-    
-    // 调用支付宝支付前的订单验证
-    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kPreAliPayUrl]]) {
-        self.jsonConnection = nil;   // release our connection
-        
-        NSError* error;
-        NSDictionary *result = [NSJSONSerialization
-                                JSONObjectWithData:self.jsonData
-                                options:kNilOptions
-                                error:&error];
-//        NSLog(@"%@ - %@", NSStringFromClass([self class]), result);
-        
-        if ([[result objectForKey:@"success"] boolValue] == true){
-            // real alipay invocation
-            [self Alipay:[result objectForKey:@"payId"] inTime:[result objectForKey:@"remainTime"]];
-            
-        } else {
-            NSString *desc = [result objectForKey:@"msg"];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取订单状态异常"
-                                                            message:desc
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    // 余额支付结果
-    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kFeePayUrl]]) {
-        self.jsonConnection = nil;   // release our connection
-        
-        NSError* error;
-        NSDictionary *result = [NSJSONSerialization
-                                JSONObjectWithData:self.jsonData
-                                options:kNilOptions
-                                error:&error];
-//        NSLog(@"%@ - %@", NSStringFromClass([self class]), result);
-        
-        if ([[result objectForKey:@"success"] boolValue] == true){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"支付完成"
-                                                            message:nil
-                                                           delegate:self
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        } else {
-            NSString *desc = [result objectForKey:@"msg"];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"获取订单异常"
-                                                            message:desc
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-    }
-    
-    // 获取场馆详情
-    if ([connection.currentRequest.URL isEqual:[NSURL URLWithString:kStadiumDetailJsonUrl]]) {
-        self.jsonConnection = nil;   // release our connection
-        
-        // create the queue to run our ParseOperation
-        self.queue = [[NSOperationQueue alloc] init];
-        
-        ParseStadiumDetail *parser = [[ParseStadiumDetail alloc] initWithData:self.jsonData];
-        
-        parser.errorHandler = ^(NSError *parseError) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self handleError:parseError];
-            });
-        };
-        
-        parser.completionBlock = ^(void) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 重新设置地址
-                StadiumManager *stadiumManager = [StadiumManager sharedInstance];
-                StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:self.orderInfo.sportId];
-                if (stadium.gotDetail) {
-                    self.addressLabel.text = stadium.address;
-                }
-            });
-            // we are finished with the queue and our ParseOperation
-            self.queue = nil;
-        };
-        
-        [self.queue addOperation:parser]; // this will start the "ParseOperation"
-        
-    }
-    
-    // ownership of appListData has been transferred to the parse operation
-    // and should no longer be referenced in this thread
-    self.jsonData = nil;
+    [self preAliPay];
 }
 
 #pragma mark - remain pay
 -(void) RemainPayWithPassword:(NSString *) password
 {
+
+    CADUser *user = [[CADUserManager sharedInstance] getUser];
     
-     CADUser *user = [[CADUserManager sharedInstance] getUser];
-     
-     NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:kFeePayUrl]];
-     [postRequest setHTTPMethod:@"POST"];
-     
-     NSString *timeStamp = [[CADUserManager sharedInstance] getTimeStamp];
-     NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,timeStamp ];
-     NSString *params = [[NSString alloc] initWithFormat:@"jsonString={'orderId':'%@','phone':'%@','payPassword':'%@','randTime':'%@','secret':'%@'}",self.orderInfo.orderId, user.phone,password,timeStamp,[Utils md5:beforeMd5]];
-     
-     [postRequest setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
-     self.jsonConnection = [[NSURLConnection alloc]initWithRequest:postRequest delegate:self];
-     
-     NSAssert(self.jsonConnection != nil, @"Failure to create URL connection.");
-     
-     // show in the status bar that network activity is starting
-     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSString *parameters = [[NSString alloc] initWithFormat:@"jsonString={'orderId':'%@','phone':'%@','payPassword':'%@','randTime':'%@','secret':'%@'}",self.orderInfo.orderId, user.phone,password,self.timeStamp,[Utils md5:beforeMd5]];
+            
+            [self.afm POST:kFeePayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"余额支付异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    [CADAlertManager showAlert:self setTitle:@"支付成功" setMessage:@""];
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"余额支付异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
 }
 
 
@@ -614,5 +387,259 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
 
     }
+}
+
+/**
+ * 获取用户详细信息
+ */
+-(void) getUserInfo{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@'}",self.timeStamp,[Utils md5:beforeMd5],user.phone]};
+            
+            [self.afm POST:kGetUserInfoJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    NSDictionary *userInfo = [responseObject objectForKey:@"userInfo"];
+                    
+                    user.fee = [userInfo objectForKey:@"fee"];
+                    user.idString = [userInfo objectForKey:@"id"];
+                    user.mail = [userInfo objectForKey:@"mail"];
+                    user.phone = [userInfo objectForKey:@"phone"];
+                    user.sex_code = [userInfo objectForKey:@"sex_code"];
+//                    user.sex_name = [userInfo objectForKey:@"sec_name"];
+                    user.imgUrl = [userInfo objectForKey:@"image_url"];
+//                    user.address = [userInfo objectForKey:@"address"];
+//                    user.area_code = [userInfo objectForKey:@"area_code"];
+//                    user.area_name = [userInfo objectForKey:@"area_name"];
+                    user.name = [userInfo objectForKey:@"name"];
+                    user.score = [userInfo objectForKey:@"score"];
+                    user.qq = [userInfo objectForKey:@"qq"];
+                    
+                    [self.RemainPayButton setTitle:[[NSString alloc] initWithFormat:@"余额(%@)",user.fee] forState:UIControlStateNormal];
+                    int fee = [user.fee intValue];
+                    if (fee == 0 || fee < [self.orderInfo.totalMoney intValue]) {
+                        [self.RemainPayButton setEnabled:false];
+                        self.RemainPayButton.backgroundColor = [UIColor lightGrayColor];
+                    } else {
+                        [self.RemainPayButton setEnabled:true];
+                        self.RemainPayButton.backgroundColor = self.view.tintColor;
+                    }
+                    
+                    [self.useScoreText setPlaceholder:[[NSString alloc] initWithFormat:@"您的积分 : %@",user.score]];
+                    
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 获取积分规则 {"item":{"fee":"0.10","percent":"10.00","low":"100.00"},"success":true}
+ */
+-(void) getRule{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@'}",self.timeStamp,[Utils md5:beforeMd5]]};
+            
+            [self.afm POST:KRuleJFDK parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    CADUserManager *cm = CADUserManager.sharedInstance;
+                    cm.fee2Rmb = [[[responseObject objectForKey:@"item"] objectForKey:@"fee"] floatValue];
+                    cm.maxRatio = [[[responseObject objectForKey:@"item"] objectForKey:@"percent"] floatValue];
+                    cm.downLimit = [[[responseObject objectForKey:@"item"] objectForKey:@"low"] floatValue];
+                    
+                    [self.ruleTips setText:[[NSString alloc] initWithFormat:@"*订单%.0f元起可用积分，1积分可抵%.02f元，最多可抵订单%.0f%%。 ",cm.downLimit, cm.fee2Rmb,cm.maxRatio]];
+
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 调用支付宝支付前的订单验证
+ */
+-(void) preAliPay {
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','orderId':'%@','payParam':{'orderId':'%@'}}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.orderInfo.orderId]};
+            
+            [self.afm POST:kPreAliPayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取订单状态异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    
+                    // real alipay invocation
+                    [self Alipay:[responseObject objectForKey:@"payId"] inTime:[responseObject objectForKey:@"remainTime"]];
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取订单状态异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 从服务器获取场馆详情
+ */
+-(void) getSiteDetail {
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','sportSiteId':'%@'}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.sportId]};
+            
+            [self.afm POST:kStadiumDetailJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取场馆详情异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    // 重新设置地址
+                    StadiumManager *stadiumManager = [StadiumManager sharedInstance];
+                    StadiumRecord *stadium = [stadiumManager.stadiumList objectForKey:self.orderInfo.sportId];
+                    [stadium setGotDetail:TRUE];
+                    self.addressLabel.text = stadium.address;
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取场馆详情异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+- (IBAction)switchAction:(id)sender {
 }
 @end

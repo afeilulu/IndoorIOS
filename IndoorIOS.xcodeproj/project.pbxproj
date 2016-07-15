@@ -21,7 +21,6 @@
 		750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75C11CE5765500B1722A /* CADBaiduMapViewController.m */; };
 		750F75C81CE5765500B1722A /* CADNetworkLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */; };
 		751352391D3643C40019FABC /* Pay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 751352381D3643C40019FABC /* Pay.storyboard */; };
-		7513523D1D3644E90019FABC /* CADPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7513523C1D3644E90019FABC /* CADPayController.m */; };
 		751352401D3645C00019FABC /* CADPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7513523E1D3645C00019FABC /* CADPayViewController.m */; };
 		751B22EB1C50CA8F0031F782 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 751B22EA1C50CA8F0031F782 /* Home.storyboard */; };
 		751B22EF1C50CCDE0031F782 /* CADStoryBoardUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 751B22EE1C50CCDE0031F782 /* CADStoryBoardUtilities.m */; };
@@ -162,8 +161,6 @@
 		750F75C41CE5765500B1722A /* CADNetworkLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADNetworkLoadingViewController.m; sourceTree = "<group>"; };
 		750F75C51CE5765500B1722A /* CADNetworkLoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADNetworkLoadingViewController.h; sourceTree = "<group>"; };
 		751352381D3643C40019FABC /* Pay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Pay.storyboard; path = storyboard/Pay.storyboard; sourceTree = "<group>"; };
-		7513523B1D3644E90019FABC /* CADPayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayController.h; sourceTree = "<group>"; };
-		7513523C1D3644E90019FABC /* CADPayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayController.m; sourceTree = "<group>"; };
 		7513523E1D3645C00019FABC /* CADPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayViewController.m; sourceTree = "<group>"; };
 		7513523F1D3645C00019FABC /* CADPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayViewController.h; sourceTree = "<group>"; };
 		751B22EA1C50CA8F0031F782 /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Home.storyboard; path = storyboard/Home.storyboard; sourceTree = "<group>"; };
@@ -429,8 +426,6 @@
 			children = (
 				7513523E1D3645C00019FABC /* CADPayViewController.m */,
 				7513523F1D3645C00019FABC /* CADPayViewController.h */,
-				7513523B1D3644E90019FABC /* CADPayController.h */,
-				7513523C1D3644E90019FABC /* CADPayController.m */,
 			);
 			path = PayView;
 			sourceTree = "<group>";
@@ -989,7 +984,6 @@
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
 				751D4DC51D193FE200A2D67B /* Activity.m in Sources */,
-				7513523D1D3644E90019FABC /* CADPayController.m in Sources */,
 				75CDB4291D0D3B0F00A3B3CF /* CADSearchResultController.m in Sources */,
 				750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */,
 				753547811AE6694A005A5791 /* IconDownloader.m in Sources */,
