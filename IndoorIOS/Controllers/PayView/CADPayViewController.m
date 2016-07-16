@@ -138,7 +138,6 @@
 #pragma mark -
 #pragma mark   ==============产生随机订单号==============
 
-/*
 - (NSString *)generateTradeNO
 {
     static int kNumber = 15;
@@ -154,7 +153,6 @@
     }
     return resultStr;
 }
- */
 
 #pragma mark -
 #pragma mark   ==============查询账户是否存在==============
@@ -293,31 +291,28 @@
     //将商品信息赋予AlixPayOrder的成员变量
     Order *order = [[Order alloc] init];
     order.partner = partner;
-    order.seller = seller;
+    order.sellerID = seller;
     //    order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-    order.tradeNO = payId;
+    order.outTradeNO = payId;
     //商品标题
     NSString *aMonth =  [[NSString alloc] initWithFormat:@"%i",[self.dateLabel.text substringWithRange:NSMakeRange(5, 2)].intValue];
     NSString *aDay =  [[NSString alloc] initWithFormat:@"%i",[self.dateLabel.text substringWithRange:NSMakeRange(8, 2)].intValue];
     NSArray *timeSlot1Array = [[self.orderInfo.siteTimeList[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] componentsSeparatedByString:@" "];
     ;
     if (self.orderInfo.siteTimeList.count > 1) {
-        order.productName = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@等预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
+        order.subject = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@等预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
     } else {
-        order.productName = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
+        order.subject = [[NSString alloc] initWithFormat:@"泡泡体育%@月%@日%@点至%@点%@%@预定",aMonth,aDay,[timeSlot1Array[2] substringToIndex:2],[timeSlot1Array[4] substringToIndex:2],self.orderInfo.sportTypeName,timeSlot1Array[0]];
     }
-    order.productDescription = self.orderInfo.orderTitle; //商品描述;
-//        order.amount = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
-    order.amount = self.orderInfo.totalMoney;
+    order.body = self.orderInfo.orderTitle; //商品描述;
+    order.totalFee = self.orderInfo.totalMoney;
     order.notifyURL =  kAlipayCallbackUrl; //回调URL
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
     order.inputCharset = @"utf-8";
-//        order.itBPay = @"30m";
-//    order.itBPay =[[NSString alloc] initWithFormat:@"%im",self.orderInfo.remainTime];
     order.itBPay = remainTime;
-    order.showUrl = @"m.alipay.com";
+    order.showURL = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
     NSString *appScheme = @"IndoorIOS";

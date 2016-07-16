@@ -444,9 +444,9 @@
 				751B22EA1C50CA8F0031F782 /* Home.storyboard */,
 				753FFE511D06E29B003CFA66 /* Start.storyboard */,
 				758F90E61D16A4AA00CBD7DA /* Login.storyboard */,
-				75766A571D1ACB4000B63168 /* AllSiteList.storyboard */,
 				751352381D3643C40019FABC /* Pay.storyboard */,
 				754359501D393F6B00D3A78B /* Account.storyboard */,
+				75766A571D1ACB4000B63168 /* AllSiteList.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
