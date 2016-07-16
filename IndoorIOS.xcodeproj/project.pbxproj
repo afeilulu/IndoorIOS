@@ -51,6 +51,8 @@
 		7536AB931B3922C900FF0B3C /* ic_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB911B3922C900FF0B3C /* ic_key.png */; };
 		7536AB941B3922C900FF0B3C /* ic_email.png in Resources */ = {isa = PBXBuildFile; fileRef = 7536AB921B3922C900FF0B3C /* ic_email.png */; };
 		753FFE521D06E29B003CFA66 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753FFE511D06E29B003CFA66 /* Start.storyboard */; };
+		754359511D393F6B00D3A78B /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 754359501D393F6B00D3A78B /* Account.storyboard */; };
+		754359551D39408E00D3A78B /* CADAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754359541D39408E00D3A78B /* CADAccountViewController.m */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF11B3CFBB800298472 /* ic_filter_drama.png */; };
 		756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */; };
@@ -218,6 +220,9 @@
 		7536AB911B3922C900FF0B3C /* ic_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_key.png; sourceTree = "<group>"; };
 		7536AB921B3922C900FF0B3C /* ic_email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_email.png; sourceTree = "<group>"; };
 		753FFE511D06E29B003CFA66 /* Start.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Start.storyboard; path = storyboard/Start.storyboard; sourceTree = "<group>"; };
+		754359501D393F6B00D3A78B /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Account.storyboard; path = storyboard/Account.storyboard; sourceTree = "<group>"; };
+		754359531D39408E00D3A78B /* CADAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADAccountViewController.h; sourceTree = "<group>"; };
+		754359541D39408E00D3A78B /* CADAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADAccountViewController.m; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		756CACF11B3CFBB800298472 /* ic_filter_drama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_filter_drama.png; sourceTree = "<group>"; };
@@ -441,6 +446,7 @@
 				758F90E61D16A4AA00CBD7DA /* Login.storyboard */,
 				75766A571D1ACB4000B63168 /* AllSiteList.storyboard */,
 				751352381D3643C40019FABC /* Pay.storyboard */,
+				754359501D393F6B00D3A78B /* Account.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				754359521D39405C00D3A78B /* AccountView */,
 				7513523A1D3644B60019FABC /* PayView */,
 				75766A591D1ACC1E00B63168 /* AllSiteList */,
 				758F90E81D16A58100CBD7DA /* LoginView */,
@@ -600,6 +607,15 @@
 				7535478C1AE72CC6005A5791 /* CADStretchableTableHeaderView.m */,
 			);
 			path = StretchableTableHeaderView;
+			sourceTree = "<group>";
+		};
+		754359521D39405C00D3A78B /* AccountView */ = {
+			isa = PBXGroup;
+			children = (
+				754359531D39408E00D3A78B /* CADAccountViewController.h */,
+				754359541D39408E00D3A78B /* CADAccountViewController.m */,
+			);
+			path = AccountView;
 			sourceTree = "<group>";
 		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
@@ -878,6 +894,7 @@
 				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				758F90D91D166B9D00CBD7DA /* PreOrder.storyboard in Resources */,
+				754359511D393F6B00D3A78B /* Account.storyboard in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
 				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
 				756CACFE1B3D374E00298472 /* ic_sms.png in Resources */,
@@ -983,6 +1000,7 @@
 				75CCFC871AECCEE7001FEF9C /* CADUser.m in Sources */,
 				75C84C411AF8BAD6000C3AD1 /* CADStickyLayout.m in Sources */,
 				7535475F1AE66568005A5791 /* POHorizontalList.m in Sources */,
+				754359551D39408E00D3A78B /* CADAccountViewController.m in Sources */,
 				751D4DC51D193FE200A2D67B /* Activity.m in Sources */,
 				75CDB4291D0D3B0F00A3B3CF /* CADSearchResultController.m in Sources */,
 				750F75C71CE5765500B1722A /* CADBaiduMapViewController.m in Sources */,

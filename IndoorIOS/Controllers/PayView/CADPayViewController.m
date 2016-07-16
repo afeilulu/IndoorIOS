@@ -226,7 +226,7 @@
             self.timeStamp = [responseObject objectForKey:@"randTime"];
             
             NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSString *parameters = [[NSString alloc] initWithFormat:@"jsonString={'orderId':'%@','phone':'%@','payPassword':'%@','randTime':'%@','secret':'%@'}",self.orderInfo.orderId, user.phone,password,self.timeStamp,[Utils md5:beforeMd5]];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password]};
             
             [self.afm POST:kFeePayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
@@ -268,9 +268,9 @@
     /*============================================================================*/
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
-    NSString *partner = @"2088021166834335";
-    NSString *seller = @"postmaster@paopaoty.com";
-    NSString *privateKey = @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAPxel3RYoJ6DOUOfvPwcVpdesI/Qkh2GHkbghmj6qV50pWbu4q1FVLQ+tBcgvkK7+zkadJJ9A7o2xXIFd/OMgAS5SQPresEtu7mB310M2g8uTIywp2HTP4r2ZBy9AGPM6WQ9tqIvlbgAWgNook3d0dCQUKwaMeS1bkm8ZcjGe5pjAgMBAAECgYEA4DJ0YDK/9jHjdHT7IglWz8CaIBkNRVc5nIOoRKiyQCxmKEx+aanW9w1hVc6L16NCKlebSevvnMU9oO7EwkOGEWidTiJDuUsFz+fehFmRP9PrMTXY2+eNH64GmVxw2uG+uzsbYzwdSRYH1F3vkzABulFy82c1kzW4a+2YxfMwofkCQQD/3lDequ04Zz8avibRknH0MPB8JlWQe7o898lXCXKheb8WJ1m0Aof+iaq1Is7mJbJOwAeHSvGizSSWA0JFQN5lAkEA/H/Qqn6iWh9zPdFUcpikHKyKWBoqxSHxFNqcUHCudIVgGqkUPUIBDdpy+pkxFIWM4oR2tkbDdvi1lFNJij7FJwJBAJtz7XwrKu7uw4cy6hC/wZ4Tsbgr7iZXFaJ/BQNtSQjUGAWUqMpWE1vRNjbQzBVF59wyjSBkpwQ7ULQXjMbYj4UCQQCGktSy2dVLtTFlhBi/Du2AvtDpDeE3udRUqgLfuH6yaZeD/hNkZrZLHN9lApqu9lLVM4ZVtbddxEZ6rD0oqjXHAkBmJ5wG69pQiCWtZtGOca1UkeZMuf4+JAZD4+VHS+YIlTMYThE8XljP7AG/js5XUnQA4HC+kmkioWafZryeqSUS";
+    NSString *partner = @"2088421269581781";
+    NSString *seller = @"yangf@paopaoty.com";
+    NSString *privateKey = @"MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAM1nPUUuVeAKg+1bpbEL/6qrockOB8j3qBONq+Krrc+UWEC2fpoQi6gNi3Elx3JEXkS29hIaHZA2mFX5BtCtRqcCsWa53L39/9kziB4xs6/zXz+TMfeagTJeXoyNMM4wUAQmxgN6x3ts1Am9SNiXDVCQdQ5uqiVIxe7odrzfvbPZAgMBAAECgYBnYIZdwyxFTgWH+JAzwy4x35/VaNJSOxLEhJD1zCH2T1r7dt3Q/HLNacO8dp8iy3YGb275PVuTsWaKHoNnk03y6Xzsa9Ut+FYZA+r+PuXGlXhnE3CRietXk4QmDMfe6KyTLvxbLGSWnlC0uTrY6Fv1ipcjM/JumvxYFxUGaJx9gQJBAOZy8y6vnfkfzBffn6RSPGelvXD9RlD8yga7UpF7WBO4b+HNtg3K+VuFlCPriHLkvhy+ZpIlsJDQ2SRxbJb5RPUCQQDkLWSDB6ueRQ/y1V5/sIMq3vnQjy6hBvkFxexM8IsIMwY9hcpYrz5to/8tVHrFzg9jyC6yz5Ddn5/UL82aBYTVAkEAyB0dy3a5CXJxOnH4IStARQkJvqpRe1Zo4PudsbOYQlew4DZQVx3g93bBs4d+j7bO2AsG6vZLoxWY2iqcj2WaWQJBAItfyrhalBKNvssmV52JVOV344HoI6RKXQuQtODeQR5WBGbJ9SosiOZxuOmYY5G1ZyMc4KFqNeOZoAf81wpQeq0CQQDUgiGdsE7H/3rzAzoFoWgFzQCQwAewDmjVTaep7d8Otne3LEn2yLWNYb21g3umkoGfwVFeFqhnjGWZNiqxezpG";
     /*============================================================================*/
     /*============================================================================*/
     /*============================================================================*/
@@ -314,7 +314,7 @@
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
     order.inputCharset = @"utf-8";
-    //    order.itBPay = @"30m";
+//        order.itBPay = @"30m";
 //    order.itBPay =[[NSString alloc] initWithFormat:@"%im",self.orderInfo.remainTime];
     order.itBPay = remainTime;
     order.showUrl = @"m.alipay.com";
@@ -330,7 +330,7 @@
 //    id<DataSigner> signer = CreateRSADataSigner(privateKey);
 //    NSString *signedString = [signer signString:orderSpec];
     NSString *signedString = [[[NSString alloc] init] alipayOrderRSASignWithPrivateKey:privateKey];
-                                                    
+    
     //将签名成功字符串格式化为订单字符串,请严格按照该格式
     NSString *orderString = nil;
     if (signedString != nil) {
