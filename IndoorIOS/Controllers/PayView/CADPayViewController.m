@@ -118,7 +118,7 @@
         [self.AlipayButton setEnabled:true];
         self.AlipayButton.backgroundColor = self.view.tintColor;
         
-        [self setTitle:[[NSString alloc] initWithFormat:@"确认支付(%i分钟内支付有效)",self.orderInfo.remainTime]];
+        [self setTitle:[[NSString alloc] initWithFormat:@"%i分钟内支付有效",self.orderInfo.remainTime]];
     }
     
     self.afm = [AFHTTPSessionManager manager];
