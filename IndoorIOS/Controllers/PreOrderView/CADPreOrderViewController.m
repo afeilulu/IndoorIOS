@@ -273,7 +273,7 @@ static NSMutableString *jsonUrl;
             
             // 无价格不可用
             id price = [[self.places objectAtIndex:indexPath.section - 1] objectForKey:@"price"];
-            if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+            if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0 || [price floatValue] < 0) {
                 contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
                 contentCell.contentLabel.text = @"";
             } else {
@@ -290,7 +290,7 @@ static NSMutableString *jsonUrl;
                     // 找到正确位置
                     if ([key intValue] == indexPath.row - 1 + _start) {
                         id price = [abnomalContent objectForKey:@"price"];
-                        if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0) {
+                        if (price == (id)[NSNull null] || [[NSString alloc] initWithFormat:@"%@",price ].length == 0 || [price floatValue] < 0) {
                             contentCell.backgroundColor = [UIColor colorWithWhite:kUnSelectableColor/256.0 alpha:1.0];
                             contentCell.contentLabel.text = @"";
                         } else {
