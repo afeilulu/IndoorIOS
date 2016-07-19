@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *idString;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSString *address;
 
 @end

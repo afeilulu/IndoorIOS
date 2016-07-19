@@ -520,6 +520,7 @@
                         Activity *activity = [[Activity alloc] init];
                         activity.name = [item objectForKey:@"name"];
                         activity.idString = [item objectForKey:@"id"];
+                        activity.address = [item objectForKey:@"address"];
                         activity.imageUrl = [item objectForKey:@"logo_url"];
                         [self.activities addObject:activity];
                     }

@@ -11,6 +11,8 @@
 #import "CADPayViewController.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADStartViewController.h"
+#import "SDWebImageManager.h"
+#import "ImageLoader.h"
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
 #import <CFNetwork/CFNetwork.h>
@@ -61,6 +63,8 @@ BMKMapManager* _mapManager;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [SDWebImageManager sharedManager].delegate = [ImageLoader sharedImageLoader];
     
     return YES;
 }

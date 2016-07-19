@@ -7,6 +7,15 @@
 //
 
 #import "CADActivityTableViewController.h"
+#import "Activity.h"
+#import "CADAlertManager.h"
+#import "Constants.h"
+#import "Utils.h"
+#import <UIImageView+WebCache.h>
+#import "ImageLoader.h"
+
+NSString *const kActivityCellIdentifier = @"activityCellID";
+NSString *const kActivityTableCellNibName = @"CADActivityCell";
 
 @interface CADActivityTableViewController ()
 
@@ -22,7 +31,75 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.title = @"活 动";
+    self.afm = [AFHTTPSessionManager manager];
+    
+    // we use a nib which contains the cell's view and this class as the files owner
+    [self.tableView registerNib:[UINib nibWithNibName:kActivityTableCellNibName bundle:nil] forCellReuseIdentifier:kActivityCellIdentifier];
+    
+    [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
 }
+
+/*
+ * 获取活动
+ * key:关键字
+ * page:第几页
+ * pageSize:页面大小
+ */
+- (void) getActivityList:(NSString*)key atPage:(NSString*)page withPageSize:(NSString*)pageSize {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','key':'%@','page':'%@','pageSize':'%@'}",self.timeStamp,[Utils md5:beforeMd5],key,page,pageSize]};
+            
+            [self.afm POST:KActivityListUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+                    //                    NSLog(@"JSON: %@", responseObject);
+                    
+                    self.activities = [[NSMutableArray alloc] init];
+                    for (NSDictionary *item in [responseObject objectForKey:@"list"]) {
+                        Activity *activity = [[Activity alloc] init];
+                        activity.name = [item objectForKey:@"name"];
+                        activity.address = [item objectForKey:@"address"];
+                        activity.idString = [item objectForKey:@"id"];
+
+                        activity.imageUrl = [item objectForKey:@"logo_url"];
+                        [self.activities addObject:activity];
+                    }
+                    [self.tableView reloadData];
+                } else {
+                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:errmsg];
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -32,24 +109,37 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.activities.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kActivityCellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+//    [cell setSeparatorInset:UIEdgeInsetsZero];
+    
+    Activity *activity = [self.activities objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = activity.name;
+    cell.detailTextLabel.text = activity.address;
+    
+    NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,activity.imageUrl];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 72;
+}
 
 /*
 // Override to support conditional editing of the table view.
