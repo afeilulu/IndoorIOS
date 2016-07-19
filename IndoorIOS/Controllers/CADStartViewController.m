@@ -17,6 +17,7 @@
 #import "Trainer.h"
 #import "Activity.h"
 #import "CADRecmSiteCell.h"
+#import "CADAccountViewController.h"
 
 #define leftAndRightPaddings 8.0
 #define numberOfItemPerRow 3.0
@@ -570,6 +571,13 @@
     
     [self presentViewController:self.cityActionSheet animated:YES completion:nil];
     
+}
+
+- (IBAction)clickAccountButton:(UIBarButtonItem *)sender {
+    CADAccountViewController * vc = (CADAccountViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Account" class:[CADAccountViewController class]];
+    
+    UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [nc pushViewController:vc animated:YES];
 }
 
 #pragma mark - baidu location

@@ -33,6 +33,7 @@
 @property (strong,nonatomic) UIAlertController *cityActionSheet;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cityButton;
 - (IBAction)clickCityButton:(UIBarButtonItem *)sender;
+- (IBAction)clickAccountButton:(UIBarButtonItem *)sender;
 
 @property (nonatomic, strong) NSMutableArray *sites; // 场馆
 

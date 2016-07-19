@@ -29,6 +29,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.title = @"我";
+    
     self.afm = [AFHTTPSessionManager manager];
 }
 
