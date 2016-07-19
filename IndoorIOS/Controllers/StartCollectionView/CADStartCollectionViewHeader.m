@@ -9,13 +9,28 @@
 #import "CADStartCollectionViewHeader.h"
 #import "CADAllSiteListTableViewController.h"
 #import "CADStoryBoardUtilities.h"
+#import "CADCoachTableViewController.h"
+#import "CADActivityTableViewController.h"
 
 @implementation CADStartCollectionViewHeader
 
 - (IBAction)moreButtonAction:(id)sender {
-    NSLog(@"%@ - %ld", NSStringFromClass([self class]), (long)((UIButton*)sender).tag);
     if ((long)((UIButton*)sender).tag == 0) {
         CADAllSiteListTableViewController * vc = (CADAllSiteListTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"AllSiteList" class:[CADAllSiteListTableViewController class]];
+        
+        UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+        [nc pushViewController:vc animated:YES];
+    }
+    
+    if ((long)((UIButton*)sender).tag == 1) {
+        CADCoachTableViewController * vc = (CADCoachTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Coach" class:[CADCoachTableViewController class]];
+        
+        UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+        [nc pushViewController:vc animated:YES];
+    }
+    
+    if ((long)((UIButton*)sender).tag == 2) {
+        CADActivityTableViewController * vc = (CADActivityTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Activity" class:[CADActivityTableViewController class]];
         
         UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
         [nc pushViewController:vc animated:YES];

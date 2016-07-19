@@ -65,6 +65,10 @@
 		75766A5C1D1ACC3B00B63168 /* CADAllSiteListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75766A5B1D1ACC3B00B63168 /* CADAllSiteListTableViewController.m */; };
 		75766A601D1AE1F100B63168 /* CADSiteListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75766A5E1D1AE1F100B63168 /* CADSiteListCell.m */; };
 		75766A611D1AE1F100B63168 /* CADSiteListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75766A5F1D1AE1F100B63168 /* CADSiteListCell.xib */; };
+		757949D01D3DF16500F5816F /* CADCoachTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757949CF1D3DF16500F5816F /* CADCoachTableViewController.m */; };
+		757949D21D3DF18000F5816F /* Coach.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757949D11D3DF18000F5816F /* Coach.storyboard */; };
+		757949D61D3DF26200F5816F /* CADActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 757949D51D3DF26200F5816F /* CADActivityTableViewController.m */; };
+		757949D81D3DF27700F5816F /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757949D71D3DF27700F5816F /* Activity.storyboard */; };
 		757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */; };
 		758F90C81D151C1700CBD7DA /* CADStartCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90C71D151C1700CBD7DA /* CADStartCollectionViewHeader.m */; };
 		758F90CB1D151DAE00CBD7DA /* CADRecmSiteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 758F90CA1D151DAE00CBD7DA /* CADRecmSiteCell.m */; };
@@ -240,6 +244,12 @@
 		75766A5D1D1AE1F100B63168 /* CADSiteListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADSiteListCell.h; sourceTree = "<group>"; };
 		75766A5E1D1AE1F100B63168 /* CADSiteListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADSiteListCell.m; sourceTree = "<group>"; };
 		75766A5F1D1AE1F100B63168 /* CADSiteListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADSiteListCell.xib; sourceTree = "<group>"; };
+		757949CE1D3DF16500F5816F /* CADCoachTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADCoachTableViewController.h; sourceTree = "<group>"; };
+		757949CF1D3DF16500F5816F /* CADCoachTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADCoachTableViewController.m; sourceTree = "<group>"; };
+		757949D11D3DF18000F5816F /* Coach.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Coach.storyboard; path = storyboard/Coach.storyboard; sourceTree = "<group>"; };
+		757949D41D3DF26200F5816F /* CADActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADActivityTableViewController.h; sourceTree = "<group>"; };
+		757949D51D3DF26200F5816F /* CADActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADActivityTableViewController.m; sourceTree = "<group>"; };
+		757949D71D3DF27700F5816F /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Activity.storyboard; path = storyboard/Activity.storyboard; sourceTree = "<group>"; };
 		757D788A1AF74334007D4D93 /* CADOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderTableViewCell.h; sourceTree = "<group>"; };
 		757D788B1AF74334007D4D93 /* CADOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADOrderTableViewCell.m; sourceTree = "<group>"; };
 		758F90C61D151C1700CBD7DA /* CADStartCollectionViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADStartCollectionViewHeader.h; sourceTree = "<group>"; };
@@ -447,6 +457,8 @@
 				751352381D3643C40019FABC /* Pay.storyboard */,
 				754359501D393F6B00D3A78B /* Account.storyboard */,
 				75766A571D1ACB4000B63168 /* AllSiteList.storyboard */,
+				757949D11D3DF18000F5816F /* Coach.storyboard */,
+				757949D71D3DF27700F5816F /* Activity.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -454,6 +466,8 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				757949D31D3DF24B00F5816F /* ActivityTableView */,
+				757949CD1D3DF14800F5816F /* CoachTableView */,
 				754359521D39405C00D3A78B /* AccountView */,
 				7513523A1D3644B60019FABC /* PayView */,
 				75766A591D1ACC1E00B63168 /* AllSiteList */,
@@ -643,6 +657,24 @@
 				75766A5F1D1AE1F100B63168 /* CADSiteListCell.xib */,
 			);
 			path = AllSiteList;
+			sourceTree = "<group>";
+		};
+		757949CD1D3DF14800F5816F /* CoachTableView */ = {
+			isa = PBXGroup;
+			children = (
+				757949CE1D3DF16500F5816F /* CADCoachTableViewController.h */,
+				757949CF1D3DF16500F5816F /* CADCoachTableViewController.m */,
+			);
+			path = CoachTableView;
+			sourceTree = "<group>";
+		};
+		757949D31D3DF24B00F5816F /* ActivityTableView */ = {
+			isa = PBXGroup;
+			children = (
+				757949D41D3DF26200F5816F /* CADActivityTableViewController.h */,
+				757949D51D3DF26200F5816F /* CADActivityTableViewController.m */,
+			);
+			path = ActivityTableView;
 			sourceTree = "<group>";
 		};
 		757D78891AF74300007D4D93 /* OrderTableViewCell */ = {
@@ -888,6 +920,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75EF6BF41AE9F56600418E02 /* ironman.png in Resources */,
+				757949D21D3DF18000F5816F /* Coach.storyboard in Resources */,
 				75CE620B1B1843C0001E3637 /* ic_bus.png in Resources */,
 				75EF6BF51AE9F56600418E02 /* ironman@2x.png in Resources */,
 				7509EDAF1C796769009CD66D /* Index.storyboard in Resources */,
@@ -913,6 +946,7 @@
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
 				758F90E71D16A4AA00CBD7DA /* Login.storyboard in Resources */,
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
+				757949D81D3DF27700F5816F /* Activity.storyboard in Resources */,
 				75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */,
 				75CE62231B184DE9001E3637 /* ic_location.png in Resources */,
 				751352391D3643C40019FABC /* Pay.storyboard in Resources */,
@@ -1030,7 +1064,9 @@
 				750F75BE1CE5735600B1722A /* UIFont+GillSansFonts.m in Sources */,
 				753547881AE669CF005A5791 /* ParseOperation.m in Sources */,
 				753547751AE66941005A5791 /* StadiumRecord.m in Sources */,
+				757949D61D3DF26200F5816F /* CADActivityTableViewController.m in Sources */,
 				751B22F51C50CE9C0031F782 /* CADActivityIndicator.m in Sources */,
+				757949D01D3DF16500F5816F /* CADCoachTableViewController.m in Sources */,
 				75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */,
 				75CE62041B1733CB001E3637 /* CADDetailDownloader.m in Sources */,
 				750F75BA1CE5735600B1722A /* CAD_NSString+UrlEncoding.m in Sources */,
