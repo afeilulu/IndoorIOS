@@ -24,6 +24,7 @@
 #import "CADLoginController.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADAccountLogoutCell.h"
+#import "CADOrderListItem.h"
 
 @interface CADAccountViewController ()
 
@@ -49,6 +50,14 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self getUserInfo];
+    
+    // 结束时间
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60)];
+    self.tomorrow = [dateFormatter stringFromDate:tmpDate];
+    
+    [self getOrderListFrom:@"2015-01-01" to:self.tomorrow];
 }
 
 /**
@@ -88,7 +97,7 @@
                     [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:errmsg];
                     
                 } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     NSDictionary *userInfo = [responseObject objectForKey:@"userInfo"];
                     
                     user.fee = [userInfo objectForKey:@"fee"];
@@ -121,6 +130,84 @@
     }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 获取所有订单列表
+ */
+- (void)getOrderListFrom:(NSString *)fromDateString to:(NSString *)toDateString{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','startDate':'%@','endDate':'%@'}",self.timeStamp,[Utils md5:beforeMd5],self.user.phone,fromDateString,toDateString]};
+            
+            [self.afm POST:kOrderListJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取订单信息错误" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+//                    NSLog(@"JSON: %@", responseObject);
+                    NSArray *listArray = [responseObject objectForKey:@"list"];
+                    
+                    self.orders = [[NSMutableArray alloc] init];
+                    for (int i=0; i < listArray.count; i++) {
+                        NSDictionary *item = (NSDictionary *)[listArray objectAtIndex:i];
+                        CADOrderListItem *orderItem = [[CADOrderListItem alloc] init];
+                        [orderItem setCreateTime:[item objectForKey:@"createTime"]];
+                        [orderItem setFpPrintYn:[item objectForKey:@"fpPrintYn"]];
+                        [orderItem setOrderId:[item objectForKey:@"orderId"]];
+                        [orderItem setOrderSeq:[item objectForKey:@"orderSeq"]];
+                        [orderItem setOrderStatus:[item objectForKey:@"orderStatus"]];
+                        [orderItem setOrderTitle:[item objectForKey:@"orderTitle"]];
+                        [orderItem setRemainTime:[[item objectForKey:@"remainTime"] intValue]];
+                        [orderItem setSiteTimeList:[item objectForKey:@"siteTimeList"]];
+                        [orderItem setTotalMoney:[item objectForKey:@"totalMoney"]];
+                        [orderItem setZflx:[item objectForKey:@"zflx"]];
+                        [orderItem setSportId:[item objectForKey:@"sportId"]];
+                        [orderItem setSportTypeId:[item objectForKey:@"sportTypeId"]];
+                        [orderItem setSportTypeName:[item objectForKey:@"sportTypeName"]];
+                        [orderItem setSportTypeSmallImage:[item objectForKey:@"sportTypeSmallImage"]];
+                        
+                        [self.orders addObject:orderItem];
+                    }
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取订单信息错误" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
+}
+
+/**
+ * 订单统计
+ * 待支付 待消费 已消费 退款
+ */
+- (void) statistics{
     
 }
 

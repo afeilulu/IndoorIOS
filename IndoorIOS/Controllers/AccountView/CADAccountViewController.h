@@ -19,4 +19,8 @@
 @property (strong,nonatomic) NSString *timeStamp;
 @property (strong,nonatomic) AFHTTPSessionManager *afm;
 
+@property (nonatomic, strong) NSString* tomorrow;
+@property (nonatomic, strong) NSMutableArray *orders;
+
+
 @end
