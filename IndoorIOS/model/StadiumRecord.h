@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSMutableDictionary *imagesOfSportType;
 
 @property (nonatomic, strong) NSArray *pms;
+@property (nonatomic, strong) NSString *pmsValue;
 
 @property (nonatomic, strong) NSString *distance;
 

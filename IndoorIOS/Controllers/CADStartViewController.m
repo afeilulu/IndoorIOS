@@ -104,7 +104,8 @@
     // get all sport sites
     [self getSportSiteList:@""];
     // TODO : specify city code
-//    [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
+    
+    [self getRecommendStoreList:@"" atPage:@"1" withPageSize:@"10"];
     [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
     [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
     
@@ -355,9 +356,7 @@
                         
                         [self.sites addObject:site];
                         [stadiumManager.stadiumList setValue:site forKey:id];
-                        
-                        self.sitesFlag= YES;
-                        [self collectionViewReloadData];
+
                     }
                     
                 } else {
@@ -408,7 +407,25 @@
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
 //                    NSLog(@"JSON: %@", responseObject);
                 
-                    // TODO
+                    self.recommendSites = [[NSMutableArray alloc] init];
+                    for (NSDictionary *item in [responseObject objectForKey:@"list"]) {
+                        
+                        NSString* id = [item objectForKey:@"id"];
+                        StadiumRecord *site = [[StadiumRecord alloc] init];
+                        site.name = [item objectForKey:@"name"];
+                        site.imageURLString = [item objectForKey:@"imgUrl"];
+                        site.lat = [item objectForKey:@"lat"];
+                        site.lng = [item objectForKey:@"lng"];
+                        site.idString = id;
+                        site.pmsValue =[item objectForKey:@"pms"];
+                        site.score = [item objectForKey:@"score"];
+                        
+                        [self.recommendSites addObject:site];
+                        
+                        self.sitesFlag= YES;
+                        [self collectionViewReloadData];
+                    }
+                    
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆错误" setMessage:errmsg];
@@ -648,7 +665,7 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return self.sites.count;
+            return self.recommendSites.count;
             break;
         case 1:
             return self.trainers.count;
@@ -677,7 +694,7 @@
     CADRecmSiteCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     if (indexPath.section == 0) {
         // 场馆
-        StadiumRecord *site = [self.sites objectAtIndex:indexPath.row];
+        StadiumRecord *site = [self.recommendSites objectAtIndex:indexPath.row];
         [cell updateUI:site.name imageUrl:site.imageURLString type:0];
     }
     
@@ -706,7 +723,7 @@
         CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
         
         [self.navigationController pushViewController:vc animated:YES];
-        StadiumRecord *site = [self.sites objectAtIndex:indexPath.row];
+        StadiumRecord *site = [self.recommendSites objectAtIndex:indexPath.row];
         [vc setStadiumId:site.idString];
         [vc setTitle:site.name];
     }

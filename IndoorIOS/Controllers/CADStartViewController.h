@@ -35,7 +35,7 @@
 - (IBAction)clickCityButton:(UIBarButtonItem *)sender;
 - (IBAction)clickAccountButton:(UIBarButtonItem *)sender;
 
-@property (nonatomic, strong) NSMutableArray *sites; // 场馆
+@property (nonatomic, strong) NSMutableArray *sites; // 所有场馆
 
 @property (nonatomic, strong) BMKLocationService* locService;
 @property (nonatomic) double userLastLat;
@@ -45,6 +45,7 @@
 @property (strong,nonatomic) NSArray *sectionsTitle;
 @property (nonatomic, strong) NSMutableArray *trainers; // 教练
 @property (nonatomic, strong) NSMutableArray *activities; // 活动
+@property (nonatomic, strong) NSMutableArray *recommendSites; // 场馆
 
 @property (nonatomic) bool sitesFlag; // 场馆
 @property (nonatomic) bool trainersFlag; // 教练
