@@ -202,7 +202,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bkC-vq-njd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.23921568630000001" green="0.71764705880000002" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

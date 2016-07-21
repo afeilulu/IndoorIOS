@@ -291,25 +291,22 @@ static NSAttributedString *cr;
                                     action:nil];
     [[self navigationItem] setBackBarButtonItem:blankButton];
     
-    CADUser *user = CADUserManager.sharedInstance.getUser;
-    if (user == nil || user.phone == nil){
-        
-        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        NSData *data = [defaults objectForKey:@"user"];
-        user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        if (user != nil){
-            [CADUserManager.sharedInstance setUser:user];
-        }
-        
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:@"user"];
+    CADUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (user != nil){
+        [CADUserManager.sharedInstance setUser:user];
     }
     
-    if (user == nil || user.phone == nil){
+    if (user == nil){
         CADLoginController* vc = (CADLoginController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Login" class:[CADLoginController class]];
         
         [self.navigationController pushViewController:vc animated:YES];
         [vc setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
         [vc setSportSiteId:_stadiumId];
-        [vc setIsGoToChoose:true];
+        [vc setNextView:@"PreOrder"];
+        [vc setNextClass:[CADPreOrderViewController class]];
         
     }else {
         CADPreOrderViewController* vc = (CADPreOrderViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PreOrder" class:[CADPreOrderViewController class]];
@@ -317,6 +314,7 @@ static NSAttributedString *cr;
         [self.navigationController pushViewController:vc animated:YES];
         [vc setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
         [vc setSportSiteId:_stadiumId];
+        
     }
 }
 

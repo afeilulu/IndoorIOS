@@ -18,6 +18,8 @@
 #import "Activity.h"
 #import "CADRecmSiteCell.h"
 #import "CADAccountViewController.h"
+#import "CADLoginController.h"
+#import "CADUser.h"
 
 #define leftAndRightPaddings 8.0
 #define numberOfItemPerRow 3.0
@@ -593,10 +595,24 @@
 }
 
 - (IBAction)clickAccountButton:(UIBarButtonItem *)sender {
-    CADAccountViewController * vc = (CADAccountViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Account" class:[CADAccountViewController class]];
     
-    UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [nc pushViewController:vc animated:YES];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:@"user"];
+    CADUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (user == nil){
+        // 跳转登录
+        CADLoginController* vc = (CADLoginController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Login" class:[CADLoginController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setNextView:@"Account"];
+        [vc setNextClass:[CADAccountViewController class]];
+        
+    } else {
+        CADAccountViewController * vc = (CADAccountViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Account" class:[CADAccountViewController class]];
+        
+        UINavigationController *nc = (UINavigationController*)[UIApplication sharedApplication].keyWindow.rootViewController;
+        [nc pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - baidu location

@@ -429,13 +429,9 @@
                     user.mail = [userInfo objectForKey:@"mail"];
                     user.phone = [userInfo objectForKey:@"phone"];
                     user.sex_code = [userInfo objectForKey:@"sex_code"];
-//                    user.sex_name = [userInfo objectForKey:@"sec_name"];
                     user.imgUrl = [userInfo objectForKey:@"image_url"];
-//                    user.address = [userInfo objectForKey:@"address"];
-//                    user.area_code = [userInfo objectForKey:@"area_code"];
-//                    user.area_name = [userInfo objectForKey:@"area_name"];
                     user.name = [userInfo objectForKey:@"name"];
-                    user.score = [userInfo objectForKey:@"score"];
+                    user.score = [[userInfo objectForKey:@"score"] stringValue];
                     user.qq = [userInfo objectForKey:@"qq"];
                     
                     [self.RemainPayButton setTitle:[[NSString alloc] initWithFormat:@"余额(%@)",user.fee] forState:UIControlStateNormal];

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CADAccountDetailCell" rowHeight="196" id="KGk-i7-Jjw" customClass="CADAccountDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="324" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="324" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Tj-44-EjV" customClass="CADGillSansLightLabel">
+                        <rect key="frame" x="68" y="19" width="228" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.23921568627450981" green="0.71764705882352942" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxr-sD-VvI">
+                        <rect key="frame" x="68" y="48" width="100" height="15.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="eMt-tj-Buc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVS-kx-psB">
+                        <rect key="frame" x="176" y="48" width="132" height="15.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                        <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fcD-f5-tj4">
+                        <rect key="frame" x="8" y="8" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="eKV-FR-5xJ"/>
+                            <constraint firstAttribute="width" constant="38" id="m9A-W5-oHq"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9Tj-44-EjV" firstAttribute="leading" secondItem="fcD-f5-tj4" secondAttribute="trailing" constant="22" id="5DA-QM-wee"/>
+                    <constraint firstAttribute="topMargin" secondItem="fcD-f5-tj4" secondAttribute="top" id="64M-TG-dr3"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="fcD-f5-tj4" secondAttribute="leading" constant="10" id="EPv-8N-Pr7"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="fcD-f5-tj4" secondAttribute="leading" id="F11-x6-B7q"/>
+                    <constraint firstItem="9Tj-44-EjV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="Gsn-Kq-kFG"/>
+                    <constraint firstItem="DVS-kx-psB" firstAttribute="leading" secondItem="Mxr-sD-VvI" secondAttribute="trailing" constant="8" id="KxA-nG-vEq"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="DVS-kx-psB" secondAttribute="trailing" constant="8" id="M4j-xi-IIL"/>
+                    <constraint firstItem="Mxr-sD-VvI" firstAttribute="leading" secondItem="fcD-f5-tj4" secondAttribute="trailing" constant="22" id="T32-g9-tyr"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9Tj-44-EjV" secondAttribute="trailing" constant="20" id="Xyb-Le-Xka"/>
+                    <constraint firstItem="Mxr-sD-VvI" firstAttribute="top" secondItem="9Tj-44-EjV" secondAttribute="bottom" constant="8" id="e88-J8-wpQ"/>
+                    <constraint firstItem="DVS-kx-psB" firstAttribute="top" secondItem="9Tj-44-EjV" secondAttribute="bottom" constant="8" id="p45-e4-mnH"/>
+                    <constraint firstAttribute="topMargin" secondItem="fcD-f5-tj4" secondAttribute="top" constant="10" id="u0u-R7-hcX"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="EPv-8N-Pr7"/>
+                        <exclude reference="u0u-R7-hcX"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="fee" destination="Mxr-sD-VvI" id="2BC-T4-EwY"/>
+                <outlet property="icon" destination="fcD-f5-tj4" id="l6j-37-ykh"/>
+                <outlet property="name" destination="9Tj-44-EjV" id="aMN-ec-7IP"/>
+                <outlet property="score" destination="DVS-kx-psB" id="A92-6W-iDQ"/>
+            </connections>
+            <point key="canvasLocation" x="239" y="307"/>
+        </tableViewCell>
+    </objects>
+</document>

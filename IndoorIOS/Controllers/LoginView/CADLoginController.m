@@ -15,7 +15,7 @@
 #import "CADPreOrderViewController.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADAlertManager.h"
-//@import AFNetworking;
+#import "CADAccountViewController.h"
 
 
 @interface CADLoginController ()
@@ -59,14 +59,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    CADUser *user = CADUserManager.sharedInstance.getUser;
-    if (user && user.phone){
-        [self.navigationController popViewControllerAnimated:true];
-    }
 }
 
 // 点击背景隐藏键盘
@@ -151,7 +143,7 @@
                     user.area_code = [userInfo objectForKey:@"area_code"];
                     user.area_name = [userInfo objectForKey:@"area_name"];
                     user.name = [userInfo objectForKey:@"name"];
-                    user.score = [userInfo objectForKey:@"score"];
+                    user.score = [[userInfo objectForKey:@"score"] stringValue];
                     user.qq = [userInfo objectForKey:@"qq"];
                     
                     [[CADUserManager sharedInstance] setUser:user];
@@ -164,17 +156,20 @@
                     
                     [self.navigationController popViewControllerAnimated:YES];
                     
-                    // go to pre-order view
-                    if (self.isGoToChoose) {
-                        CADPreOrderViewController* vc = (CADPreOrderViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PreOrder" class:[CADPreOrderViewController class]];
+                    // go next view
+                    if ([self.nextView isEqualToString:@"PreOrder"]) {
+                        CADPreOrderViewController* vc = (CADPreOrderViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:self.nextView class:self.nextClass];
                         
                         [self.navigationController pushViewController:vc animated:YES];
                         [vc setSportTypeId:self.sportTypeId];
                         [vc setSportSiteId:self.sportSiteId];
                     }
                     
-                    // TODO
-                    // go account view controller
+                    if ([self.nextView isEqualToString:@"Account"]) {
+                        CADAccountViewController* vc = (CADAccountViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:self.nextView class:self.nextClass];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }
+                    
                     
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
