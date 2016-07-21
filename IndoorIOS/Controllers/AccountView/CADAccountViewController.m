@@ -32,6 +32,9 @@
     self.title = @"我";
     
     self.afm = [AFHTTPSessionManager manager];
+    
+    // hide empty cell
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {

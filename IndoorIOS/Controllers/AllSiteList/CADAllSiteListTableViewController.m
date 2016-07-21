@@ -36,6 +36,9 @@ NSString *const kTableCellNibName1 = @"CADSiteListCell";
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kTableCellNibName1 bundle:nil] forCellReuseIdentifier:kCellIdentifier1];
     
+    // hide empty cell
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     // 加载地图
     CGFloat width = self.view.frame.size.width;
     CGFloat height = ceil(width * 2/3);

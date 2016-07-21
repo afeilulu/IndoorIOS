@@ -38,6 +38,9 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kActivityTableCellNibName bundle:nil] forCellReuseIdentifier:kActivityCellIdentifier];
     
+    // hide empty cell
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     [self getActivityList:@"" atPage:@"1" withPageSize:@"10"];
 }
 

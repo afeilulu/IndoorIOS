@@ -55,6 +55,8 @@
     self.searchController.searchBar.delegate = self;
     // we want to be the delegate for our filtered table so didSelectRowAtIndexPath is called for both tables
     self.resultsTableController.tableView.delegate = self;
+    // hide empty cell
+    self.resultsTableController.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.searchController.searchBar.barStyle = UISearchBarStyleMinimal;
     self.searchController.searchBar.placeholder= NSLocalizedString(@"Search", @"SearchBar PlaceHolder");
     [self.searchController.searchBar sizeToFit];

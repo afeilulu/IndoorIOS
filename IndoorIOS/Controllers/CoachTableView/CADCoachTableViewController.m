@@ -38,6 +38,8 @@ NSString *const kCoachTableCellNibName = @"CADCoachCell";
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kCoachTableCellNibName bundle:nil] forCellReuseIdentifier:kCoachCellIdentifier];
     
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     [self getRecommendTrainerListAtPage:@"1" withPageSize:@"10"];
 }
 
