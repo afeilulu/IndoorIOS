@@ -83,6 +83,21 @@ NSString *const kCoachTableCellNibName = @"CADCoachCell";
                         trainer.nick = [item objectForKey:@"nick"];
                         trainer.idString = [item objectForKey:@"id"];
                         trainer.imageUrl = [item objectForKey:@"image_url"];
+                        trainer.phone = [item objectForKey:@"phone"];
+                        trainer.sexCode = [item objectForKey:@"sex_code"];
+                        trainer.typeName = [item objectForKey:@"type_name"];
+                        
+                        trainer.attrs = [[NSMutableDictionary alloc] init];
+                        NSArray *tmpAttrs = [item objectForKey:@"attributes"];
+                        for (NSDictionary *attrItem in tmpAttrs) {
+                            NSString *value = [attrItem objectForKey:@"attr_value"];
+                            if (value == nil) {
+                                value = [[attrItem objectForKey:@"attributeDef"] objectForKey:@"default_value"];
+                            }
+                            
+                            [trainer.attrs setObject:value forKey:[[attrItem objectForKey:@"attributeDef"] objectForKey:@"name"]];
+                        }
+                        
                         [self.trainers addObject:trainer];
                     }
                     

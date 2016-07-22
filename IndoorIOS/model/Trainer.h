@@ -14,5 +14,9 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *nick; // nick name
 @property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *sexCode; // F , M
+@property (nonatomic, strong) NSString *typeName;
+@property (nonatomic, strong) NSMutableDictionary *attrs; // 属性
 
 @end

@@ -16,13 +16,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Tj-44-EjV" customClass="CADGillSansLightLabel">
-                        <rect key="frame" x="68" y="19" width="228" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <rect key="frame" x="96" y="19" width="200" height="21"/>
+                        <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="18"/>
                         <color key="textColor" red="0.23921568627450981" green="0.71764705882352942" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxr-sD-VvI">
-                        <rect key="frame" x="68" y="48" width="100" height="15.5"/>
+                        <rect key="frame" x="96" y="48" width="100" height="15.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="eMt-tj-Buc"/>
                         </constraints>
@@ -31,16 +31,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVS-kx-psB">
-                        <rect key="frame" x="176" y="48" width="132" height="15.5"/>
+                        <rect key="frame" x="204" y="48" width="104" height="15.5"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                         <color key="textColor" red="0.34509803919999998" green="0.34901960780000002" blue="0.35686274509999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fcD-f5-tj4">
-                        <rect key="frame" x="8" y="8" width="38" height="38"/>
+                        <rect key="frame" x="8" y="8" width="66" height="66"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="38" id="eKV-FR-5xJ"/>
-                            <constraint firstAttribute="width" constant="38" id="m9A-W5-oHq"/>
+                            <constraint firstAttribute="height" constant="66" id="eKV-FR-5xJ"/>
+                            <constraint firstAttribute="width" constant="66" id="m9A-W5-oHq"/>
                         </constraints>
                     </imageView>
                 </subviews>

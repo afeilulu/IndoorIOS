@@ -7,6 +7,15 @@
 //
 
 #import "CADCoachDetailTableViewController.h"
+#import "Constants.h"
+#import "CADCoachDetailCell.h"
+#import "CADCoachAttrCell.h"
+
+#import <UIImageView+WebCache.h>
+
+
+NSString *const kCoachAttrCellIdentifier = @"CADCoachAttrCell";
+NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
 
 @interface CADCoachDetailTableViewController ()
 
@@ -24,6 +33,14 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = self.coach.nick;
+    
+    // hide empty cell
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    // we use a nib which contains the cell's view and this class as the files owner
+    [self.tableView registerNib:[UINib nibWithNibName:kCoachAttrCellNibName bundle:nil] forCellReuseIdentifier:kCoachAttrCellIdentifier];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,15 +50,94 @@
 
 #pragma mark - Table view data source
 
+#pragma mark - Table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return self.coach.attrs.count;
+            break;
+        case 2:
+            return 1;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return 1;
 }
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    UITableViewCell* cell = nil;
+    
+    switch (indexPath.section) {
+        case 0:
+            if (indexPath.row ==0){
+                CADCoachDetailCell *detailsCell = [tableView dequeueReusableCellWithIdentifier:@"CADCoachDetailCell"];
+                if(detailsCell == nil)
+                    detailsCell = [CADCoachDetailCell makeCell];
+                
+                NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,self.coach.imageUrl];
+                [detailsCell.icon sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+                detailsCell.name.text = self.coach.name;
+                
+                cell = detailsCell;
+            }
+            break;
+            
+        case 1:
+        {
+            CADCoachAttrCell *attrCell = [tableView dequeueReusableCellWithIdentifier:kCoachAttrCellIdentifier];
+            
+            NSString *key = [[self.coach.attrs allKeys] objectAtIndex:indexPath.row];
+            attrCell.textLabel.text = key;
+            attrCell.detailTextLabel.text = [self.coach.attrs objectForKey:key];
+            
+            cell = attrCell;
+        }
+            break;
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // A much nicer way to deal with this would be to extract this code to a factory class, that would return the cells' height.
+    CGFloat height = 0;
+    
+    switch (indexPath.section) {
+        case 0:
+        {
+            if (indexPath.row == 0) {
+                height = 120;
+            }
+            break;
+        }
+        default:
+        {
+            height = 44;
+            break;
+        }
+    }
+    
+    return height;
+}
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
