@@ -181,6 +181,15 @@ NSString *const kTableCellNibName1 = @"CADSiteListCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        
+        // set back title
+        UIBarButtonItem *blankButton =
+        [[UIBarButtonItem alloc] initWithTitle:@""
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+        [[self navigationItem] setBackBarButtonItem:blankButton];
+        
         CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
         
         [self.navigationController pushViewController:vc animated:YES];
