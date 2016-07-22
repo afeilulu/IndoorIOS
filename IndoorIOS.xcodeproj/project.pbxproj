@@ -53,6 +53,8 @@
 		753FFE521D06E29B003CFA66 /* Start.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753FFE511D06E29B003CFA66 /* Start.storyboard */; };
 		754359511D393F6B00D3A78B /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 754359501D393F6B00D3A78B /* Account.storyboard */; };
 		754359551D39408E00D3A78B /* CADAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754359541D39408E00D3A78B /* CADAccountViewController.m */; };
+		7547C3F71D41B6AF00C67116 /* CADCoachDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C3F61D41B6AF00C67116 /* CADCoachDetailTableViewController.m */; };
+		7547C3F91D41B70A00C67116 /* CoachDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7547C3F81D41B70A00C67116 /* CoachDetail.storyboard */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF11B3CFBB800298472 /* ic_filter_drama.png */; };
 		756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */; };
@@ -236,6 +238,9 @@
 		754359501D393F6B00D3A78B /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Account.storyboard; path = storyboard/Account.storyboard; sourceTree = "<group>"; };
 		754359531D39408E00D3A78B /* CADAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADAccountViewController.h; sourceTree = "<group>"; };
 		754359541D39408E00D3A78B /* CADAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADAccountViewController.m; sourceTree = "<group>"; };
+		7547C3F51D41B6AF00C67116 /* CADCoachDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADCoachDetailTableViewController.h; sourceTree = "<group>"; };
+		7547C3F61D41B6AF00C67116 /* CADCoachDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADCoachDetailTableViewController.m; sourceTree = "<group>"; };
+		7547C3F81D41B70A00C67116 /* CoachDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CoachDetail.storyboard; path = storyboard/CoachDetail.storyboard; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		756CACF11B3CFBB800298472 /* ic_filter_drama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_filter_drama.png; sourceTree = "<group>"; };
@@ -484,6 +489,7 @@
 				75766A571D1ACB4000B63168 /* AllSiteList.storyboard */,
 				757949D11D3DF18000F5816F /* Coach.storyboard */,
 				757949D71D3DF27700F5816F /* Activity.storyboard */,
+				7547C3F81D41B70A00C67116 /* CoachDetail.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7547C3F41D41B68100C67116 /* CoachDetailView */,
 				757949D31D3DF24B00F5816F /* ActivityTableView */,
 				757949CD1D3DF14800F5816F /* CoachTableView */,
 				754359521D39405C00D3A78B /* AccountView */,
@@ -656,6 +663,15 @@
 				754359541D39408E00D3A78B /* CADAccountViewController.m */,
 			);
 			path = AccountView;
+			sourceTree = "<group>";
+		};
+		7547C3F41D41B68100C67116 /* CoachDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				7547C3F51D41B6AF00C67116 /* CADCoachDetailTableViewController.h */,
+				7547C3F61D41B6AF00C67116 /* CADCoachDetailTableViewController.m */,
+			);
+			path = CoachDetailView;
 			sourceTree = "<group>";
 		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
@@ -978,6 +994,7 @@
 				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
 				756CACFE1B3D374E00298472 /* ic_sms.png in Resources */,
 				75FCF28F1D4076E700A90BF0 /* CADAccountDetailCell.xib in Resources */,
+				7547C3F91D41B70A00C67116 /* CoachDetail.storyboard in Resources */,
 				75CCCB8E1A1E01CB0005CB6B /* Main.storyboard in Resources */,
 				75766A581D1ACB4000B63168 /* AllSiteList.storyboard in Resources */,
 				7536AB901B39210C00FF0B3C /* ic_phone.png in Resources */,
@@ -1146,6 +1163,7 @@
 				75766A601D1AE1F100B63168 /* CADSiteListCell.m in Sources */,
 				75CCCB851A1E01CB0005CB6B /* main.m in Sources */,
 				758F90C81D151C1700CBD7DA /* CADStartCollectionViewHeader.m in Sources */,
+				7547C3F71D41B6AF00C67116 /* CADCoachDetailTableViewController.m in Sources */,
 				75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */,
 				75EF6BFF1AEA41A000418E02 /* CADRegisterViewController.m in Sources */,
 				757D788C1AF74334007D4D93 /* CADOrderTableViewCell.m in Sources */,

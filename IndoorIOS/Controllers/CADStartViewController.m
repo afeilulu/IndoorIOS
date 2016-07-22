@@ -20,6 +20,7 @@
 #import "CADAccountViewController.h"
 #import "CADLoginController.h"
 #import "CADUser.h"
+#import "CADCoachDetailTableViewController.h"
 
 #define leftAndRightPaddings 8.0
 #define numberOfItemPerRow 3.0
@@ -737,6 +738,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    // 场馆
     if (indexPath.section == 0) {
         CADSiteDetailViewController* vc = (CADSiteDetailViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Site" class:[CADSiteDetailViewController class]];
         
@@ -744,6 +746,17 @@
         StadiumRecord *site = [self.recommendSites objectAtIndex:indexPath.row];
         [vc setStadiumId:site.idString];
         [vc setTitle:site.name];
+    }
+    
+    // 教练
+    if (indexPath.section == 1) {
+        Trainer *trainer = [self.trainers objectAtIndex:indexPath.row];
+        
+        CADCoachDetailTableViewController* vc = (CADCoachDetailTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"CoachDetail" class:[CADCoachDetailTableViewController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setCoach:trainer];
+        
     }
 }
 

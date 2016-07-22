@@ -12,6 +12,8 @@
 #import "CADAlertManager.h"
 #import "Constants.h"
 #import <UIImageView+WebCache.h>
+#import "CADCoachDetailTableViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 NSString *const kCoachCellIdentifier = @"coachCellID";
 NSString *const kCoachTableCellNibName = @"CADCoachCell";
@@ -133,12 +135,29 @@ NSString *const kCoachTableCellNibName = @"CADCoachCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    // set back title
+    UIBarButtonItem *blankButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:blankButton];
+    
+    
+    Trainer *trainer = [self.trainers objectAtIndex:indexPath.row];
+    
+    CADCoachDetailTableViewController* vc = (CADCoachDetailTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"CoachDetail" class:[CADCoachDetailTableViewController class]];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc setCoach:trainer];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 72;
 }
-
 
 /*
 // Override to support conditional editing of the table view.
