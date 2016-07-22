@@ -1,27 +1,33 @@
 //
-//  CADCoachDetailTableViewController.m
+//  CADActivityDetailTableViewController.m
 //  IndoorIOS
 //
 //  Created by Chen Gefei on 16/7/22.
 //  Copyright © 2016年 chinaairdome. All rights reserved.
 //
 
-#import "CADCoachDetailTableViewController.h"
+#import "CADActivityDetailTableViewController.h"
+#import "CADActivityTopCell.h"
+#import "CADActivityDescCell.h"
+#import "CADActivityAttrCell.h"
 #import "Constants.h"
-#import "CADCoachDetailCell.h"
-#import "CADCoachAttrCell.h"
-
 #import <UIImageView+WebCache.h>
 
 
-NSString *const kCoachAttrCellIdentifier = @"CADCoachAttrCell";
-NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
+NSString *const kActivityTopCellIdentifier = @"CADActivityTopCell";
+NSString *const kActivityTopCellNibName = @"CADActivityTopCell";
 
-@interface CADCoachDetailTableViewController ()
+NSString *const kActivityDescCellIdentifier = @"CADActivityDescCell";
+NSString *const kActivityDescCellNibName = @"CADActivityDescCell";
+
+NSString *const kActivityAttrCellIdentifier = @"CADActivityAttrCell";
+NSString *const kActivityAttrCellNibName = @"CADActivityAttrCell";
+
+@interface CADActivityDetailTableViewController ()
 
 @end
 
-@implementation CADCoachDetailTableViewController
+@implementation CADActivityDetailTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,14 +38,15 @@ NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = self.coach.nick;
+    self.title = self.activity.name;
     
     // hide empty cell
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // we use a nib which contains the cell's view and this class as the files owner
-    [self.tableView registerNib:[UINib nibWithNibName:kCoachAttrCellNibName bundle:nil] forCellReuseIdentifier:kCoachAttrCellIdentifier];
-    
+    [self.tableView registerNib:[UINib nibWithNibName:kActivityTopCellNibName bundle:nil] forCellReuseIdentifier:kActivityTopCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:kActivityDescCellNibName bundle:nil] forCellReuseIdentifier:kActivityDescCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:kActivityAttrCellNibName bundle:nil] forCellReuseIdentifier:kActivityAttrCellIdentifier];
     
 }
 
@@ -51,20 +58,20 @@ NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
         case 0:
-            return 1;
+            return 1; // 图片
             break;
         case 1:
-            return self.coach.attrs.count;
+            return 1; // 介绍
             break;
         case 2:
-            return 1;
+            return 8; // 其他8个属性
             break;
             
         default:
@@ -83,13 +90,10 @@ NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
     switch (indexPath.section) {
         case 0:
             if (indexPath.row ==0){
-                CADCoachDetailCell *detailsCell = [tableView dequeueReusableCellWithIdentifier:@"CADCoachDetailCell"];
-                if(detailsCell == nil)
-                    detailsCell = [CADCoachDetailCell makeCell];
+                CADActivityTopCell *detailsCell = [tableView dequeueReusableCellWithIdentifier:kActivityTopCellIdentifier];
                 
-                NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,self.coach.imageUrl];
-                [detailsCell.icon sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
-                detailsCell.name.text = self.coach.name;
+                NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,self.activity.imageUrl];
+                [detailsCell.image sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
                 
                 cell = detailsCell;
             }
@@ -97,15 +101,56 @@ NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
             
         case 1:
         {
-            CADCoachAttrCell *attrCell = [tableView dequeueReusableCellWithIdentifier:kCoachAttrCellIdentifier];
+            CADActivityDescCell *descCell = [tableView dequeueReusableCellWithIdentifier:kActivityDescCellIdentifier];
+            descCell.descLabel.text = self.activity.desc;
+            cell = descCell;
+            break;
+        }
+        case 2:
+        {
+            CADActivityAttrCell *attrCell = [tableView dequeueReusableCellWithIdentifier:kActivityAttrCellIdentifier];
             
-            NSString *key = [[self.coach.attrs allKeys] objectAtIndex:indexPath.row];
-            attrCell.textLabel.text = key;
-            attrCell.detailTextLabel.text = [self.coach.attrs objectForKey:key];
+            switch (indexPath.row) {
+                case 0:
+                    attrCell.textLabel.text = @"地址";
+                    attrCell.detailTextLabel.text = self.activity.address;
+                    break;
+                case 1:
+                    attrCell.textLabel.text = @"发起人";
+                    attrCell.detailTextLabel.text = self.activity.initiator;
+                    break;
+                case 2:
+                    attrCell.textLabel.text = @"联系电话";
+                    attrCell.detailTextLabel.text = self.activity.contactPhone;
+                    break;
+                case 3:
+                    attrCell.textLabel.text = @"费用";
+                    attrCell.detailTextLabel.text = self.activity.fee;
+                    break;
+                case 4:
+                    attrCell.textLabel.text = @"开始时间";
+                    attrCell.detailTextLabel.text = self.activity.startDate;
+                    break;
+                case 5:
+                    attrCell.textLabel.text = @"结束时间";
+                    attrCell.detailTextLabel.text = self.activity.endDate;
+                    break;
+                case 6:
+                    attrCell.textLabel.text = @"已报名";
+                    attrCell.detailTextLabel.text = self.activity.currentNum;
+                    break;
+                case 7:
+                    attrCell.textLabel.text = @"活动人数";
+                    attrCell.detailTextLabel.text = self.activity.maxNum;
+                    break;
+                default:
+                    break;
+            }
+            
             
             cell = attrCell;
-        }
             break;
+        }
         default:
             break;
     }
@@ -122,8 +167,13 @@ NSString *const kCoachAttrCellNibName = @"CADCoachAttrCell";
         case 0:
         {
             if (indexPath.row == 0) {
-                height = 120;
+                height = 200;
             }
+            break;
+        }
+        case 1:
+        {
+            height = 100;
             break;
         }
         default:

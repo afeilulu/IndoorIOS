@@ -7,8 +7,7 @@
 //
 
 #import "ImageLoader.h"
-
-#define maxImageWidth 200.0f
+#import "Constants.h"
 
 @implementation ImageLoader
 
@@ -32,15 +31,17 @@
 //    CGFloat height = 200.0f;
 //    CGSize imageSize = CGSizeMake(width, height);
     
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    
     CGSize originalSize = image.size;
     CGFloat width = originalSize.width;
     CGFloat height = originalSize.height;
     
-    if (originalSize.width > originalSize.height * 2) {
+    if (originalSize.width > originalSize.height * 2.5) {
         // do nothing
-    }else if (originalSize.width > maxImageWidth) {
-        width = maxImageWidth;
-        height = maxImageWidth * 3 / 4; 
+    }else if (originalSize.width > screenWidth) {
+        width = screenWidth;
+        height = screenWidth * gRatio;
     }
     
     CGSize imageSize = CGSizeMake(width, height);

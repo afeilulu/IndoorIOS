@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define gRatio 0.718
+
 // 加密私钥
 extern NSString *const kSecretKey;
 

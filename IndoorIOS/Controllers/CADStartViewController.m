@@ -21,6 +21,7 @@
 #import "CADLoginController.h"
 #import "CADUser.h"
 #import "CADCoachDetailTableViewController.h"
+#import "CADActivityDetailTableViewController.h"
 
 #define leftAndRightPaddings 8.0
 #define numberOfItemPerRow 3.0
@@ -560,6 +561,14 @@
                         activity.idString = [item objectForKey:@"id"];
                         activity.address = [item objectForKey:@"address"];
                         activity.imageUrl = [item objectForKey:@"logo_url"];
+                        activity.startDate = [item objectForKey:@"start_time"];
+                        activity.endDate = [item objectForKey:@"end_time"];
+                        activity.fee = [item objectForKey:@"fee"];
+                        activity.desc = [item objectForKey:@"bak"];
+                        activity.initiator = [[item objectForKey:@"customer"] objectForKey:@"name"];
+                        activity.contactPhone = [item objectForKey:@"contact_code"];
+                        activity.maxNum = [[item objectForKey:@"member_max"] stringValue] ;
+                        activity.currentNum = [[item objectForKey:@"member_amount"] stringValue];
                         [self.activities addObject:activity];
                     }
                     self.activitiesFlag = YES;
@@ -716,10 +725,10 @@
     
     if (indexPath.section == 0 || indexPath.section == 2) {
         // 场馆 活动 一行显示两个
-        return CGSizeMake(self.flowItemWidth2, self.flowItemWidth2 - heightAdjustment);
+        return CGSizeMake(self.flowItemWidth2, self.flowItemWidth2 * gRatio);
     } else {
         // 教练一行显示三个
-        return CGSizeMake(self.flowItemWidth3, self.flowItemWidth3 + heightAdjustment);
+        return CGSizeMake(self.flowItemWidth3, self.flowItemWidth3 / gRatio);
     }
 }
 
@@ -771,6 +780,17 @@
         
         [self.navigationController pushViewController:vc animated:YES];
         [vc setCoach:trainer];
+        
+    }
+    
+    // 活动
+    if (indexPath.section == 2) {
+        Activity *activity = [self.activities objectAtIndex:indexPath.row];
+        
+        CADActivityDetailTableViewController * vc = (CADActivityDetailTableViewController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"ActivityDetail" class:[CADActivityDetailTableViewController class]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+        [vc setActivity:activity];
         
     }
 }

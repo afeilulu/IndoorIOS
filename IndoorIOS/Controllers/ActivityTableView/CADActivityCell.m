@@ -7,6 +7,7 @@
 //
 
 #import "CADActivityCell.h"
+#import "Constants.h"
 
 @implementation CADActivityCell
 
@@ -24,8 +25,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-//    self.imageView.frame = CGRectMake(12,0,80,72);
-    CGRect rect = CGRectMake(0, 0, 88, 66);
+    CGFloat imgHeight = self.frame.size.height - 4;
+//    self.imageView.frame = CGRectMake(12,8,width + 16,width * gRatio);
+    CGRect rect = CGRectMake(0, 0, imgHeight /gRatio, imgHeight);
     self.imageView.bounds = rect;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -33,15 +35,16 @@
     self.imageView.layer.cornerRadius = 3.0;
     self.imageView.clipsToBounds = YES;
     
+    // 改变位置
     CGRect tmpFrame = self.textLabel.frame;
-//    tmpFrame.origin.x = 106;
+//    tmpFrame.origin.x = tmpFrame.origin.x - 2 * adj;
     tmpFrame.origin.y = 8;
     self.textLabel.frame = tmpFrame;
-    
+
 //    tmpFrame = self.detailTextLabel.frame;
-//    tmpFrame.origin.x = 106;
+//    tmpFrame.origin.x = tmpFrame.origin.x - 2 * adj;
 //    self.detailTextLabel.frame = tmpFrame;
-    
+
 }
 
 @end

@@ -12,7 +12,8 @@
 #import "Constants.h"
 #import "Utils.h"
 #import <UIImageView+WebCache.h>
-#import "ImageLoader.h"
+#import "CADActivityDetailTableViewController.h"
+#import "CADStoryBoardUtilities.h"
 
 NSString *const kActivityCellIdentifier = @"activityCellID";
 NSString *const kActivityTableCellNibName = @"CADActivityCell";
@@ -77,8 +78,15 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
                         activity.name = [item objectForKey:@"name"];
                         activity.address = [item objectForKey:@"address"];
                         activity.idString = [item objectForKey:@"id"];
-
                         activity.imageUrl = [item objectForKey:@"logo_url"];
+                        activity.startDate = [item objectForKey:@"start_time"];
+                        activity.endDate = [item objectForKey:@"end_time"];
+                        activity.fee = [item objectForKey:@"fee"];
+                        activity.desc = [item objectForKey:@"bak"];
+                        activity.initiator = [[item objectForKey:@"customer"] objectForKey:@"name"];
+                        activity.contactPhone = [item objectForKey:@"contact_code"];
+                        activity.maxNum = [[item objectForKey:@"member_max"] stringValue] ;
+                        activity.currentNum = [[item objectForKey:@"member_amount"] stringValue];
                         [self.activities addObject:activity];
                     }
                     [self.tableView reloadData];
@@ -137,6 +145,23 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // set back title
+    UIBarButtonItem *blankButton =
+    [[UIBarButtonItem alloc] initWithTitle:@""
+                                     style:UIBarButtonItemStylePlain
+                                    target:nil
+                                    action:nil];
+    [[self navigationItem] setBackBarButtonItem:blankButton];
+    
+    Activity *activity = [self.activities objectAtIndex:indexPath.row];
+    
+    CADActivityDetailTableViewController * vc = (CADActivityDetailTableViewController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"ActivityDetail" class:[CADActivityDetailTableViewController class]];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc setActivity:activity];
+
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
     
 }
 
