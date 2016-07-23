@@ -142,8 +142,7 @@ NSString *const kCoachTableCellNibName = @"CADCoachCell";
     cell.detailTextLabel.text = trainer.nick;
     
     NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,trainer.imageUrl ];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
-    
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"defaultTrainerImage"]];
     
     return cell;
 }

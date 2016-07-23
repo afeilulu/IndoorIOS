@@ -139,7 +139,7 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
     cell.detailTextLabel.text = activity.address;
     
     NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,activity.imageUrl];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]  placeholderImage:[UIImage imageNamed:@"defaultSiteImage"]];
     
     return cell;
 }
