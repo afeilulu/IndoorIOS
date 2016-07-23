@@ -67,6 +67,10 @@
 		7547C4151D42204200C67116 /* CADActivityDescCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7547C4131D42204200C67116 /* CADActivityDescCell.xib */; };
 		7547C4191D4221EC00C67116 /* CADActivityAttrCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C4171D4221EC00C67116 /* CADActivityAttrCell.m */; };
 		7547C41A1D4221EC00C67116 /* CADActivityAttrCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7547C4181D4221EC00C67116 /* CADActivityAttrCell.xib */; };
+		7547C41D1D43BCDC00C67116 /* CADPayTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C41C1D43BCDC00C67116 /* CADPayTableViewController.m */; };
+		7547C4221D43BFA400C67116 /* CADPayMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C4201D43BFA400C67116 /* CADPayMethodCell.m */; };
+		7547C4231D43BFA400C67116 /* CADPayMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7547C4211D43BFA400C67116 /* CADPayMethodCell.xib */; };
+		7547C4251D43C1B700C67116 /* PayTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7547C4241D43C1B700C67116 /* PayTable.storyboard */; };
 		75668D001A32D17D009F5A30 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75668CFF1A32D17D009F5A30 /* DetailViewController.m */; };
 		756CACF51B3CFBB800298472 /* ic_filter_drama.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF11B3CFBB800298472 /* ic_filter_drama.png */; };
 		756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 756CACF21B3CFBB800298472 /* ic_filter_drama@2x.png */; };
@@ -271,6 +275,12 @@
 		7547C4161D4221EC00C67116 /* CADActivityAttrCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADActivityAttrCell.h; sourceTree = "<group>"; };
 		7547C4171D4221EC00C67116 /* CADActivityAttrCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADActivityAttrCell.m; sourceTree = "<group>"; };
 		7547C4181D4221EC00C67116 /* CADActivityAttrCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADActivityAttrCell.xib; sourceTree = "<group>"; };
+		7547C41B1D43BCDC00C67116 /* CADPayTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayTableViewController.h; sourceTree = "<group>"; };
+		7547C41C1D43BCDC00C67116 /* CADPayTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayTableViewController.m; sourceTree = "<group>"; };
+		7547C41F1D43BFA400C67116 /* CADPayMethodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayMethodCell.h; sourceTree = "<group>"; };
+		7547C4201D43BFA400C67116 /* CADPayMethodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayMethodCell.m; sourceTree = "<group>"; };
+		7547C4211D43BFA400C67116 /* CADPayMethodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADPayMethodCell.xib; sourceTree = "<group>"; };
+		7547C4241D43C1B700C67116 /* PayTable.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = PayTable.storyboard; path = storyboard/PayTable.storyboard; sourceTree = "<group>"; };
 		75668CFE1A32D17D009F5A30 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		75668CFF1A32D17D009F5A30 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; usesTabs = 0; };
 		756CACF11B3CFBB800298472 /* ic_filter_drama.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_filter_drama.png; sourceTree = "<group>"; };
@@ -499,8 +509,11 @@
 		7513523A1D3644B60019FABC /* PayView */ = {
 			isa = PBXGroup;
 			children = (
+				7547C41E1D43BF7900C67116 /* Pay View Cells */,
 				7513523E1D3645C00019FABC /* CADPayViewController.m */,
 				7513523F1D3645C00019FABC /* CADPayViewController.h */,
+				7547C41B1D43BCDC00C67116 /* CADPayTableViewController.h */,
+				7547C41C1D43BCDC00C67116 /* CADPayTableViewController.m */,
 			);
 			path = PayView;
 			sourceTree = "<group>";
@@ -521,6 +534,7 @@
 				757949D71D3DF27700F5816F /* Activity.storyboard */,
 				7547C3F81D41B70A00C67116 /* CoachDetail.storyboard */,
 				7547C4051D421A4300C67116 /* ActivityDetail.storyboard */,
+				7547C4241D43C1B700C67116 /* PayTable.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -744,6 +758,16 @@
 				7547C4181D4221EC00C67116 /* CADActivityAttrCell.xib */,
 			);
 			path = "Activity Detail Cells";
+			sourceTree = "<group>";
+		};
+		7547C41E1D43BF7900C67116 /* Pay View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7547C41F1D43BFA400C67116 /* CADPayMethodCell.h */,
+				7547C4201D43BFA400C67116 /* CADPayMethodCell.m */,
+				7547C4211D43BFA400C67116 /* CADPayMethodCell.xib */,
+			);
+			path = "Pay View Cells";
 			sourceTree = "<group>";
 		};
 		754D06141A22B41200D454AB /* Frameworks */ = {
@@ -1061,8 +1085,10 @@
 				75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */,
 				75EF6BF61AE9F56600418E02 /* teacher.png in Resources */,
 				757949DD1D3DF39000F5816F /* CADCoachCell.xib in Resources */,
+				7547C4231D43BFA400C67116 /* CADPayMethodCell.xib in Resources */,
 				758F90D91D166B9D00CBD7DA /* PreOrder.storyboard in Resources */,
 				754359511D393F6B00D3A78B /* Account.storyboard in Resources */,
+				7547C4251D43C1B700C67116 /* PayTable.storyboard in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
 				7547C4041D41D0B200C67116 /* CADCoachAttrCell.xib in Resources */,
 				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
@@ -1195,6 +1221,7 @@
 				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
 				75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */,
 				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
+				7547C4221D43BFA400C67116 /* CADPayMethodCell.m in Sources */,
 				750F75B91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m in Sources */,
 				753547741AE66941005A5791 /* SportDayRule.m in Sources */,
 				7535475C1AE66568005A5791 /* Cell.m in Sources */,
@@ -1241,6 +1268,7 @@
 				75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */,
 				7547C4191D4221EC00C67116 /* CADActivityAttrCell.m in Sources */,
 				758F90EB1D16A58100CBD7DA /* CADLoginController.m in Sources */,
+				7547C41D1D43BCDC00C67116 /* CADPayTableViewController.m in Sources */,
 				75CCCB881A1E01CB0005CB6B /* AppDelegate.mm in Sources */,
 				757949E51D3E218100F5816F /* ImageLoader.m in Sources */,
 				753547691AE66740005A5791 /* CADPointAnnotation.m in Sources */,

@@ -24,7 +24,7 @@
 #import "CADPayViewController.h"
 #import "CADAlertManager.h"
 #import "CADStoryBoardUtilities.h"
-
+#import "CADPayTableViewController.h"
 
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 // the http URL used for fetching the sport day rules
@@ -749,7 +749,8 @@ static NSMutableString *jsonUrl;
                                                     action:nil];
                     [[self navigationItem] setBackBarButtonItem:blankButton];
                     
-                    CADPayViewController* vc = (CADPayViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Pay" class:[CADPayViewController class]];
+//                    CADPayViewController* vc = (CADPayViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Pay" class:[CADPayViewController class]];
+                    CADPayTableViewController *vc =(CADPayTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PayTable" class:[CADPayTableViewController class]];
                     [vc setOrderInfo:orderInfo];
                     [self.navigationController pushViewController:vc animated:YES];
                     

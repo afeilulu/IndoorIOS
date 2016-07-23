@@ -132,6 +132,7 @@ BMKMapManager* _mapManager;
 }
 
 // Alipay callback
+/*
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     //如果极简 SDK 不可用,会跳转支付宝钱包进行支付,需要将支付宝钱包的支付结果回传给 SDK
     if ([url.host isEqualToString:@"safepay"]) {
@@ -150,6 +151,7 @@ BMKMapManager* _mapManager;
     }
     return YES;
 }
+ */
 
 -(void) alipayResultHandler:(NSDictionary*) resultDic
 {
@@ -192,6 +194,34 @@ BMKMapManager* _mapManager;
         [alertView show];
     }
 
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            [self alipayResultHandler:resultDic];
+        }];
+    }
+    return YES;
+}
+
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            [self alipayResultHandler:resultDic];
+        }];
+    }
+    return YES;
 }
 
 #pragma mark - alvert view button action
