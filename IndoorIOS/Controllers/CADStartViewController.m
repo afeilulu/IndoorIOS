@@ -103,9 +103,10 @@
     self.flowItemWidth3 = (screenWidth - leftAndRightPaddings * (numberOfItemPerRow + 1)) / numberOfItemPerRow;
     self.flowItemWidth2 = (screenWidth - leftAndRightPaddings * (2 + 1)) / 2;
     
-    
-
     self.afm = [AFHTTPSessionManager manager];
+    
+    // 获取积分规则
+    [self getRule];
     
     // get all sport sites
     [self getSportSiteList:@""];
@@ -592,6 +593,68 @@
     }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+/**
+ * 获取积分规则 {"item":{"fee":"0.10","percent":"10.00","low":"100.00"},"success":true}
+ */
+-(void) getRule{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@'}",self.timeStamp,[Utils md5:beforeMd5]]};
+            
+            [self.afm POST:KRuleJFDK parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+//                    NSLog(@"JSON: %@", responseObject);
+                    CADUserManager *cm = CADUserManager.sharedInstance;
+                    cm.fee2Rmb = [[[responseObject objectForKey:@"item"] objectForKey:@"fee"] floatValue];
+                    cm.maxRatio = [[[responseObject objectForKey:@"item"] objectForKey:@"percent"] floatValue];
+                    cm.downLimit = [[[responseObject objectForKey:@"item"] objectForKey:@"low"] floatValue];
+                    
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
 }
 
 - (void)didReceiveMemoryWarning {

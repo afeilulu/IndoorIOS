@@ -14,11 +14,22 @@
 #import "Utils.h"
 #import "CADUser.h"
 #import "CADUserManager.h"
+#import "CADPayScoreRuleCell.h"
+#import "CADPayScoreCell.h"
 #import <AlipaySDK-2.0/AlipaySDK/AlipaySDK.h>
 #import <AlipaySDK-2.0/NSString+AlipayOrder.h>
 
 NSString *const kPayMethodCellIdentifier = @"CADPayMethodCell";
 NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
+
+NSString *const kCADOrderDetailNormalCellIdentifier = @"CADOrderDetailNormalCell";
+NSString *const kCADOrderDetailNormalCellNibName = @"CADOrderDetailNormalCell";
+
+NSString *const kCADOrderDetailMoneyCellIdentifier = @"CADOrderDetailMoneyCell";
+NSString *const kCADOrderDetailMoneyCellNibName = @"CADOrderDetailMoneyCell";
+
+NSString *const kCADPayScoreCellIdentifier = @"CADPayScoreCell";
+NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
 
 @interface CADPayTableViewController ()
 
@@ -39,20 +50,23 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kPayMethodCellNibName bundle:nil] forCellReuseIdentifier:kPayMethodCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailNormalCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailNormalCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailMoneyCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailMoneyCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:kCADPayScoreCellNibName bundle:nil] forCellReuseIdentifier:kCADPayScoreCellIdentifier];
+    
+    self.originalTotalMoney = [self.orderInfo.totalMoney floatValue];
     
     // hide empty cell
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self initAlertController];
+    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     // update user info
     [self getUserInfo];
-    
-    // 获取积分规则
-    [self getRule];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,27 +77,112 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            // 订单信息
+            return [self.orderInfo.siteTimeList count] + 3;
+            break;
+        
+        case 1:
+            // 积分
+            return 2;
+            break;
+            
+        default:
+            // 支付
+            return 3;
+            break;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
+    NSInteger count = [self.orderInfo.siteTimeList count];
+    
+    UITableViewCell *cell;
     
     if (indexPath.section == 0){
+        
+        if (indexPath.row == 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
+            cell.textLabel.text = @"订单名称";
+            cell.detailTextLabel.text = self.orderInfo.orderTitle;
+        } else if (indexPath.row == 1){
+            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
+            cell.textLabel.text = @"订单详情";
+            cell.detailTextLabel.text = @"";
+        } else if (indexPath.row - 2 < count) {
+            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
+            cell.textLabel.text = @"";
+            cell.detailTextLabel.text = self.orderInfo.siteTimeList[indexPath.row - 2];
+        } else if (indexPath.row - 2 == count){
+            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailMoneyCellIdentifier];
+            cell.textLabel.text = @"支付金额";
+            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%@",self.orderInfo.totalMoney ];
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    if (indexPath.section == 1){
+        if (indexPath.row == 0){
+            CADPayScoreRuleCell *ruleCell = [tableView dequeueReusableCellWithIdentifier:@"CADPayScoreRuleCell"];
+            
+            if (ruleCell == nil)
+                ruleCell = [CADPayScoreRuleCell makeCell];
+            
+            CADUserManager *cm = [CADUserManager sharedInstance];
+            ruleCell.ruleLabel.text = [[NSString alloc] initWithFormat:@"*订单%.0f元起可用积分，1积分可抵%.02f元，最多可抵订单%.0f%%。 ",cm.downLimit, cm.fee2Rmb,cm.maxRatio];
+            
+            cell = ruleCell;
+        }
+        
+        if (indexPath.row == 1){
+            CADPayScoreCell *scoreCell = [tableView dequeueReusableCellWithIdentifier:kCADPayScoreCellIdentifier forIndexPath:indexPath];
+            
+            if (scoreCell == nil)
+                scoreCell = [CADPayScoreCell makeCell];
+            
+            scoreCell.textLabel.text = @"积分抵扣";
+            if (self.usedScore > 0){
+                CADUserManager *cm = [CADUserManager sharedInstance];
+                scoreCell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",self.usedScore * cm.fee2Rmb] ;
+            } else {
+                scoreCell.detailTextLabel.text = @"";
+            }
+            
+            cell = scoreCell;
+        }
+    }
+    
+    if (indexPath.section == 2){
+        
+        
         switch (indexPath.row) {
             case 0:
-                cell.textLabel.text = @"余额支付";
-                break;
+            {
+                CADPayScoreCell *scoreCell = [tableView dequeueReusableCellWithIdentifier:kCADPayScoreCellIdentifier forIndexPath:indexPath];
                 
+                if (scoreCell == nil)
+                    scoreCell = [CADPayScoreCell makeCell];
+                
+                CADUser *cu = [[CADUserManager sharedInstance] getUser];
+                scoreCell.textLabel.text = @"余额支付";
+                scoreCell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%@",cu.fee ];
+                
+                cell = scoreCell;
+                break;
+            }
             case 1:
+                cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
                 cell.textLabel.text = @"微信支付";
                 break;
                 
             case 2:
+                cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
                 cell.textLabel.text = @"支付宝";
                 break;
             default:
@@ -95,7 +194,16 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0){
+    
+    if (indexPath.section == 1 && indexPath.row == 1){
+        CADUserManager *cm = [CADUserManager sharedInstance];
+        if (self.originalTotalMoney > cm.downLimit){
+            // 使用积分
+            [self presentViewController:self.scoreAlertController animated:YES completion:nil];
+        }
+    }
+    
+    if (indexPath.section == 2){
         switch (indexPath.row) {
             case 0:
             {
@@ -349,7 +457,7 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
                     [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:errmsg];
                     
                 } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
-                    NSLog(@"JSON: %@", responseObject);
+//                    NSLog(@"JSON: %@", responseObject);
                     NSDictionary *userInfo = [responseObject objectForKey:@"userInfo"];
                     
                     user.fee = [userInfo objectForKey:@"fee"];
@@ -362,78 +470,21 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
                     user.score = [[userInfo objectForKey:@"score"] stringValue];
                     user.qq = [userInfo objectForKey:@"qq"];
                     
+                    self.maxScoreCanBeUse = [user.score floatValue];
+                    CADUserManager *cm = [CADUserManager sharedInstance];
+                    CGFloat thisOrderScore = self.originalTotalMoney * cm.maxRatio / cm.fee2Rmb / 100;
+                    if (self.maxScoreCanBeUse > thisOrderScore ){
+                        self.maxScoreCanBeUse = thisOrderScore;
+                    }
+                    
+                    [self initScoreAlertController];
+                    
                     // TODO
-                    // 设置余额和积分
+                    // 更新积分
                 }
                 
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:[error localizedDescription]];
-            }];
-            
-        } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
-            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
-        }
-        
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
-    }];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-}
-
-/**
- * 获取积分规则 {"item":{"fee":"0.10","percent":"10.00","low":"100.00"},"success":true}
- */
--(void) getRule{
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    // reset
-    self.timeStamp = @"";
-    
-    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        
-        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-            // update time here
-            self.timeStamp = [responseObject objectForKey:@"randTime"];
-            
-            CADUser *user = CADUserManager.sharedInstance.getUser;
-            if (user == nil || user.phone == nil){
-                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                NSData *data = [defaults objectForKey:@"user"];
-                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                if (user != nil){
-                    [CADUserManager.sharedInstance setUser:user];
-                }
-            }
-            
-            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@'}",self.timeStamp,[Utils md5:beforeMd5]]};
-            
-            [self.afm POST:KRuleJFDK parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-                
-                if ([[responseObject objectForKey:@"success"] intValue] == NO){
-                    
-                    NSString* errmsg = [responseObject objectForKey:@"msg"];
-                    [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:errmsg];
-                    
-                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
-                    NSLog(@"JSON: %@", responseObject);
-                    CADUserManager *cm = CADUserManager.sharedInstance;
-                    cm.fee2Rmb = [[[responseObject objectForKey:@"item"] objectForKey:@"fee"] floatValue];
-                    cm.maxRatio = [[[responseObject objectForKey:@"item"] objectForKey:@"percent"] floatValue];
-                    cm.downLimit = [[[responseObject objectForKey:@"item"] objectForKey:@"low"] floatValue];
-                    
-                    // TODO
-                    // 显示积分规则
-//                    [self.ruleTips setText:[[NSString alloc] initWithFormat:@"*订单%.0f元起可用积分，1积分可抵%.02f元，最多可抵订单%.0f%%。 ",cm.downLimit, cm.fee2Rmb,cm.maxRatio]];
-                    
-                }
-                
-            } failure:^(NSURLSessionTask *operation, NSError *error) {
-                [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:[error localizedDescription]];
             }];
             
         } else {
@@ -487,6 +538,7 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
                                    
                                    password.text = @"";
                                    action.enabled = NO;
+                                   
                                }];
     
     okAction.enabled = NO;
@@ -506,5 +558,70 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
         okAction.enabled = password.text.length > 4;
     }
 }
+
+- (void)initScoreAlertController{
+    
+    CADUser *cu = [[CADUserManager sharedInstance] getUser];
+    
+    self.scoreAlertController = [UIAlertController
+                            alertControllerWithTitle:@"使用积分"
+                            message:[[NSString alloc] initWithFormat:@"您的积分:%@分",cu.score ]
+                            preferredStyle:UIAlertControllerStyleAlert
+                            ];
+    
+    __weak CADPayTableViewController * weakSelf = self;
+    
+    [self.scoreAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = [[NSString alloc] initWithFormat:@"本订单最多使用%.00f积分" ,weakSelf.maxScoreCanBeUse];
+         textField.secureTextEntry = NO;
+         [textField addTarget:weakSelf
+                       action:@selector(scoreTextFieldDidChange:)
+             forControlEvents:UIControlEventEditingChanged];
+     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"取消", @"Cancel action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                   }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"确定", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   UITextField *score = self.scoreAlertController.textFields.lastObject;
+                                   self.usedScore = [score.text floatValue];
+                                   
+                                   score.text = @"";
+                                   action.enabled = NO;
+                                   
+                                   [weakSelf.tableView reloadData];
+                               }];
+    
+    okAction.enabled = NO;
+    
+    [self.scoreAlertController addAction:cancelAction];
+    [self.scoreAlertController addAction:okAction];
+    
+}
+
+- (void)scoreTextFieldDidChange:(UITextField *)sender
+{
+    UIAlertController *scoreAlertController = (UIAlertController *)self.presentedViewController;
+    if (scoreAlertController)
+    {
+        UITextField *scoreText = scoreAlertController.textFields.lastObject;
+        UIAlertAction *okAction = scoreAlertController.actions.lastObject;
+        
+        __weak CADPayTableViewController * weakSelf = self;
+        
+        okAction.enabled = [scoreText.text floatValue] <= weakSelf.maxScoreCanBeUse;
+    }
+}
+
 
 @end

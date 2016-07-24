@@ -16,6 +16,12 @@
 @property (strong,nonatomic) NSString *timeStamp;
 @property (strong,nonatomic) AFHTTPSessionManager *afm;
 
+@property (nonatomic) CGFloat originalTotalMoney;
+@property (nonatomic) CGFloat maxScoreCanBeUse;
+@property (nonatomic) CGFloat usedScore;
+
 @property (nonatomic, retain) UIAlertController *alertController;
+
+@property (nonatomic, retain) UIAlertController *scoreAlertController;
 
 @end
