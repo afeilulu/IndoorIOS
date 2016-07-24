@@ -16,5 +16,6 @@
 @property (strong,nonatomic) NSString *timeStamp;
 @property (strong,nonatomic) AFHTTPSessionManager *afm;
 
+@property (nonatomic, retain) UIAlertController *alertController;
 
 @end

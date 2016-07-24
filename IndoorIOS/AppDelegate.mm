@@ -7,12 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import <AlipaySDK/AlipaySDK.h>
+#import <AlipaySDK-2.0/AlipaySDK/AlipaySDK.h>
 #import "CADPayViewController.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADStartViewController.h"
 #import "SDWebImageManager.h"
 #import "ImageLoader.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
 #import <CFNetwork/CFNetwork.h>
@@ -65,6 +66,8 @@ BMKMapManager* _mapManager;
     [self.window makeKeyAndVisible];
     
     [SDWebImageManager sharedManager].delegate = [ImageLoader sharedImageLoader];
+    
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     
     return YES;
 }

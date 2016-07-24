@@ -12,9 +12,10 @@
 #import "CADAlertManager.h"
 #import "Order.h"
 #import "Utils.h"
+#import "CADUser.h"
+#import "CADUserManager.h"
 #import <AlipaySDK-2.0/AlipaySDK/AlipaySDK.h>
 #import <AlipaySDK-2.0/NSString+AlipayOrder.h>
-#import <AlipaySDK-2.0/NSString+AlipaySigner.h>
 
 NSString *const kPayMethodCellIdentifier = @"CADPayMethodCell";
 NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
@@ -42,7 +43,16 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     // hide empty cell
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    [self initAlertController];
+}
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    // update user info
+    [self getUserInfo];
+    
+    // 获取积分规则
+    [self getRule];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,8 +98,10 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     if (indexPath.section == 0){
         switch (indexPath.row) {
             case 0:
+            {
+                [self presentViewController:self.alertController animated:YES completion:nil];
                 break;
-                
+            }
             case 1:
                 break;
                 
@@ -104,40 +116,6 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation
@@ -232,11 +210,11 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     NSString *orderString = [NSString
                              alipayOrderWithPartner:partner
                              seller:seller
-                             productName:@"1"
-                             productDescription:@"测试"
-                             amount:[NSString stringWithFormat:@"%.2f",0.02f]
-                             notifyURL:@"http://www.xxx.com"
-                             tradeNumber:[NSString generateAlipayTradeNo]
+                             productName:self.orderInfo.orderTitle
+                             productDescription:self.orderInfo.orderTitle
+                             amount:self.orderInfo.totalMoney
+                             notifyURL:kAlipayCallbackUrl
+                             tradeNumber:payId
                              rsaPrivateKey:privateKey
                              ];
     
@@ -285,5 +263,248 @@ NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
     
 }
 
+#pragma mark - remain pay
+-(void) RemainPayWithPassword:(NSString *) password
+{
+    
+    CADUser *user = [[CADUserManager sharedInstance] getUser];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password]};
+            
+            [self.afm POST:kFeePayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"余额支付异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    [CADAlertManager showAlert:self setTitle:@"支付成功" setMessage:@""];
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"余额支付异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+
+/**
+ * 获取用户详细信息
+ */
+-(void) getUserInfo{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@'}",self.timeStamp,[Utils md5:beforeMd5],user.phone]};
+            
+            [self.afm POST:kGetUserInfoJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    NSDictionary *userInfo = [responseObject objectForKey:@"userInfo"];
+                    
+                    user.fee = [userInfo objectForKey:@"fee"];
+                    user.idString = [userInfo objectForKey:@"id"];
+                    user.mail = [userInfo objectForKey:@"mail"];
+                    user.phone = [userInfo objectForKey:@"phone"];
+                    user.sex_code = [userInfo objectForKey:@"sex_code"];
+                    user.imgUrl = [userInfo objectForKey:@"image_url"];
+                    user.name = [userInfo objectForKey:@"name"];
+                    user.score = [[userInfo objectForKey:@"score"] stringValue];
+                    user.qq = [userInfo objectForKey:@"qq"];
+                    
+                    // TODO
+                    // 设置余额和积分
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 获取积分规则 {"item":{"fee":"0.10","percent":"10.00","low":"100.00"},"success":true}
+ */
+-(void) getRule{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            CADUser *user = CADUserManager.sharedInstance.getUser;
+            if (user == nil || user.phone == nil){
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                NSData *data = [defaults objectForKey:@"user"];
+                user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                if (user != nil){
+                    [CADUserManager.sharedInstance setUser:user];
+                }
+            }
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@'}",self.timeStamp,[Utils md5:beforeMd5]]};
+            
+            [self.afm POST:KRuleJFDK parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSLog(@"JSON: %@", responseObject);
+                    CADUserManager *cm = CADUserManager.sharedInstance;
+                    cm.fee2Rmb = [[[responseObject objectForKey:@"item"] objectForKey:@"fee"] floatValue];
+                    cm.maxRatio = [[[responseObject objectForKey:@"item"] objectForKey:@"percent"] floatValue];
+                    cm.downLimit = [[[responseObject objectForKey:@"item"] objectForKey:@"low"] floatValue];
+                    
+                    // TODO
+                    // 显示积分规则
+//                    [self.ruleTips setText:[[NSString alloc] initWithFormat:@"*订单%.0f元起可用积分，1积分可抵%.02f元，最多可抵订单%.0f%%。 ",cm.downLimit, cm.fee2Rmb,cm.maxRatio]];
+                    
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取积分规则异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+#pragma marks - remain pay alert controller
+
+- (void)initAlertController{
+    self.alertController = [UIAlertController
+                                          alertControllerWithTitle:@"余额支付"
+                                          message:nil
+                                          preferredStyle:UIAlertControllerStyleAlert
+                                          ];
+    
+    __weak CADPayTableViewController * weakSelf = self;
+    
+    [self.alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = NSLocalizedString(@"余额支付密码", @"password");
+         textField.secureTextEntry = YES;
+         [textField addTarget:weakSelf
+                       action:@selector(alertTextFieldDidChange:)
+             forControlEvents:UIControlEventEditingChanged];
+     }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"取消", @"Cancel action")
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction *action)
+                                   {
+                                       NSLog(@"Cancel action");
+                                   }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"确定", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   UITextField *password = self.alertController.textFields.lastObject;
+                                   [self RemainPayWithPassword:password.text];
+                                   
+                                   password.text = @"";
+                                   action.enabled = NO;
+                               }];
+    
+    okAction.enabled = NO;
+    
+    [self.alertController addAction:cancelAction];
+    [self.alertController addAction:okAction];
+    
+}
+
+- (void)alertTextFieldDidChange:(UITextField *)sender
+{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController)
+    {
+        UITextField *password = alertController.textFields.lastObject;
+        UIAlertAction *okAction = alertController.actions.lastObject;
+        okAction.enabled = password.text.length > 4;
+    }
+}
 
 @end
