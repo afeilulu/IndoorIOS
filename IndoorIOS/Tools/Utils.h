@@ -16,5 +16,6 @@
 
 + (NSString *) getWeekName:(NSInteger) week;
 + (NSString *)md5:(NSString *) input;
++ (bool) textIsValidValue:(NSString*) text;
 
 @end

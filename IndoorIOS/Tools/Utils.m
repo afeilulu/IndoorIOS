@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Utils.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "RegexKitLite.h"
 
 @implementation Utils
 
@@ -68,6 +69,16 @@
     free(resultData);
     
     return resultString;
+}
+
++ (bool) textIsValidValue:( NSString*) text
+{
+    bool result = false;
+    
+    if ( [text isMatchedByRegex:@"^(?:|0|[1-9]\\d*)(?:\\.\\d*)?$"] ) {
+        result = true;
+    }
+    return result;
 }
 
 @end

@@ -158,6 +158,10 @@ static NSMutableString *jsonUrl;
     [self.timeUnitCollectionView registerNib:nib2 forCellWithReuseIdentifier:self.timeCellIdentifier];
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+    NSLog(@"%@ - %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+}
+
 - (IBAction)submitOrder:(id)sender {
     [self submitButtonPressed];
 }

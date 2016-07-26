@@ -94,7 +94,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
             
         default:
             // 支付
-            return 3;
+            return 4;
             break;
     }
 }
@@ -164,24 +164,38 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
         switch (indexPath.row) {
             case 0:
             {
-                CADPayScoreCell *scoreCell = [tableView dequeueReusableCellWithIdentifier:kCADPayScoreCellIdentifier forIndexPath:indexPath];
+                cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailMoneyCellIdentifier];
+                CADUserManager *cm = [CADUserManager sharedInstance];
+                cell.textLabel.text = @"还需支付";
+                cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%.02f",self.originalTotalMoney - self.usedScore * cm.fee2Rmb ];
                 
-                if (scoreCell == nil)
-                    scoreCell = [CADPayScoreCell makeCell];
-                
-                CADUser *cu = [[CADUserManager sharedInstance] getUser];
-                scoreCell.textLabel.text = @"余额支付";
-                scoreCell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%@",cu.fee ];
-                
-                cell = scoreCell;
                 break;
             }
             case 1:
+            {
+                cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
+                cell.textLabel.text = @"余额支付";
+                
+                CADUser *cu = [[CADUserManager sharedInstance] getUser];
+                CADUserManager *cm = [CADUserManager sharedInstance];
+                NSString *check;
+                if (self.originalTotalMoney - self.usedScore * cm.fee2Rmb > [cu.fee floatValue]){
+                    check = [[NSString alloc] initWithFormat:@"您的余额(￥%@)不足",cu.fee];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else {
+                    check = [[NSString alloc] initWithFormat:@"您的余额:￥%@",cu.fee];
+                    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+                }
+                cell.detailTextLabel.text = check;
+                
+                break;
+            }
+            case 2:
                 cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
                 cell.textLabel.text = @"微信支付";
                 break;
                 
-            case 2:
+            case 3:
                 cell = [tableView dequeueReusableCellWithIdentifier:kPayMethodCellIdentifier forIndexPath:indexPath];
                 cell.textLabel.text = @"支付宝";
                 break;
@@ -204,16 +218,20 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
     }
     
     if (indexPath.section == 2){
+        // 支付
         switch (indexPath.row) {
-            case 0:
+            case 1:
+                // 余额
             {
                 [self presentViewController:self.alertController animated:YES completion:nil];
                 break;
             }
-            case 1:
+            case 2:
+                // 微信
                 break;
                 
-            case 2:
+            case 3:
+                // 支付宝
                 [self preAliPay];
                 break;
             default:
@@ -252,7 +270,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
             self.timeStamp = [responseObject objectForKey:@"randTime"];
             
             NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','orderId':'%@','payParam':{'orderId':'%@'}}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.orderInfo.orderId]};
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','orderId':'%@','payParam':{'orderId':'%@'},'isUseJf':'%d','jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.orderInfo.orderId,self.usedScore>0?YES:NO,self.usedScore]};
             
             [self.afm POST:kPreAliPayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
@@ -315,12 +333,13 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
         return;
     }
     
+    CADUserManager *cm = [CADUserManager sharedInstance];
     NSString *orderString = [NSString
                              alipayOrderWithPartner:partner
                              seller:seller
                              productName:self.orderInfo.orderTitle
                              productDescription:self.orderInfo.orderTitle
-                             amount:self.orderInfo.totalMoney
+                             amount:[[NSString alloc] initWithFormat:@"%.02f",self.originalTotalMoney - self.usedScore * cm.fee2Rmb]
                              notifyURL:kAlipayCallbackUrl
                              tradeNumber:payId
                              rsaPrivateKey:privateKey
@@ -389,7 +408,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
             self.timeStamp = [responseObject objectForKey:@"randTime"];
             
             NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password]};
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@','isUseJf':'%d','jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password,self.usedScore>0?YES:NO,self.usedScore]};
             
             [self.afm POST:kFeePayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
@@ -503,9 +522,11 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
 #pragma marks - remain pay alert controller
 
 - (void)initAlertController{
+    CADUser *cu = [[CADUserManager sharedInstance] getUser];
+    
     self.alertController = [UIAlertController
                                           alertControllerWithTitle:@"余额支付"
-                                          message:nil
+                            message:[[NSString alloc] initWithFormat:@"您的余额:￥%@元",cu.fee]
                                           preferredStyle:UIAlertControllerStyleAlert
                                           ];
     
@@ -575,6 +596,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
      {
          textField.placeholder = [[NSString alloc] initWithFormat:@"本订单最多使用%.00f积分" ,weakSelf.maxScoreCanBeUse];
          textField.secureTextEntry = NO;
+         textField.keyboardType = UIKeyboardTypeNumberPad;
          [textField addTarget:weakSelf
                        action:@selector(scoreTextFieldDidChange:)
              forControlEvents:UIControlEventEditingChanged];
@@ -594,12 +616,17 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
                                handler:^(UIAlertAction *action)
                                {
                                    UITextField *score = self.scoreAlertController.textFields.lastObject;
-                                   self.usedScore = [score.text floatValue];
                                    
-                                   score.text = @"";
-                                   action.enabled = NO;
-                                   
-                                   [weakSelf.tableView reloadData];
+                                   if ([score.text stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceCharacterSet]].length > 0 ){
+                                       self.usedScore = [score.text floatValue];
+                                       
+                                       score.text = @"";
+                                       action.enabled = NO;
+                                       
+                                       NSArray *indexPathArray = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:1 inSection:1],[NSIndexPath indexPathForRow:0 inSection:2], nil];
+                                       [weakSelf.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationBottom];
+                                   }
                                }];
     
     okAction.enabled = NO;
@@ -619,7 +646,10 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
         
         __weak CADPayTableViewController * weakSelf = self;
         
-        okAction.enabled = [scoreText.text floatValue] <= weakSelf.maxScoreCanBeUse;
+        if ([Utils textIsValidValue:scoreText.text]){
+            okAction.enabled = [scoreText.text stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceCharacterSet]].length > 0 && [scoreText.text floatValue] <= weakSelf.maxScoreCanBeUse;
+        }
     }
 }
 

@@ -17,4 +17,5 @@ target 'IndoorIOS' do
   pod 'MJExtension' #字典和模型转换框架
  
   pod 'MarqueeLabel' # 文字滚动
+  pod 'RegexKitLite' # 正则表达式匹配
 end
