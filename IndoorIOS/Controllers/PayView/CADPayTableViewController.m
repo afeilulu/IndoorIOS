@@ -18,6 +18,9 @@
 #import "CADPayScoreCell.h"
 #import <AlipaySDK-2.0/AlipaySDK/AlipaySDK.h>
 #import <AlipaySDK-2.0/NSString+AlipayOrder.h>
+#import <UIImageView+WebCache.h>
+#import "SDWebImagePrefetcher.h"
+#import "CADOrderDetailSportTypeCell.h"
 
 NSString *const kPayMethodCellIdentifier = @"CADPayMethodCell";
 NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
@@ -30,6 +33,9 @@ NSString *const kCADOrderDetailMoneyCellNibName = @"CADOrderDetailMoneyCell";
 
 NSString *const kCADPayScoreCellIdentifier = @"CADPayScoreCell";
 NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
+
+NSString *const kCADOrderDetailSportTypeCellIdentifier = @"CADOrderDetailSportTypeCell";
+NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeCell";
 
 @interface CADPayTableViewController ()
 
@@ -51,8 +57,12 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kPayMethodCellNibName bundle:nil] forCellReuseIdentifier:kPayMethodCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailNormalCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailNormalCellIdentifier];
+    
     [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailMoneyCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailMoneyCellIdentifier];
+    
     [self.tableView registerNib:[UINib nibWithNibName:kCADPayScoreCellNibName bundle:nil] forCellReuseIdentifier:kCADPayScoreCellIdentifier];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailSportTypeCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailSportTypeCellIdentifier];
     
     self.originalTotalMoney = [self.orderInfo.totalMoney floatValue];
     
@@ -61,6 +71,13 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
     
     [self initAlertController];
     
+    NSArray *prefetchURLs = [[NSArray alloc] initWithObjects:self.orderInfo.sportTypeSmallImage, nil];
+    SDWebImagePrefetcher *prefetcher = [SDWebImagePrefetcher sharedImagePrefetcher];
+    [prefetcher prefetchURLs:prefetchURLs progress:nil completed:^(NSUInteger completedNo, NSUInteger skippedNo) {
+        NSLog(@"%@ - %@", NSStringFromClass([self class]),@"image prefetched");
+        NSArray *indexPathArray = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil];
+        [self.tableView  reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationNone];
+    }];
 }
 
 
@@ -84,7 +101,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
     switch (section) {
         case 0:
             // 订单信息
-            return [self.orderInfo.siteTimeList count] + 3;
+            return [self.orderInfo.siteTimeList count] + 2;
             break;
         
         case 1:
@@ -107,18 +124,17 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
     if (indexPath.section == 0){
         
         if (indexPath.row == 0) {
-            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
-            cell.textLabel.text = @"订单名称";
-            cell.detailTextLabel.text = self.orderInfo.orderTitle;
-        } else if (indexPath.row == 1){
-            cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
-            cell.textLabel.text = @"订单详情";
-            cell.detailTextLabel.text = @"";
-        } else if (indexPath.row - 2 < count) {
+            CADOrderDetailSportTypeCell *sportTypeCell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailSportTypeCellIdentifier];
+            NSArray *array = [self.orderInfo.orderTitle componentsSeparatedByString:@" "];
+            sportTypeCell.textLabel.text = array[0];
+            sportTypeCell.detailTextLabel.text = @"";
+            [sportTypeCell.imageView sd_setImageWithURL:[NSURL URLWithString:self.orderInfo.sportTypeSmallImage]];
+            cell = sportTypeCell;
+        } else if (indexPath.row - 1 < count) {
             cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailNormalCellIdentifier];
             cell.textLabel.text = @"";
-            cell.detailTextLabel.text = self.orderInfo.siteTimeList[indexPath.row - 2];
-        } else if (indexPath.row - 2 == count){
+            cell.detailTextLabel.text = self.orderInfo.siteTimeList[indexPath.row - 1];
+        } else if (indexPath.row - 1 == count){
             cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderDetailMoneyCellIdentifier];
             cell.textLabel.text = @"支付金额";
             cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"￥%@",self.orderInfo.totalMoney ];
@@ -270,7 +286,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
             self.timeStamp = [responseObject objectForKey:@"randTime"];
             
             NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','orderId':'%@','payParam':{'orderId':'%@'},'isUseJf':'%d','jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.orderInfo.orderId,self.usedScore>0?YES:NO,self.usedScore]};
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','orderId':'%@','payParam':{'orderId':'%@'},'isUseJf':%@,'jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.orderInfo.orderId,self.usedScore>0?@YES:@NO,self.usedScore]};
             
             [self.afm POST:kPreAliPayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 
@@ -408,7 +424,7 @@ NSString *const kCADPayScoreCellNibName = @"CADPayScoreCell";
             self.timeStamp = [responseObject objectForKey:@"randTime"];
             
             NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@','isUseJf':'%d','jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password,self.usedScore>0?YES:NO,self.usedScore]};
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','orderId':'%@','payPassword':'%@','isUseJf':%@,'jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],user.phone,self.orderInfo.orderId,password,self.usedScore>0?@YES:@NO,self.usedScore]};
             
             [self.afm POST:kFeePayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
                 

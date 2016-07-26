@@ -59,6 +59,8 @@
 		7541E7FB1D44B525005D7608 /* CADPayScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7541E7F91D44B525005D7608 /* CADPayScoreCell.xib */; };
 		7541E7FF1D44B563005D7608 /* CADPayScoreRuleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7541E7FD1D44B563005D7608 /* CADPayScoreRuleCell.m */; };
 		7541E8001D44B563005D7608 /* CADPayScoreRuleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7541E7FE1D44B563005D7608 /* CADPayScoreRuleCell.xib */; };
+		7541E8041D476932005D7608 /* CADOrderDetailSportTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7541E8021D476932005D7608 /* CADOrderDetailSportTypeCell.m */; };
+		7541E8051D476932005D7608 /* CADOrderDetailSportTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7541E8031D476932005D7608 /* CADOrderDetailSportTypeCell.xib */; };
 		754359511D393F6B00D3A78B /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 754359501D393F6B00D3A78B /* Account.storyboard */; };
 		754359551D39408E00D3A78B /* CADAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754359541D39408E00D3A78B /* CADAccountViewController.m */; };
 		7547C3F71D41B6AF00C67116 /* CADCoachDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7547C3F61D41B6AF00C67116 /* CADCoachDetailTableViewController.m */; };
@@ -271,6 +273,9 @@
 		7541E7FC1D44B563005D7608 /* CADPayScoreRuleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADPayScoreRuleCell.h; sourceTree = "<group>"; };
 		7541E7FD1D44B563005D7608 /* CADPayScoreRuleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADPayScoreRuleCell.m; sourceTree = "<group>"; };
 		7541E7FE1D44B563005D7608 /* CADPayScoreRuleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADPayScoreRuleCell.xib; sourceTree = "<group>"; };
+		7541E8011D476932005D7608 /* CADOrderDetailSportTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderDetailSportTypeCell.h; sourceTree = "<group>"; };
+		7541E8021D476932005D7608 /* CADOrderDetailSportTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADOrderDetailSportTypeCell.m; sourceTree = "<group>"; };
+		7541E8031D476932005D7608 /* CADOrderDetailSportTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADOrderDetailSportTypeCell.xib; sourceTree = "<group>"; };
 		754359501D393F6B00D3A78B /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Account.storyboard; path = storyboard/Account.storyboard; sourceTree = "<group>"; };
 		754359531D39408E00D3A78B /* CADAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADAccountViewController.h; sourceTree = "<group>"; };
 		754359541D39408E00D3A78B /* CADAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADAccountViewController.m; sourceTree = "<group>"; };
@@ -798,6 +803,9 @@
 				7541E7FC1D44B563005D7608 /* CADPayScoreRuleCell.h */,
 				7541E7FD1D44B563005D7608 /* CADPayScoreRuleCell.m */,
 				7541E7FE1D44B563005D7608 /* CADPayScoreRuleCell.xib */,
+				7541E8011D476932005D7608 /* CADOrderDetailSportTypeCell.h */,
+				7541E8021D476932005D7608 /* CADOrderDetailSportTypeCell.m */,
+				7541E8031D476932005D7608 /* CADOrderDetailSportTypeCell.xib */,
 			);
 			path = "Pay View Cells";
 			sourceTree = "<group>";
@@ -1122,6 +1130,7 @@
 				758F90D91D166B9D00CBD7DA /* PreOrder.storyboard in Resources */,
 				754359511D393F6B00D3A78B /* Account.storyboard in Resources */,
 				7547C4251D43C1B700C67116 /* PayTable.storyboard in Resources */,
+				7541E8051D476932005D7608 /* CADOrderDetailSportTypeCell.xib in Resources */,
 				7541E8001D44B563005D7608 /* CADPayScoreRuleCell.xib in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
 				7547C4041D41D0B200C67116 /* CADCoachAttrCell.xib in Resources */,
@@ -1303,6 +1312,7 @@
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
 				758F90E21D168B4700CBD7DA /* CADSearchController.m in Sources */,
 				75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */,
+				7541E8041D476932005D7608 /* CADOrderDetailSportTypeCell.m in Sources */,
 				753547681AE66740005A5791 /* IconDescription.m in Sources */,
 				75BA7C821AF1C87000D50D55 /* CADMeViewController.m in Sources */,
 				7547C4191D4221EC00C67116 /* CADActivityAttrCell.m in Sources */,

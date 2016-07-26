@@ -159,7 +159,7 @@ static NSMutableString *jsonUrl;
 }
 
 - (void) viewWillAppear:(BOOL)animated{
-    NSLog(@"%@ - %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    NSLog(@"%@ - %@", NSStringFromClass([self class]), self.selectedDate);
 }
 
 - (IBAction)submitOrder:(id)sender {
