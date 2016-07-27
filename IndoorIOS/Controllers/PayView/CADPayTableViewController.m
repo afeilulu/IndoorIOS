@@ -624,6 +624,9 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
                                    handler:^(UIAlertAction *action)
                                    {
                                        NSLog(@"Cancel action");
+                                       
+                                       UITextField *score = self.scoreAlertController.textFields.lastObject;
+                                       score.text = @"";
                                    }];
     
     UIAlertAction *okAction = [UIAlertAction
@@ -664,7 +667,7 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
         
         if ([Utils textIsValidValue:scoreText.text]){
             okAction.enabled = [scoreText.text stringByTrimmingCharactersInSet:
-            [NSCharacterSet whitespaceCharacterSet]].length > 0 && [scoreText.text floatValue] <= weakSelf.maxScoreCanBeUse;
+            [NSCharacterSet whitespaceCharacterSet]].length > 0 && [scoreText.text floatValue] < weakSelf.maxScoreCanBeUse+1;
         }
     }
 }
