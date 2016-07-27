@@ -429,8 +429,7 @@
                         
                         [self.recommendSites addObject:site];
                         
-                        self.sitesFlag= YES;
-                        [self collectionViewReloadData];
+                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
                     }
                     
                 } else {
@@ -505,8 +504,7 @@
                         [self.trainers addObject:trainer];
                     }
                     
-                    self.trainersFlag = YES;
-                    [self collectionViewReloadData];
+                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取教练错误" setMessage:errmsg];
@@ -572,8 +570,8 @@
                         activity.currentNum = [[item objectForKey:@"member_amount"] stringValue];
                         [self.activities addObject:activity];
                     }
-                    self.activitiesFlag = YES;
-                    [self collectionViewReloadData];
+
+                    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:2]];
                 } else {
                     NSString* errmsg = [responseObject objectForKey:@"errmsg"];
                     [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:errmsg];
@@ -985,12 +983,6 @@ NSString *const SearchBarIsFirstResponderKey = @"SearchBarIsFirstResponderKey";
     
     // restore the text in the search field
     self.searchController.searchBar.text = [coder decodeObjectForKey:SearchBarTextKey];
-}
-
-- (void)collectionViewReloadData{
-    if (self.sitesFlag && self.trainersFlag && self.activitiesFlag) {
-        [self.collectionView reloadData];
-    }
 }
 
 @end

@@ -47,10 +47,6 @@
 @property (nonatomic, strong) NSMutableArray *activities; // 活动
 @property (nonatomic, strong) NSMutableArray *recommendSites; // 场馆
 
-@property (nonatomic) bool sitesFlag; // 场馆
-@property (nonatomic) bool trainersFlag; // 教练
-@property (nonatomic) bool activitiesFlag; // 活动
-
 @property (nonatomic) CGFloat flowItemWidth2;
 @property (nonatomic) CGFloat flowItemWidth3;
 
