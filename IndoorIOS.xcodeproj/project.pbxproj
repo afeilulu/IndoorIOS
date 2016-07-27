@@ -166,6 +166,8 @@
 		75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75EFC2261D0D559100582E8E /* CADSearchResultCell.xib */; };
 		75F4BB241D48AC3500BB13C0 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB231D48AC3500BB13C0 /* Register.storyboard */; };
 		75F4BB281D48BB0A00BB13C0 /* CADRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4BB271D48BB0A00BB13C0 /* CADRegisterController.m */; };
+		75F4BB2A1D490CED00BB13C0 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB291D490CED00BB13C0 /* ResetPassword.storyboard */; };
+		75F4BB2E1D490D3400BB13C0 /* CADResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4BB2D1D490D3400BB13C0 /* CADResetPasswordController.m */; };
 		75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */; };
 		75FB5DB91C79F05700C35BDC /* CADIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DB81C79F05700C35BDC /* CADIndexHeaderView.m */; };
 		75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DBB1C79FEFA00C35BDC /* CADIndexFooterView.m */; };
@@ -427,6 +429,9 @@
 		75F4BB231D48AC3500BB13C0 /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Register.storyboard; path = storyboard/Register.storyboard; sourceTree = "<group>"; };
 		75F4BB261D48BB0A00BB13C0 /* CADRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADRegisterController.h; sourceTree = "<group>"; };
 		75F4BB271D48BB0A00BB13C0 /* CADRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADRegisterController.m; sourceTree = "<group>"; };
+		75F4BB291D490CED00BB13C0 /* ResetPassword.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ResetPassword.storyboard; path = storyboard/ResetPassword.storyboard; sourceTree = "<group>"; };
+		75F4BB2C1D490D3400BB13C0 /* CADResetPasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADResetPasswordController.h; sourceTree = "<group>"; };
+		75F4BB2D1D490D3400BB13C0 /* CADResetPasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADResetPasswordController.m; sourceTree = "<group>"; };
 		75F4DCFF1C79A03E0081F182 /* CADIndexCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexCollectionViewCell.h; path = IndexCollectionView/CADIndexCollectionViewCell.h; sourceTree = "<group>"; };
 		75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADIndexCollectionViewCell.m; path = IndexCollectionView/CADIndexCollectionViewCell.m; sourceTree = "<group>"; };
 		75FB5DB71C79F05700C35BDC /* CADIndexHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexHeaderView.h; path = IndexCollectionView/CADIndexHeaderView.h; sourceTree = "<group>"; };
@@ -552,6 +557,7 @@
 				7547C4051D421A4300C67116 /* ActivityDetail.storyboard */,
 				7547C4241D43C1B700C67116 /* PayTable.storyboard */,
 				75F4BB231D48AC3500BB13C0 /* Register.storyboard */,
+				75F4BB291D490CED00BB13C0 /* ResetPassword.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				75F4BB2B1D490D0100BB13C0 /* ResetPasswordView */,
 				75F4BB251D48B6E400BB13C0 /* RegisterView */,
 				7547C4071D421AAC00C67116 /* ActivityDetailView */,
 				7547C3F41D41B68100C67116 /* CoachDetailView */,
@@ -1024,6 +1031,15 @@
 			path = RegisterView;
 			sourceTree = "<group>";
 		};
+		75F4BB2B1D490D0100BB13C0 /* ResetPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				75F4BB2C1D490D3400BB13C0 /* CADResetPasswordController.h */,
+				75F4BB2D1D490D3400BB13C0 /* CADResetPasswordController.m */,
+			);
+			path = ResetPasswordView;
+			sourceTree = "<group>";
+		};
 		75F4DCF81C799FA30081F182 /* IndexCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1153,6 +1169,7 @@
 				75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */,
 				75C84C4C1AF90EA1000C3AD1 /* CADDateCollectionViewCell.xib in Resources */,
 				758F90E71D16A4AA00CBD7DA /* Login.storyboard in Resources */,
+				75F4BB2A1D490CED00BB13C0 /* ResetPassword.storyboard in Resources */,
 				75CE621D1B184BD5001E3637 /* ic_supervisor.png in Resources */,
 				7547C4151D42204200C67116 /* CADActivityDescCell.xib in Resources */,
 				757949D81D3DF27700F5816F /* Activity.storyboard in Resources */,
@@ -1257,6 +1274,7 @@
 				750F75B81CE5735600B1722A /* CAD_NSArray+SafeValues.m in Sources */,
 				75766A5C1D1ACC3B00B63168 /* CADAllSiteListTableViewController.m in Sources */,
 				7547C40F1D421BCE00C67116 /* CADActivityTopCell.m in Sources */,
+				75F4BB2E1D490D3400BB13C0 /* CADResetPasswordController.m in Sources */,
 				751B22EF1C50CCDE0031F782 /* CADStoryBoardUtilities.m in Sources */,
 				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
 				75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */,

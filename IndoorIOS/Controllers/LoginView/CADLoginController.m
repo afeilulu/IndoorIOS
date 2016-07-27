@@ -17,7 +17,7 @@
 #import "CADAlertManager.h"
 #import "CADAccountViewController.h"
 #import "CADRegisterController.h"
-
+#import "CADResetPasswordController.h"
 
 @interface CADLoginController ()
 
@@ -84,6 +84,11 @@
 
 - (IBAction)registerAction:(id)sender {
     CADRegisterController * vc = (CADRegisterController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Register" class:[CADRegisterController class]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)resetPasswordAction:(id)sender {
+    CADResetPasswordController *vc = (CADResetPasswordController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"ResetPassword" class:[CADResetPasswordController class]];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -49,6 +49,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="GetValiCodeAction:" destination="oT9-B6-ICX" eventType="touchUpInside" id="wXF-rR-j3b"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="确认密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FLb-he-yj1">
                                 <rect key="frame" x="28" y="187" width="544" height="30"/>
@@ -66,6 +69,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="RegisterAction:" destination="oT9-B6-ICX" eventType="touchUpInside" id="7qV-TW-Fg3"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -114,6 +120,14 @@
                             <action selector="viewTouchDown:" destination="oT9-B6-ICX" eventType="touchDown" id="27f-hp-Kru"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="GetCodeButton" destination="ygC-bd-rw1" id="Z9d-Mb-Ema"/>
+                        <outlet property="Password" destination="7jD-ix-Xi1" id="b8k-C1-pm7"/>
+                        <outlet property="PasswordConfirm" destination="FLb-he-yj1" id="uUc-OS-R10"/>
+                        <outlet property="RegisterButton" destination="TqX-ws-ZTF" id="9Bg-xW-fI4"/>
+                        <outlet property="Username" destination="tD3-Io-umo" id="WP5-y9-pES"/>
+                        <outlet property="Valicode" destination="Bd8-SL-SYg" id="Qai-ra-Erz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apQ-Ak-tr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

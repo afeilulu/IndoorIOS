@@ -31,5 +31,6 @@
 
 - (IBAction)LoginAction:(id)sender;
 - (IBAction)registerAction:(id)sender;
+- (IBAction)resetPasswordAction:(id)sender;
 
 @end

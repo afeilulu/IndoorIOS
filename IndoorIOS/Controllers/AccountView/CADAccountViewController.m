@@ -307,20 +307,30 @@
                     detailsCell = [CADAccountDetailCell makeCell];
                 
                 NSString *imgUrl = [[NSString alloc] initWithFormat:@"%@%@",KImageUrl,self.user.imgUrl ];
-                [detailsCell.icon sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+                [detailsCell.icon sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"defaultTrainerImage"]];
                 detailsCell.fee.text = [[NSString alloc] initWithFormat:@"余额：%@元", (self.user.fee == nil)?@"":self.user.fee];
                 detailsCell.score.text = [[NSString alloc] initWithFormat:@"积分：%@", (self.user.score==nil)?@"":self.user.score ];
                 detailsCell.name.text = self.user.name;
                 
-                detailsCell.status1name.text = [[self.orderStatus objectAtIndex:0] objectForKey:@"code_desc"];
-                detailsCell.status1value.text = [[[self.orderStatus objectAtIndex:0] objectForKey:@"count"] stringValue];
-                detailsCell.status2name.text = [[self.orderStatus objectAtIndex:1] objectForKey:@"code_desc"];
-                detailsCell.status2value.text = [[[self.orderStatus objectAtIndex:1] objectForKey:@"count"] stringValue];
-                detailsCell.status3name.text = [[self.orderStatus objectAtIndex:2] objectForKey:@"code_desc"];
-                detailsCell.status3value.text = [[[self.orderStatus objectAtIndex:2] objectForKey:@"count"] stringValue];
-                detailsCell.status4name.text = [[self.orderStatus objectAtIndex:3] objectForKey:@"code_desc"];
-                detailsCell.status4value.text = [[[self.orderStatus objectAtIndex:3] objectForKey:@"count"] stringValue];
-                
+                if (self.orderStatus != nil && self.orderStatus.count > 0){
+                    detailsCell.status1name.text = [[self.orderStatus objectAtIndex:0] objectForKey:@"code_desc"];
+                    detailsCell.status1value.text = [[[self.orderStatus objectAtIndex:0] objectForKey:@"count"] stringValue];
+                    detailsCell.status2name.text = [[self.orderStatus objectAtIndex:1] objectForKey:@"code_desc"];
+                    detailsCell.status2value.text = [[[self.orderStatus objectAtIndex:1] objectForKey:@"count"] stringValue];
+                    detailsCell.status3name.text = [[self.orderStatus objectAtIndex:2] objectForKey:@"code_desc"];
+                    detailsCell.status3value.text = [[[self.orderStatus objectAtIndex:2] objectForKey:@"count"] stringValue];
+                    detailsCell.status4name.text = [[self.orderStatus objectAtIndex:3] objectForKey:@"code_desc"];
+                    detailsCell.status4value.text = [[[self.orderStatus objectAtIndex:3] objectForKey:@"count"] stringValue];
+                } else {
+                    detailsCell.status1name.text = @"待支付";
+                    detailsCell.status1value.text = @"0";
+                    detailsCell.status2name.text = @"待消费";
+                    detailsCell.status2value.text = @"0";
+                    detailsCell.status3name.text = @"已消费";
+                    detailsCell.status3value.text = @"0";
+                    detailsCell.status4name.text = @"退款";
+                    detailsCell.status4value.text = @"0";
+                }
                 cell = detailsCell;
             }
             break;

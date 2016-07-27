@@ -14,14 +14,14 @@ NSString *const kStadiumsJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSi
 
 NSString *const kStadiumDetailJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteDetailAjax.action";
 NSString *const kSportPlaceStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getSportPlaceStatusAjax.action";
-NSString *const kRegisterUrl = @"http://www.paopaoty.com/App-addCustomerAjax.action";
+NSString *const kRegisterUrl = @"http://www.paopaoty.com:8082/App-addCustomerAjax.action";
 NSString *const kAlipayCallbackUrl = @"http://www.paopaoty.com:8082/AlipayNotify-sportOrder.action";
 NSString *const kTimeStampUrl  = @"http://www.paopaoty.com:8082/App-getCurrentTimeAjax.action";
 NSString *const kLoginUrl  = @"http://www.paopaoty.com:8082/App-loginAjax.action";
 NSString *const kOrderListJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderListAjax.action";
 NSString *const kOrderStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderGroupStateAjax.action";
 NSString *const kSubmitOrderJsonUrl = @"http://www.paopaoty.com:8082/App-submitOrderAjax.action";
-NSString *const kValiCodeJsonUrl=@"http://www.paopaoty.com/App-getValidateCodeAjax.action";
+NSString *const kValiCodeJsonUrl=@"http://www.paopaoty.com:8082/App-getValidateCodeAjax.action";
 NSString *const kGetUserInfoJsonUrl = @"http://www.paopaoty.com:8082/App-getUserInfoAjax.action";
 NSString *const kFeePayUrl = @"http://www.paopaoty.com:8082/App-feePayAjax.action";
 NSString *const kPreAliPayUrl = @"http://www.paopaoty.com:8082/App-aliPayAjax.action";
