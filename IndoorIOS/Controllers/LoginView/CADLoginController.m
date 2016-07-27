@@ -16,6 +16,7 @@
 #import "CADStoryBoardUtilities.h"
 #import "CADAlertManager.h"
 #import "CADAccountViewController.h"
+#import "CADRegisterController.h"
 
 
 @interface CADLoginController ()
@@ -79,6 +80,11 @@
         // 登录
         [self login];
     }
+}
+
+- (IBAction)registerAction:(id)sender {
+    CADRegisterController * vc = (CADRegisterController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Register" class:[CADRegisterController class]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - TextField Delegate Methods

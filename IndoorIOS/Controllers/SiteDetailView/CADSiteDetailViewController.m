@@ -20,7 +20,6 @@
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
 #import "CADUser.h"
 #import "CADUserManager.h"
-#import "CADLoginViewController.h"
 #import "CADAlertManager.h"
 #import "CADPreOrderViewController.h"
 #import "CADLoginController.h"
@@ -317,27 +316,6 @@ static NSAttributedString *cr;
         
     }
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"choose"]){
-        
-        CADChooseViewController *destination = [segue destinationViewController];
-        [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
-        [destination setSportSiteId:_stadiumId];
-        
-    }
-    
-    if ([segue.identifier isEqualToString:@"login"]){
-        
-        CADLoginViewController *destination = [segue destinationViewController];
-        [destination setSportTypeId:[_sportTypeIds objectAtIndex:[sender tag] - 1]];
-        [destination setSportSiteId:_stadiumId];
-        [destination setIsGoToChoose:true];
-        
-    }
-}
-
 
 #pragma mark  POHorizontalListDelegate
 

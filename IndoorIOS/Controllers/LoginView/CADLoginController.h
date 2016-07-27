@@ -26,9 +26,10 @@
 @property (nonatomic, strong) NSString *sportSiteId;
 @property (nonatomic, strong) NSString *sportTypeId;
 
-//@property (nonatomic) bool isGoToChoose;
 @property (nonatomic, strong) NSString *nextView;
 @property (nonatomic, strong) Class nextClass;
 
 - (IBAction)LoginAction:(id)sender;
+- (IBAction)registerAction:(id)sender;
+
 @end

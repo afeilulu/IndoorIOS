@@ -10,7 +10,6 @@
 #import "StadiumRecord.h"
 #import "StadiumManager.h"
 #import "ParseOperation.h"
-#import "DetailViewController.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import "CADDetailDownloader.h"
@@ -302,9 +301,9 @@
         BMKAnnotationView *annotationView = (BMKAnnotationView *)sender;
         CADPointAnnotation *annotation = (CADPointAnnotation *) annotationView.annotation;
         
-        DetailViewController *destination = [segue destinationViewController];
-        [destination setStadiumId:annotation.stadiumId];
-        [destination setTitle:annotation.title];
+//        DetailViewController *destination = [segue destinationViewController];
+//        [destination setStadiumId:annotation.stadiumId];
+//        [destination setTitle:annotation.title];
     }
 }
 
