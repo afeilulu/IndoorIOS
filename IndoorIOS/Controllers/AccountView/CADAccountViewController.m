@@ -48,6 +48,9 @@
     
     // hide empty cell
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
     
     [self getUserInfo];
     
@@ -57,7 +60,8 @@
     NSDate *tmpDate = [NSDate dateWithTimeIntervalSinceNow: +(24 * 60 * 60)];
     self.tomorrow = [dateFormatter stringFromDate:tmpDate];
     
-    [self getOrderListFrom:@"2015-01-01" to:self.tomorrow];
+    [self getOrderStatusFrom:@"2015-01-01" to:self.tomorrow];
+
 }
 
 /**
@@ -118,6 +122,57 @@
                 
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 [CADAlertManager showAlert:self setTitle:@"获取用户信息错误" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
+        }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+/**
+ * 获取所有订单列表
+ */
+- (void)getOrderStatusFrom:(NSString *)fromDateString to:(NSString *)toDateString{
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','startDate':'%@','endDate':'%@'}",self.timeStamp,[Utils md5:beforeMd5],self.user.phone,fromDateString,toDateString]};
+            
+            [self.afm POST:kOrderStatusJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"获取订单状态错误" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    //                    NSLog(@"JSON: %@", responseObject);
+                    self.orderStatus = [responseObject objectForKey:@"list"];
+                    
+                    NSArray *indexPathArray = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:0], nil];
+                    [self.tableView  reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationNone];
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"获取订单状态错误" setMessage:[error localizedDescription]];
             }];
             
         } else {
@@ -257,6 +312,15 @@
                 detailsCell.score.text = [[NSString alloc] initWithFormat:@"积分：%@", (self.user.score==nil)?@"":self.user.score ];
                 detailsCell.name.text = self.user.name;
                 
+                detailsCell.status1name.text = [[self.orderStatus objectAtIndex:0] objectForKey:@"code_desc"];
+                detailsCell.status1value.text = [[[self.orderStatus objectAtIndex:0] objectForKey:@"count"] stringValue];
+                detailsCell.status2name.text = [[self.orderStatus objectAtIndex:1] objectForKey:@"code_desc"];
+                detailsCell.status2value.text = [[[self.orderStatus objectAtIndex:1] objectForKey:@"count"] stringValue];
+                detailsCell.status3name.text = [[self.orderStatus objectAtIndex:2] objectForKey:@"code_desc"];
+                detailsCell.status3value.text = [[[self.orderStatus objectAtIndex:2] objectForKey:@"count"] stringValue];
+                detailsCell.status4name.text = [[self.orderStatus objectAtIndex:3] objectForKey:@"code_desc"];
+                detailsCell.status4value.text = [[[self.orderStatus objectAtIndex:3] objectForKey:@"count"] stringValue];
+                
                 cell = detailsCell;
             }
             break;
@@ -288,7 +352,7 @@
         case 0:
         {
             if (indexPath.row == 0) {
-                height = 120;
+                height = 155;
             }
             break;
         }

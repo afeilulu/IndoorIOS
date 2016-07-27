@@ -22,5 +22,7 @@
 @property (nonatomic, strong) NSString* tomorrow;
 @property (nonatomic, strong) NSMutableArray *orders;
 
+@property (nonatomic, strong) NSArray *orderStatus;
+
 
 @end

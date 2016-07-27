@@ -19,6 +19,7 @@ NSString *const kAlipayCallbackUrl = @"http://www.paopaoty.com:8082/AlipayNotify
 NSString *const kTimeStampUrl  = @"http://www.paopaoty.com:8082/App-getCurrentTimeAjax.action";
 NSString *const kLoginUrl  = @"http://www.paopaoty.com:8082/App-loginAjax.action";
 NSString *const kOrderListJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderListAjax.action";
+NSString *const kOrderStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderGroupStateAjax.action";
 NSString *const kSubmitOrderJsonUrl = @"http://www.paopaoty.com:8082/App-submitOrderAjax.action";
 NSString *const kValiCodeJsonUrl=@"http://www.paopaoty.com/App-getValidateCodeAjax.action";
 NSString *const kGetUserInfoJsonUrl = @"http://www.paopaoty.com:8082/App-getUserInfoAjax.action";
