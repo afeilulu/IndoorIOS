@@ -211,7 +211,7 @@
                     //                    NSLog(@"JSON: %@", responseObject);
                     _inputValicode = [responseObject objectForKey:@"validateCode"];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取验证码错误" setMessage:errmsg];
                 }
                 
@@ -255,9 +255,25 @@
                 if ([[responseObject objectForKey:@"success"] boolValue] == true) {
                     //                    NSLog(@"JSON: %@", responseObject);
                     // 注册成功
-                    [self.navigationController popViewControllerAnimated:YES];
+                    UIAlertController *alertController = [UIAlertController
+                                                          alertControllerWithTitle:@"注册成功，请使用注册信息登录"
+                                                          message:nil
+                                                          preferredStyle:UIAlertControllerStyleAlert
+                                                          ];
+                    
+                    UIAlertAction *okAction = [UIAlertAction
+                                               actionWithTitle:NSLocalizedString(@"确定", @"OK action")
+                                               style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction *action)
+                                               {
+                                                   [self.navigationController popViewControllerAnimated:true];
+                                               }];
+                    [alertController addAction:okAction];
+                    
+                    [self presentViewController:alertController animated:YES completion:nil];
+                    
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"注册错误" setMessage:errmsg];
                 }
                 
@@ -266,7 +282,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
