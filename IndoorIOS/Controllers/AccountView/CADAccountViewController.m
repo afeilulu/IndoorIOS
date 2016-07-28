@@ -25,6 +25,12 @@
 #import "CADStoryBoardUtilities.h"
 #import "CADAccountLogoutCell.h"
 #import "CADOrderListItem.h"
+#import "CADChangePasswordController.h"
+
+NSString *const kCADAccountNormalCellIdentifier = @"CADAccountNormalCell";
+NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
+
+
 
 @interface CADAccountViewController ()
 
@@ -48,10 +54,21 @@
     
     // hide empty cell
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:kCADAccountNormalCellNibName bundle:nil] forCellReuseIdentifier:kCADAccountNormalCellIdentifier];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [defaults objectForKey:@"user"];
+    CADUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (user == nil){
+        [self.navigationController popViewControllerAnimated:true];
+        return;
+    }
+    
+    // 每次都要获取用户最新信息
     [self getUserInfo];
     
     // 结束时间
@@ -274,7 +291,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -337,13 +354,22 @@
             
         case 1:
             if (indexPath.row == 0) {
-                CADAccountLogoutCell *logoutCell = [tableView dequeueReusableCellWithIdentifier:@"CADAccountLogoutCell"];
-                if (logoutCell == nil)
-                    logoutCell = [CADAccountLogoutCell makeCell];
-                
-                cell = logoutCell;
+                cell = [tableView dequeueReusableCellWithIdentifier:kCADAccountNormalCellIdentifier];
+                cell.textLabel.text = @"修改密码";
             }
-            
+            break;
+        case 2:
+            if (indexPath.row == 0) {
+//                CADAccountLogoutCell *logoutCell = [tableView dequeueReusableCellWithIdentifier:@"CADAccountLogoutCell"];
+//                if (logoutCell == nil)
+//                    logoutCell = [CADAccountLogoutCell makeCell];
+//                
+//                cell = logoutCell;
+                
+                cell = [tableView dequeueReusableCellWithIdentifier:kCADAccountNormalCellIdentifier];
+                cell.textLabel.text = @"退出登录";
+            }
+            break;
         default:
             break;
     }
@@ -376,49 +402,33 @@
     return height;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.section) {
+        case 0:
+            
+            break;
+        case 1:
+            if (indexPath.row == 0) {
+                CADChangePasswordController * vc = (CADChangePasswordController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"ChangePassword" class:[CADChangePasswordController class]];
+                
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            break;
+        case 2:
+            if (indexPath.row == 0) {
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                [defaults removeObjectForKey:@"user"];
+                [[CADUserManager sharedInstance] setUser:nil];
+                
+                [self.navigationController popViewControllerAnimated:true];
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

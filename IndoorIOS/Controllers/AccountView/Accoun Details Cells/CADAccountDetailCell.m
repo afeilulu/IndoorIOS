@@ -65,18 +65,24 @@
 }
 
 - (IBAction)statusContainer1Action:(id)sender {
-    NSLog(@"%@ - %@", NSStringFromClass([self class]), @"111");
+    if ([self.status1value.text floatValue] > 0){
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"111");
+    }
 }
 - (IBAction)statusContainer2Action:(id)sender {
-    NSLog(@"%@ - %@", NSStringFromClass([self class]), @"222");
-
+    if ([self.status2value.text floatValue] > 0){
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"222");
+    }
 }
 - (IBAction)statusContainer3Action:(id)sender {
-    NSLog(@"%@ - %@", NSStringFromClass([self class]), @"333");
+    if ([self.status3value.text floatValue] > 0){
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"333");
+    }
 }
 - (IBAction)statusContainer4Action:(id)sender {
-    NSLog(@"%@ - %@", NSStringFromClass([self class]), @"444");
-
+    if ([self.status4value.text floatValue] > 0){
+        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"444");
+    }
 }
 
 @end

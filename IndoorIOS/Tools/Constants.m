@@ -27,7 +27,7 @@ NSString *const kFeePayUrl = @"http://www.paopaoty.com:8082/App-feePayAjax.actio
 NSString *const kPreAliPayUrl = @"http://www.paopaoty.com:8082/App-aliPayAjax.action";
 NSString *const kValiCodeOfResetPasswordJsonUrl = @"http://www.paopaoty.com:8082/App-getValidateCodeForGMAjax.action";
 NSString *const kResetPasswordJsonUrl = @"http://www.paopaoty.com:8082/App-resetPasswordAjax.action";
-NSString *const KModifyPasswordJsonUrl =@"http://www.paopaoty.com/App-changePasswordAjax.action";
+NSString *const KModifyPasswordJsonUrl =@"http://www.paopaoty.com:8082/App-changePasswordAjax.action";
 
 NSString *const KGetCityUrl =@"http://www.paopaoty.com:8082/App-getSportCitiesAjax.action";
 NSString *const KRecommendStoreUrl =@"http://www.paopaoty.com:8082/App-recommendStoreAjax.action";

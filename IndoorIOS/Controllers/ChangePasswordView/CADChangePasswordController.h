@@ -1,14 +1,18 @@
 //
-//  CADChangePasswordViewController.h
+//  CADChangePasswordController.h
 //  IndoorIOS
 //
-//  Created by 陈革非 on 15/7/10.
-//  Copyright (c) 2015年 chinaairdome. All rights reserved.
+//  Created by Chen Gefei on 16/7/28.
+//  Copyright © 2016年 chinaairdome. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
 
-@interface CADChangePasswordViewController : UIViewController
+@interface CADChangePasswordController : UIViewController
+
+@property (strong,nonatomic) NSString *timeStamp;
+@property (strong,nonatomic) AFHTTPSessionManager *afm;
 
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 @property (weak, nonatomic) IBOutlet UITextField *oldPassword;
@@ -16,7 +20,5 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmPassword;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 
-
-@property (nonatomic, strong) NSMutableData *jsonData;
-@property (nonatomic,strong) NSURLConnection *jsonConnection;
+- (IBAction)okAction:(id)sender;
 @end
