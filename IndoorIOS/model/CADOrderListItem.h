@@ -27,5 +27,6 @@
 @property (nonatomic, strong) NSString *payFee; // 实际支付金额
 @property (nonatomic, strong) NSString *usedScoreAmount; // 使用的积分
 @property (nonatomic, strong) NSString *usedScoreToFee; // 积分兑换的金额
+@property (nonatomic, strong) NSString *valiCode;
 
 @end

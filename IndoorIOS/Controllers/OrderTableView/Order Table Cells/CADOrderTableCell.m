@@ -24,20 +24,20 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    if (self.imageView.image == nil)
-        return;
+//    if (self.icon.image == nil)
+//        return;
     
-    CGFloat imgHeight = self.frame.size.height - 4;
-    CGRect rect = CGRectMake(0, 0, imgHeight, imgHeight);
-    self.imageView.bounds = rect;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    CGFloat imgHeight = self.frame.size.height - 4;
+//    CGRect rect = CGRectMake(0, 0, imgHeight, imgHeight);
+//    self.imageView.bounds = rect;
+    self.icon.contentMode = UIViewContentModeScaleAspectFill;
     
-    self.imageView.layer.masksToBounds = true;
-    self.imageView.layer.cornerRadius = imgHeight / 2;
-    self.imageView.clipsToBounds = YES;
+    self.icon.layer.masksToBounds = true;
+    self.icon.layer.cornerRadius = self.icon.frame.size.height / 2;
+    self.icon.clipsToBounds = YES;
     
-    self.imageView.layer.borderWidth = 1;
-    self.imageView.layer.borderColor = [[UIColor orangeColor] CGColor];
+    self.icon.layer.borderWidth = 1;
+    self.icon.layer.borderColor = [[UIColor orangeColor] CGColor];
     
 }
 

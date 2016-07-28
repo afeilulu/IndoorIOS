@@ -12,6 +12,7 @@
 #import "CADAlertManager.h"
 #import "CADUserManager.h"
 #import "CADOrderListItem.h"
+#import "CADOrderTableCell.h"
 #import <UIImageView+WebCache.h>
 
 NSString *const kCADOrderTableCellIdentifier = @"CADOrderTableCell";
@@ -67,14 +68,21 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderTableCellIdentifier forIndexPath:indexPath];
+    CADOrderTableCell *cell = [tableView dequeueReusableCellWithIdentifier:kCADOrderTableCellIdentifier forIndexPath:indexPath];
     
     CADOrderListItem *item = [self.orders objectAtIndex:indexPath.row];
-    cell.textLabel.text = item.orderTitle;
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:item.sportTypeSmallImage]];
+    [cell.icon sd_setImageWithURL:[NSURL URLWithString:item.sportTypeSmallImage]];
+    cell.title.text = item.orderTitle;
+    cell.pay.text = [[NSString alloc] initWithFormat:@"￥%@",item.payFee];
+    cell.date.text = item.createTime;
+    cell.valiCode.text = [[NSString alloc] initWithFormat:@"验证码 %@",item.valiCode];
     
     return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 120;
 }
 
 /*
@@ -175,6 +183,7 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
                         [orderItem setPayFee:[item objectForKey:@"pay_fee"]]; // 实际支付金额
                         [orderItem setUsedScoreAmount:[item objectForKey:@"exchange_amount"]];
                         [orderItem setUsedScoreToFee:[item objectForKey:@"exchange_fee"]];
+                        [orderItem setValiCode:[item objectForKey:@"validate_code"]];
                         
                         [self.orders addObject:orderItem];
                     }
