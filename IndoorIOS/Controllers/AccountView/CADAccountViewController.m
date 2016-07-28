@@ -30,8 +30,6 @@
 NSString *const kCADAccountNormalCellIdentifier = @"CADAccountNormalCell";
 NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
 
-
-
 @interface CADAccountViewController ()
 
 @end
@@ -70,7 +68,7 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
     
     // 每次都要获取用户最新信息
     [self getUserInfo];
-    
+
     // 结束时间
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -78,7 +76,6 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
     self.tomorrow = [dateFormatter stringFromDate:tmpDate];
     
     [self getOrderStatusFrom:@"2015-01-01" to:self.tomorrow];
-
 }
 
 /**
@@ -155,7 +152,7 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
 }
 
 /**
- * 获取所有订单列表
+ * 获取所有订单状态
  */
 - (void)getOrderStatusFrom:(NSString *)fromDateString to:(NSString *)toDateString{
     
@@ -202,84 +199,6 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
     }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-}
-
-/**
- * 获取所有订单列表
- */
-- (void)getOrderListFrom:(NSString *)fromDateString to:(NSString *)toDateString{
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    // reset
-    self.timeStamp = @"";
-    
-    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        
-        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
-            // update time here
-            self.timeStamp = [responseObject objectForKey:@"randTime"];
-            
-            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
-            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','phone':'%@','startDate':'%@','endDate':'%@'}",self.timeStamp,[Utils md5:beforeMd5],self.user.phone,fromDateString,toDateString]};
-            
-            [self.afm POST:kOrderListJsonUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-                
-                if ([[responseObject objectForKey:@"success"] intValue] == NO){
-                    
-                    NSString* errmsg = [responseObject objectForKey:@"msg"];
-                    [CADAlertManager showAlert:self setTitle:@"获取订单信息错误" setMessage:errmsg];
-                    
-                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
-//                    NSLog(@"JSON: %@", responseObject);
-                    NSArray *listArray = [responseObject objectForKey:@"list"];
-                    
-                    self.orders = [[NSMutableArray alloc] init];
-                    for (int i=0; i < listArray.count; i++) {
-                        NSDictionary *item = (NSDictionary *)[listArray objectAtIndex:i];
-                        CADOrderListItem *orderItem = [[CADOrderListItem alloc] init];
-                        [orderItem setCreateTime:[item objectForKey:@"createTime"]];
-                        [orderItem setFpPrintYn:[item objectForKey:@"fpPrintYn"]];
-                        [orderItem setOrderId:[item objectForKey:@"orderId"]];
-                        [orderItem setOrderSeq:[item objectForKey:@"orderSeq"]];
-                        [orderItem setOrderStatus:[item objectForKey:@"orderStatus"]];
-                        [orderItem setOrderTitle:[item objectForKey:@"orderTitle"]];
-                        [orderItem setRemainTime:[[item objectForKey:@"remainTime"] intValue]];
-                        [orderItem setSiteTimeList:[item objectForKey:@"siteTimeList"]];
-                        [orderItem setTotalMoney:[item objectForKey:@"totalMoney"]];
-                        [orderItem setZflx:[item objectForKey:@"zflx"]];
-                        [orderItem setSportId:[item objectForKey:@"sportId"]];
-                        [orderItem setSportTypeId:[item objectForKey:@"sportTypeId"]];
-                        [orderItem setSportTypeName:[item objectForKey:@"sportTypeName"]];
-                        [orderItem setSportTypeSmallImage:[item objectForKey:@"sportTypeSmallImage"]];
-                        
-                        [self.orders addObject:orderItem];
-                    }
-                }
-                
-            } failure:^(NSURLSessionTask *operation, NSError *error) {
-                [CADAlertManager showAlert:self setTitle:@"获取订单信息错误" setMessage:[error localizedDescription]];
-            }];
-            
-        } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
-            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
-        }
-        
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
-    }];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
-}
-
-/**
- * 订单统计
- * 待支付 待消费 已消费 退款
- */
-- (void) statistics{
     
 }
 
@@ -332,21 +251,29 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
                 if (self.orderStatus != nil && self.orderStatus.count > 0){
                     detailsCell.status1name.text = [[self.orderStatus objectAtIndex:0] objectForKey:@"code_desc"];
                     detailsCell.status1value.text = [[[self.orderStatus objectAtIndex:0] objectForKey:@"count"] stringValue];
+                    detailsCell.status1value.tag = [[[self.orderStatus objectAtIndex:0] objectForKey:@"code"] intValue];
                     detailsCell.status2name.text = [[self.orderStatus objectAtIndex:1] objectForKey:@"code_desc"];
                     detailsCell.status2value.text = [[[self.orderStatus objectAtIndex:1] objectForKey:@"count"] stringValue];
+                    detailsCell.status2value.tag = [[[self.orderStatus objectAtIndex:1] objectForKey:@"code"] intValue];
                     detailsCell.status3name.text = [[self.orderStatus objectAtIndex:2] objectForKey:@"code_desc"];
                     detailsCell.status3value.text = [[[self.orderStatus objectAtIndex:2] objectForKey:@"count"] stringValue];
+                    detailsCell.status3value.tag = [[[self.orderStatus objectAtIndex:2] objectForKey:@"code"] intValue];
                     detailsCell.status4name.text = [[self.orderStatus objectAtIndex:3] objectForKey:@"code_desc"];
                     detailsCell.status4value.text = [[[self.orderStatus objectAtIndex:3] objectForKey:@"count"] stringValue];
+                    detailsCell.status4value.tag = [[[self.orderStatus objectAtIndex:3] objectForKey:@"code"] intValue];
                 } else {
                     detailsCell.status1name.text = @"待支付";
                     detailsCell.status1value.text = @"0";
+                    detailsCell.status1value.tag = 0;
                     detailsCell.status2name.text = @"待消费";
                     detailsCell.status2value.text = @"0";
+                    detailsCell.status2value.tag = 1;
                     detailsCell.status3name.text = @"已消费";
                     detailsCell.status3value.text = @"0";
+                    detailsCell.status3value.tag = 2;
                     detailsCell.status4name.text = @"退款";
                     detailsCell.status4value.text = @"0";
+                    detailsCell.status4value.tag = 3;
                 }
                 cell = detailsCell;
             }

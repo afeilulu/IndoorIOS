@@ -170,6 +170,10 @@
 		75F4BB331D49F91600BB13C0 /* CADAccountNormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB311D49F91600BB13C0 /* CADAccountNormalCell.xib */; };
 		75F4BB371D49FCA200BB13C0 /* CADChangePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4BB361D49FCA200BB13C0 /* CADChangePasswordController.m */; };
 		75F4BB391D49FCE600BB13C0 /* ChangePassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB381D49FCE600BB13C0 /* ChangePassword.storyboard */; };
+		75F4BB3E1D4A085B00BB13C0 /* CADOrderTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4BB3D1D4A085B00BB13C0 /* CADOrderTableController.m */; };
+		75F4BB401D4A08A900BB13C0 /* OrderTableList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB3F1D4A08A900BB13C0 /* OrderTableList.storyboard */; };
+		75F4BB441D4A1B4D00BB13C0 /* CADOrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4BB421D4A1B4D00BB13C0 /* CADOrderTableCell.m */; };
+		75F4BB451D4A1B4D00BB13C0 /* CADOrderTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F4BB431D4A1B4D00BB13C0 /* CADOrderTableCell.xib */; };
 		75F4DD011C79A03E0081F182 /* CADIndexCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */; };
 		75FB5DB91C79F05700C35BDC /* CADIndexHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DB81C79F05700C35BDC /* CADIndexHeaderView.m */; };
 		75FB5DBC1C79FEFA00C35BDC /* CADIndexFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FB5DBB1C79FEFA00C35BDC /* CADIndexFooterView.m */; };
@@ -436,6 +440,12 @@
 		75F4BB351D49FCA200BB13C0 /* CADChangePasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADChangePasswordController.h; sourceTree = "<group>"; };
 		75F4BB361D49FCA200BB13C0 /* CADChangePasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADChangePasswordController.m; sourceTree = "<group>"; };
 		75F4BB381D49FCE600BB13C0 /* ChangePassword.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ChangePassword.storyboard; path = storyboard/ChangePassword.storyboard; sourceTree = "<group>"; };
+		75F4BB3C1D4A085B00BB13C0 /* CADOrderTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderTableController.h; sourceTree = "<group>"; };
+		75F4BB3D1D4A085B00BB13C0 /* CADOrderTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADOrderTableController.m; sourceTree = "<group>"; };
+		75F4BB3F1D4A08A900BB13C0 /* OrderTableList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = OrderTableList.storyboard; path = storyboard/OrderTableList.storyboard; sourceTree = "<group>"; };
+		75F4BB411D4A1B4D00BB13C0 /* CADOrderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADOrderTableCell.h; sourceTree = "<group>"; };
+		75F4BB421D4A1B4D00BB13C0 /* CADOrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADOrderTableCell.m; sourceTree = "<group>"; };
+		75F4BB431D4A1B4D00BB13C0 /* CADOrderTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CADOrderTableCell.xib; sourceTree = "<group>"; };
 		75F4DCFF1C79A03E0081F182 /* CADIndexCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexCollectionViewCell.h; path = IndexCollectionView/CADIndexCollectionViewCell.h; sourceTree = "<group>"; };
 		75F4DD001C79A03E0081F182 /* CADIndexCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADIndexCollectionViewCell.m; path = IndexCollectionView/CADIndexCollectionViewCell.m; sourceTree = "<group>"; };
 		75FB5DB71C79F05700C35BDC /* CADIndexHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADIndexHeaderView.h; path = IndexCollectionView/CADIndexHeaderView.h; sourceTree = "<group>"; };
@@ -563,6 +573,7 @@
 				75F4BB231D48AC3500BB13C0 /* Register.storyboard */,
 				75F4BB291D490CED00BB13C0 /* ResetPassword.storyboard */,
 				75F4BB381D49FCE600BB13C0 /* ChangePassword.storyboard */,
+				75F4BB3F1D4A08A900BB13C0 /* OrderTableList.storyboard */,
 			);
 			name = storyboard;
 			sourceTree = "<group>";
@@ -570,6 +581,7 @@
 		7535474B1AE66568005A5791 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				75F4BB3A1D4A07E900BB13C0 /* OrderTableView */,
 				75F4BB341D49FC8400BB13C0 /* ChangePasswordView */,
 				75F4BB2B1D490D0100BB13C0 /* ResetPasswordView */,
 				75F4BB251D48B6E400BB13C0 /* RegisterView */,
@@ -1051,6 +1063,26 @@
 			path = ChangePasswordView;
 			sourceTree = "<group>";
 		};
+		75F4BB3A1D4A07E900BB13C0 /* OrderTableView */ = {
+			isa = PBXGroup;
+			children = (
+				75F4BB3B1D4A083000BB13C0 /* Order Table Cells */,
+				75F4BB3C1D4A085B00BB13C0 /* CADOrderTableController.h */,
+				75F4BB3D1D4A085B00BB13C0 /* CADOrderTableController.m */,
+			);
+			path = OrderTableView;
+			sourceTree = "<group>";
+		};
+		75F4BB3B1D4A083000BB13C0 /* Order Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				75F4BB411D4A1B4D00BB13C0 /* CADOrderTableCell.h */,
+				75F4BB421D4A1B4D00BB13C0 /* CADOrderTableCell.m */,
+				75F4BB431D4A1B4D00BB13C0 /* CADOrderTableCell.xib */,
+			);
+			path = "Order Table Cells";
+			sourceTree = "<group>";
+		};
 		75F4DCF81C799FA30081F182 /* IndexCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1160,6 +1192,7 @@
 				7541E8051D476932005D7608 /* CADOrderDetailSportTypeCell.xib in Resources */,
 				7541E8001D44B563005D7608 /* CADPayScoreRuleCell.xib in Resources */,
 				7536AB931B3922C900FF0B3C /* ic_key.png in Resources */,
+				75F4BB401D4A08A900BB13C0 /* OrderTableList.storyboard in Resources */,
 				75F4BB241D48AC3500BB13C0 /* Register.storyboard in Resources */,
 				7547C4041D41D0B200C67116 /* CADCoachAttrCell.xib in Resources */,
 				75EFC2281D0D559100582E8E /* CADSearchResultCell.xib in Resources */,
@@ -1173,6 +1206,7 @@
 				7536AB941B3922C900FF0B3C /* ic_email.png in Resources */,
 				75C8519A1AF9F946000C3AD1 /* time_line@2x.png in Resources */,
 				756CACF61B3CFBB800298472 /* ic_filter_drama@2x.png in Resources */,
+				75F4BB451D4A1B4D00BB13C0 /* CADOrderTableCell.xib in Resources */,
 				757949E21D3DF73600F5816F /* CADActivityCell.xib in Resources */,
 				7547C41A1D4221EC00C67116 /* CADActivityAttrCell.xib in Resources */,
 				7541E7F11D449D8E005D7608 /* CADOrderDetailNormalCell.xib in Resources */,
@@ -1295,6 +1329,7 @@
 				75CCFC901AEE0CF4001FEF9C /* CADParseUserLogin.m in Sources */,
 				75C84C501AF90ED4000C3AD1 /* CADContentCollectionViewCell.m in Sources */,
 				753547821AE6694A005A5791 /* StadiumManager.m in Sources */,
+				75F4BB441D4A1B4D00BB13C0 /* CADOrderTableCell.m in Sources */,
 				7547C4221D43BFA400C67116 /* CADPayMethodCell.m in Sources */,
 				7541E7FF1D44B563005D7608 /* CADPayScoreRuleCell.m in Sources */,
 				750F75B91CE5735600B1722A /* CAD_NSDictionary+SafeValues.m in Sources */,
@@ -1340,6 +1375,7 @@
 				757630EB1A39E72E007E32E5 /* CADChooseViewController.m in Sources */,
 				75C84C4B1AF90EA1000C3AD1 /* CADDateCollectionViewCell.m in Sources */,
 				75CCCB8B1A1E01CB0005CB6B /* ViewController.m in Sources */,
+				75F4BB3E1D4A085B00BB13C0 /* CADOrderTableController.m in Sources */,
 				758F90E21D168B4700CBD7DA /* CADSearchController.m in Sources */,
 				75CCFC8A1AECD01D001FEF9C /* CADUserManager.m in Sources */,
 				7541E8041D476932005D7608 /* CADOrderDetailSportTypeCell.m in Sources */,

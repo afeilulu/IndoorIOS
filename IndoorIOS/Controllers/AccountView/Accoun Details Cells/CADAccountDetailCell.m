@@ -7,6 +7,8 @@
 //
 
 #import "CADAccountDetailCell.h"
+#import "CADOrderTableController.h"
+#import "CADStoryBoardUtilities.h"
 
 @implementation CADAccountDetailCell
 
@@ -66,22 +68,34 @@
 
 - (IBAction)statusContainer1Action:(id)sender {
     if ([self.status1value.text floatValue] > 0){
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"111");
+        CADOrderTableController *vc = (CADOrderTableController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"OrderTableList" class:[CADOrderTableController class]];
+        [vc setCode:[[NSString alloc] initWithFormat:@"%li",(long)self.status1value.tag]];
+        [vc setCodeDesc:self.status1name.text];
+        [((UINavigationController *)self.window.rootViewController) pushViewController:vc animated:true];
     }
 }
 - (IBAction)statusContainer2Action:(id)sender {
     if ([self.status2value.text floatValue] > 0){
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"222");
+        CADOrderTableController *vc = (CADOrderTableController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"OrderTableList" class:[CADOrderTableController class]];
+        [vc setCode:[[NSString alloc] initWithFormat:@"%li",(long)self.status2value.tag]];
+        [vc setCodeDesc:self.status2name.text];
+        [((UINavigationController *)self.window.rootViewController) pushViewController:vc animated:true];
     }
 }
 - (IBAction)statusContainer3Action:(id)sender {
     if ([self.status3value.text floatValue] > 0){
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"333");
+        CADOrderTableController *vc = (CADOrderTableController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"OrderTableList" class:[CADOrderTableController class]];
+        [vc setCode:[[NSString alloc] initWithFormat:@"%li",(long)self.status3value.tag]];
+        [vc setCodeDesc:self.status3name.text];
+        [((UINavigationController *)self.window.rootViewController) pushViewController:vc animated:true];
     }
 }
 - (IBAction)statusContainer4Action:(id)sender {
     if ([self.status4value.text floatValue] > 0){
-        NSLog(@"%@ - %@", NSStringFromClass([self class]), @"444");
+        CADOrderTableController *vc = (CADOrderTableController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"OrderTableList" class:[CADOrderTableController class]];
+        [vc setCode:[[NSString alloc] initWithFormat:@"%li",(long)self.status4value.tag]];
+        [vc setCodeDesc:self.status4name.text];
+        [((UINavigationController *)self.window.rootViewController) pushViewController:vc animated:true];
     }
 }
 
