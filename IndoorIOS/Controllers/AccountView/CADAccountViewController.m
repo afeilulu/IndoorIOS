@@ -139,7 +139,7 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -190,7 +190,7 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         

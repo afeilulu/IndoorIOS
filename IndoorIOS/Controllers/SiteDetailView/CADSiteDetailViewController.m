@@ -516,7 +516,7 @@ static NSAttributedString *cr;
                     
                     [self loadTableViewData];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆详情错误" setMessage:errmsg];
                 }
                 
@@ -525,7 +525,7 @@ static NSAttributedString *cr;
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         

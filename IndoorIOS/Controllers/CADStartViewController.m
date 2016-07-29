@@ -295,7 +295,7 @@
                     
                     
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取城市错误" setMessage:errmsg];
                 }
                 
@@ -304,7 +304,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -367,7 +367,7 @@
                     }
                     
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆错误" setMessage:errmsg];
                 }
                 
@@ -376,7 +376,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -433,7 +433,7 @@
                     }
                     
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆错误" setMessage:errmsg];
                 }
                 
@@ -442,7 +442,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -506,7 +506,7 @@
                     
                     [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取教练错误" setMessage:errmsg];
                 }
                 
@@ -515,7 +515,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -573,7 +573,7 @@
 
                     [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:2]];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:errmsg];
                 }
                 
@@ -582,7 +582,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -643,7 +643,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -789,7 +789,7 @@
         return CGSizeMake(self.flowItemWidth2, self.flowItemWidth2 * gRatio);
     } else {
         // 教练一行显示三个
-        return CGSizeMake(self.flowItemWidth3, self.flowItemWidth3 / gRatio);
+        return CGSizeMake(self.flowItemWidth3, self.flowItemWidth3);
     }
 }
 

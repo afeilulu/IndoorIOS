@@ -118,7 +118,7 @@ NSString *const kTableCellNibName1 = @"CADSiteListCell";
                     [self loadData];
                     
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取场馆错误" setMessage:errmsg];
                 }
                 
@@ -127,7 +127,7 @@ NSString *const kTableCellNibName1 = @"CADSiteListCell";
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         

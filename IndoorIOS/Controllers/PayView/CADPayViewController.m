@@ -242,7 +242,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -462,7 +462,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -526,7 +526,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -576,7 +576,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
@@ -628,7 +628,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         

@@ -115,7 +115,7 @@
                     //                    NSLog(@"JSON: %@", responseObject);
                     _inputValicode = [responseObject objectForKey:@"validateCode"];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取验证码错误" setMessage:errmsg];
                 }
                 
@@ -124,7 +124,7 @@
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         

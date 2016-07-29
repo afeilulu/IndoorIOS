@@ -91,7 +91,7 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
                     }
                     [self.tableView reloadData];
                 } else {
-                    NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
                     [CADAlertManager showAlert:self setTitle:@"获取活动错误" setMessage:errmsg];
                 }
                 
@@ -100,7 +100,7 @@ NSString *const kActivityTableCellNibName = @"CADActivityCell";
             }];
             
         } else {
-            NSString* errmsg = [responseObject objectForKey:@"errmsg"];
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
             [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
         
