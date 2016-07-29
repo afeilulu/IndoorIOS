@@ -747,13 +747,12 @@ static NSMutableString *jsonUrl;
                     
                     // set back title
                     UIBarButtonItem *blankButton =
-                    [[UIBarButtonItem alloc] initWithTitle:@"返回"
+                    [[UIBarButtonItem alloc] initWithTitle:@""
                                                      style:UIBarButtonItemStylePlain
                                                     target:nil
                                                     action:nil];
                     [[self navigationItem] setBackBarButtonItem:blankButton];
                     
-//                    CADPayViewController* vc = (CADPayViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"Pay" class:[CADPayViewController class]];
                     CADPayTableViewController *vc =(CADPayTableViewController*)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PayTable" class:[CADPayTableViewController class]];
                     [vc setOrderInfo:orderInfo];
                     [self.navigationController pushViewController:vc animated:YES];

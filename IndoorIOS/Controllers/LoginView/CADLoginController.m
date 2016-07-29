@@ -37,7 +37,7 @@
     
     // set back title
     UIBarButtonItem *blankButton =
-    [[UIBarButtonItem alloc] initWithTitle:@"取消"
+    [[UIBarButtonItem alloc] initWithTitle:@""
                                      style:UIBarButtonItemStylePlain
                                     target:nil
                                     action:nil];

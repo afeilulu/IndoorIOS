@@ -54,6 +54,8 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
     
     self.afm = [AFHTTPSessionManager manager];
     
+    self.title = @"订单";
+    
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kPayMethodCellNibName bundle:nil] forCellReuseIdentifier:kPayMethodCellIdentifier];
     [self.tableView registerNib:[UINib nibWithNibName:kCADOrderDetailNormalCellNibName bundle:nil] forCellReuseIdentifier:kCADOrderDetailNormalCellIdentifier];

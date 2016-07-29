@@ -94,4 +94,6 @@ extern int const kUnSelectableColor;
 
 @interface Constants : NSObject
 
++(NSDictionary*)getOrderStatusDictionary;
+
 @end

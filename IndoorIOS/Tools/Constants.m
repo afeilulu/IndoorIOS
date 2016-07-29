@@ -44,7 +44,28 @@ int const kMaxOrderPlace = 4;
 int const kSelectableColor = 242;
 int const kUnSelectableColor = 205;
 
-
 @implementation Constants
+
++(NSDictionary*)getOrderStatusDictionary {
+    static NSDictionary *iconNames = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        iconNames = @{@"0":@"未付费",
+                      @"1":@"支付中",
+                      @"2":@"用户取消",
+                      @"3":@"已付费",
+                      @"4":@"支付失败",
+                      @"5":@"等待确认",
+                      @"6":@"确认通过",
+                      @"7":@"确认拒绝",
+                      @"8":@"超时",
+                      @"9":@"退订中",
+                      @"10":@"退订成功",
+                      @"11":@"退订失败"
+                      };
+        
+    });
+    return iconNames;
+}
 
 @end

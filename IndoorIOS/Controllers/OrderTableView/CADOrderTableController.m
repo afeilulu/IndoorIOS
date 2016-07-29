@@ -165,7 +165,7 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
                     for (int i=0; i < listArray.count; i++) {
                         NSDictionary *item = (NSDictionary *)[listArray objectAtIndex:i];
                         CADOrderListItem *orderItem = [[CADOrderListItem alloc] init];
-                        [orderItem setCreateTime:[item objectForKey:@"pay_time"]]; // 支付时间
+                        [orderItem setCreateTime:[item objectForKey:@"order_time"]]; // 订单创建时间
 //                        [orderItem setFpPrintYn:[item objectForKey:@"fpPrintYn"]];
                         [orderItem setOrderId:[item objectForKey:@"id"]];
 //                        [orderItem setOrderSeq:[item objectForKey:@"orderSeq"]];
@@ -184,6 +184,7 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
                         [orderItem setUsedScoreAmount:[item objectForKey:@"exchange_amount"]];
                         [orderItem setUsedScoreToFee:[item objectForKey:@"exchange_fee"]];
                         [orderItem setValiCode:[item objectForKey:@"validate_code"]];
+                        [orderItem setStatus:[item objectForKey:@"status"]];
                         
                         [self.orders addObject:orderItem];
                     }

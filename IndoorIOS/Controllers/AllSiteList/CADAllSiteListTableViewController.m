@@ -33,6 +33,8 @@ NSString *const kTableCellNibName1 = @"CADSiteListCell";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.title = @"场馆";
+    
     // we use a nib which contains the cell's view and this class as the files owner
     [self.tableView registerNib:[UINib nibWithNibName:kTableCellNibName1 bundle:nil] forCellReuseIdentifier:kCellIdentifier1];
     

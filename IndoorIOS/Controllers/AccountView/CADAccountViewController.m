@@ -45,7 +45,6 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = @"我";
     self.user = CADUserManager.sharedInstance.getUser;
     
     self.afm = [AFHTTPSessionManager manager];
@@ -57,6 +56,8 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    self.title = @"我";
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [defaults objectForKey:@"user"];
@@ -76,6 +77,10 @@ NSString *const kCADAccountNormalCellNibName = @"CADAccountNormalCell";
     self.tomorrow = [dateFormatter stringFromDate:tmpDate];
     
     [self getOrderStatusFrom:@"2015-01-01" to:self.tomorrow];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    self.title = @"";
 }
 
 /**
