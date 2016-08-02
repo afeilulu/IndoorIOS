@@ -29,5 +29,7 @@
 @property (nonatomic, strong) NSString *usedScoreToFee; // 积分兑换的金额
 @property (nonatomic, strong) NSString *valiCode;
 @property (nonatomic, strong) NSString *status; // 订单状态
+@property (nonatomic, strong) NSString *payDate; // 支付日期
+@property (nonatomic, strong) NSString *payType; // 支付方式
 
 @end

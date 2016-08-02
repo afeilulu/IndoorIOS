@@ -37,6 +37,9 @@ extern NSString *const kRegisterUrl;
 // 订单列表
 extern NSString *const kOrderListJsonUrl;
 
+// 订单详情
+extern NSString *const kOrderInfoJsonUrl;
+
 // 订单状态
 extern NSString *const kOrderStatusJsonUrl;
 

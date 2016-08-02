@@ -14,6 +14,8 @@
 #import "CADOrderListItem.h"
 #import "CADOrderTableCell.h"
 #import <UIImageView+WebCache.h>
+#import "CADPayTableViewcontroller.h"
+#import "CADStoryBoardUtilities.h"
 
 NSString *const kCADOrderTableCellIdentifier = @"CADOrderTableCell";
 NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
@@ -83,6 +85,15 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 120;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CADPayTableViewController *vc = (CADPayTableViewController *)[CADStoryBoardUtilities viewControllerForStoryboardName:@"PayTable" class:[CADPayTableViewController class]];
+    [vc setOrderInfo:[self.orders objectAtIndex:indexPath.row]];
+    [self.navigationController pushViewController:vc animated:true];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
 /*
@@ -181,10 +192,12 @@ NSString *const kCADOrderTableCellNibName = @"CADOrderTableCell";
                         [orderItem setSportTypeSmallImage:[item objectForKey:@"sportTypeSmallImage"]];
                         
                         [orderItem setPayFee:[item objectForKey:@"pay_fee"]]; // 实际支付金额
-                        [orderItem setUsedScoreAmount:[item objectForKey:@"exchange_amount"]];
-                        [orderItem setUsedScoreToFee:[item objectForKey:@"exchange_fee"]];
-                        [orderItem setValiCode:[item objectForKey:@"validate_code"]];
-                        [orderItem setStatus:[item objectForKey:@"status"]];
+                        [orderItem setUsedScoreAmount:[item objectForKey:@"exchange_amount"]]; // 使用积分
+                        [orderItem setUsedScoreToFee:[item objectForKey:@"exchange_fee"]]; // 积分抵扣
+                        [orderItem setValiCode:[item objectForKey:@"validate_code"]]; // 验证码
+                        [orderItem setStatus:[item objectForKey:@"status"]]; // 支付状态
+                        [orderItem setPayDate:[item objectForKey:@"pay_time"]]; // 支付日期
+                        [orderItem setPayType:[item objectForKey:@"pay_type_name"]]; // 支付方式                        
                         
                         [self.orders addObject:orderItem];
                     }
