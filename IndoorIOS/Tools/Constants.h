@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #define gRatio 0.718
+#define kMaxOrderPlace 4 // 单日预订最大场次
+#define kSelectableColor 242
+#define kUnSelectableColor 205
 
 // 加密私钥
 extern NSString *const kSecretKey;
@@ -45,9 +48,6 @@ extern NSString *const kOrderStatusJsonUrl;
 
 // 按订单状态的列表
 extern NSString *const kOrderStatusListJsonUrl;
-
-// 单日预订最大场次
-extern int const kMaxOrderPlace;
 
 // 提交订单
 extern NSString *const kSubmitOrderJsonUrl;
@@ -90,10 +90,6 @@ extern NSString *const KImageUrl;
 
 // 获取积分规则
 extern NSString *const KRuleJFDK;
-
-extern int const kSelectableColor;
-
-extern int const kUnSelectableColor;
 
 @interface Constants : NSObject
 

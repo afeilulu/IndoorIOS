@@ -8,42 +8,40 @@
 
 #import "Constants.h"
 
+#ifdef DEBUG
+#define BASE_URL @"http://www.paopaoty.com:8082"
+#else
+#define BASE_URL @"http://www.paopaoty.com"
+#endif
+
 NSString *const kSecretKey = @"wmdpzsdl";
 
-NSString *const kStadiumsJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteListAjax.action";
+NSString *const kStadiumsJsonUrl = (BASE_URL @"/App-getSportSiteListAjax.action");
+NSString *const kStadiumDetailJsonUrl = (BASE_URL @"/App-getSportSiteDetailAjax.action");
+NSString *const kSportPlaceStatusJsonUrl = (BASE_URL @"/App-getSportPlaceStatusAjax.action");
+NSString *const kRegisterUrl = (BASE_URL @"/App-addCustomerAjax.action");
+NSString *const kAlipayCallbackUrl = (BASE_URL @"/AlipayNotify-sportOrder.action");
+NSString *const kTimeStampUrl  = (BASE_URL @"/App-getCurrentTimeAjax.action");
+NSString *const kLoginUrl  = (BASE_URL @"/App-loginAjax.action");
+NSString *const kOrderListJsonUrl = (BASE_URL @"/App-getOrderListAjax.action");
+NSString *const kOrderInfoJsonUrl = (BASE_URL @"/App-getOrderInfoAjax.action");
+NSString *const kOrderStatusJsonUrl = (BASE_URL @"/App-getOrderGroupStateAjax.action");
+NSString *const kOrderStatusListJsonUrl = (BASE_URL @"/App-getOrderGroupListAjax.action");
+NSString *const kSubmitOrderJsonUrl = (BASE_URL @"/App-submitOrderAjax.action");
+NSString *const kValiCodeJsonUrl= (BASE_URL @"/App-getValidateCodeAjax.action");
+NSString *const kGetUserInfoJsonUrl = (BASE_URL @"/App-getUserInfoAjax.action");
+NSString *const kFeePayUrl = (BASE_URL @"/App-feePayAjax.action");
+NSString *const kPreAliPayUrl = (BASE_URL @"/App-aliPayAjax.action");
+NSString *const kValiCodeOfResetPasswordJsonUrl = (BASE_URL @"/App-getValidateCodeForGMAjax.action");
+NSString *const kResetPasswordJsonUrl = (BASE_URL @"/App-resetPasswordAjax.action");
+NSString *const KModifyPasswordJsonUrl = (BASE_URL @"/App-changePasswordAjax.action");
 
-NSString *const kStadiumDetailJsonUrl = @"http://www.paopaoty.com:8082/App-getSportSiteDetailAjax.action";
-NSString *const kSportPlaceStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getSportPlaceStatusAjax.action";
-NSString *const kRegisterUrl = @"http://www.paopaoty.com:8082/App-addCustomerAjax.action";
-NSString *const kAlipayCallbackUrl = @"http://www.paopaoty.com:8082/AlipayNotify-sportOrder.action";
-NSString *const kTimeStampUrl  = @"http://www.paopaoty.com:8082/App-getCurrentTimeAjax.action";
-NSString *const kLoginUrl  = @"http://www.paopaoty.com:8082/App-loginAjax.action";
-NSString *const kOrderListJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderListAjax.action";
-NSString *const kOrderInfoJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderInfoAjax.action";
-NSString *const kOrderStatusJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderGroupStateAjax.action";
-NSString *const kOrderStatusListJsonUrl = @"http://www.paopaoty.com:8082/App-getOrderGroupListAjax.action";
-NSString *const kSubmitOrderJsonUrl = @"http://www.paopaoty.com:8082/App-submitOrderAjax.action";
-NSString *const kValiCodeJsonUrl=@"http://www.paopaoty.com:8082/App-getValidateCodeAjax.action";
-NSString *const kGetUserInfoJsonUrl = @"http://www.paopaoty.com:8082/App-getUserInfoAjax.action";
-NSString *const kFeePayUrl = @"http://www.paopaoty.com:8082/App-feePayAjax.action";
-NSString *const kPreAliPayUrl = @"http://www.paopaoty.com:8082/App-aliPayAjax.action";
-NSString *const kValiCodeOfResetPasswordJsonUrl = @"http://www.paopaoty.com:8082/App-getValidateCodeForGMAjax.action";
-NSString *const kResetPasswordJsonUrl = @"http://www.paopaoty.com:8082/App-resetPasswordAjax.action";
-NSString *const KModifyPasswordJsonUrl =@"http://www.paopaoty.com:8082/App-changePasswordAjax.action";
-
-NSString *const KGetCityUrl =@"http://www.paopaoty.com:8082/App-getSportCitiesAjax.action";
-NSString *const KRecommendStoreUrl =@"http://www.paopaoty.com:8082/App-recommendStoreAjax.action";
-NSString *const KRecommendTrainerUrl =@"http://www.paopaoty.com:8082/App-recommendTrainAjax.action";
-NSString *const KActivityListUrl =@"http://www.paopaoty.com:8082/App-activityListAjax.action";
-
-NSString *const KImageUrl =@"http://www.paopaoty.com:8082/Image-getImage.action?imageName=";
-
-NSString *const KRuleJFDK =@"http://www.paopaoty.com:8082/App-ruleJFDKAjax.action";
-
-int const kMaxOrderPlace = 4;
-
-int const kSelectableColor = 242;
-int const kUnSelectableColor = 205;
+NSString *const KGetCityUrl = (BASE_URL @"/App-getSportCitiesAjax.action");
+NSString *const KRecommendStoreUrl = (BASE_URL @"/App-recommendStoreAjax.action");
+NSString *const KRecommendTrainerUrl = (BASE_URL @"/App-recommendTrainAjax.action");
+NSString *const KActivityListUrl = (BASE_URL @"/App-activityListAjax.action");
+NSString *const KImageUrl = (BASE_URL @"/Image-getImage.action?imageName=");
+NSString *const KRuleJFDK = (BASE_URL @"/App-ruleJFDKAjax.action");
 
 @implementation Constants
 
