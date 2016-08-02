@@ -293,7 +293,7 @@
     
     [self performSegueWithIdentifier:@"showDetail" sender:view];
 }
-
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"showDetail"]){
@@ -306,6 +306,7 @@
 //        [destination setTitle:annotation.title];
     }
 }
+ */
 
 // -------------------------------------------------------------------------------
 //	handleError:error

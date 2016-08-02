@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 #import <AlipaySDK-2.0/AlipaySDK/AlipaySDK.h>
-#import "CADPayViewController.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADStartViewController.h"
+#import "CADPayTableViewController.h"
 #import "SDWebImageManager.h"
 #import "ImageLoader.h"
 #import "AFNetworkActivityIndicatorManager.h"
@@ -233,7 +233,7 @@ BMKMapManager* _mapManager;
         
         UIViewController *vc = ((UINavigationController *)((UITabBarController*)self.window.rootViewController).selectedViewController).visibleViewController;
         
-        if ([vc isKindOfClass:[CADPayViewController class]]) {
+        if ([vc isKindOfClass:[CADPayTableViewController class]]) {
             [vc.navigationController popToRootViewControllerAnimated:YES];
         }
         

@@ -21,7 +21,6 @@
 #import "CADTimeCollectionViewCell.h"
 #import "CADUserManager.h"
 #import "CADUser.h"
-#import "CADPayViewController.h"
 #import "CADAlertManager.h"
 #import "CADStoryBoardUtilities.h"
 #import "CADPayTableViewController.h"

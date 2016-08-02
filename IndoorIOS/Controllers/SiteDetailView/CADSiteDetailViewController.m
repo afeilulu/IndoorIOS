@@ -14,7 +14,6 @@
 #import "ListItem.h"
 #import "Utils.h"
 #import "ParseStadiumDetail.h"
-#import "CADChooseViewController.h"
 #import "Constants.h"
 #import "CADPointAnnotation.h"
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
