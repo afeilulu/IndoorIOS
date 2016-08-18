@@ -14,6 +14,7 @@
 #import "SDWebImageManager.h"
 #import "ImageLoader.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "WXApi.h"
 
 // This framework was imported so we could use the kCFURLErrorNotConnectedToInternet error code.
 #import <CFNetwork/CFNetwork.h>
@@ -68,6 +69,10 @@ BMKMapManager* _mapManager;
     [SDWebImageManager sharedManager].delegate = [ImageLoader sharedImageLoader];
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
+    
+    //向微信注册
+    [WXApi registerApp:@"wx0ffaa4aca123f2e8" withDescription:@"demo 2.0"];
     
     return YES;
 }

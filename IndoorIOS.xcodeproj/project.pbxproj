@@ -143,6 +143,7 @@
 		75CE62221B184DE9001E3637 /* ic_clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE621F1B184DE9001E3637 /* ic_clock@2x.png */; };
 		75CE62231B184DE9001E3637 /* ic_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62201B184DE9001E3637 /* ic_location.png */; };
 		75CE62241B184DE9001E3637 /* ic_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CE62211B184DE9001E3637 /* ic_location@2x.png */; };
+		75D9D95B1D65B68B00206175 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D9D9581D65B68B00206175 /* libWeChatSDK.a */; };
 		75EC9DCE1AF1EAEA00AC95E7 /* user_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */; };
 		75EC9DCF1AF1EAEA00AC95E7 /* user_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */; };
 		75EE89D11AF2117A00E64310 /* CADParseOrderList.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EE89D01AF2117A00E64310 /* CADParseOrderList.m */; };
@@ -394,6 +395,9 @@
 		75CE621F1B184DE9001E3637 /* ic_clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_clock@2x.png"; sourceTree = "<group>"; };
 		75CE62201B184DE9001E3637 /* ic_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_location.png; sourceTree = "<group>"; };
 		75CE62211B184DE9001E3637 /* ic_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_location@2x.png"; sourceTree = "<group>"; };
+		75D9D9581D65B68B00206175 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		75D9D9591D65B68B00206175 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		75D9D95A1D65B68B00206175 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		75EC9DCC1AF1EAEA00AC95E7 /* user_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_profile.png; sourceTree = "<group>"; };
 		75EC9DCD1AF1EAEA00AC95E7 /* user_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_profile@2x.png"; sourceTree = "<group>"; };
 		75EE89CF1AF2117A00E64310 /* CADParseOrderList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADParseOrderList.h; sourceTree = "<group>"; };
@@ -449,6 +453,7 @@
 			files = (
 				759C8AF21A221E3A00EB82D8 /* Security.framework in Frameworks */,
 				759C8AF01A221E2500EB82D8 /* CoreGraphics.framework in Frameworks */,
+				75D9D95B1D65B68B00206175 /* libWeChatSDK.a in Frameworks */,
 				759C8AEE1A221E1700EB82D8 /* SystemConfiguration.framework in Frameworks */,
 				759C8AEC1A221E0B00EB82D8 /* OpenGLES.framework in Frameworks */,
 				759C8AEA1A221DFD00EB82D8 /* QuartzCore.framework in Frameworks */,
@@ -916,6 +921,7 @@
 		75CCCB761A1E01CB0005CB6B = {
 			isa = PBXGroup;
 			children = (
+				75D9D9571D65B68B00206175 /* WXSDK */,
 				754D06141A22B41200D454AB /* Frameworks */,
 				75CCCB811A1E01CB0005CB6B /* IndoorIOS */,
 				75CCCB801A1E01CB0005CB6B /* Products */,
@@ -968,6 +974,16 @@
 				75EFC2261D0D559100582E8E /* CADSearchResultCell.xib */,
 			);
 			path = SearchResultTableCell;
+			sourceTree = "<group>";
+		};
+		75D9D9571D65B68B00206175 /* WXSDK */ = {
+			isa = PBXGroup;
+			children = (
+				75D9D9581D65B68B00206175 /* libWeChatSDK.a */,
+				75D9D9591D65B68B00206175 /* WXApi.h */,
+				75D9D95A1D65B68B00206175 /* WXApiObject.h */,
+			);
+			path = WXSDK;
 			sourceTree = "<group>";
 		};
 		75EF6BED1AE9F56600418E02 /* Resources */ = {
@@ -1485,6 +1501,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/WXSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1519,6 +1536,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/WXSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";

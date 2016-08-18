@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CADOrderListItem.h"
 #import "AFNetworking.h"
+#import "WXApi.h"
 
-@interface CADPayTableViewController : UITableViewController
+@interface CADPayTableViewController : UITableViewController<WXApiDelegate>
 
 @property (nonatomic, strong) CADOrderListItem *orderInfo;
 @property (strong,nonatomic) NSString *timeStamp;
