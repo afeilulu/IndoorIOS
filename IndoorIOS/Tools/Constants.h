@@ -91,6 +91,12 @@ extern NSString *const KImageUrl;
 // 获取积分规则
 extern NSString *const KRuleJFDK;
 
+// 微信后台预支付地址
+extern NSString *const kWXPayUrl;
+
+// 商户密钥
+extern NSString *const kWXMchKey;
+
 @interface Constants : NSObject
 
 +(NSDictionary*)getOrderStatusDictionary;

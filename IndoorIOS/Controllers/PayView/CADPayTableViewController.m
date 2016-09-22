@@ -23,6 +23,7 @@
 #import "CADOrderDetailSportTypeCell.h"
 #import "WXApi.h"
 #import "WXApiObject.h"
+#import <CommonCrypto/CommonDigest.h>
 
 NSString *const kPayMethodCellIdentifier = @"CADPayMethodCell";
 NSString *const kPayMethodCellNibName = @"CADPayMethodCell";
@@ -498,6 +499,7 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
     CADUser *user = [[CADUserManager sharedInstance] getUser];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     // reset
     self.timeStamp = @"";
@@ -536,6 +538,7 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
     }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     
 }
 
@@ -543,50 +546,62 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
 #pragma mark - 微信支付
 
 - (void)wxPayAction{
-    //============================================================
-    // V3&V4支付流程实现
-    // 注意:参数配置请查看服务器端Demo
-    //============================================================
-    // TODO 需要后台提供支付地址
-    NSString *urlString   = @"http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios";
-    //解析服务端返回json数据
-    NSError *error;
-    //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if ( response != nil) {
-        NSMutableDictionary *dict = NULL;
-        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        
-        NSLog(@"url:%@",urlString);
-        if(dict != nil){
-            NSMutableString *retcode = [dict objectForKey:@"retcode"];
-            if (retcode.intValue == 0){
-                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-                
-                //调起微信支付
-                PayReq* req             = [[PayReq alloc] init];
-                req.partnerId           = [dict objectForKey:@"partnerid"];
-                req.prepayId            = [dict objectForKey:@"prepayid"];
-                req.nonceStr            = [dict objectForKey:@"noncestr"];
-                req.timeStamp           = stamp.intValue;
-                req.package             = [dict objectForKey:@"package"];
-                req.sign                = [dict objectForKey:@"sign"];
-                [WXApi sendReq:req];
-                //日志输出
-                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
 
-            }else{
-                [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[dict objectForKey:@"retmsg"]];
-            }
-        }else{
-            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:@"服务器返回错误，未获取到json对象"];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    
+    // reset
+    self.timeStamp = @"";
+    
+    [self.afm POST:kTimeStampUrl parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        if ([[responseObject objectForKey:@"success"] boolValue] == true) {
+            // update time here
+            self.timeStamp = [responseObject objectForKey:@"randTime"];
+            
+            NSString *beforeMd5 = [[NSString alloc] initWithFormat:@"%@%@",kSecretKey,self.timeStamp ];
+            NSDictionary *parameters = @{@"jsonString": [[NSString alloc] initWithFormat:@"{'randTime':'%@','secret':'%@','deviceInfo':'WEB','orderId':'%@','isUseJf':%@,'jf':'%.0f'}",self.timeStamp,[Utils md5:beforeMd5],self.orderInfo.orderId,self.usedScore>0?@YES:@NO,self.usedScore]};
+            
+            [self.afm POST:kWXPayUrl parameters:parameters progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+                
+                if ([[responseObject objectForKey:@"success"] intValue] == NO){
+                    
+                    NSString* errmsg = [responseObject objectForKey:@"msg"];
+                    [CADAlertManager showAlert:self setTitle:@"微信支付异常" setMessage:errmsg];
+                    
+                } else if ([[responseObject objectForKey:@"success"] intValue] == YES){
+                    NSDictionary *dict = [responseObject objectForKey:@"msg"];
+                    
+                    //调起微信支付
+                    PayReq* req             = [[PayReq alloc] init];
+                    req.partnerId           = [dict objectForKey:@"mch_id"];
+                    req.prepayId            = [dict objectForKey:@"prepay_id"];
+                    req.nonceStr            = [dict objectForKey:@"nonce_str"];
+                    req.timeStamp           = self.timeStamp.intValue;
+                    req.package             = @"Sign=WXPay";
+                    req.sign                = [self createMD5SingForPayWithAppID:[dict objectForKey:@"appid"] partnerid:req.partnerId prepayid:req.prepayId package:req.package noncestr:req.nonceStr timestamp:req.timeStamp];
+                    [WXApi sendReq:req];
+                    //日志输出
+                    NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+                    
+                }
+                
+            } failure:^(NSURLSessionTask *operation, NSError *error) {
+                [CADAlertManager showAlert:self setTitle:@"微信支付异常" setMessage:[error localizedDescription]];
+            }];
+            
+        } else {
+            NSString* errmsg = [responseObject objectForKey:@"msg"];
+            [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:errmsg];
         }
-    }else{
-        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:@"服务器返回错误"];
-    }
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        [CADAlertManager showAlert:self setTitle:@"获取时间戳错误" setMessage:[error localizedDescription]];
+    }];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    
 }
 
 
@@ -986,6 +1001,59 @@ NSString *const kCADOrderDetailSportTypeCellNibName = @"CADOrderDetailSportTypeC
     NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];
     
     [CADAlertManager showAlert:self setTitle:strTitle setMessage:strMsg];
+}
+
+#pragma mark -  微信支付本地签名
+//创建发起支付时的sign签名
+-(NSString *)createMD5SingForPayWithAppID:(NSString *)appid_key partnerid:(NSString *)partnerid_key prepayid:(NSString *)prepayid_key package:(NSString *)package_key noncestr:(NSString *)noncestr_key timestamp:(UInt32)timestamp_key{
+    NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+    [signParams setObject:appid_key forKey:@"appid"];//微信appid 例如wxfb132134e5342
+    [signParams setObject:noncestr_key forKey:@"noncestr"];//随机字符串
+    [signParams setObject:package_key forKey:@"package"];//扩展字段  参数为 Sign=WXPay
+    [signParams setObject:partnerid_key forKey:@"partnerid"];//商户账号
+    [signParams setObject:prepayid_key forKey:@"prepayid"];//此处为统一下单接口返回的预支付订单号
+    [signParams setObject:[NSString stringWithFormat:@"%u",timestamp_key] forKey:@"timestamp"];//时间戳
+    
+    NSMutableString *contentString  =[NSMutableString string];
+    NSArray *keys = [signParams allKeys];
+    //按字母顺序排序
+    NSArray *sortedArray = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSNumericSearch];
+    }];
+    //拼接字符串
+    for (NSString *categoryId in sortedArray) {
+        if (   ![[signParams objectForKey:categoryId] isEqualToString:@""]
+            && ![[signParams objectForKey:categoryId] isEqualToString:@"sign"]
+            && ![[signParams objectForKey:categoryId] isEqualToString:@"key"]
+            )
+        {
+            [contentString appendFormat:@"%@=%@&", categoryId, [signParams objectForKey:categoryId]];
+        }
+    }
+    //添加商户密钥key字段  API 密钥
+    [contentString appendFormat:@"key=%@", kWXMchKey];
+    NSString *result = [self generateMD5:contentString];//md5加密
+    return result;
+}
+
+/**
+ * #import <CommonCrypto/CommonDigest.h>
+ *  MD5 加密
+ *
+ *  @return 加密后字符串
+ */
+- (NSString *) generateMD5:(NSString *) input
+{
+    const char *cStr = [input UTF8String];
+    unsigned char digest[16];
+    CC_MD5( cStr, strlen(cStr), digest );
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return  output;
 }
 
 @end

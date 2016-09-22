@@ -43,6 +43,10 @@ NSString *const KActivityListUrl = (BASE_URL @"/App-activityListAjax.action");
 NSString *const KImageUrl = (BASE_URL @"/Image-getImage.action?imageName=");
 NSString *const KRuleJFDK = (BASE_URL @"/App-ruleJFDKAjax.action");
 
+NSString *const kWXPayUrl = (BASE_URL @"/App-orderWxPayAjax.action");
+
+NSString *const kWXMchKey = @"Wos0Zq8Er3VvI3s1pCfTtDmtPfTk0M3U";
+
 @implementation Constants
 
 +(NSDictionary*)getOrderStatusDictionary {
